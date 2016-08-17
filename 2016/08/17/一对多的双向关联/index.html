@@ -100,8 +100,7 @@
 要建立双向关">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150904112119284.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150904112126364.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg">
-<meta property="og:updated_time" content="2016-08-15T15:27:51.738Z">
+<meta property="og:updated_time" content="2016-08-17T15:17:20.068Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一对多的双向关联">
 <meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
@@ -354,8 +353,6 @@
 <p>我们可以看到，在数据库中，student的外键cid是有值的，再看hibernate发出的sql语句，没有了更新外键的update语句，在昨天我们进行单向关联的关系操作的时候，都是通过保存classes来级联保存student，所以hibernate要发出维护外键的update语句，因为外键在student表里面，而在双向操作的时候，我们可以通过直接操作student表，就像上面的例子一样，hibernate是默认帮我们维护了外键的。所以我们在一对多的关系操作的时候，操作多的那一方的效率会比较高，因为少了维护外键的sql语句。</p>
 <p><strong><em>注意：在一对多的删除操作中，如果要删除某一个记录，记得先要把它们之间的关系撤销！</em></strong></p>
 <hr>
-<p>想第一时间了解博客更新动态？看完本文有感而发？扫描以下二维码关注公众号！期待与您进一步交流！</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg" alt=""></p>
 
       
     </div>

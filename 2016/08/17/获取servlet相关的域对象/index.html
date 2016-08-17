@@ -99,8 +99,7 @@ categories:  struts入门版权声明：本站采用开放的[知识共享署名
 
 有时候开发，我们需要往在页面中放一些数据，虽然页面在不停在切换，但是数据还是不会消失。获取servlet">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150806155234447.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg">
-<meta property="og:updated_time" content="2016-08-15T15:22:33.830Z">
+<meta property="og:updated_time" content="2016-08-17T15:09:18.117Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Path">
 <meta name="twitter:description" content="title: 获取servlet相关的域对象
@@ -317,8 +316,6 @@ categories:  struts入门版权声明：本站采用开放的[知识共享署名
 <h1 id="通过实现相关的接口"><a href="#通过实现相关的接口" class="headerlink" title="通过实现相关的接口"></a>通过实现相关的接口</h1><p>通过实现<code>ServletContextAware</code>,<code>ServletRequestAware</code>,<code>ServletResponseAware</code>等接口，通过定义变量来记住传过来的属性，然后再赋值，即可获得相应的属性：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> ServletContext context;</div><div class="line"><span class="keyword">private</span> HttpServletRequest request;</div><div class="line"><span class="keyword">private</span> HttpServletResponse response;</div><div class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getParams2</span><span class="params">()</span></span>&#123;</div><div class="line">    context.setAttribute(<span class="string">"p"</span>, <span class="string">"application_p"</span>);</div><div class="line">    request.setAttribute(<span class="string">"p"</span>, <span class="string">"request_p"</span>);</div><div class="line">    <span class="keyword">return</span> SUCCESS;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setServletContext</span><span class="params">(ServletContext context)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>.context=context;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setServletRequest</span><span class="params">(HttpServletRequest request)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>.request=request;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setServletResponse</span><span class="params">(HttpServletResponse response)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>.response=response;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <hr>
-<p>想第一时间了解博客更新动态？看完本文有感而发？扫描以下二维码关注公众号！期待与您进一步交流！</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg" alt=""></p>
 
       
     </div>

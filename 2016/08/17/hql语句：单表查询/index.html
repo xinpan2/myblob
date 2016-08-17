@@ -107,8 +107,7 @@ native queries">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150906161304460.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150906161341965.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150906161414142.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg">
-<meta property="og:updated_time" content="2016-08-15T15:30:29.446Z">
+<meta property="og:updated_time" content="2016-08-17T15:19:56.049Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hql语句：单表查询">
 <meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
@@ -368,8 +367,6 @@ native queries">
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> Classes <span class="title">queryClassesByCondition2</span><span class="params">()</span></span>&#123;</div><div class="line">        Session session=sessionFactory.openSession();</div><div class="line">        <span class="comment">//根据id查询某条特定的语句</span></div><div class="line">        Query query=session.createQuery(<span class="string">"select new cn.ansel.domain.Classes(cid,cname) from Classes where cid=?"</span>);</div><div class="line">        <span class="comment">//设置占位符中的参数</span></div><div class="line">        query.setParameter(<span class="number">0</span>, <span class="number">1L</span>);</div><div class="line">        <span class="comment">//得到唯一的结果</span></div><div class="line">        Classes classes=(Classes) query.uniqueResult();</div><div class="line">        session.close();</div><div class="line">        System.out.println(classes.getCname());</div><div class="line">        <span class="keyword">return</span> classes;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 <p>如上面两种方法都可以查询到结果</p>
 <hr>
-<p>想第一时间了解博客更新动态？看完本文有感而发？扫描以下二维码关注公众号！期待与您进一步交流！</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg" alt=""></p>
 
       
     </div>

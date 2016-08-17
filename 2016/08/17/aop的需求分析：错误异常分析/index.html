@@ -103,8 +103,7 @@
 下面是代码的实现：
 1234567891011121314151617181920212223242526272829303132">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150919112401562.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg">
-<meta property="og:updated_time" content="2016-08-15T15:35:38.343Z">
+<meta property="og:updated_time" content="2016-08-17T15:26:34.474Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="aop的需求分析：错误异常分析">
 <meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
@@ -343,8 +342,6 @@
 <p>配置文件配置：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&lt;bean id="dao" class="cn.ansel.mvc.dao.impl.personDAOImpl"&gt;&lt;/bean&gt;</div><div class="line"></div><div class="line"> &lt;bean id="service" class="cn.ansel.mvc.service.impl.personServiceImpl"&gt;</div><div class="line">     &lt;property name="dao" ref="dao"&gt;&lt;/property&gt;</div><div class="line"> &lt;/bean&gt;</div><div class="line"></div><div class="line"> &lt;bean id="action" class="cn.ansel.mvc.action.personAction"&gt;</div><div class="line">     &lt;property name="service" ref="service"&gt;&lt;/property&gt;</div><div class="line"> &lt;/bean&gt;</div><div class="line"></div><div class="line"> &lt;!-- </div><div class="line">     切面</div><div class="line">  --&gt;</div><div class="line"> &lt;bean id="myException" class="cn.ansel.mvc.exception.MyException"&gt;&lt;/bean&gt;</div><div class="line"></div><div class="line"></div><div class="line"> &lt;aop:config&gt;</div><div class="line">     &lt;aop:pointcut expression="execution(* cn.ansel.mvc.service.impl.*.*(..))" id="perform"/&gt;</div><div class="line">     &lt;aop:aspect ref="myException"&gt;</div><div class="line">         &lt;aop:after-throwing method="showException" pointcut-ref="perform" throwing="ex"/&gt;</div><div class="line">     &lt;/aop:aspect&gt;</div><div class="line"> &lt;/aop:config&gt;</div></pre></td></tr></table></figure>
 <hr>
-<p>想第一时间了解博客更新动态？看完本文有感而发？扫描以下二维码关注公众号！期待与您进一步交流！</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg" alt=""></p>
 
       
     </div>

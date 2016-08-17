@@ -97,8 +97,7 @@
 
 其中，一对多和多对多面临着2种问题，一种是结构的问题，另外一种是内容的问题，我们只能在这二者选其一，选择了结构，就可能会出现我们需要的字段比查找出来的字段少得多，当然，这种情况，只能借助懒加载">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150907143045142.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg">
-<meta property="og:updated_time" content="2016-08-15T15:31:02.052Z">
+<meta property="og:updated_time" content="2016-08-17T15:20:28.784Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hql：一对多和多对多的结合">
 <meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
@@ -337,8 +336,6 @@
 <p>如果查的是以中心表Student的集合的话，里面既有classes属性，又有courses的属性，遍历起来比较方便。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;!--</div><div class="line">    遍历list&lt;Student&lt;classes,set&lt;Courses&gt;&gt;&gt;</div><div class="line"> --&gt;</div><div class="line">    &lt;s:iterator value="#students"&gt;</div><div class="line">        &lt;s:property value="sname"/&gt;&lt;br/&gt;</div><div class="line">        &lt;!--</div><div class="line">            因为list&lt;Student&gt;里面，有classes类，也有set&lt;Course&gt;集合，</div><div class="line">            classes可以看成是里面的一个属性，</div><div class="line">            set就要另外迭代了。</div><div class="line">            由于当前迭代对象在栈顶，所以我们遍历set的时候，不用加#号</div><div class="line">         --&gt;</div><div class="line">        &lt;s:property value="classes.cname"/&gt;</div><div class="line">        &lt;s:iterator value="courses"&gt;</div><div class="line">            &lt;s:property value="cname"/&gt;</div><div class="line">        &lt;/s:iterator&gt;</div><div class="line">    &lt;/s:iterator&gt;</div></pre></td></tr></table></figure>
 <hr>
-<p>想第一时间了解博客更新动态？看完本文有感而发？扫描以下二维码关注公众号！期待与您进一步交流！</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg" alt=""></p>
 
       
     </div>
