@@ -1,0 +1,747 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+内排序和外排序关于内排序与外排序的区别就是内排序的整个排序过程都在内存中进行，但外排序通常要借助外存储器来实现，因为外排序涉及到的数据量很大，所以不能一次性把要排序的数据装进内存。
+插入排序本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="排序算法-插入排序">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/17/排序算法-插入排序/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+内排序和外排序关于内排序与外排序的区别就是内排序的整个排序过程都在内存中进行，但外排序通常要借助外存储器来实现，因为外排序涉及到的数据量很大，所以不能一次性把要排序的数据装进内存。
+插入排序本">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%85%B3%E4%BA%8E%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%9A%84%E8%A7%A3%E9%87%8A2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E6%AD%A5%E9%95%BF%E5%BA%8F%E5%88%97.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg">
+<meta property="og:updated_time" content="2016-08-15T15:40:59.073Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="排序算法-插入排序">
+<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+内排序和外排序关于内排序与外排序的区别就是内排序的整个排序过程都在内存中进行，但外排序通常要借助外存储器来实现，因为外排序涉及到的数据量很大，所以不能一次性把要排序的数据装进内存。
+插入排序本">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%85%B3%E4%BA%8E%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%9A%84%E8%A7%A3%E9%87%8A2.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/17/排序算法-插入排序/"/>
+
+  <title> 排序算法-插入排序 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                排序算法-插入排序
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-17T20:58:12+08:00" content="2016-08-17">
+              2016-08-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/17/排序算法-插入排序/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/17/排序算法-插入排序/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
+<p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
+<hr>
+<h1 id="内排序和外排序"><a href="#内排序和外排序" class="headerlink" title="内排序和外排序"></a>内排序和外排序</h1><p>关于内排序与外排序的区别就是内排序的整个排序过程都在内存中进行，但外排序通常要借助外存储器来实现，因为外排序涉及到的数据量很大，所以不能一次性把要排序的数据装进内存。</p>
+<h1 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h1><p>本章节要说到的插入排序，就属于内排序的一种，顾名思义，插入排序就是通过往某个”区间“中插入元素，使得整个区间中的元素有序的算法。插入排序分为直接插入排序（Straight Insertion Sort)和希尔排序(Shell Sort)。</p>
+<h1 id="直接插入排序"><a href="#直接插入排序" class="headerlink" title="直接插入排序"></a>直接插入排序</h1><p>要讲解直接插入排序的思想，在《算法导论》第三版2.1节中是这样解释的：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E5%85%B3%E4%BA%8E%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%9A%84%E8%A7%A3%E9%87%8A2.png" alt=""></p>
+<p>原文对这幅图的解释：</p>
+<blockquote>
+<p>We start with insertion sort, which is an efficient algorithm for sorting a small<br>number of elements. Insertion sort works the way many people sort a hand of<br>playing cards. We start with an empty left hand and the cards face down on the<br>table. We then remove one card at a time from the table and insert it into the<br>correct position in the left hand. To find the correct position for a card, we compare<br>it with each of the cards already in the hand, from right to left, as illustrated in<br>Figure 2.1. At all times, the cards held in the left hand are sorted, and these cards<br>were originally the top cards of the pile on the table</p>
+</blockquote>
+<p>译文：</p>
+<p>利用插入排序作为首个例子，它较适用于数据量较少的排序。我们通过整理扑克牌来理解插入排序是如何运行的：首先我们的左手没有牌，牌在桌子上牌面向下；然后每次从桌子上取一张牌后放到左手的合适位置上，我们通过把刚刚拿到的牌与已经在左手的每张牌就像上图显示的那样，以从右到左顺序比较从而得到该牌应该插入的位置，在整个插入排序的过程中，左手上的牌总是有序的，并且这些牌是从桌面牌的顶部得到的。</p>
+<p>思想：</p>
+<p>通过总结上面的例子，直接插入排序的思想可以总结为：</p>
+<ul>
+<li><p>例子通过扑克牌来理解，我们通过数组来实现</p>
+</li>
+<li><p>把要排序的数组取第一个元素即arr[0]为有序区，剩下的元素即arr[1…n]为无序区</p>
+</li>
+<li><p>每次从无序区取出一个元素，并且与有序区中arr1[arr1.length-1]…arr1[0],arr1表示有序区数组，依次比较，直到当前要插入的元素不小于前一位元素时，记下这个位置，并且把有序区中该位置及后面的元素往后移动，最后把元素插入数组。</p>
+</li>
+<li><p>重复上面步骤，直到无序区元素为0，完成直接插入排序</p>
+</li>
+<li><p>由于直接插入排序是每次从无序区中取出元素与有序区中元素从右往左对比，后面的元素与前面元素相等时，并不会出现有时后面元素在前面，有时前面元素在后面的情况，所以直接插入排序算法是稳定的。</p>
+</li>
+</ul>
+<p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.insertionsort;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DirectInsertionSort</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">//写法1</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort1</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</div><div class="line">		printArray(arr);</div><div class="line">		<span class="comment">// 从第二位开始取</span></div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; arr.length; i++) &#123;</div><div class="line">			<span class="comment">// 把取出的元素记录下来，后面可能会被覆盖</span></div><div class="line">			<span class="keyword">int</span> iValue = arr[i];</div><div class="line">			<span class="keyword">int</span> j = i - <span class="number">1</span>;</div><div class="line">			<span class="comment">// arr[j]与iValue比，而不是arr[i]，因为arr[i]可能被覆盖</span></div><div class="line">			<span class="keyword">for</span> (; j &gt;= <span class="number">0</span> &amp;&amp; arr[j] &gt; iValue; j--) &#123;</div><div class="line">				arr[j + <span class="number">1</span>] = arr[j];</div><div class="line">			&#125;</div><div class="line">			<span class="comment">// 上一部把元素往后移，移完插入</span></div><div class="line">			arr[j + <span class="number">1</span>] = iValue;</div><div class="line">		&#125;</div><div class="line">		System.out.println();</div><div class="line">		printArray(arr);</div><div class="line">	&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">	<span class="comment">//写法2</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort2</span><span class="params">(<span class="keyword">int</span> array[])</span> </span>&#123;</div><div class="line"></div><div class="line">		printArray(array);</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; array.length; i++) &#123;</div><div class="line">			<span class="keyword">int</span> temp = array[i];</div><div class="line">			<span class="keyword">int</span> j = i - <span class="number">1</span>;</div><div class="line"></div><div class="line">			<span class="comment">// 与已排序的数逐一比较，大于temp时，该数后移</span></div><div class="line">			<span class="keyword">while</span> ((j &gt;= <span class="number">0</span>) &amp;&amp; (array[j] &gt; temp)) <span class="comment">// 当first=0，j循环到-1时，由于[[短路求值]]，不会运算array[-1]</span></div><div class="line">			&#123;</div><div class="line">				array[j + <span class="number">1</span>] = array[j];</div><div class="line">				j--;</div><div class="line">			&#125;</div><div class="line">			array[j + <span class="number">1</span>] = temp; <span class="comment">// 被排序数放到正确的位置</span></div><div class="line"></div><div class="line">		&#125;</div><div class="line">		System.out.println();</div><div class="line">		printArray(array);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">//输出数组函数</span></div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArray</span><span class="params">(<span class="keyword">int</span>[] a)</span> </span>&#123;</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; a.length; i++) &#123;</div><div class="line">			System.out.print(a[i] + <span class="string">" "</span>);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>测试代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.insertionsort.test;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.xinpaninjava.insertionsort.DirectInsertionSort;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DirectInsertionSortTest</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span> arr[] = &#123; <span class="number">4</span>,<span class="number">49</span>, <span class="number">7</span>, <span class="number">87</span>, <span class="number">45</span>, <span class="number">0</span>, <span class="number">23</span>, <span class="number">89</span>, <span class="number">4</span>, <span class="number">67</span> &#125;;</div><div class="line">		DirectInsertionSort.sort1(arr);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.png" alt=""></p>
+<h2 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h2><p>空间复杂度：插入算法由于每次比较，都需要一个变量来存储arr[i]的值，由于在java中不能输出变量的地址，所以在一开始的时候，我觉得空间复杂度有两种：一种是代码中的int iValue=arr[i]声明在循环的外部即：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort3</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</div><div class="line">		printArray(arr);</div><div class="line">		<span class="comment">// *** 定义在循环外面*****</span></div><div class="line">		<span class="keyword">int</span> iValue, j;</div><div class="line">		<span class="comment">// 从第二位开始取</span></div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; arr.length; i++) &#123;</div><div class="line">			<span class="comment">// 把取出的元素记录下来，后面可能会被覆盖</span></div><div class="line">			iValue = arr[i];</div><div class="line">			j = i - <span class="number">1</span>;</div><div class="line">			<span class="comment">// arr[j]与iValue比，而不是arr[i]，因为arr[i]可能被覆盖</span></div><div class="line">			<span class="keyword">for</span> (; j &gt;= <span class="number">0</span> &amp;&amp; arr[j] &gt; iValue; j--) &#123;</div><div class="line">				arr[j + <span class="number">1</span>] = arr[j];</div><div class="line">			&#125;</div><div class="line">			<span class="comment">// 上一部把元素往后移，移完插入</span></div><div class="line">			arr[j + <span class="number">1</span>] = iValue;</div><div class="line">		&#125;</div><div class="line">		System.out.println();</div><div class="line">		printArray(arr);</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<p>这样就不用每次执行外部循环的时候，创建变量，因为外部要执行n-1次，所以复杂度可以看成0(n),可是舍友在Microsoft Visual Studio使用C/C++对同样代码进行测试，并且输出变量地址，iValue的地址都是一样的，所以空间对于iValue放在循环内还是循环外区都是一样的，空间复杂度为0（1）</p>
+<p>时间复杂度：对于直接插入排序，最好的情况就是现在有序区已经有序，后面的插入都是不用经过内循环即第二层循环，那么此时的时间效率就是O(n),若要排序的数组每次取出的元素都是倒序的，则每次都需要把前面的元素往后移动，那么时间效率就是(1…(n-1)*n),1到n-1是等差数列，求和为（ n^2 -n)/2 ,取最高阶即O(n^2).那么平均时间复杂度为（最好情况+最坏情况）/2即 (n^2 +n)/4，取最高阶即O(n^2)</p>
+<h2 id="直接插入排序改进：二分插入排序"><a href="#直接插入排序改进：二分插入排序" class="headerlink" title="直接插入排序改进：二分插入排序"></a>直接插入排序改进：二分插入排序</h2><p>在上面实现的例子当中，大家可能会觉得在比较的时候麻烦，不如直接使用二分法)首先找到要插入元素应该插入的位置，然后移动数组再插入即可。</p>
+<p>可是二分法只是用于查找到合适的位置，但是还是要移动，所以时间效率还是O(n^2)，代码实现我就不写了，因为与直接插入排序时间效率一样。</p>
+<h2 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h2><p>思想：</p>
+<ul>
+<li><p>希尔排序是插入排序的优化版，它避免了直接插入排序每次只能移动一个元素的麻烦，而是通过设置一个增量又叫步长，把数组元素分成增量组元素，即增量为多少，就有多少组元素。</p>
+</li>
+<li><p>既然每次插入一个元素，并且与前面每个元素比较浪费时间，那么我们可以通过直接让数组内的每组元素进行插入排序，一次性插入排序的平均时间复杂度为O（n^2),把整个插入排序分组插入排序，然后累加起来肯定比阶乘快。每次各组排序完之后，步长缩小，进行下一轮分组</p>
+</li>
+<li><p>当步长为1时，数组基本有序，这时的插入排序时间效率为O(n)</p>
+</li>
+<li><p>由于希尔排序是相同间隔步长的一组元素之间进行插入排序，并且有步长组元素同时进行插入排序，所以有可能后面的元素与前面元素相等时，导致前面元素在后面元素的后面，所以希尔排序是不稳定的算法</p>
+</li>
+</ul>
+<p>既然说到希尔排序是直接插入排序的优化版，那么我们可以直接从直接插入排序入手：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//直接插入排序</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort1</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</div><div class="line">		printArray(arr);</div><div class="line">		<span class="comment">// 从第二位开始取</span></div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; arr.length; i++) &#123;</div><div class="line">			<span class="comment">// 把取出的元素记录下来，后面可能会被覆盖</span></div><div class="line">			<span class="keyword">int</span> iValue = arr[i];</div><div class="line">			<span class="keyword">int</span> j = i - <span class="number">1</span>;</div><div class="line">			<span class="comment">// arr[j]与iValue比，而不是arr[i]，因为arr[i]可能被覆盖</span></div><div class="line">			<span class="keyword">for</span> (; j &gt;= <span class="number">0</span> &amp;&amp; arr[j] &gt; iValue; j--) &#123;</div><div class="line">				arr[j + <span class="number">1</span>] = arr[j];</div><div class="line">			&#125;</div><div class="line">			<span class="comment">// 上一部把元素往后移，移完插入</span></div><div class="line">			arr[j + <span class="number">1</span>] = iValue;</div><div class="line">		&#125;</div><div class="line">		System.out.println();</div><div class="line">		printArray(arr);</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<p>希尔排序涉及到步长，并且对每步中各组元素进行插入排序，我们需要定义一个步长，关于步长的取值，看维基百科的解释</p>
+<blockquote>
+<p>步长序列</p>
+<p>步长的选择是希尔排序的重要部分。只要最终步长为1任何步长序列都可以工作。算法最开始以一定的步长进行排序。然后会继续以一定步长进行排序，最终算法以步长为1进行排序。当步长为1时，算法变为插入排序，这就保证了数据一定会被排序。</p>
+<p>Donald Shell最初建议步长选择为n/2并且对步长取半直到步长达到1。虽然这样取可以比O(n^2)类的算法（插入排序）更好，但这样仍然有减少平均时间和最差时间的余地。可能希尔排序最重要的地方在于当用较小步长排序后，以前用的较大步长仍然是有序的。比如，如果一个数列以步长5进行了排序然后再以步长3进行排序，那么该数列不仅是以步长3有序，而且是以步长5有序。如果不是这样，那么算法在迭代过程中会打乱以前的顺序，那就不会以如此短的时间完成排序了。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E6%AD%A5%E9%95%BF%E5%BA%8F%E5%88%97.png" alt=""></p>
+<p>已知的最好步长序列是由Sedgewick提出的(1, 5, 19, 41, 109,…)，该序列的项来自这两个算式,这项研究也表明“比较在希尔排序中是最主要的操作，而不是交换。”用这样步长序列的希尔排序比插入排序要快，甚至在小数组中比快速排序和堆排序还快，但是在涉及大量数据时希尔排序还是比快速排序慢。</p>
+<p>另一个在大数组中表现优异的步长序列是（斐波那契数列除去0和1将剩余的数以黄金分区比的两倍的幂进行运算得到的数列）：(1, 9, 34, 182, 836, 4025, 19001, 90358, 428481, 2034035, 9651787, 45806244, 217378076, 1031612713,…)</p>
+</blockquote>
+<p>所以代码实现为:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">shellSort2</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</div><div class="line"></div><div class="line">		printArray(arr);</div><div class="line">		<span class="keyword">int</span> h = <span class="number">1</span>;</div><div class="line">		<span class="keyword">while</span> (h * <span class="number">3</span> &lt; arr.length) &#123;</div><div class="line">			<span class="comment">// &lt;O(n^(3/2)) by Knuth,1973&gt;: 1, 4, 13, 40, 121, ...</span></div><div class="line">			h = h * <span class="number">3</span> + <span class="number">1</span>;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> gap = h; gap &gt; <span class="number">0</span>; gap = gap / <span class="number">3</span>) &#123;</div><div class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = gap; i &lt; arr.length; i++) &#123;</div><div class="line">				<span class="keyword">int</span> iValue = arr[i];</div><div class="line">				<span class="keyword">int</span> j = i - gap;</div><div class="line">				<span class="keyword">for</span> (; j &gt;= <span class="number">0</span> &amp;&amp; arr[j] &gt; iValue; j -= gap) &#123;</div><div class="line">					arr[j + gap] = arr[j];</div><div class="line">				&#125;</div><div class="line">				arr[j + gap] = iValue;</div><div class="line">			&#125;</div><div class="line"></div><div class="line">		&#125;</div><div class="line">		printArray(arr);</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<p>上述代码由直接插入排序修改得到，首先得到最大步长，然后把步长放在最外层循环，把内循环中，计算前面元素索引的变大/变小从原来的自增/自减变成加上步长/减去步长，就是希尔排序~</p>
+<p>关于希尔排序的时间效率也从上面步长的选择中展示了~</p>
+<p>测试代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.insertionsort.test;</div><div class="line"></div><div class="line"><span class="keyword">import</span> com.xinpaninjava.insertionsort.ShellSort;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DirectInsertionSortTest</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span> arr[] = &#123; <span class="number">99</span>, <span class="number">4</span>, <span class="number">49</span>, <span class="number">7</span>, <span class="number">87</span>, <span class="number">45</span>, <span class="number">0</span>, <span class="number">23</span>, <span class="number">89</span>, <span class="number">4</span>, <span class="number">67</span> &#125;;</div><div class="line">		ShellSort.shellSort2(arr);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C1.png" alt=""></p>
+<p>【全文完】</p>
+<p>参考资料:</p>
+<p><a href="http://vdisk.weibo.com/s/yVOQofWrVX0hR" target="_blank" rel="external">算法导论英文原版（第三版）2.1</a></p>
+<p><a href="http://blog.csdn.net/u012152619/article/details/47405799" target="_blank" rel="external">排序算法（六）——希尔排序</a></p>
+<p><a href="http://blog.csdn.net/u012152619/article/details/47306209" target="_blank" rel="external">排序算法（三）——插入排序及改进</a></p>
+<p><a href="http://student.zjzk.cn/course_ware/data_structure/web/paixu/paixu8.2.1.1.htm" target="_blank" rel="external">直接插入排序基本思想</a></p>
+<p><a href="http://student.zjzk.cn/course_ware/data_structure/web/paixu/paixu8.2.2.1.htm" target="_blank" rel="external">希尔排序基本思想</a></p>
+<p><a href="https://pan.baidu.com/s/1eSpYRMa" target="_blank" rel="external">小甲鱼课程-希尔排序 提取码：dadg</a></p>
+<p><a href="https://pan.baidu.com/s/1kVzsfvp" target="_blank" rel="external">小甲鱼课程-直接插入排序 提取码: 9nnf</a></p>
+<p><a href="http://blog.csdn.net/pi9nc/article/details/12220851" target="_blank" rel="external">找工作知识储备(3)—从头说12种排序算法：原理、图解、动画视频演示、代码以及笔试面试题目中的应用</a></p>
+<p><a href="http://blog.csdn.net/morewindows/article/details/6668714" target="_blank" rel="external">白话经典算法系列之三 希尔排序的实现</a></p>
+<p><a href="http://www.lishiyu.cn/post/50.html" target="_blank" rel="external">内部排序算法 之 插入排序（希尔排序）-每日算法系列</a></p>
+<p><a href="http://haoran-10.iteye.com/blog/2266811" target="_blank" rel="external">排序算法（3）–插入排序&amp;希尔排序</a></p>
+<p><a href="http://www.cnblogs.com/heyuquan/p/insert-sort.html" target="_blank" rel="external">优化的直接插入排序（二分查找插入排序，希尔排序）</a></p>
+<p><a href="http://openhome.cc/Gossip/AlgorithmGossip/ShellSort.htm" target="_blank" rel="external">Shell 排序法 - 改良的插入排序</a></p>
+<p><a href="https://zh.wikipedia.org/wiki/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F" target="_blank" rel="external">维基百科-希尔排序</a></p>
+<p><a href="https://zh.wikipedia.org/wiki/%E5%A4%96%E6%8E%92%E5%BA%8F" target="_blank" rel="external">维基百科-外排序</a></p>
+<p><a href="https://zh.wikipedia.org/wiki/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F" target="_blank" rel="external">维基百科-插入排序</a></p>
+<p><a href="维基百科-二分法">维基百科-二分法</a></p>
+<hr>
+<p>想第一时间了解博客更新动态？看完本文有感而发？扫描以下二维码关注公众号！期待与您进一步交流！</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/source/images/avatar.jpg" alt="XinPan wechat" style="width: 200px; max-width: 100%;"/>
+    <div>ex. subscribe to my blog by scanning my public wechat account</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/17/排序算法-归并排序/" rel="next" title="排序算法-归并排序">
+                <i class="fa fa-chevron-left"></i> 排序算法-归并排序
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/17/排序算法-选择排序/" rel="prev" title="排序算法-选择排序">
+                排序算法-选择排序 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/17/排序算法-插入排序/"
+           data-title="排序算法-插入排序" data-url="http://xinpan2.github.io/2016/08/17/排序算法-插入排序/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">133</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#内排序和外排序"><span class="nav-number">1.</span> <span class="nav-text">内排序和外排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#插入排序"><span class="nav-number">2.</span> <span class="nav-text">插入排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#直接插入排序"><span class="nav-number">3.</span> <span class="nav-text">直接插入排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#算法分析"><span class="nav-number">3.1.</span> <span class="nav-text">算法分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#直接插入排序改进：二分插入排序"><span class="nav-number">3.2.</span> <span class="nav-text">直接插入排序改进：二分插入排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#希尔排序"><span class="nav-number">3.3.</span> <span class="nav-text">希尔排序</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

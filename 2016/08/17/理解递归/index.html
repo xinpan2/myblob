@@ -1,0 +1,759 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+在接下来的更新列表中，会接触到树，图相关知识点，又因为树、图是非线性结构，并且树是递归定义的，很多关于树和图的问题，可以用递归很好的解决。所以想要学好树和图，先要对递归有所了解。
+定义：函数对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解递归">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/17/理解递归/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+在接下来的更新列表中，会接触到树，图相关知识点，又因为树、图是非线性结构，并且树是递归定义的，很多关于树和图的问题，可以用递归很好的解决。所以想要学好树和图，先要对递归有所了解。
+定义：函数对">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hannuota1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hannuota2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hannuota3.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hannuota4.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hannuota5.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E9%80%92%E5%BD%92%E8%BF%90%E8%A1%8C.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg">
+<meta property="og:updated_time" content="2016-08-15T15:40:11.197Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="理解递归">
+<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+在接下来的更新列表中，会接触到树，图相关知识点，又因为树、图是非线性结构，并且树是递归定义的，很多关于树和图的问题，可以用递归很好的解决。所以想要学好树和图，先要对递归有所了解。
+定义：函数对">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/hannuota1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/17/理解递归/"/>
+
+  <title> 理解递归 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                理解递归
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-17T20:58:12+08:00" content="2016-08-17">
+              2016-08-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/17/理解递归/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/17/理解递归/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
+<p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
+<hr>
+<p>在接下来的更新列表中，会接触到树，图相关知识点，又因为树、图是非线性结构，并且树是递归定义的，很多关于树和图的问题，可以用递归很好的解决。所以想要学好树和图，先要对递归有所了解。</p>
+<p>定义：函数对其本身直接或间接的调用叫做递归。</p>
+<p>那么什么叫直接和间接？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RecursionDemo</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">// directly call</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">a</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">		a(<span class="number">20</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// indirectly call</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">b</span><span class="params">(<span class="keyword">int</span> m)</span> </span>&#123;</div><div class="line">		g(m);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">g</span><span class="params">(<span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">		b(k);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在上述的代码中，可以知道，在调用函数体中调用“自己”叫做直接调用，通过“第三方”函数来调用“自己”叫做间接调用。但是上面所示的代码，并没有给递归调用设置一个出口，也就是说，会抛出StackOverFlowException。</p>
+<h1 id="递归的实现"><a href="#递归的实现" class="headerlink" title="递归的实现"></a>递归的实现</h1><p>在C语言版数据结构（第二版）中，对于递归的实现是如下解释的：</p>
+<blockquote>
+<p>一个递归函数，在函数的执行过程中，需要多次进行自我调用，那么，这个递归函数是如何执行的？先看任意两个函数之间进行调用的情形。</p>
+<p>与汇编程序设计中主程序和子程序之间的链接及信息交换相类似，在高级语言编制的程序中，调用函数和被调用函数之间的链接及信息交换通过栈来进行，</p>
+<p>通常，当在一个函数的运行期间调用另一个函数时，在运行被调用函数之前，系统需先完成3件事：</p>
+<p>将所有的实参、返回地址等信息传递给被调用函数保存；</p>
+<p>为被调用函数的局部变量分配存储区；</p>
+<p>将控制转移到被调用函数入口。</p>
+<p>而从被调用函数返回调用函数之前，系统也应完成3件工作：</p>
+<p>保存被调函数的计算结果；</p>
+<p>释放被调函数的数据区；</p>
+<p>依照被调函数保存的返回地址将控制转移到调用函数</p>
+<p>当有多个函数构成嵌套调用时，按照“后调用先返回”的原则，上述函数之间的信息传递和控制转移必须通过“栈”来实现，即系统将整个程序运行时所需的数据空间安排在一个栈中，每当调用一个函数时，就为它在栈顶分配一个存储区，每当从一个函数推出时，就释放它的存储区，则当前正运行的函数的数据区必在栈顶。</p>
+</blockquote>
+<p>解读:在函数运行期间调用另外一个函数时，系统需要先完成3件事中，返回地址指的是调用其它函数时，当前代码执行完成后，下一句要执行的代码的地址，比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ComputeFactorial</span> </span>&#123;</div><div class="line">	<span class="comment">// get n's factorial</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">count</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (n == <span class="number">1</span>)</div><div class="line">			<span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">		<span class="keyword">int</span> val = count(n - <span class="number">1</span>);</div><div class="line">		<span class="keyword">return</span> val * n;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面的例子是求n的阶乘例子，在int val=count(n-1);这一行中进行了递归调用，在计算机中，我们调用自己的函数跟调用别的函数没有区别。而上面所说的地址信息指的是 return val*n; 这一行代码的地址信息，把这个地址信息传递给被调用函数的目的是为了保持调用的连续性，即当被调用函数执行完之后，可以直接返回下一步要执行的代码，使程序继续执行下去。</p>
+<h1 id="递归调用函数"><a href="#递归调用函数" class="headerlink" title="递归调用函数"></a>递归调用函数</h1><p>想要了解怎样“自己”调用“自己”首先要知道怎样调用别的函数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CallOthers</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">// call others</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">a</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"aaaaaaaaa"</span>);</div><div class="line">		b();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">b</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"bbbbbbbbbb"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面的代码中，是a函数调用b的过程，运行的结果是输出a和b各一行。而调用“自己”就跟上面的直接调用中所示代码一样，直接在函数体中调用“自己”，但是递归调用要注意函数的出口，否则会抛异常。</p>
+<p>下面通过几个例子来强化对递归的理解：</p>
+<h2 id="求阶乘、求和"><a href="#求阶乘、求和" class="headerlink" title="求阶乘、求和"></a>求阶乘、求和</h2><p>在刚刚学习程序设计语言的时候，我们都会接触到循环，其中求阶乘和求和是最常见的例子，下面我们也用这两个例子</p>
+<p>求n的阶乘:</p>
+<p>思路：</p>
+<p>1、在学习循环的时候，要求一个数的阶乘，就是把前面几个数的积乘以最后一个数，在递归中，也是这个道理，不过，递归强调的是把一个问题分解成好几个相类似的小问题，通过解决小问题从而解决大问题。</p>
+<p>2、要求n的阶乘，首先要把前面n-1的阶乘的结果得到，然后再跟n相乘，就是n的阶乘，要得到n-1的阶乘，就要先得到(n-1)-1的阶乘，同理，要求(n-1)-1的阶乘，就要先得到（n-2)-1的阶乘。知道要求的阶乘为1时，暂停嵌套调用。</p>
+<p>3、因为1的阶乘就是1，这时候，最先要得到的数的阶乘已经得到了（1的阶乘是1），然后再往后面推回来，即1的阶乘乘以2，再用2的阶乘乘以3，一直到n-1的阶乘，然后再跟n相乘，得到n的阶乘。</p>
+<p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ComputeFactorial</span> </span>&#123;</div><div class="line">	<span class="comment">// get n's factorial</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">count</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (n == <span class="number">1</span>)</div><div class="line">			<span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">		<span class="comment">// else get the n-1's factorial</span></div><div class="line">		<span class="keyword">int</span> val = count(n - <span class="number">1</span>);</div><div class="line"></div><div class="line">		<span class="keyword">return</span> val * n;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>求前n项之和也是同样的道理，只不过把乘号变成加号即可。</p>
+<h2 id="汉诺塔问题"><a href="#汉诺塔问题" class="headerlink" title="汉诺塔问题"></a>汉诺塔问题</h2><p>问题描述:</p>
+<p>汉诺塔（港台：河内塔）是根据一个传说形成的数学问题：</p>
+<p>有三根杆子A，B，C。A杆上有N个(N&gt;1)穿孔圆盘，盘的尺寸由下到上依次变小。要求按下列规则将所有圆盘移至C杆：</p>
+<p>每次只能移动一个圆盘；大盘不能叠在小盘上面。`</p>
+<p>思路:</p>
+<ul>
+<li><p>由于每次只能移动一个盘子，并且保证大的盘子在小的盘子下面，所以不能把第二根柱子当作栈来使用。</p>
+</li>
+<li><p>这个问题的解决，可以把它分解成两部分（把三根柱子分别称为a,b,c,默认所有盘子开始在a柱子中，并且从上到下编号1……n,并且下面盘子比上面大）：</p>
+<ul>
+<li><p>只有1个盘子，直接把这个盘子从a直接移动到c即可。</p>
+</li>
+<li><p>有n（n&gt;1)个盘子,最重要的是得到最大的盘子，即把前面n-1个盘子从a柱子借助柱子c移动到柱子b。</p>
+</li>
+<li><p>把a中剩下的最大的盘子直接移动到柱子c中</p>
+</li>
+<li><p>把柱子b中n-1个盘子借助柱子a移动到柱子c中.</p>
+</li>
+<li><p>其中在解决前面的n-1个盘子时，依赖于前面n-2个盘子的解决。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>图解：用3个盘子做例子</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hannuota1.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hannuota2.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hannuota3.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hannuota4.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hannuota5.png" alt=""></p>
+<p>实现代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HanNuoTa</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">hnt</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">char</span> a, <span class="keyword">char</span> b, <span class="keyword">char</span> c)</span> </span>&#123;</div><div class="line">		<span class="comment">//在这里先不考虑n&lt;=0的情况</span></div><div class="line">		<span class="keyword">if</span> (n == <span class="number">1</span>) &#123;</div><div class="line">			System.out.println(<span class="string">"直接把"</span> + n + <span class="string">"从"</span> + a + <span class="string">"移动到"</span> + c);</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			<span class="comment">// 首先把n-1个盘子从a借助c移动到b</span></div><div class="line">			hnt((n - <span class="number">1</span>), a, c, b);</div><div class="line">			<span class="comment">// 把a中最后一个盘子移动到c</span></div><div class="line">			System.out.println(<span class="string">"直接把"</span> + n + <span class="string">"从"</span> + a + <span class="string">"移动到"</span> + c);</div><div class="line">			<span class="comment">// 然后把b中n-1个盘子从b借助a移动到c</span></div><div class="line">			hnt((n - <span class="number">1</span>), b, a, c);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>测试代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.recursion;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HanNuoTaTest</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="keyword">char</span> a = <span class="string">'A'</span>;</div><div class="line">		<span class="keyword">char</span> b = <span class="string">'B'</span>;</div><div class="line">		<span class="keyword">char</span> c = <span class="string">'C'</span>;</div><div class="line"></div><div class="line">		HanNuoTa.hnt(<span class="number">3</span>, a, b, c);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E9%80%92%E5%BD%92%E8%BF%90%E8%A1%8C.png" alt=""></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h2 id="使用递归的条件"><a href="#使用递归的条件" class="headerlink" title="使用递归的条件"></a>使用递归的条件</h2><p>1、为递归调用设置一个出口，避免无限递归而导致的栈溢出</p>
+<p>2、使用递归时，确保问题的规模是逐渐变小，比如以上求和，求阶乘，汉诺塔问题，都是通过解决前面的n-1的问题来解决后面的n的问题</p>
+<h2 id="递归与循环的比较"><a href="#递归与循环的比较" class="headerlink" title="递归与循环的比较"></a>递归与循环的比较</h2><ul>
+<li><p>递归：</p>
+<ul>
+<li><p>缺点：递归由栈实现，并且递归涉及到调用函数，如上面函数调用函数要完成的几件事中可以看到，递归调用需要消耗空间，即函数调用与调用完成的压栈弹栈，为函数分配存储空间，由于上面步骤而导致的程序运行速度变慢</p>
+</li>
+<li><p>优点：使用递归写的代码比较容易理解，能用循环实现的都可以用递归实现</p>
+</li>
+</ul>
+</li>
+<li><p>循环：</p>
+<ul>
+<li><p>缺点：能用递归实现的，用循环实现可能很复杂，比如树和图的遍历及相关的运算</p>
+</li>
+<li><p>优点：消耗存储空间小，速度快</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="https://zh.wikipedia.org/wiki/%E6%B1%89%E8%AF%BA%E5%A1%94" target="_blank" rel="external">汉诺塔-维基百科</a></p>
+<p><a href="http://www.ptpedu.com.cn/HomePage/Detail.aspx?id=16296" target="_blank" rel="external">C语言版数据结构（第二版）p57 3.3.2 递归过程与递归工作栈</a></p>
+<p><a href="http://pan.baidu.com/s/1mh4s3ck" target="_blank" rel="external">郝斌数据结构-第50-58个视频，提取密码:hvzr</a></p>
+<hr>
+<p>想第一时间了解博客更新动态？看完本文有感而发？扫描以下二维码关注公众号！期待与您进一步交流！</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/source/images/avatar.jpg" alt="XinPan wechat" style="width: 200px; max-width: 100%;"/>
+    <div>ex. subscribe to my blog by scanning my public wechat account</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/17/状态模式/" rel="next" title="状态模式">
+                <i class="fa fa-chevron-left"></i> 状态模式
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/17/用户输入验证/" rel="prev" title="用户输入验证">
+                用户输入验证 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/17/理解递归/"
+           data-title="理解递归" data-url="http://xinpan2.github.io/2016/08/17/理解递归/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">133</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#递归的实现"><span class="nav-number">1.</span> <span class="nav-text">递归的实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#递归调用函数"><span class="nav-number">2.</span> <span class="nav-text">递归调用函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#求阶乘、求和"><span class="nav-number">2.1.</span> <span class="nav-text">求阶乘、求和</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#汉诺塔问题"><span class="nav-number">2.2.</span> <span class="nav-text">汉诺塔问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用递归的条件"><span class="nav-number">3.1.</span> <span class="nav-text">使用递归的条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递归与循环的比较"><span class="nav-number">3.2.</span> <span class="nav-text">递归与循环的比较</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

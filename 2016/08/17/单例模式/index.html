@@ -1,0 +1,737 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+实现原理目的在于保证整个环境中，只有一个特定实例。通过“隐藏”特定类的构造方法，让实例的创建在特定类中完成，并且该类中提供静态获取实例方法即可。
+实现方法饿汉式1234567891011121">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单例模式">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/17/单例模式/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+实现原理目的在于保证整个环境中，只有一个特定实例。通过“隐藏”特定类的构造方法，让实例的创建在特定类中完成，并且该类中提供静态获取实例方法即可。
+实现方法饿汉式1234567891011121">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E9%A5%BF%E6%B1%89%E5%BC%8F%E6%B5%8B%E8%AF%95%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E6%87%92%E6%B1%89%E5%BC%8F%E6%B5%8B%E8%AF%95%E7%B1%BB%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E6%9E%9A%E4%B8%BE%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg">
+<meta property="og:updated_time" content="2016-08-15T15:43:46.303Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="单例模式">
+<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+实现原理目的在于保证整个环境中，只有一个特定实例。通过“隐藏”特定类的构造方法，让实例的创建在特定类中完成，并且该类中提供静态获取实例方法即可。
+实现方法饿汉式1234567891011121">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E9%A5%BF%E6%B1%89%E5%BC%8F%E6%B5%8B%E8%AF%95%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/17/单例模式/"/>
+
+  <title> 单例模式 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                单例模式
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-17T20:58:12+08:00" content="2016-08-17">
+              2016-08-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/17/单例模式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/17/单例模式/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
+<p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
+<hr>
+<h1 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h1><p>目的在于保证整个环境中，只有一个特定实例。通过“隐藏”特定类的构造方法，让实例的创建在特定类中完成，并且该类中提供静态获取实例方法即可。</p>
+<h1 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h1><h2 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.singleton;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.Serializable;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 饿汉式：当类加载时，这个类就创建自己的实例而得名。</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Person PERSON = <span class="keyword">new</span> Person();</div><div class="line"></div><div class="line">	<span class="keyword">private</span> String name;</div><div class="line"></div><div class="line">	<span class="comment">// 隐藏构造函数</span></div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="title">Person</span><span class="params">()</span> </span>&#123;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// 静态获取实例方法</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Person <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> PERSON;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> name;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.name = name;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.singleton;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 饿汉式测试代码</div><div class="line"> * </div><div class="line"> * 创建两个person对象，并且对其属性赋不同的值，查看是否相等</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HungrySingletonTest</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Person person1 = Person.getInstance();</div><div class="line">		person1.setName(<span class="string">"aa"</span>);</div><div class="line"></div><div class="line">		Person person2 = Person.getInstance();</div><div class="line">		person2.setName(<span class="string">"bb"</span>);</div><div class="line"></div><div class="line">		<span class="comment">// 比较两个对象是否相等</span></div><div class="line">		System.out.println(person1 == person2);</div><div class="line">		System.out.println(<span class="string">"hungrySingleton  "</span> + person1.getName());</div><div class="line">		System.out.println(<span class="string">"hungrySingleton  "</span> + person2.getName());</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E9%A5%BF%E6%B1%89%E5%BC%8F%E6%B5%8B%E8%AF%95%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.png" alt=""></p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>当这个类被类加载器加载时，就创建该类实例，但是这个类有可能没有被用到，却一直在内存中占用资源。解决办法是当需要的时候才创建实例，可以通过静态内部类和懒汉式来实现。</p>
+<h2 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.singleton;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 静态内部类实现延迟加载（lazy loading）</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InnerClassSingleton</span> </span>&#123;</div><div class="line">	<span class="comment">// 静态内部类</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">InnerClassSingletonImpl</span> </span>&#123;</div><div class="line">		<span class="keyword">static</span> InnerClassSingleton singleton = <span class="keyword">new</span> InnerClassSingleton();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// 隐藏构造函数</span></div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="title">InnerClassSingleton</span><span class="params">()</span> </span>&#123;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// 提供静态获取实例方法</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> InnerClassSingleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="comment">// 当调用获取实例方法时，要调用内部类来获取实例</span></div><div class="line">		<span class="keyword">return</span> InnerClassSingletonImpl.singleton;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="懒汉式"><a href="#懒汉式" class="headerlink" title="懒汉式"></a>懒汉式</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.singleton;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 懒汉式</div><div class="line"> * </div><div class="line"> *1、隐藏构造函数</div><div class="line"> * </div><div class="line"> *2、创建一个该类实例的引用</div><div class="line"> * </div><div class="line"> *3、设计静态获取实例方法</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazySingleton</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="title">LazySingleton</span><span class="params">()</span> </span>&#123;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> LazySingleton singleton;</div><div class="line"></div><div class="line">	<span class="comment">/*</span></div><div class="line">	 * 设计获取实例方法</div><div class="line">	 * </div><div class="line">	 * 1、判断实例引用是否为空</div><div class="line">	 * </div><div class="line">	 * 2.1、为空，new一个返回</div><div class="line">	 * </div><div class="line">	 * 2.2、非空，直接返回引用</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> LazySingleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">		<span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</div><div class="line">			singleton = <span class="keyword">new</span> LazySingleton();</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> singleton;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> String id;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getId</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> id;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(String id)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.id = id;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>测试代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.singleton;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 懒汉式测试代码</div><div class="line"> * </div><div class="line"> * 创建两个对象，并且对其属性赋不同的值，查看是否相等</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazySingletonTest</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		LazySingleton singleton1 = LazySingleton.getInstance();</div><div class="line">		singleton1.setId(<span class="string">"123"</span>);</div><div class="line"></div><div class="line">		LazySingleton singleton2 = LazySingleton.getInstance();</div><div class="line">		singleton2.setId(<span class="string">"456"</span>);</div><div class="line"></div><div class="line">		System.out.println(singleton1 == singleton2);</div><div class="line">		System.out.println(<span class="string">"lazySingleton 1 "</span> + singleton1.getId());</div><div class="line">		System.out.println(<span class="string">"lazySingleton 2 "</span> + singleton2.getId());</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E6%87%92%E6%B1%89%E5%BC%8F%E6%B5%8B%E8%AF%95%E7%B1%BB%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.png" alt="1"></p>
+<h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3><p>在懒汉式的获取实例方法中，存在安全隐患，试想一下，如果多个线程同时刚好进入到创建实例代码那一行，那么有多少个线程进来，就创建多少个实例。想要对其进行改进，就如大家所想，使用锁。</p>
+<h2 id="同步版懒汉式"><a href="#同步版懒汉式" class="headerlink" title="同步版懒汉式"></a>同步版懒汉式</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.singleton;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 同步版单例模式</div><div class="line"> * </div><div class="line"> * 这种版本对懒汉式的获取实例方法中的方法进行同步，其他代码一致</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SynchronizedSingleton</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="title">SynchronizedSingleton</span><span class="params">()</span> </span>&#123;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> SynchronizedSingleton singleton;</div><div class="line"></div><div class="line">	<span class="comment">// 增加synchronized关键字</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> SynchronizedSingleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</div><div class="line">			singleton = <span class="keyword">new</span> SynchronizedSingleton();</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> singleton;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a>缺点</h3><p>大家都知道，同步非常消耗系统资源，并且在同步代码块中，需要同步的部分只执行一次，即创建实例那一行代码，所以，如果多线程访问这个同步代码块时，运行速度会变得非常慢，所以，把同步的代码范围缩小，能提高程序的性能。</p>
+<h2 id="改良同步版单例模式"><a href="#改良同步版单例模式" class="headerlink" title="改良同步版单例模式"></a>改良同步版单例模式</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.singleton;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 改良版懒汉式</div><div class="line"> * </div><div class="line"> * 这种实现方式只是把需要同步的代码范围从整个方法缩小到特定代码行</div><div class="line"> * </div><div class="line"> * 由于每次调用获取实例都要判断 所以把同步添加到创建实例那一行代码</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ImprovedSynSingleton</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="title">ImprovedSynSingleton</span><span class="params">()</span> </span>&#123;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> ImprovedSynSingleton singleton;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ImprovedSynSingleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">		<span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</div><div class="line"></div><div class="line">			<span class="keyword">synchronized</span> (ImprovedSynSingleton.class) &#123;</div><div class="line">				singleton = <span class="keyword">new</span> ImprovedSynSingleton();</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> singleton;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="缺点-3"><a href="#缺点-3" class="headerlink" title="缺点"></a>缺点</h3><p>这种方法虽然极大部分的减少了同步代码，但是仍然存在线程安全问题，考虑到有多个线程同时进入到if判断中。要改进这种方法，就是双重检验锁。</p>
+<h2 id="双重检验锁"><a href="#双重检验锁" class="headerlink" title="双重检验锁"></a>双重检验锁</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.singleton;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 双重校验锁实现单例模式</div><div class="line"> * </div><div class="line"> * 这种方法在改良同步方法中，新加了一个判断，是为了防止有多个线程同时进入if代码块</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DoubleCheckedLocking</span> </span>&#123;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> DoubleCheckedLocking singleton;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="title">DoubleCheckedLocking</span><span class="params">()</span> </span>&#123;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> DoubleCheckedLocking <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</div><div class="line">			<span class="keyword">synchronized</span> (DoubleCheckedLocking.class) &#123;</div><div class="line">				<span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</div><div class="line">					singleton = <span class="keyword">new</span> DoubleCheckedLocking();</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> singleton;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="缺点-4"><a href="#缺点-4" class="headerlink" title="缺点"></a>缺点</h3><p>就像<a href="https://www.cs.umd.edu/users/pugh/java/memoryModel/jsr-133-faq.html#volatile" target="_blank" rel="external">JSR-133-FAQ–Does the new memory model fix the “double-checked locking” problem?</a>中描述的：</p>
+<blockquote>
+<p>This looks awfully clever – the synchronization is avoided on the common code path.There’s only one problem with it – it doesn’t work. Why not? The most obvious reason is that the writes which initialize instance and the write to the instance field can be reordered by the compiler or the cache, which would have the effect of returning what appears to be a partially constructed Something. The result would be that we read an uninitialized object.</p>
+</blockquote>
+<p>大意：</p>
+<p>同步代码块中多加了一次判断，这样避免了多个线程同时进入第一个if代码块，然后再new对象的情况，即改良版同步单例模式的情况。这看起来非常聪明，但唯一的瑕疵是这种方法不起作用。显而易见的原因是创建实例的代码可能与把实例赋值给它的引用代码在编译器或缓存的作用下进行重排序，这种情况会导致只被实例化一部分的对象被引用，然后当我们读取这个引用字段时，会读到未被实例化的对象（即null）。</p>
+<p>这种在构造函数还在进行时，即实例化未完成，却把对象赋值给某一个引用重排序到构造函数中，会造成<a href="https://zh.wikipedia.org/wiki/%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90" target="_blank" rel="external">逃逸现象</a>。可是我忘记在哪里看到的了。</p>
+<p>在旧内存模型中，volatile是这样运作的：</p>
+<p>又是在<a href="https://www.cs.umd.edu/users/pugh/java/memoryModel/jsr-133-faq.html#volatile" target="_blank" rel="external">JSR-133-FAQ–What does volatile do?</a>中描述的：</p>
+<blockquote>
+<p>Under the old memory model, accesses to volatile variables could not be reordered with each other, but they could be reordered with nonvolatile variable accesses. This undermined the usefulness of volatile fields as a means of signaling conditions from one thread to another.</p>
+</blockquote>
+<p>大意：</p>
+<p>在旧的java内存模型（JVM）中，对于volatile属性的访问间的操作不能进行重排序，但是可以与非volatile属性进行重排序，这种方式破坏了volatile属性作为线程间通信手段的作用。</p>
+<p>那么在jsr-133中，对于volatile的增强到底在哪里？</p>
+<blockquote>
+<p>Under the new memory model, it is still true that volatile variables cannot be reordered with each other. The difference is that it is now no longer so easy to reorder normal field accesses around them. Writing to a volatile field has the same memory effect as a monitor release, and reading from a volatile field has the same memory effect as a monitor acquire. In effect, because the new memory model places stricter constraints on reordering of volatile field accesses with other field accesses, volatile or not, anything that was visible to thread A when it writes to volatile field f becomes visible to thread B when it reads f.</p>
+</blockquote>
+<p>大意：</p>
+<p>为了解决这个缺陷，新JMM（java内存模型）中增强了volatile的作用：对于volatile属性的访问间的操作依然是不能进行重排序的，但是普通字段访问volatile属性却没有那么容易就能进行重排序。同时，让被volatile修饰的字段在每次读/写操作时，效果相当于半个“同步效果”，即对volatile属性进行读操作时，跟释放锁的效果一样，对volatile属性进行写操作时，跟获取锁的效果一样。事实上，由于新内存模型对于volatile属性与普通字段或volatile属性间的访问操作的重排序有了更加严格的约束，当线程A对volatile属性f进行写操作时；当线程B读取字段f时，所有修改也变成对线程B可见。</p>
+<p>那么怎样解决这个问题呢？</p>
+<p>在<a href="https://www.cs.umd.edu/users/pugh/java/memoryModel/jsr-133-faq.html#dcl" target="_blank" rel="external">JSR-133-FAQ-Does the new memory model fix the “double-checked locking” problem?</a>是这样描述的：</p>
+<blockquote>
+<p>Under the new memory model, making the instance field volatile will “fix” the problems with double-checked locking, because then there will be a happens-before relationship between the initialization of the Something by the constructing thread and the return of its value by the thread that reads it.</p>
+</blockquote>
+<p>大意：</p>
+<p>在新的内存模型中，使用volatile修饰实例的引用可以修改双重检验锁问题，因为在实例化对象与把对象赋值给引用存在了先后顺序的关系（一般直接读happens-before关系）。</p>
+<h2 id="双重锁校验改良版"><a href="#双重锁校验改良版" class="headerlink" title="双重锁校验改良版"></a>双重锁校验改良版</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.singleton;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 双重锁校验改良版</div><div class="line"> * </div><div class="line"> * 使用volatile修饰实例的引用，就能完美解决双重锁校验中可能出现的重排序问题</div><div class="line"> * </div><div class="line"> * 其他部分的代码还是一样</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VolatileDoubleCheckedLocking</span> </span>&#123;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> VolatileDoubleCheckedLocking singleton;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="title">VolatileDoubleCheckedLocking</span><span class="params">()</span> </span>&#123;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> VolatileDoubleCheckedLocking <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</div><div class="line">			<span class="keyword">synchronized</span> (VolatileDoubleCheckedLocking.class) &#123;</div><div class="line">				<span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</div><div class="line">					singleton = <span class="keyword">new</span> VolatileDoubleCheckedLocking();</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> singleton;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以上单利模式产生的对象，就真的是只有一个对象吗？</p>
+<p>当然不是，相信大家一定记得反射，这个无敌BOSS，不管你怎样弄，它总是能获得到类的信息，包括创建对象，什么隐藏类的属性或方法都一样，在反射面前都是赤裸裸的。但是在这里我还要讲一个，反序列化，也会破坏单例模式，其实，底层也是借助反射 (囧)</p>
+<h1 id="防止单例模式被破坏"><a href="#防止单例模式被破坏" class="headerlink" title="防止单例模式被破坏"></a>防止单例模式被破坏</h1><h2 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h2><p>在进行文件的写和读操作时，把对象写到文件里，然后再从文件中读取对象，如果没有在单例类中创建readResolve方法，就会自己利用反射创建一个新的实例。</p>
+<p>源码是这样写的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">obj = desc.isInstantiable() ? desc.newInstance() : <span class="keyword">null</span>;</div><div class="line">  </div><div class="line"><span class="keyword">if</span> (obj != <span class="keyword">null</span> &amp;&amp; </div><div class="line">	    handles.lookupException(passHandle) == <span class="keyword">null</span> &amp;&amp;</div><div class="line">	    desc.hasReadResolveMethod())</div><div class="line">	&#123;</div><div class="line">	    Object rep = desc.invokeReadResolve(obj);</div><div class="line">	    <span class="keyword">if</span> (unshared &amp;&amp; rep.getClass().isArray()) &#123;</div><div class="line">		rep = cloneArray(rep);</div><div class="line">	    &#125;</div></pre></td></tr></table></figure>
+<p>对没有实现readResolve方法的单例类进行测试：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.singleton;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.Serializable;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 双重锁校验改良版,没有实现readResolve方法</div><div class="line"> * </div><div class="line"> * 使用volatile修饰实例的引用，就能完美解决双重锁校验中可能出现的重排序问题</div><div class="line"> * </div><div class="line"> * 其他部分的代码还是一样</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VolatileDoubleCheckedLocking</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> VolatileDoubleCheckedLocking singleton;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="title">VolatileDoubleCheckedLocking</span><span class="params">()</span> </span>&#123;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> VolatileDoubleCheckedLocking <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</div><div class="line">			<span class="keyword">synchronized</span> (VolatileDoubleCheckedLocking.class) &#123;</div><div class="line">				<span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</div><div class="line">					singleton = <span class="keyword">new</span> VolatileDoubleCheckedLocking();</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> singleton;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.singleton;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.File;</div><div class="line"><span class="keyword">import</span> java.io.FileInputStream;</div><div class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</div><div class="line"><span class="keyword">import</span> java.io.FileOutputStream;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.ObjectInputStream;</div><div class="line"><span class="keyword">import</span> java.io.ObjectOutputStream;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 测试没有实现readResolved方法的单例</div><div class="line"> * </div><div class="line"> * 看看反序列化产生的对象是否跟之前存储的对象一样</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DeserialiazationTest</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> FileNotFoundException,</span></div><div class="line">			IOException, ClassNotFoundException &#123;</div><div class="line">		<span class="comment">// 得到单例实例</span></div><div class="line">		VolatileDoubleCheckedLocking singleton = VolatileDoubleCheckedLocking</div><div class="line">				.getInstance();</div><div class="line"></div><div class="line">		<span class="comment">// 开启输出流，并写入到文件中</span></div><div class="line">		ObjectOutputStream objectOutputStream = <span class="keyword">new</span> ObjectOutputStream(</div><div class="line">				<span class="keyword">new</span> FileOutputStream(<span class="string">"tempFile"</span>));</div><div class="line">		objectOutputStream.writeObject(singleton);</div><div class="line"></div><div class="line">		File file = <span class="keyword">new</span> File(<span class="string">"newFile"</span>);</div><div class="line"></div><div class="line">		<span class="comment">// 开启输入流，并读取到文件中</span></div><div class="line">		ObjectInputStream inputStream = <span class="keyword">new</span> ObjectInputStream(</div><div class="line">				<span class="keyword">new</span> FileInputStream(<span class="string">"tempFile"</span>));</div><div class="line">		VolatileDoubleCheckedLocking singleton2 = (VolatileDoubleCheckedLocking) inputStream</div><div class="line">				.readObject();</div><div class="line"></div><div class="line">		<span class="comment">// 判断前后两个对象是否一样</span></div><div class="line">		System.out.println(singleton == singleton2);</div><div class="line"></div><div class="line">		<span class="comment">// 关流</span></div><div class="line">		inputStream.close();</div><div class="line">		objectOutputStream.close();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.png" alt=""></p>
+<h2 id="实现readResolve方法的单例类"><a href="#实现readResolve方法的单例类" class="headerlink" title="实现readResolve方法的单例类"></a>实现readResolve方法的单例类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.singleton;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.Serializable;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 双重锁校验改良版,实现了readResolve方法</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VolatileDoubleCheckedLocking2</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</div><div class="line">	<span class="comment">// readResolve方法</span></div><div class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">readResolve</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> singleton;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> VolatileDoubleCheckedLocking2 singleton;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="title">VolatileDoubleCheckedLocking2</span><span class="params">()</span> </span>&#123;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> VolatileDoubleCheckedLocking2 <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</div><div class="line">			<span class="keyword">synchronized</span> (VolatileDoubleCheckedLocking2.class) &#123;</div><div class="line">				<span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</div><div class="line">					singleton = <span class="keyword">new</span> VolatileDoubleCheckedLocking2();</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> singleton;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.singleton;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.io.File;</div><div class="line"><span class="keyword">import</span> java.io.FileInputStream;</div><div class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</div><div class="line"><span class="keyword">import</span> java.io.FileOutputStream;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.ObjectInputStream;</div><div class="line"><span class="keyword">import</span> java.io.ObjectOutputStream;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 测试实现了readResolved方法的单例</div><div class="line"> * </div><div class="line"> * 看看反序列化产生的对象是否跟之前存储的对象一样</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DeserialiazationTest2</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> FileNotFoundException,</span></div><div class="line">			IOException, ClassNotFoundException &#123;</div><div class="line">		<span class="comment">// 得到单例实例</span></div><div class="line">		VolatileDoubleCheckedLocking2 singleton = VolatileDoubleCheckedLocking2</div><div class="line">				.getInstance();</div><div class="line"></div><div class="line">		<span class="comment">// 开启输出流，并写入到文件中</span></div><div class="line">		ObjectOutputStream objectOutputStream = <span class="keyword">new</span> ObjectOutputStream(</div><div class="line">				<span class="keyword">new</span> FileOutputStream(<span class="string">"tempFile"</span>));</div><div class="line">		objectOutputStream.writeObject(singleton);</div><div class="line"></div><div class="line">		File file = <span class="keyword">new</span> File(<span class="string">"newFile"</span>);</div><div class="line"></div><div class="line">		<span class="comment">// 开启输入流，并读取到文件中</span></div><div class="line">		ObjectInputStream inputStream = <span class="keyword">new</span> ObjectInputStream(</div><div class="line">				<span class="keyword">new</span> FileInputStream(<span class="string">"tempFile"</span>));</div><div class="line">		VolatileDoubleCheckedLocking2 singleton2 = (VolatileDoubleCheckedLocking2) inputStream</div><div class="line">				.readObject();</div><div class="line"></div><div class="line">		<span class="comment">// 判断前后两个对象是否一样</span></div><div class="line">		System.out.println(singleton == singleton2);</div><div class="line"></div><div class="line">		<span class="comment">// 关流</span></div><div class="line">		inputStream.close();</div><div class="line">		objectOutputStream.close();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C2.png" alt=""></p>
+<h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><p>这里有一种方法，在jdk1.5之后才出现的，不过有关于枚举的线程安全与序列化安全问题我没有作过多的研究。。不过这种方法实现起来挺简单，但是有点奇怪，不过据说这种方法可以避免线程安全及反序列化的问题，但是这种方法就是强大。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.singleton;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 利用jdk1.5对枚举的增强，来实现单例模式</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Singleton &#123;</div><div class="line">	INSTANCE;</div><div class="line">	<span class="function"><span class="keyword">public</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> INSTANCE;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"impl singleton by using enum"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.singleton;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 测试枚举实现的单例模式</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonTest</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Singleton singleton = Singleton.INSTANCE;</div><div class="line"></div><div class="line">		Singleton singleton2 = Singleton.INSTANCE;</div><div class="line"></div><div class="line">		System.out.println(<span class="string">"singleton by using enum...."</span>);</div><div class="line">		System.out.println(singleton == singleton2);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E6%9E%9A%E4%B8%BE%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F.png" alt=""></p>
+<p>【全文完】</p>
+<p>参考资料:</p>
+<p><a href="https://www.cs.umd.edu/users/pugh/java/memoryModel/jsr-133-faq.html#dcl" target="_blank" rel="external">JSR-133-FAQ-Does the new memory model fix the “double-checked locking” problem?</a></p>
+<p><a href="https://www.cs.umd.edu/users/pugh/java/memoryModel/jsr-133-faq.html#volatile" target="_blank" rel="external">JSR-133-FAQ–What does volatile do?</a></p>
+<p><a href="http://www.hollischuang.com/archives/1373" target="_blank" rel="external">设计模式（二）——单例模式</a></p>
+<p><a href="http://www.hollischuang.com/archives/1144" target="_blank" rel="external">单例与序列化的那些事儿</a></p>
+<p><a href="http://www.hollischuang.com/archives/205" target="_blank" rel="external">单例模式的七种写法</a></p>
+<p><a href="https://zh.wikipedia.org/wiki/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F" target="_blank" rel="external">维基百科–单例模式</a></p>
+<p><a href="https://github.com/shahuwang/blogposts/blob/master/Java%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E6%9C%80%E4%BD%B3%E6%96%B9%E6%B3%95.md" target="_blank" rel="external">Java单例模式最佳实现方式</a></p>
+<p><a href="http://pan.baidu.com/s/1mipOD5I" target="_blank" rel="external">厉风行–单例模式</a></p>
+<hr>
+<p>想第一时间了解博客更新动态？看完本文有感而发？扫描以下二维码关注公众号！期待与您进一步交流！</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/source/images/avatar.jpg" alt="XinPan wechat" style="width: 200px; max-width: 100%;"/>
+    <div>ex. subscribe to my blog by scanning my public wechat account</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/17/动态方法调用/" rel="next" title="动态方法调用">
+                <i class="fa fa-chevron-left"></i> 动态方法调用
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/17/原型设计模式/" rel="prev" title="原型设计模式">
+                原型设计模式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/17/单例模式/"
+           data-title="单例模式" data-url="http://xinpan2.github.io/2016/08/17/单例模式/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">133</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实现原理"><span class="nav-number">1.</span> <span class="nav-text">实现原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现方法"><span class="nav-number">2.</span> <span class="nav-text">实现方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#饿汉式"><span class="nav-number">2.1.</span> <span class="nav-text">饿汉式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">2.1.1.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态内部类"><span class="nav-number">2.2.</span> <span class="nav-text">静态内部类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#懒汉式"><span class="nav-number">2.3.</span> <span class="nav-text">懒汉式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点-1"><span class="nav-number">2.3.1.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步版懒汉式"><span class="nav-number">2.4.</span> <span class="nav-text">同步版懒汉式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点-2"><span class="nav-number">2.4.1.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改良同步版单例模式"><span class="nav-number">2.5.</span> <span class="nav-text">改良同步版单例模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点-3"><span class="nav-number">2.5.1.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双重检验锁"><span class="nav-number">2.6.</span> <span class="nav-text">双重检验锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点-4"><span class="nav-number">2.6.1.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双重锁校验改良版"><span class="nav-number">2.7.</span> <span class="nav-text">双重锁校验改良版</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#防止单例模式被破坏"><span class="nav-number">3.</span> <span class="nav-text">防止单例模式被破坏</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#序列化"><span class="nav-number">3.1.</span> <span class="nav-text">序列化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现readResolve方法的单例类"><span class="nav-number">3.2.</span> <span class="nav-text">实现readResolve方法的单例类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#枚举"><span class="nav-number">3.3.</span> <span class="nav-text">枚举</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

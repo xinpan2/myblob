@@ -1,0 +1,692 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+场景引入现在需要开发一个请假系统，目前公司的员工规模较小，所以只有部门主任、部门经理、总经理三个人来处理员工的请假要求，将来如果员工数量很多，将考虑在系统维护期间把相应的职位添加上去。
+小明一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="责任链模式">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/17/责任链模式/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+场景引入现在需要开发一个请假系统，目前公司的员工规模较小，所以只有部门主任、部门经理、总经理三个人来处理员工的请假要求，将来如果员工数量很多，将考虑在系统维护期间把相应的职位添加上去。
+小明一">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E9%93%BE%E5%AD%90-31870916.jpg">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%B4%A3%E4%BB%BB%E4%BA%86%E6%A8%A1%E5%BC%8F%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%B4%A3%E4%BB%BB%E9%93%BE%E7%B1%BB%E5%9B%BE2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F%E7%B1%BB%E5%9B%BE2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg">
+<meta property="og:updated_time" content="2016-08-15T15:48:15.363Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="责任链模式">
+<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+场景引入现在需要开发一个请假系统，目前公司的员工规模较小，所以只有部门主任、部门经理、总经理三个人来处理员工的请假要求，将来如果员工数量很多，将考虑在系统维护期间把相应的职位添加上去。
+小明一">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E9%93%BE%E5%AD%90-31870916.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/17/责任链模式/"/>
+
+  <title> 责任链模式 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                责任链模式
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-17T20:58:12+08:00" content="2016-08-17">
+              2016-08-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/17/责任链模式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/17/责任链模式/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
+<p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
+<hr>
+<h1 id="场景引入"><a href="#场景引入" class="headerlink" title="场景引入"></a>场景引入</h1><p>现在需要开发一个请假系统，目前公司的员工规模较小，所以只有部门主任、部门经理、总经理三个人来处理员工的请假要求，将来如果员工数量很多，将考虑在系统维护期间把相应的职位添加上去。</p>
+<p>小明一开始这样想：“这个项目超级简单，刚刚入门的人都能实现，用多个判断语句不就可以实现么，等到需要新增人员来管理请假需求时，再修改源代码就可以了,小菜一碟！”。</p>
+<p>可是，上面的思路明显违反了开闭原则，这个系统需要实现的需求是：实现一个易于后期维护的请假系统。</p>
+<p>于是责任链模式出场了，责任链模式用于实现把一系列具有相同功能的对象放在一起解决请求，比如请假例子中，多个领导人就是具有相同功能的对象，他们在这个系统的作用是审批员工的请假。</p>
+<p>那为什么要用责任链呢？</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E9%93%BE%E5%AD%90-31870916.jpg" alt=""></p>
+<p>大家可以看到链子的形状是环环相扣的，使用责任链模式把能解决相同功能的对象放在一起，需要请假，就找这些类，并且我一开始不知道这个链子中哪个对象能够解决我的请假需求，我只需要把我的请假需求交给这个责任链的第一个对象，直到我的请假需求完成审批后才从这个责任链中退出。</p>
+<p>使用这种方式实现请假系统，不但能让软件解耦，即不会与外部其他类有联系，这种方法把具有相同功能的类放在同一个包中；又可以更好的实现多态（责任链中的对象实现同样的接口，所以调用时可以通过接口调用，而接口调用的好处是不用指定具体的调用对象，后面新增的对象也可以被调用到），关于后面一种好处，下面将会使用代码展示给大家</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.chainofresponsibility;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 请假条类：用来给员工填写请假信息</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LeaveRequest</span> </span>&#123;</div><div class="line">	<span class="comment">// 员工姓名</span></div><div class="line">	<span class="keyword">private</span> String employeeName;</div><div class="line">	<span class="comment">// 请假天数</span></div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> days;</div><div class="line">	<span class="comment">// 原因</span></div><div class="line">	<span class="keyword">private</span> String reason;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 通过构造函数把参数传进来</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> employeeName</div><div class="line">	 * <span class="doctag">@param</span> days</div><div class="line">	 * <span class="doctag">@param</span> reason</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">LeaveRequest</span><span class="params">(String employeeName, <span class="keyword">int</span> days, String reason)</span> </span>&#123;</div><div class="line">		<span class="keyword">super</span>();</div><div class="line">		<span class="keyword">this</span>.employeeName = employeeName;</div><div class="line">		<span class="keyword">this</span>.days = days;</div><div class="line">		<span class="keyword">this</span>.reason = reason;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// getter&amp;setter</span></div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getEmployeeName</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> employeeName;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setEmployeeName</span><span class="params">(String employeeName)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.employeeName = employeeName;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getDays</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> days;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDays</span><span class="params">(<span class="keyword">int</span> days)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.days = days;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getReason</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> reason;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setReason</span><span class="params">(String reason)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.reason = reason;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.chainofresponsibility;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 领导的抽象类：用来定义领导类的公共属性和方法</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Leader</span> </span>&#123;</div><div class="line">	<span class="comment">// 领导人姓名</span></div><div class="line">	<span class="keyword">protected</span> String name;</div><div class="line">	<span class="comment">// 责任链中的后继对象</span></div><div class="line">	<span class="keyword">protected</span> Leader nextLeader;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 *处理请假的方法，由具体领导实现</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> leaveRequest</div><div class="line">	 *            请假条对象</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">handleRequest</span><span class="params">(LeaveRequest leaveRequest)</span></span>;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 通过构造函数把领导人姓名传入</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> name</div><div class="line">	 *            领导人姓名</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Leader</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">		<span class="keyword">super</span>();</div><div class="line">		<span class="keyword">this</span>.name = name;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 提供设置后继对象的方法</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNextLeader</span><span class="params">(Leader nextLeader)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.nextLeader = nextLeader;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.chainofresponsibility;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 主管类：处于责任链的第一个对象</div><div class="line"> * </div><div class="line"> * 用于审批请假天数少于3天的假条</div><div class="line"> * </div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Director</span> <span class="keyword">extends</span> <span class="title">Leader</span> </span>&#123;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 通过构造函数把领导人姓名传入</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> name</div><div class="line">	 *            领导人姓名</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Director</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">		<span class="keyword">super</span>(name);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 处理请假条的具体实现方法</div><div class="line">	 * </div><div class="line">	 * 当前是主管类，处理少于3天的假条，如果多于三天，交给后继对象处理</div><div class="line">	 */</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleRequest</span><span class="params">(LeaveRequest leaveRequest)</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (leaveRequest.getDays() &lt; <span class="number">3</span>) &#123;</div><div class="line">			System.out.println(<span class="string">"姓名："</span> + leaveRequest.getEmployeeName()</div><div class="line">					+ <span class="string">",请假天数:"</span> + leaveRequest.getDays() + <span class="string">",理由："</span></div><div class="line">					+ leaveRequest.getReason());</div><div class="line">			System.out.println(<span class="string">"审批人："</span> + <span class="keyword">this</span>.name + <span class="string">"主管"</span>);</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			<span class="comment">// 若假条天数大于3且后继处理对象不为空，给后继对象处理</span></div><div class="line">			<span class="keyword">if</span> (<span class="keyword">this</span>.nextLeader != <span class="keyword">null</span>) &#123;</div><div class="line">				<span class="keyword">this</span>.nextLeader.handleRequest(leaveRequest);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.chainofresponsibility;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 部门经理类：用于处理请假天数在 [3,10)天的假条</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Manager</span> <span class="keyword">extends</span> <span class="title">Leader</span> </span>&#123;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 通过构造函数把领导人姓名传入</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> name</div><div class="line">	 *            领导人姓名</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Manager</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">		<span class="keyword">super</span>(name);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 处理请假条的具体实现方法</div><div class="line">	 * </div><div class="line">	 * 当前是部门经理类，用于处理请假天数在 [3,10)天的假条，</div><div class="line">	 * </div><div class="line">	 * 如果多于10天，交给后继对象处理</div><div class="line">	 */</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleRequest</span><span class="params">(LeaveRequest leaveRequest)</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (leaveRequest.getDays() &lt; <span class="number">10</span>) &#123;</div><div class="line">			System.out.println(<span class="string">"姓名："</span> + leaveRequest.getEmployeeName()</div><div class="line">					+ <span class="string">",请假天数:"</span> + leaveRequest.getDays() + <span class="string">",理由："</span></div><div class="line">					+ leaveRequest.getReason());</div><div class="line">			System.out.println(<span class="string">"审批人："</span> + <span class="keyword">this</span>.name + <span class="string">"部门经理"</span>);</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			<span class="comment">// 若假条天数大于10且后继处理对象不为空，给后继对象处理</span></div><div class="line">			<span class="keyword">if</span> (<span class="keyword">this</span>.nextLeader != <span class="keyword">null</span>) &#123;</div><div class="line">				<span class="keyword">this</span>.nextLeader.handleRequest(leaveRequest);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.chainofresponsibility;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 总经理类：用于处理20天以上的假条</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GeneralManager</span> <span class="keyword">extends</span> <span class="title">Leader</span> </span>&#123;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 通过构造函数把领导人姓名传入</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> name</div><div class="line">	 *            领导人姓名</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">GeneralManager</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">		<span class="keyword">super</span>(name);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 处理请假条的具体实现方法</div><div class="line">	 * </div><div class="line">	 * 当前是总经理类，用于处理请假天数在 20~30天的假条，超过30天不处理</div><div class="line">	 * </div><div class="line">	 */</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleRequest</span><span class="params">(LeaveRequest leaveRequest)</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (leaveRequest.getDays() &lt; <span class="number">30</span>) &#123;</div><div class="line">			System.out.println(<span class="string">"姓名："</span> + leaveRequest.getEmployeeName()</div><div class="line">					+ <span class="string">",请假天数:"</span> + leaveRequest.getDays() + <span class="string">",理由："</span></div><div class="line">					+ leaveRequest.getReason());</div><div class="line">			System.out.println(<span class="string">"审批人："</span> + <span class="keyword">this</span>.name + <span class="string">"总经理"</span>);</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			<span class="comment">// 若假条天数超过30天，拒绝</span></div><div class="line">			System.out.println(<span class="string">"拒绝请假，难道这"</span> + leaveRequest.getEmployeeName()</div><div class="line">					+ <span class="string">"不想干了？"</span>);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.chainofresponsibility;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 责任链模式测试类，用于模拟员工的请假处理</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChainOfResponsibilityTest</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line"></div><div class="line">		Leader directorA = <span class="keyword">new</span> Director(<span class="string">"张三"</span>);</div><div class="line"></div><div class="line">		Leader managerA = <span class="keyword">new</span> Manager(<span class="string">"李四"</span>);</div><div class="line"></div><div class="line">		Leader generalManagerA = <span class="keyword">new</span> GeneralManager(<span class="string">"王五"</span>);</div><div class="line"></div><div class="line">		<span class="comment">// 设置责任链关系</span></div><div class="line">		directorA.setNextLeader(managerA);</div><div class="line">		managerA.setNextLeader(generalManagerA);</div><div class="line"></div><div class="line">		<span class="comment">// 假条</span></div><div class="line">		LeaveRequest leaveRequest1 = <span class="keyword">new</span> LeaveRequest(<span class="string">"小明"</span>, <span class="number">2</span>, <span class="string">"出差"</span>);</div><div class="line"></div><div class="line">		<span class="comment">// 3天</span></div><div class="line">		LeaveRequest leaveRequest2 = <span class="keyword">new</span> LeaveRequest(<span class="string">"小明"</span>, <span class="number">3</span>, <span class="string">"出差"</span>);</div><div class="line"></div><div class="line">		<span class="comment">// 16天</span></div><div class="line">		LeaveRequest leaveRequest3 = <span class="keyword">new</span> LeaveRequest(<span class="string">"小明"</span>, <span class="number">16</span>, <span class="string">"出差"</span>);</div><div class="line"></div><div class="line">		directorA.handleRequest(leaveRequest1);</div><div class="line">		directorA.handleRequest(leaveRequest2);</div><div class="line">		directorA.handleRequest(leaveRequest3);</div><div class="line">		</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%B4%A3%E4%BB%BB%E4%BA%86%E6%A8%A1%E5%BC%8F%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C2.png" alt=""></p>
+<p>类图</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%B4%A3%E4%BB%BB%E9%93%BE%E7%B1%BB%E5%9B%BE2.png" alt=""></p>
+<h2 id="新增副总经理类"><a href="#新增副总经理类" class="headerlink" title="新增副总经理类"></a>新增副总经理类</h2><p>随着公司业务的不断增加，利润也大幅度增加，所以又聘请了多批员工，由于怕总经理工作量太大，所以让10-20天的假条让副总经理审批。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.chainofresponsibility;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 副总经理类：用来处理10-20天的假条</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ViceGeneralManager</span> <span class="keyword">extends</span> <span class="title">Leader</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 通过构造函数把领导人姓名传入</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> name</div><div class="line">	 *            领导人姓名</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">ViceGeneralManager</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">		<span class="keyword">super</span>(name);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 处理请假条的具体实现方法</div><div class="line">	 * </div><div class="line">	 * 副总经理类，用于处理请假天数在10-20天的假条，</div><div class="line">	 * </div><div class="line">	 * 如果多于20天，交给后继对象处理</div><div class="line">	 */</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleRequest</span><span class="params">(LeaveRequest leaveRequest)</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (leaveRequest.getDays() &lt; <span class="number">20</span>) &#123;</div><div class="line">			System.out.println(<span class="string">"姓名："</span> + leaveRequest.getEmployeeName()</div><div class="line">					+ <span class="string">",请假天数:"</span> + leaveRequest.getDays() + <span class="string">",理由："</span></div><div class="line">					+ leaveRequest.getReason());</div><div class="line">			System.out.println(<span class="string">"审批人："</span> + <span class="keyword">this</span>.name + <span class="string">"副总经理"</span>);</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			<span class="comment">// 若假条天数大于20且后继处理对象不为空，给后继对象处理</span></div><div class="line">			<span class="keyword">if</span> (<span class="keyword">this</span>.nextLeader != <span class="keyword">null</span>) &#123;</div><div class="line">				<span class="keyword">this</span>.nextLeader.handleRequest(leaveRequest);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.chainofresponsibility;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 责任链模式测试类2，用于测试员工的处理 10-20天假条</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChainOfResponsibilityTest2</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line"></div><div class="line">		Leader directorA = <span class="keyword">new</span> Director(<span class="string">"张三"</span>);</div><div class="line"></div><div class="line">		Leader managerA = <span class="keyword">new</span> Manager(<span class="string">"李四"</span>);</div><div class="line">		<span class="comment">// 新增的副总经理</span></div><div class="line">		Leader viceManagerA = <span class="keyword">new</span> ViceGeneralManager(<span class="string">"刘六"</span>);</div><div class="line"></div><div class="line">		Leader generalManagerA = <span class="keyword">new</span> GeneralManager(<span class="string">"王五"</span>);</div><div class="line"></div><div class="line">		<span class="comment">// 设置责任链关系</span></div><div class="line">		directorA.setNextLeader(managerA);</div><div class="line"></div><div class="line">		managerA.setNextLeader(viceManagerA);</div><div class="line"></div><div class="line">		viceManagerA.setNextLeader(generalManagerA);</div><div class="line"></div><div class="line">		<span class="comment">// 假条</span></div><div class="line"></div><div class="line">		<span class="comment">// 16天</span></div><div class="line">		LeaveRequest leaveRequest3 = <span class="keyword">new</span> LeaveRequest(<span class="string">"小明"</span>, <span class="number">16</span>, <span class="string">"出差"</span>);</div><div class="line"></div><div class="line">		directorA.handleRequest(leaveRequest3);</div><div class="line"></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C2.png" alt=""></p>
+<p>新的类图：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F%E7%B1%BB%E5%9B%BE2.png" alt=""></p>
+<p>如图所示，新增的管理类并没有违反开闭原则，直接继承共同的父类并且实现相同的方法，然后还是通过责任链开头开始调用。</p>
+<p>【全文完】</p>
+<p>参考资料</p>
+<p><a href="http://pan.baidu.com/s/1slOlFch" target="_blank" rel="external">高淇【GOF23设计模式】_责任链模式</a></p>
+<hr>
+<p>想第一时间了解博客更新动态？看完本文有感而发？扫描以下二维码关注公众号！期待与您进一步交流！</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/source/images/avatar.jpg" alt="XinPan wechat" style="width: 200px; max-width: 100%;"/>
+    <div>ex. subscribe to my blog by scanning my public wechat account</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/17/设计模式导读目录/" rel="next" title="设计模式导读目录">
+                <i class="fa fa-chevron-left"></i> 设计模式导读目录
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/17/迭代器模式/" rel="prev" title="迭代器模式">
+                迭代器模式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/17/责任链模式/"
+           data-title="责任链模式" data-url="http://xinpan2.github.io/2016/08/17/责任链模式/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">133</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#场景引入"><span class="nav-number">1.</span> <span class="nav-text">场景引入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#新增副总经理类"><span class="nav-number">1.1.</span> <span class="nav-text">新增副总经理类</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

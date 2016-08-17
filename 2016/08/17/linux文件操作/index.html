@@ -1,0 +1,778 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+linux远程登陆使用secureCRT登陆linux，可以用多个用户登录，
+
+现在使用两个用户登录，以备不时之需。
+文件操作查询当前目录的所有文件在上一次我们使用了ls -l来查询文件的所有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux文件操作">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/17/linux文件操作/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+linux远程登陆使用secureCRT登陆linux，可以用多个用户登录，
+
+现在使用两个用户登录，以备不时之需。
+文件操作查询当前目录的所有文件在上一次我们使用了ls -l来查询文件的所有">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E5%A4%9A%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%951.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C3.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C4.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C6.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C7.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C8.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%A4%9A%E8%A1%8C%E5%A4%8D%E5%88%B6.gif">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C9.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C10.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C11.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C12.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C13.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C14.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C15.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C16.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C18.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/tail%E5%91%BD%E4%BB%A42.gif">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C20.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C21.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C22.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/jdfw.gif">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C23.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C24.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C25.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C26.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C27.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C28.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C29.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C30.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg">
+<meta property="og:updated_time" content="2016-08-15T15:57:05.343Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux文件操作">
+<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+linux远程登陆使用secureCRT登陆linux，可以用多个用户登录，
+
+现在使用两个用户登录，以备不时之需。
+文件操作查询当前目录的所有文件在上一次我们使用了ls -l来查询文件的所有">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/linux%E5%A4%9A%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%951.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/17/linux文件操作/"/>
+
+  <title> linux文件操作 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                linux文件操作
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-17T20:58:11+08:00" content="2016-08-17">
+              2016-08-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/17/linux文件操作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/17/linux文件操作/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
+<p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
+<hr>
+<h1 id="linux远程登陆"><a href="#linux远程登陆" class="headerlink" title="linux远程登陆"></a>linux远程登陆</h1><p>使用secureCRT登陆linux，可以用多个用户登录，</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E5%A4%9A%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%951.png" alt=""></p>
+<p>现在使用两个用户登录，以备不时之需。</p>
+<h1 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h1><h2 id="查询当前目录的所有文件"><a href="#查询当前目录的所有文件" class="headerlink" title="查询当前目录的所有文件"></a>查询当前目录的所有文件</h2><p>在上一次我们使用了ls -l来查询文件的所有信息，但是我们也可以用简写形式ll</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C1.png" alt=""></p>
+<h2 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h2><p>在上一篇文章中使用touch命令来创建一个空文件，在这里我们直接删除一个文件使用rm命令</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C2.png" alt=""></p>
+<h2 id="删除文件夹"><a href="#删除文件夹" class="headerlink" title="删除文件夹"></a>删除文件夹</h2><p>先创建一个空的文件夹，然后再删除：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C3.png" alt=""></p>
+<p>刚刚删除空文件夹成功了，现在来试一下有文件的文件夹:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C4.png" alt=""></p>
+<p>提示有文件不能删除，此时需要用到rm -r命令，-r代表递归（recursion）删除，因为在用java对windows文件管理时，删除文件夹的步骤是先把里面的文件递归删除，即不断找到文件删除，然后慢慢倒回上一级目录删除。</p>
+<h2 id="echo命令"><a href="#echo命令" class="headerlink" title="echo命令"></a>echo命令</h2><p>echo在linux中，代表输出，既可以让数据数据到终端上，也可以让数据输出到文件上：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C6.png" alt=""></p>
+<p>在上面本来并不存在abc.txt,在执行重定向&gt;符号命令时，顺便创建了这个文件</p>
+<h2 id="重定向符号的使用"><a href="#重定向符号的使用" class="headerlink" title="重定向符号的使用"></a>重定向符号的使用</h2><p>在上面的例子中，我们使用重定向符号把一行数据添加到指定的文件中，但是一个重定向符号代表覆盖之前的内容，如果想累加上去的话要使用两个重定向符号：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C7.png" alt=""></p>
+<h2 id="文件的复制，移动，重命名"><a href="#文件的复制，移动，重命名" class="headerlink" title="文件的复制，移动，重命名"></a>文件的复制，移动，重命名</h2><p>由于在上面已经提到了文件的删除，所以在这里提一下文件的复制、移动、重命名</p>
+<h3 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h3><p>测试复制到当前目录和某个文件夹的目录：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C8.png" alt=""></p>
+<h3 id="文件中内容的多行复制"><a href="#文件中内容的多行复制" class="headerlink" title="文件中内容的多行复制"></a>文件中内容的多行复制</h3><p>进入vi的一般模式，按shift+v ,进入多行选择，选完之后按Y,然后到指定行的上一行按p，复制完成。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%A4%9A%E8%A1%8C%E5%A4%8D%E5%88%B6.gif" alt=""></p>
+<h3 id="移动"><a href="#移动" class="headerlink" title="移动"></a>移动</h3><p>其实文件的移动和重命名可以搁在一起说，因为把文件移动到当前目录就是重命名……</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C9.png" alt=""></p>
+<p>把文件移动到其他目录：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C10.png" alt=""></p>
+<h2 id="读取文件内容"><a href="#读取文件内容" class="headerlink" title="读取文件内容"></a>读取文件内容</h2><h3 id="more-less"><a href="#more-less" class="headerlink" title="more,less"></a>more,less</h3><p>more和less从字面看是一对反义词，但是论功能来说，less比more好用多了，首先我们使用FileZilla来远程上传一个文件到linux中，关于这个软件，在参考资料中出现下载链接</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C11.png" alt=""></p>
+<p>端口使用22，因为是ssh2的协议登陆，连接成功后出现如上界面，然后选择一个较大的文件上传到xinpan2的/home目录中</p>
+<p>直接选好文件，就直接拖到如下图所示的用户名目录中</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C12.png" alt=""></p>
+<p>文件正在上传:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C13.png" alt=""></p>
+<p>上传成功后，可以从secureCRT中查看</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C14.png" alt=""></p>
+<p>接下来使用more命令查看：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C15.png" alt=""></p>
+<p>使用空格键进行下一页操作，但是没有上一页和左右操作。。。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C16.png" alt=""></p>
+<p>竟然是乱码……</p>
+<p>按一下q就退出more和less模式</p>
+<p>使用less模式能够使用方向键进行操作，空格键依然是下一页，也可以左右移动，在这里不贴图了，自己测试</p>
+<h2 id="tail和head命令"><a href="#tail和head命令" class="headerlink" title="tail和head命令"></a>tail和head命令</h2><p>从名字可以看出，tail代表读取文件尾部信息，head代表前部分信息，但是我们不讲这些，在这里需要补充的是tail -f 命令，可以动态的查看最新的内容，使用More less命令，只能看到某一个时间点的信息，tail -f命令对于实时性的日志文件很有用，易于让运维人员及时发现错误</p>
+<p>现在创建一个死循环，不断往文件里面添加数据，来测试tail -f命令，动态图有点模糊，将就点看…</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C18.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/tail%E5%91%BD%E4%BB%A42.gif" alt=""></p>
+<h2 id="ln"><a href="#ln" class="headerlink" title="ln"></a>ln</h2><p>ln命令我们可以理解成快捷方式，我们一般都使用ln -s命令，创建软链接，aaa只有55字节</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C20.png" alt=""></p>
+<p>当我们访问aaa跟访问所链接的文件一样：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C21.png" alt=""></p>
+<p>我们可以看到在aaa后面多了一个箭头，但是aa这个文件只有11字节的大小，如果我们不用-s命令，叫硬链接：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C22.png" alt=""></p>
+<p>但是硬链接的大小跟原来的文件一样，这种方法很少使用</p>
+<p>当我们删除硬链接的文件时：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/jdfw.gif" alt=""></p>
+<p>刚刚使用ln命令产生的ccc还在，但是软连接后面所参考（reference）的文件一直处于闪烁状态。</p>
+<h2 id="find、grep"><a href="#find、grep" class="headerlink" title="find、grep"></a>find、grep</h2><p>find命令用于查找文件，并且支持正则表达式，但是find命令要输入名称前的两个名字</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C23.png" alt=""></p>
+<p>其中 ./代表要查找的地址， 这里./代表当前目录， -name是指按名称查找， Mu*指文件名以Mu开头。</p>
+<p>grep命令用于查找文件里面的内容，可以定位到多少行</p>
+<p><code>Usage: grep [OPTION]... PATTERN [FILE]...</code></p>
+<p>我们还可以通过管道来使用grep,比如我们需要在当前运行的进程中查找vmware的进程</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C24.png" alt=""></p>
+<h2 id="gzip、tar"><a href="#gzip、tar" class="headerlink" title="gzip、tar"></a>gzip、tar</h2><p>先来说gzip,是一种通用的压缩方式，tar是指将文件打包，如果我们需要压缩多个文件，是不能够将多个文件放到一个目录中，然后进行gzip,而是需要借助tar命令，先打包再压缩，同时使用gzip -l 可以查看压缩的信息</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C25.png" alt=""></p>
+<p>如上图所示，文件进行gzip压缩后，就会变成gz文件，并且原来的文件没有了。现在进行解压操作：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C26.png" alt=""></p>
+<p>解压操作可以看到，压缩文件也消失了，解压命令用的 -d 代表 decompressed（解压）。</p>
+<p>同时压缩多个文件：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C27.png" alt=""></p>
+<p>从上面的操作结果可以看出，gzip不压缩文件夹，所以要使用tar</p>
+<h3 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h3><p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C28.png" alt=""></p>
+<p>然后再将tar文件压缩:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C29.png" alt=""></p>
+<p>其实上面两个步骤可以用tar命令一步完成：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/linux%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C30.png" alt=""></p>
+<p>tar -zcvf z代表gzip格式压缩，c代表创建tar文件，v代表输入到控制台，f代表文件名</p>
+<p>tar -zxvf x代表解压</p>
+<p>【全文完】</p>
+<p>参考资料:</p>
+<p><a href="http://pan.baidu.com/s/1dEAjviD" target="_blank" rel="external">004-linux文件操作</a></p>
+<p>用到工具：</p>
+<p><a href="http://pan.baidu.com/s/1jHRAhtO" target="_blank" rel="external">FileZilla_3.7.3_win32</a></p>
+<hr>
+<p>想第一时间了解博客更新动态？看完本文有感而发？扫描以下二维码关注公众号！期待与您进一步交流！</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/source/images/avatar.jpg" alt="XinPan wechat" style="width: 200px; max-width: 100%;"/>
+    <div>ex. subscribe to my blog by scanning my public wechat account</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/17/linux安装/" rel="next" title="linux安装">
+                <i class="fa fa-chevron-left"></i> linux安装
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/17/linux环境hadoop开发准备工作/" rel="prev" title="linux环境hadoop开发准备工作">
+                linux环境hadoop开发准备工作 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/17/linux文件操作/"
+           data-title="linux文件操作" data-url="http://xinpan2.github.io/2016/08/17/linux文件操作/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">133</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#linux远程登陆"><span class="nav-number">1.</span> <span class="nav-text">linux远程登陆</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件操作"><span class="nav-number">2.</span> <span class="nav-text">文件操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查询当前目录的所有文件"><span class="nav-number">2.1.</span> <span class="nav-text">查询当前目录的所有文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除文件"><span class="nav-number">2.2.</span> <span class="nav-text">删除文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除文件夹"><span class="nav-number">2.3.</span> <span class="nav-text">删除文件夹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#echo命令"><span class="nav-number">2.4.</span> <span class="nav-text">echo命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重定向符号的使用"><span class="nav-number">2.5.</span> <span class="nav-text">重定向符号的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件的复制，移动，重命名"><span class="nav-number">2.6.</span> <span class="nav-text">文件的复制，移动，重命名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#复制"><span class="nav-number">2.6.1.</span> <span class="nav-text">复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件中内容的多行复制"><span class="nav-number">2.6.2.</span> <span class="nav-text">文件中内容的多行复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移动"><span class="nav-number">2.6.3.</span> <span class="nav-text">移动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读取文件内容"><span class="nav-number">2.7.</span> <span class="nav-text">读取文件内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#more-less"><span class="nav-number">2.7.1.</span> <span class="nav-text">more,less</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tail和head命令"><span class="nav-number">2.8.</span> <span class="nav-text">tail和head命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ln"><span class="nav-number">2.9.</span> <span class="nav-text">ln</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#find、grep"><span class="nav-number">2.10.</span> <span class="nav-text">find、grep</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gzip、tar"><span class="nav-number">2.11.</span> <span class="nav-text">gzip、tar</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#tar"><span class="nav-number">2.11.1.</span> <span class="nav-text">tar</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

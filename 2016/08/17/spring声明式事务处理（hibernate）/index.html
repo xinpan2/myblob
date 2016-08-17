@@ -1,0 +1,715 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+思路：
+
+无论是jdbc还是hibernate，都要使用到datasSource，所以首先要导入dataSource。
+测试dataSource是否导入成功
+bean的创建，以及映射文件，hi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring声明式事务处理（hibernate）">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/17/spring声明式事务处理（hibernate）/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+思路：
+
+无论是jdbc还是hibernate，都要使用到datasSource，所以首先要导入dataSource。
+测试dataSource是否导入成功
+bean的创建，以及映射文件，hi">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150924163510284.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150924163400475.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150924163428165.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150924163551792.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg">
+<meta property="og:updated_time" content="2016-08-15T15:36:35.135Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="spring声明式事务处理（hibernate）">
+<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+思路：
+
+无论是jdbc还是hibernate，都要使用到datasSource，所以首先要导入dataSource。
+测试dataSource是否导入成功
+bean的创建，以及映射文件，hi">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150924163510284.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/17/spring声明式事务处理（hibernate）/"/>
+
+  <title> spring声明式事务处理（hibernate） | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                spring声明式事务处理（hibernate）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-17T20:58:11+08:00" content="2016-08-17">
+              2016-08-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/spring入门/" itemprop="url" rel="index">
+                    <span itemprop="name">spring入门</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/17/spring声明式事务处理（hibernate）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/17/spring声明式事务处理（hibernate）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
+<p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
+<hr>
+<p>思路：</p>
+<ul>
+<li>无论是jdbc还是hibernate，都要使用到datasSource，所以首先要导入dataSource。</li>
+<li>测试dataSource是否导入成功</li>
+<li>bean的创建，以及映射文件，hibernate的配置文件</li>
+<li>建立dao,service层</li>
+<li>测试dao,service层，看看能否得到dao/service</li>
+<li>aop的配置</li>
+</ul>
+<p>代码实现如下：</p>
+<p>把dataSource放到spring容器中，并测试是否放置成功</p>
+<p>spring配置文件:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">&lt;beans xmlns="http://www.springframework.org/schema/beans"</div><div class="line">    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"</div><div class="line">    xmlns:tx="http://www.springframework.org/schema/tx"</div><div class="line">    xsi:schemaLocation="http://www.springframework.org/schema/beans </div><div class="line">        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd</div><div class="line">        http://www.springframework.org/schema/aop </div><div class="line">        http://www.springframework.org/schema/aop/spring-aop-2.5.xsd</div><div class="line">        http://www.springframework.org/schema/tx </div><div class="line">        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"&gt;</div><div class="line"></div><div class="line">    &lt;!--</div><div class="line">       datasource的导入，这里是固定写法</div><div class="line">     --&gt;</div><div class="line">        &lt;!-- 读取dataSource --&gt;</div><div class="line">    &lt;bean</div><div class="line">        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"&gt;</div><div class="line">        &lt;property name="locations"&gt;</div><div class="line">            &lt;!--</div><div class="line">                           声明配置文件jdbc.properties的位置</div><div class="line">             --&gt;</div><div class="line">            &lt;value&gt;classpath:jdbc.properties&lt;/value&gt;</div><div class="line">        &lt;/property&gt;</div><div class="line">    &lt;/bean&gt;</div><div class="line"></div><div class="line">    &lt;bean id="dataSource" destroy-method="close"</div><div class="line">        class="org.apache.commons.dbcp.BasicDataSource"&gt;</div><div class="line">        &lt;property name="driverClassName" value="$&#123;jdbc.driverClassName&#125;" /&gt;</div><div class="line">        &lt;property name="url" value="$&#123;jdbc.url&#125;" /&gt;</div><div class="line">        &lt;property name="username" value="$&#123;jdbc.username&#125;" /&gt;</div><div class="line">        &lt;property name="password" value="$&#123;jdbc.password&#125;" /&gt;</div><div class="line">    &lt;/bean&gt;</div><div class="line">    &lt;!-- 读取dataSource --&gt;</div><div class="line"></div><div class="line">&lt;/beans&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * spring_hibernate的测试类</div><div class="line"> * 在这里为了不重复new  applicationContext的对象，所以把它放出来</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">spring_hibernate_Test</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> ApplicationContext applicationContext;</div><div class="line">    <span class="keyword">static</span>&#123;</div><div class="line">                applicationContext=<span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"cn/ansel/spring_hibernate/config/applicationContext.xml"</span>);</div><div class="line"></div><div class="line">    &#125;</div><div class="line">   <span class="meta">@Test</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDataSource</span><span class="params">()</span></span>&#123;</div><div class="line">       <span class="comment">//测试dataSource是否成功放到spring容器中，如果没有成功，就会报错</span></div><div class="line">       System.out.println(applicationContext.getBean(<span class="string">"dataSource"</span>));</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><code>org.apache.commons.dbcp.BasicDataSource@983d95</code></p>
+<p>domain，dao,service层，并放到spring容器中（domain中的类不用放到spring容器中）。</p>
+<p>首先创建好Person类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Long pid;</div><div class="line">    <span class="keyword">private</span> String pname;</div><div class="line">    <span class="keyword">private</span> String pdescription;</div><div class="line">    <span class="comment">//省略getter&amp;setter</span></div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>因为这里是与hibernate结合，所以要写好映射文件和hibernate的配置文件</p>
+<p>以下是Person的映射文件： Person.hbm.xml</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line">&lt;!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"</div><div class="line">"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"&gt;</div><div class="line">&lt;hibernate-mapping&gt;</div><div class="line">    &lt;!--</div><div class="line">        name代表pojo的全名，这里有个小技巧，可以直接把类名打上去，然后看看提示，</div><div class="line">                如果没有提示，关了再开就可以看到提示</div><div class="line">        table对应的表名</div><div class="line">     --&gt;</div><div class="line">    &lt;class name="cn.ansel.spring_hibernate.bean.Person" &gt;</div><div class="line"></div><div class="line">    &lt;!--</div><div class="line">        id：代表主键属性</div><div class="line">        name:主键的名字</div><div class="line">        column：表中列的名字</div><div class="line">        length：数据库中字段的长度</div><div class="line">        type：name的类型</div><div class="line">     --&gt;</div><div class="line">        &lt;id name="pid" column="pid" length="111" type="java.lang.Long"&gt;</div><div class="line"></div><div class="line">        &lt;!--</div><div class="line">            generator:主键的生成类型</div><div class="line">         --&gt;</div><div class="line">            &lt;generator class="increment"&gt;&lt;/generator&gt;</div><div class="line">        &lt;/id&gt;</div><div class="line"></div><div class="line">        &lt;!--</div><div class="line">            property:代表其他属性</div><div class="line">            name、column、type、length与上雷同</div><div class="line">         --&gt;</div><div class="line">        &lt;property name="pname" column="pname" length="200" type="java.lang.String"&gt;&lt;/property&gt;</div><div class="line">        &lt;property name="pdescription" column="pdescription" length="100" type="java.lang.String"&gt;&lt;/property&gt;</div><div class="line">    &lt;/class&gt;</div><div class="line">&lt;/hibernate-mapping&gt;</div></pre></td></tr></table></figure>
+<p>以下是hibernate的配置文件，并且在hibernate的配置文件中把Person的映射文件加到里面</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version='1.0' encoding='utf-8'?&gt;</div><div class="line">&lt;!DOCTYPE hibernate-configuration PUBLIC</div><div class="line">        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"</div><div class="line">        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd"&gt;</div><div class="line">&lt;hibernate-configuration&gt;</div><div class="line">    &lt;!--</div><div class="line">        数据库的用户名</div><div class="line">    --&gt;</div><div class="line">&lt;session-factory&gt;</div><div class="line">    &lt;property name="connection.username"&gt;root&lt;/property&gt;</div><div class="line">    &lt;!--</div><div class="line">        密码</div><div class="line">    --&gt;</div><div class="line">    &lt;property name="connection.password"&gt;root&lt;/property&gt;</div><div class="line">    &lt;!--</div><div class="line">        url</div><div class="line">    --&gt;</div><div class="line">    &lt;property name="connection.url"&gt;</div><div class="line">        jdbc:mysql://localhost:3306/hibernate1</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;!--</div><div class="line">        作用：根据持久化类和映射文件生成表</div><div class="line">        validate</div><div class="line">        create-drop</div><div class="line">        create</div><div class="line">        update</div><div class="line">    --&gt;</div><div class="line">    &lt;property name="hbm2ddl.auto"&gt;update&lt;/property&gt;</div><div class="line">    &lt;!--</div><div class="line">        显示hibernate内部生成的sql语句</div><div class="line">    --&gt;</div><div class="line">    &lt;property name="show_sql"&gt;true&lt;/property&gt;</div><div class="line">    &lt;mapping resource="cn/ansel/spring_hibernate/bean/Person.hbm.xml" /&gt;</div><div class="line">&lt;/session-factory&gt;</div><div class="line">&lt;/hibernate-configuration&gt;</div></pre></td></tr></table></figure>
+<p><strong><em>注:hibernate.cfg.xml中添加Person.hbm.xml文件可以直接通过可视化界面添加，这样可以降低出错的几率</em></strong></p>
+<p>编写dao,servicr层：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 这里dao层就一个方法：保存用户</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PersonDao</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">savePerson</span><span class="params">(Person person)</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 这里是dao的实现层，实现dao的保存用户的方法</div><div class="line"> * 在这里还要做的事就是把这个实现类继承hibernateDaoSupport类，因为要调用里面的方法来保存用户</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PersonDaoImpl</span>  <span class="keyword">extends</span> <span class="title">HibernateDaoSupport</span> <span class="keyword">implements</span> <span class="title">PersonDao</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">savePerson</span><span class="params">(Person person)</span> </span>&#123;</div><div class="line">        <span class="comment">//得到hibernate模版，调用里面的方法保存用户</span></div><div class="line">        <span class="keyword">this</span>.getHibernateTemplate().save(person);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 这里是service层，还是只有一个方法，保存用户，</div><div class="line"> *</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PersonService</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">savePerson</span><span class="params">(Person person)</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 这里是personService的实现类，在这里主要实现逻辑业务的处理 并在这里要引用personDao，引用其实现类类处理保存用户的方法</div><div class="line"> * 注意：在这里引入了personDao，不要忘记了创建 其getter&amp;setter方法！</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PersonServiceImpl</span> <span class="keyword">implements</span> <span class="title">PersonService</span> </span>&#123;</div><div class="line">    <span class="comment">//personDao的引用</span></div><div class="line">    <span class="keyword">private</span> PersonDao personDao;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">savePerson</span><span class="params">(Person person)</span> </span>&#123;</div><div class="line">     <span class="keyword">this</span>.personDao.savePerson(person);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// getter setter</span></div><div class="line">    <span class="function"><span class="keyword">public</span> PersonDao <span class="title">getPersonDao</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> personDao;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPersonDao</span><span class="params">(PersonDao personDao)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.personDao = personDao;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>把dao,service层放到spring容器中</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">&lt;!--把 sessionFactory放大spring容器,由于这里有2种方法，并且是固定写法，所以我在spring framework开发参考手册直接拷贝过来--&gt;</div><div class="line"></div><div class="line">&lt;!-- 方法一 --&gt;</div><div class="line">&lt;!--    这里bean的id一定要跟下面的dao层的property名字对应。下面我们定义了sessionFactory，所以在这里我们也要定义id为sessionFactory --&gt;</div><div class="line">&lt;!--    &lt;bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"&gt;--&gt;</div><div class="line">&lt;!--    虽然说是用hibernate操作，但是底层还是需要dataSource，所以在这里吧dataSource导入--&gt;</div><div class="line">&lt;!--    &lt;property name="dataSource" ref="myDataSource"/&gt;--&gt;</div><div class="line">&lt;!--    &lt;property name="mappingResources"&gt;--&gt;</div><div class="line">&lt;!--      &lt;list&gt;--&gt;</div><div class="line">&lt;!--         这里的value的取值为Person映射文件的全名--&gt;</div><div class="line">&lt;!--         &lt;value&gt;classpath:cn/ansel/spring_hibernate/config/hibernate.cfg.xml&lt;/value&gt;--&gt;</div><div class="line">&lt;!--      &lt;/list&gt;--&gt;</div><div class="line">&lt;!--    &lt;/property&gt;--&gt;</div><div class="line">&lt;!--     hibernateProperties:表示方言--&gt;</div><div class="line">&lt;!--    &lt;property name="hibernateProperties"&gt;--&gt;</div><div class="line">&lt;!--      &lt;value&gt;--&gt;</div><div class="line">&lt;!--        hibernate.dialect=org.hibernate.dialect.MySQLDialect--&gt;</div><div class="line">&lt;!--      &lt;/value&gt;--&gt;</div><div class="line">&lt;!--    &lt;/property&gt;--&gt;</div><div class="line">&lt;!--  &lt;/bean&gt;--&gt;</div><div class="line"></div><div class="line">    &lt;!-- 方法二 --&gt;</div><div class="line">    &lt;bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"&gt;</div><div class="line">       &lt;!-- 第二种方法比第一种方法简便，只需要把hibernate的配置文件导入到这里即可。 --&gt;</div><div class="line">       &lt;property name="configLocation"&gt;</div><div class="line">         &lt;value&gt;classpath:cn/ansel/hibernate/config/hibernate.cfg.xml&lt;/value&gt;</div><div class="line">       &lt;/property&gt;</div><div class="line">    &lt;/bean&gt;</div><div class="line"></div><div class="line">    &lt;!--</div><div class="line">         把dao，service放到sprig容器</div><div class="line">      由于这里继承了hibernateDaoSupport这个类，这里需要导入的属性是sessionFactory，而不是dataSource</div><div class="line">      由于这里需要引入sessionFacroty，所以要先把sessionFactory放到spring容器中</div><div class="line">      --&gt;</div><div class="line">    &lt;bean id="personDao" class="cn.ansel.spring_hibernate.dao.impl.PersonDaoImpl"&gt;</div><div class="line">       &lt;property name="sessionFactory"&gt;</div><div class="line">         &lt;ref bean="sessionFactory"/&gt;</div><div class="line">       &lt;/property&gt;</div><div class="line">    &lt;/bean&gt;</div><div class="line"></div><div class="line">    &lt;!--配置service --&gt;</div><div class="line">    &lt;bean id="personService" class="cn.ansel.spring_hibernate.service.impl.PersonServiceImpl"&gt;</div><div class="line">      &lt;property name="personDao"&gt;</div><div class="line">        &lt;ref bean="personDao"/&gt;</div><div class="line">      &lt;/property&gt;</div><div class="line">    &lt;/bean&gt;</div></pre></td></tr></table></figure>
+<p>测试dao,service是否成功放到spring容器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">   * 测试dao/service是否成功放到spring容器，如果没有成功，在获取的时候会报错</div><div class="line">   */</div><div class="line">  <span class="meta">@Test</span></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDao</span><span class="params">()</span></span>&#123;</div><div class="line">    applicationContext.getBean(<span class="string">"personDao"</span>);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="meta">@Test</span></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testService</span><span class="params">()</span></span>&#123;</div><div class="line">      applicationContext.getBean(<span class="string">"personService"</span>);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>运行测试类，都安全通过。</p>
+<p>aop的配置</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;!-- aop配置顶层--&gt;</div><div class="line">   &lt;bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager"&gt;</div><div class="line">    &lt;property name="sessionFactory"&gt;</div><div class="line">      &lt;ref bean="sessionFactory"/&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">   &lt;/bean&gt;</div><div class="line"></div><div class="line">   &lt;!-- 在这里创建tx(就是我们前面说的通知，这通知有2个作用) --&gt;</div><div class="line">   &lt;tx:advice id="tx" transaction-manager="transactionManager"&gt;</div><div class="line">     &lt;tx:attributes&gt;</div><div class="line">        &lt;!-- 剩下的跟jdbc的aop配置差不多 --&gt;</div><div class="line">       &lt;tx:method name="save*" read-only="false"/&gt;</div><div class="line">     &lt;/tx:attributes&gt;</div><div class="line">   &lt;/tx:advice&gt;</div><div class="line"></div><div class="line">   &lt;!--</div><div class="line">    aop的配置</div><div class="line">   在这里因为在aop:advisor中引用到了tx,所以在这之前要创建出tx</div><div class="line">   --&gt;</div><div class="line">   &lt;aop:config&gt;</div><div class="line">     &lt;aop:pointcut expression="execution(* cn.ansel.spring_hibernate.service.impl.*.*(..))" id="perform"/&gt;</div><div class="line">     &lt;aop:advisor advice-ref="tx" pointcut-ref="perform"/&gt;</div><div class="line">   &lt;/aop:config&gt;</div></pre></td></tr></table></figure>
+<p>测试类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">   * 测试类 ，保存一个用户</div><div class="line">   */</div><div class="line">  <span class="meta">@Test</span></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSave</span><span class="params">()</span></span>&#123;</div><div class="line">     PersonService personService= (PersonService) applicationContext.getBean(<span class="string">"personService"</span>);</div><div class="line">     Person person=<span class="keyword">new</span> Person();</div><div class="line">     person.setPdescription(<span class="string">"aaa"</span>);</div><div class="line">     person.setPname(<span class="string">"ansel"</span>);</div><div class="line">     personService.savePerson(person);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>运行之前数据库的内容：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150924163510284.png" alt=""></p>
+<p>运行结果:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150924163400475.png" alt=""></p>
+<p>myEcplise输出：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150924163428165.png" alt=""></p>
+<p>运行之后数据库的内容：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150924163551792.png" alt=""></p>
+<hr>
+<p>想第一时间了解博客更新动态？看完本文有感而发？扫描以下二维码关注公众号！期待与您进一步交流！</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/source/images/avatar.jpg" alt="XinPan wechat" style="width: 200px; max-width: 100%;"/>
+    <div>ex. subscribe to my blog by scanning my public wechat account</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/17/spring基础/" rel="next" title="spring基础">
+                <i class="fa fa-chevron-left"></i> spring基础
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/17/spring声明式事务处理（使用jdbc操作数据库）/" rel="prev" title="spring声明式事务处理（使用jdbc操作数据库）">
+                spring声明式事务处理（使用jdbc操作数据库） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/17/spring声明式事务处理（hibernate）/"
+           data-title="spring声明式事务处理（hibernate）" data-url="http://xinpan2.github.io/2016/08/17/spring声明式事务处理（hibernate）/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">133</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

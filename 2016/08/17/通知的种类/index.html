@@ -1,0 +1,733 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+前置通知和后置通知已经在前面的帖子涉及到，这里只做总结：
+前置通知
+在目标方法执行前执行
+所以目标方法如果出现异常，这里还会执行
+
+后置通知
+在目标方法执行后执行
+如果目标方法出现异常，这里不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通知的种类">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/17/通知的种类/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+前置通知和后置通知已经在前面的帖子涉及到，这里只做总结：
+前置通知
+在目标方法执行前执行
+所以目标方法如果出现异常，这里还会执行
+
+后置通知
+在目标方法执行后执行
+如果目标方法出现异常，这里不">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150918142951961.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150918143517981.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150918144034223.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150918144324652.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150918145148403.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150918145522745.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150918145906463.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg">
+<meta property="og:updated_time" content="2016-08-15T15:35:11.094Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="通知的种类">
+<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+前置通知和后置通知已经在前面的帖子涉及到，这里只做总结：
+前置通知
+在目标方法执行前执行
+所以目标方法如果出现异常，这里还会执行
+
+后置通知
+在目标方法执行后执行
+如果目标方法出现异常，这里不">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150918142951961.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/17/通知的种类/"/>
+
+  <title> 通知的种类 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                通知的种类
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-17T20:58:12+08:00" content="2016-08-17">
+              2016-08-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/spring入门/" itemprop="url" rel="index">
+                    <span itemprop="name">spring入门</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/17/通知的种类/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/17/通知的种类/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
+<p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
+<hr>
+<p>前置通知和后置通知已经在前面的帖子涉及到，这里只做总结：</p>
+<h1 id="前置通知"><a href="#前置通知" class="headerlink" title="前置通知"></a>前置通知</h1><ul>
+<li>在目标方法执行前执行</li>
+<li>所以目标方法如果出现异常，这里还会执行</li>
+</ul>
+<h1 id="后置通知"><a href="#后置通知" class="headerlink" title="后置通知"></a>后置通知</h1><ul>
+<li>在目标方法执行后执行</li>
+<li>如果目标方法出现异常，这里不会执行</li>
+<li>可以接收由目标方法的返回值</li>
+</ul>
+<p>配置如下：</p>
+<p><strong><em>注意：这些配置是在标签里面定义的</em></strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">&lt;!--</div><div class="line">      aop配置</div><div class="line">    --&gt;</div><div class="line">    &lt;aop:config&gt;</div><div class="line">      &lt;!-- </div><div class="line">          aop:pointcut 指的是切入点判断，我们昨天使用的是在拦截器中使用if方法，具体内容可以看上一篇帖子</div><div class="line">                       但是考虑到如果有很多个dao，那么就要判断很多次，效率会降低</div><div class="line"></div><div class="line">          expression   指的是切入点的表达式，该表达式的作用就是调用哪些方法，</div><div class="line">                       一般都使用简写形式，即只需标明 （* *（..）），</div><div class="line">                       第一个*是指返回值类型，第二个是指方法全名</div><div class="line">                       括号中的.. 类似于可变参数的作用， </div><div class="line">                       在这里我们执行的是目标类PersonDaoImpl 的某个方法</div><div class="line"></div><div class="line">          id          是指对这个切入点的唯一标识符</div><div class="line">       --&gt;</div><div class="line">      &lt;aop:pointcut expression="execution(* cn.ansel.aopExample.PersonDaoImpl.*(..))" id="perform"/&gt;</div><div class="line">      &lt;!--</div><div class="line">          aop:aspect  定义切面，因为要把相应的类定义到配置文件中才算是切面</div><div class="line"></div><div class="line">          id          该切面的唯一标识符</div><div class="line"></div><div class="line">          ref         该切面的引用对象</div><div class="line">       --&gt;</div><div class="line"></div><div class="line"></div><div class="line">      &lt;aop:aspect id="mytransaction" ref="myTransaction"&gt;</div><div class="line">           &lt;!-- </div><div class="line">              method          指对应切面中的通知，这里的method对应的切面，就是上级标签ref对应的切面</div><div class="line">              pointcut-ref    指该值对应的切入点表达式</div><div class="line">              before          指前置通知的配置</div><div class="line">            --&gt;</div><div class="line">          &lt;aop:before method="before" pointcut-ref="perform" /&gt;</div><div class="line">          &lt;!-- </div><div class="line">              aop:after-returning   指后置通知的定义标签</div><div class="line">              returning             指目标方法中返回值的名称</div><div class="line">           --&gt;</div><div class="line">          &lt;aop:after-returning method="afterReturning" pointcut-ref="perform" returning="var"/&gt;</div><div class="line">      &lt;/aop:aspect&gt;</div><div class="line">    &lt;/aop:config&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//目标类的代码：</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PersonDaoImpl</span> <span class="keyword">extends</span> <span class="title">hibernateUtil</span>  </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">savePerson</span><span class="params">(Person person)</span> </span>&#123;</div><div class="line"></div><div class="line">        System.out.println(<span class="string">"targetMethod"</span>);</div><div class="line">        <span class="comment">//返回字符串</span></div><div class="line">        <span class="keyword">return</span> <span class="string">"the object form targetMethod"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//切面中方法：</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTransaction</span> <span class="keyword">extends</span> <span class="title">hibernateUtil</span></span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">before</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"beforeMethod"</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterReturning</span><span class="params">(Object var)</span></span>&#123;</div><div class="line">        <span class="comment">//接收目标类返回值，并输出</span></div><div class="line">        System.out.println(var);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//测试类的方法：</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">testAOP</span> </span>&#123;</div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="comment">//加载spring配置文件</span></div><div class="line">        ApplicationContext applicationContext=<span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"cn/ansel/aopExample/applicationContext.xml"</span>);</div><div class="line">        <span class="comment">//得到目标类</span></div><div class="line">        PersonDaoImpl dao=(PersonDaoImpl) applicationContext.getBean(<span class="string">"personDaoImpl"</span>);</div><div class="line">        <span class="comment">//存入数据</span></div><div class="line">        Person person=<span class="keyword">new</span> Person();</div><div class="line">        person.setPname(<span class="string">"ansel"</span>);</div><div class="line">        person.setPdescription(<span class="string">"fine"</span>);</div><div class="line">        dao.savePerson(person);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150918142951961.png" alt=""></p>
+<p><strong><em>主要注意的是：在配置文件中配置的returning参数的名字，必须与切面的后置通知中的传入参数的名字要一致，否则会报错</em></strong></p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//我把后置通知中的传入参数名字改成sth,然后再输出sth</span></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterReturning</span><span class="params">(Object sth)</span></span>&#123;</div><div class="line">      <span class="comment">//接收目标类返回值，并输出</span></div><div class="line">      System.out.println(sth);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>此时，目标方法不变，继续执行测试类的运行结果，有一大堆报错，于是我标注了重要的提示：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150918143517981.png" alt=""></p>
+<h1 id="最终通知"><a href="#最终通知" class="headerlink" title="最终通知"></a>最终通知</h1><p>直接看配置：在切面中，直接写一个新的方法作为最终通知，然后在配置文件中配置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//最终通知</span></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">after</span><span class="params">()</span></span>&#123;</div><div class="line">      System.out.println(<span class="string">"after"</span>);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;!--</div><div class="line">    配置文件中的配置，在刚刚后置通知的后面加上这一行代码</div><div class="line"></div><div class="line">    after  指最终通知，其他没有什么不同，需要注意的是，配置每一个通知的时候，都不要忘记了pointcut-ref的引用</div><div class="line">--&gt;</div><div class="line">&lt;aop:after method=<span class="string">"after"</span> pointcut-ref=<span class="string">"perform"</span> /&gt;</div></pre></td></tr></table></figure>
+<p>目标方法不变，运行结果：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150918144034223.png" alt=""></p>
+<p>要看最终通知有什么真正的效果，由于最终的名字，想到了Java中有一个finally代码块，所以我们在目标方法加一个异常：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PersonDaoImpl</span> <span class="keyword">extends</span> <span class="title">hibernateUtil</span>  </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">savePerson</span><span class="params">(Person person)</span> </span>&#123;</div><div class="line">        <span class="comment">//添加一个异常，用来测试最终通知的作用</span></div><div class="line">        <span class="keyword">int</span> a=<span class="number">1</span>/<span class="number">0</span>;</div><div class="line">        System.out.println(<span class="string">"targetMethod"</span>);</div><div class="line">        <span class="comment">//返回字符串</span></div><div class="line">        <span class="keyword">return</span> <span class="string">"the object form targetMethod"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果：毫无意外的报了异常，可是最终通知运行了，后置通知没有运行，目标方法也没有运行</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150918144324652.png" alt=""></p>
+<p>由此可以看出，最终通知跟finally代码块的作用是一致的，finally也是最终的意思</p>
+<h1 id="异常通知"><a href="#异常通知" class="headerlink" title="异常通知"></a>异常通知</h1><p>该通知的作用主要用于返回目标方法中出现的异常。配置如下：</p>
+<p>在切面中增加这样一个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">   * 异常通知</div><div class="line">   * <span class="doctag">@param</span> ex 参数为目标方法中返回的异常，改名字与配置文件中的throwing配置的名字要一致</div><div class="line">   *           否则跟上面返回值一样报错</div><div class="line">   */</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">throwing</span><span class="params">(Throwable ex)</span></span>&#123;</div><div class="line">      System.out.println(ex.getMessage());</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;!-- </div><div class="line">    配置文件：</div><div class="line">                aop:after-throwing 指异常通知，接收目标方法发生的异常</div><div class="line">                throwing                指目标方法抛出异常的引用名</div><div class="line">--&gt;</div><div class="line">            &lt;aop:after-throwing method=<span class="string">"throwing"</span> pointcut-ref=<span class="string">"perform"</span> throwing=<span class="string">"ex"</span>/&gt;</div></pre></td></tr></table></figure>
+<p>测试类不变，运行结果为：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150918145148403.png" alt=""></p>
+<h1 id="环绕通知"><a href="#环绕通知" class="headerlink" title="环绕通知"></a>环绕通知</h1><p>用来控制目标方法是否执行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//ProceedingJoinPoint 该类有一个proceed方法，用来控制目标方法是否执行。 在这里我们先不用那个方法，看看目标方法是否会执行</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">around</span><span class="params">(ProceedingJoinPoint joinPoint)</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"around"</span>);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>配置文件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;!-- </div><div class="line">          aop:around  配置环绕通知</div><div class="line">   --&gt;</div><div class="line">      &lt;aop:around method=<span class="string">"around"</span> pointcut-ref=<span class="string">"perform"</span>/&gt;</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150918145522745.png" alt=""></p>
+<p>在目标方法中有int a=1/0l</p>
+<p>但是没有报错，并且只是执行了前置通知和环绕通知。这时候最终通知也不执行了。但是当我调用ProceedingJoinPoint类的proceed方法时，这里先把异常代码注释掉：</p>
+<p>目标类代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PersonDaoImpl</span> <span class="keyword">extends</span> <span class="title">hibernateUtil</span>  </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">savePerson</span><span class="params">(Person person)</span> </span>&#123;</div><div class="line">        <span class="comment">//添加一个异常，用来测试最终通知的作用</span></div><div class="line">		<span class="comment">//int a=1/0;</span></div><div class="line">        System.out.println(<span class="string">"targetMethod"</span>);</div><div class="line">        <span class="comment">//返回字符串</span></div><div class="line">        <span class="keyword">return</span> <span class="string">"the object form targetMethod"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>环绕通知的代码改为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">around</span><span class="params">(ProceedingJoinPoint joinPoint)</span> <span class="keyword">throws</span> Throwable</span>&#123;</div><div class="line">        System.out.println(<span class="string">"around"</span>);</div><div class="line">        <span class="comment">//调用proceed方法</span></div><div class="line">        joinPoint.proceed();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150918145906463.png" alt=""></p>
+<hr>
+<p>想第一时间了解博客更新动态？看完本文有感而发？扫描以下二维码关注公众号！期待与您进一步交流！</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/source/images/avatar.jpg" alt="XinPan wechat" style="width: 200px; max-width: 100%;"/>
+    <div>ex. subscribe to my blog by scanning my public wechat account</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/17/选择继承(inheritance)还是组合(composition)？/" rel="next" title="选择继承(inheritance)还是组合(composition)？">
+                <i class="fa fa-chevron-left"></i> 选择继承(inheritance)还是组合(composition)？
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/17/防止表单的重复提交/" rel="prev" title="防止表单的重复提交">
+                防止表单的重复提交 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/17/通知的种类/"
+           data-title="通知的种类" data-url="http://xinpan2.github.io/2016/08/17/通知的种类/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">133</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前置通知"><span class="nav-number">1.</span> <span class="nav-text">前置通知</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后置通知"><span class="nav-number">2.</span> <span class="nav-text">后置通知</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#例子"><span class="nav-number">2.1.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最终通知"><span class="nav-number">3.</span> <span class="nav-text">最终通知</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异常通知"><span class="nav-number">4.</span> <span class="nav-text">异常通知</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#环绕通知"><span class="nav-number">5.</span> <span class="nav-text">环绕通知</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

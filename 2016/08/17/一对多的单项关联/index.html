@@ -1,0 +1,730 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+现在我们来讨论一下一对多的单项关联。
+首先把环境搭好。
+我们就拿老生常谈的班级和学生作为例子。
+关于班级类：有班级的id ,班级的名字，班级的描述。
+关于学生类：有学生的id，学生的名字，学生">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一对多的单项关联">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/17/一对多的单项关联/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+现在我们来讨论一下一对多的单项关联。
+首先把环境搭好。
+我们就拿老生常谈的班级和学生作为例子。
+关于班级类：有班级的id ,班级的名字，班级的描述。
+关于学生类：有学生的id，学生的名字，学生">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150903165429594.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150903183557558.jpg">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150903183844714.jpg">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150903184315385.jpg">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150903184356015.jpg">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150903185001098.jpg">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150903185039757.jpg">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150903185048371.jpg">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150903185229802.jpg">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg">
+<meta property="og:updated_time" content="2016-08-15T15:27:38.191Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一对多的单项关联">
+<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+现在我们来讨论一下一对多的单项关联。
+首先把环境搭好。
+我们就拿老生常谈的班级和学生作为例子。
+关于班级类：有班级的id ,班级的名字，班级的描述。
+关于学生类：有学生的id，学生的名字，学生">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150903165429594.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/17/一对多的单项关联/"/>
+
+  <title> 一对多的单项关联 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                一对多的单项关联
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-17T20:58:11+08:00" content="2016-08-17">
+              2016-08-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/hibernate入门/" itemprop="url" rel="index">
+                    <span itemprop="name">hibernate入门</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/17/一对多的单项关联/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/17/一对多的单项关联/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
+<p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
+<hr>
+<p>现在我们来讨论一下一对多的单项关联。</p>
+<p>首先把环境搭好。</p>
+<p>我们就拿老生常谈的班级和学生作为例子。</p>
+<p>关于班级类：有班级的id ,班级的名字，班级的描述。</p>
+<p>关于学生类：有学生的id，学生的名字，学生的描述。</p>
+<p>若两张表要进行关联，首先需要外键，那么在一对多的情况中，外键是放在多的那一方。（外键在多的那一方是指生成的表在数据库中，外键在多的那一方）</p>
+<p>我们要把2个类设计出来:</p>
+<p>class:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">  <span class="keyword">private</span> Long cid;</div><div class="line">  <span class="keyword">private</span> String cname;</div><div class="line">  <span class="keyword">private</span> String cdescription;</div><div class="line"><span class="comment">//关于这里为什么用set，因为学生尽量不要重复，为了保证唯一性，所以用set</span></div><div class="line">  <span class="keyword">private</span> Set&lt;Student&gt; students;</div><div class="line"><span class="comment">//在这里省略getter&amp;setter</span></div></pre></td></tr></table></figure>
+<p>student：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">private</span> Long sid;</div><div class="line"><span class="keyword">private</span> String sname;</div><div class="line"><span class="keyword">private</span> String sdescription;</div><div class="line"><span class="comment">//同样在这里胜率setter&amp;getter</span></div></pre></td></tr></table></figure>
+<p>然后就是配置文件，这里有2个domain，所以也要有2个映射文件</p>
+<p>class：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;class name="cn.ansel.domain.Classes"&gt;</div><div class="line">        &lt;id name="cid" length="55"&gt;</div><div class="line">            &lt;generator class="increment"&gt;&lt;/generator&gt;</div><div class="line">        &lt;/id&gt;</div><div class="line">        &lt;property name="cname" length="55"&gt;&lt;/property&gt;</div><div class="line">        &lt;property name="cdescription" length="111"&gt;&lt;/property&gt;</div><div class="line">        &lt;!--</div><div class="line">            name:对于classes中的students</div><div class="line">            key：表示外键的名字</div><div class="line">            one-to-many:表示对应多的那一方的类的全名</div><div class="line">         --&gt;</div><div class="line">        &lt;set name="students"&gt;</div><div class="line">            &lt;key column="cid"&gt;&lt;/key&gt;</div><div class="line">            &lt;one-to-many class="cn.ansel.domain.Student"/&gt;</div><div class="line">        &lt;/set&gt;</div><div class="line">    &lt;/class&gt;</div></pre></td></tr></table></figure>
+<p>student：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;class name="cn.ansel.domain.Student"&gt;</div><div class="line">    &lt;id name="sid" length="11"&gt;</div><div class="line">        &lt;generator class="increment"&gt;&lt;/generator&gt;</div><div class="line">    &lt;/id&gt;</div><div class="line">    &lt;property name="sname" length="11"&gt;&lt;/property&gt;</div><div class="line">    &lt;property name="sdescription" length="111"&gt;&lt;/property&gt;</div><div class="line">&lt;/class&gt;</div></pre></td></tr></table></figure>
+<p>在Student类及配置文件中，都没有看到可以找到与classes关联的属性，这叫做单向关联，然后我们创建一个测试类，来生成表：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">testCreateTable</span> <span class="keyword">extends</span> <span class="title">hibernateUtil</span> </span>&#123;</div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">createTable</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>一定要记得，把2个映射文件都加到hibernate的配置文件中。</p>
+<p>最后在数据库中，我们可以看到两张表，并且点开表之后，可以看到里面的属性，外键。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150903165429594.png" alt=""></p>
+<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><p>保存班级：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSave_Classes</span><span class="params">()</span></span>&#123;</div><div class="line">        Session session=sessionFactory.openSession();</div><div class="line">        Transaction transaction=session.beginTransaction();</div><div class="line"></div><div class="line">        Classes classes=<span class="keyword">new</span> Classes();</div><div class="line">        classes.setCdescription(<span class="string">"nice"</span>);</div><div class="line">        classes.setCname(<span class="string">"rocket"</span>);</div><div class="line"></div><div class="line">        session.save(classes);</div><div class="line"></div><div class="line">        transaction.commit();</div><div class="line">        session.close();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>运行结果如下图所示：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150903183557558.jpg" alt=""></p>
+<p>保存学生：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSave_Student</span><span class="params">()</span></span>&#123;</div><div class="line">    Session session=sessionFactory.openSession();</div><div class="line">    Transaction transaction=session.beginTransaction();</div><div class="line"></div><div class="line">    Student student=<span class="keyword">new</span> Student();</div><div class="line">    student.setSdescription(<span class="string">"nice"</span>);</div><div class="line">    student.setSname(<span class="string">"ansel"</span>);</div><div class="line"></div><div class="line">    session.save(student);</div><div class="line"></div><div class="line">    transaction.commit();</div><div class="line">    session.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果如下图</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150903183844714.jpg" alt=""></p>
+<p>在这里可以注意到，cid是没有值的！</p>
+<p>保存学生和班级</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testSaveClasses_Student</span><span class="params">()</span></span>&#123;</div><div class="line">        Session session=sessionFactory.openSession();</div><div class="line">        Transaction transaction=session.beginTransaction();</div><div class="line">        <span class="comment">//新建班级</span></div><div class="line">        Classes classes=<span class="keyword">new</span> Classes();</div><div class="line">        classes.setCdescription(<span class="string">"exciting"</span>);</div><div class="line">        classes.setCname(<span class="string">"subway"</span>);</div><div class="line">        <span class="comment">//新建学生</span></div><div class="line">        Student student=<span class="keyword">new</span> Student();</div><div class="line">        student.setSdescription(<span class="string">"so-so"</span>);</div><div class="line">        student.setSname(<span class="string">"andy"</span>);</div><div class="line">        <span class="comment">//新建存储学生的集合</span></div><div class="line">        Set&lt;Student&gt; students=<span class="keyword">new</span> HashSet&lt;Student&gt;();</div><div class="line">        students.add(student);</div><div class="line">        <span class="comment">//从班级中取出集合，并把创建的集合存到里面</span></div><div class="line">        classes.setStudents(students);</div><div class="line">        <span class="comment">//分别保存</span></div><div class="line">        session.save(student);</div><div class="line">        session.save(classes);</div><div class="line"></div><div class="line">        transaction.commit();</div><div class="line">        session.close();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>操作结果如下：</p>
+<p>student表：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150903184315385.jpg" alt=""></p>
+<p>classes表：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150903184356015.jpg" alt=""></p>
+<p>可是这样保存两次，太麻烦，hibernate推出了级联操作，在保存一个有关联的对象的时候，跟这个对象关联的对象也会被保存。</p>
+<p>级联操作：</p>
+<p>在映射文件中的set属性，增加一个属性cascade</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;!-- </div><div class="line">    save-update:在保存关联的一方操作时，检查另外一方对象是否需要保存/更新</div><div class="line">    inverse:取值有true/false/default，其中true表示不维护该类与主键的关系，如果不维护，那么student表的cid的值会为null，要想该属性起作用，必须有2要求：</div><div class="line">    1、inverse的值为false/default</div><div class="line">    2、在客户端中必须声明关联类的关系，否则也是不起作用的</div><div class="line">--&gt;</div><div class="line">&lt;set name="students" cascade="save-update" inverse="false"&gt;</div><div class="line">            &lt;key column="cid"&gt;&lt;/key&gt;</div><div class="line">            &lt;one-to-many class="cn.ansel.domain.Student"/&gt;</div><div class="line">&lt;/set&gt;</div></pre></td></tr></table></figure>
+<p>那么在保存班级的同时，保存学生：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testCascade</span><span class="params">()</span></span>&#123;</div><div class="line">        Session session=sessionFactory.openSession();</div><div class="line">        Transaction transaction=session.beginTransaction();</div><div class="line">        <span class="comment">//新建班级</span></div><div class="line">        Classes classes=<span class="keyword">new</span> Classes();</div><div class="line">        classes.setCdescription(<span class="string">"healthy"</span>);</div><div class="line">        classes.setCname(<span class="string">"PE"</span>);</div><div class="line">        <span class="comment">//新建学生</span></div><div class="line">        Student student=<span class="keyword">new</span> Student();</div><div class="line">        student.setSdescription(<span class="string">"possitive"</span>);</div><div class="line">        student.setSname(<span class="string">"jone"</span>);</div><div class="line">        <span class="comment">//新建存储学生的集合</span></div><div class="line">        Set&lt;Student&gt; students=<span class="keyword">new</span> HashSet&lt;Student&gt;();</div><div class="line">        students.add(student);</div><div class="line">        <span class="comment">//从班级中取出集合，并把创建的集合存到里面</span></div><div class="line">        classes.setStudents(students);</div><div class="line">        <span class="comment">//这里只保存了班级</span></div><div class="line">        session.save(classes);</div><div class="line"></div><div class="line">        transaction.commit();</div><div class="line">        session.close();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150903185001098.jpg" alt=""></p>
+<p>student表：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150903185039757.jpg" alt=""></p>
+<p>classes表：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150903185048371.jpg" alt=""></p>
+<p>这种操作又叫做隐式操作。</p>
+<p>如果在映射文件中没有设置cascade属性，就会报错。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150903185229802.jpg" alt=""></p>
+<p>为什么会报这样的错误呢？</p>
+<p>因为看我们的代码可以知道，我们只是保存了classes，但是此时，student还是处于瞬时状态的对象，由于没有设置级联的属性，所以就报对象参照了一个没有保存的瞬时对象的错误。</p>
+<hr>
+<p>想第一时间了解博客更新动态？看完本文有感而发？扫描以下二维码关注公众号！期待与您进一步交流！</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/qrcode_for_gh_69fa03eccdf5_258.jpg" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/source/images/avatar.jpg" alt="XinPan wechat" style="width: 200px; max-width: 100%;"/>
+    <div>ex. subscribe to my blog by scanning my public wechat account</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/17/一个目标类对应多个切面的例子/" rel="next" title="一个目标类对应多个切面的例子">
+                <i class="fa fa-chevron-left"></i> 一个目标类对应多个切面的例子
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/17/一对多的双向关联/" rel="prev" title="一对多的双向关联">
+                一对多的双向关联 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/17/一对多的单项关联/"
+           data-title="一对多的单项关联" data-url="http://xinpan2.github.io/2016/08/17/一对多的单项关联/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">133</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#例子"><span class="nav-number">1.</span> <span class="nav-text">例子</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
