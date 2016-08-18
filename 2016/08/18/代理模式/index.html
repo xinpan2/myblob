@@ -1,0 +1,689 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+代理模式跟我们的现实生活也是息息相关的，比如说明星经纪人、代理商等等，他们扮演的都是代理的角色。其中代理又分静态代理和动态代理。
+比如我要修改现在做的一个系统，之前没有权限管理，只有管理员，现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代理模式">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/18/代理模式/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+代理模式跟我们的现实生活也是息息相关的，比如说明星经纪人、代理商等等，他们扮演的都是代理的角色。其中代理又分静态代理和动态代理。
+比如我要修改现在做的一个系统，之前没有权限管理，只有管理员，现">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E7%B1%BB%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E7%B1%BB%E5%9B%BE.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E7%B1%BB%E5%9B%BE.png">
+<meta property="og:updated_time" content="2016-08-18T13:25:57.383Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="代理模式">
+<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+代理模式跟我们的现实生活也是息息相关的，比如说明星经纪人、代理商等等，他们扮演的都是代理的角色。其中代理又分静态代理和动态代理。
+比如我要修改现在做的一个系统，之前没有权限管理，只有管理员，现">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E7%B1%BB%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/18/代理模式/"/>
+
+  <title> 代理模式 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                代理模式
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-18T09:38:00+08:00" content="2016-08-18">
+              2016-08-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/18/代理模式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/18/代理模式/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
+<p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
+<hr>
+<p>代理模式跟我们的现实生活也是息息相关的，比如说明星经纪人、代理商等等，他们扮演的都是代理的角色。其中代理又分静态代理和动态代理。</p>
+<p>比如我要修改现在做的一个系统，之前没有权限管理，只有管理员，现在系统的角色多了，需要添加权限，只给有权限的用户进行特定的操作。用代码实现如下</p>
+<h1 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.staticproxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 用户管理：目标抽象接口，这个接口定义代理类与被代理类公共的行为</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserManager</span> </span>&#123;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 增加用户</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addUser</span><span class="params">(String userNanme, String password)</span></span>;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 修改用户信息</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateUser</span><span class="params">(<span class="keyword">int</span> id, String userName, String password)</span></span>;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 根据id删除用户</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteUserById</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 根据id查找用户</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">findUserById</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 查找所有用户</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">findAllUsers</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.staticproxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 被代理类：用户管理的具体实现类</div><div class="line"> * </div><div class="line"> * 方法的实现只是简单的输出由谁执行</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UsermManagerImpl</span> <span class="keyword">implements</span> <span class="title">UserManager</span> </span>&#123;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 增加用户</div><div class="line">	 */</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addUser</span><span class="params">(String userNanme, String password)</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"UsermManagerImpl.addUser()"</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 根据id删除用户</div><div class="line">	 */</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteUserById</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"UsermManagerImpl.deleteUserById()"</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 查找所有用户</div><div class="line">	 */</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">findAllUsers</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"UsermManagerImpl.findAllUserd()"</span>);</div><div class="line">		<span class="keyword">return</span> <span class="string">"user1,user2,user3,...,usern"</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 根据id查找用户</div><div class="line">	 */</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">findUserById</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"UsermManagerImpl.findUserById()"</span>);</div><div class="line">		<span class="keyword">return</span> <span class="string">"user"</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 修改用户信息</div><div class="line">	 */</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateUser</span><span class="params">(<span class="keyword">int</span> id, String userName, String password)</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"UsermManagerImpl.updateUser()"</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.staticproxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 用户管理的代理类-此类与用户管理的具体实现有共同的接口</div><div class="line"> * </div><div class="line"> * 因为最终是由客户端调用，所以程序员可以修改真正的实现类而让用户觉得好像没变化一样</div><div class="line"> * </div><div class="line"> * 在这里，由于需要为每个动作新增权限的判断，为了在不影响原有代码的前提下，使用静态代理，</div><div class="line"> * </div><div class="line"> * 为每一个需要权限管理的方法调用权限管理</div><div class="line"> * </div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserManagerProxy</span> <span class="keyword">implements</span> <span class="title">UserManager</span> </span>&#123;</div><div class="line">	<span class="comment">// 首先有一个具体实现的引用</span></div><div class="line">	<span class="keyword">private</span> UsermManagerImpl managerImpl;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 通过构造函数把被代理类的实例传进来</div><div class="line">	 * </div><div class="line">	 * <span class="doctag">@param</span> managerImpl</div><div class="line">	 *            被代理类的实例</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">UserManagerProxy</span><span class="params">(UsermManagerImpl managerImpl)</span> </span>&#123;</div><div class="line">		<span class="keyword">super</span>();</div><div class="line">		<span class="keyword">this</span>.managerImpl = managerImpl;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 添加用户，首先经过判断是否有权限，再执行具体方法，如果不够权限，则不会继续进行下去</div><div class="line">	 */</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addUser</span><span class="params">(String userNanme, String password)</span> </span>&#123;</div><div class="line">		checkSecurity();</div><div class="line">		<span class="comment">// 如果权限足够，调用具体实现的方法</span></div><div class="line">		managerImpl.addUser(userNanme, password);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 根据id删除用户，原理同上</div><div class="line">	 */</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteUserById</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</div><div class="line">		checkSecurity();</div><div class="line">		managerImpl.deleteUserById(id);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 查找所有用户</div><div class="line">	 */</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">findAllUsers</span><span class="params">()</span> </span>&#123;</div><div class="line">		checkSecurity();</div><div class="line">		Object result = managerImpl.findAllUsers();</div><div class="line">		<span class="keyword">return</span> (String) result;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 根据id查找用户</div><div class="line">	 */</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">findUserById</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</div><div class="line">		checkSecurity();</div><div class="line">		Object result = managerImpl.findUserById(id);</div><div class="line">		<span class="keyword">return</span> (String) result;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 修改用户</div><div class="line">	 */</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateUser</span><span class="params">(<span class="keyword">int</span> id, String userName, String password)</span> </span>&#123;</div><div class="line">		checkSecurity();</div><div class="line">		managerImpl.updateUser(id, userName, password);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 权限判断的方法</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">checkSecurity</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"进行权限判定~~~~~~~~~~~~~~~~~~！！！！！"</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.staticproxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 静态代理测试类：创建代理类的对象并且调用被代理类的方法</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		UserManager userManager = <span class="keyword">new</span> UserManagerProxy(<span class="keyword">new</span> UsermManagerImpl());</div><div class="line">		userManager.addUser(<span class="string">"xinpan"</span>, <span class="string">"myPassword"</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E7%B1%BB%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C1.png" alt=""></p>
+<p>类图：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E7%B1%BB%E5%9B%BE.png" alt=""></p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>从代理类UserManagerProxy中可以看到，为了给系统新增权限判断的功能，需要为每一个要权限判断的方法都新增了checkSecurity()方法，并且这个方法遍布在所有方法中，这种方法跟不使用静态代理是一样的，即通过直接在具体实现类UsermManagerImpl中新增权限管理方法，并添加到每一个方法中。</p>
+<p>很明显，这种方法没有遵守open-close原则，并且使用静态代理，只能用于特定的类，比如这个例子中，就只能用于用户管理，后面其他类也要为每种方法都要进行权限管理时，需要再创建一个代理类，这种方法并不方便，所以引出了动态代理，动态代理的实现方法有好几种，但是目前我接触到的就有使用JDk实现动态代理（本文讨论到的方法），使用CGlib实现的动态代理（Spring的AOP），还有一种使用javaassist实现。</p>
+<h1 id="JDk实现动态代理"><a href="#JDk实现动态代理" class="headerlink" title="JDk实现动态代理"></a>JDk实现动态代理</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.dynamicproxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 用户管理：目标抽象接口，这个接口定义代理类与被代理类公共的行为</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserManager</span> </span>&#123;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 增加用户</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addUser</span><span class="params">(String userNanme, String password)</span></span>;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 修改用户信息</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateUser</span><span class="params">(<span class="keyword">int</span> id, String userName, String password)</span></span>;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 根据id删除用户</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteUserById</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 根据id查找用户</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">findUserById</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 查找所有用户</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">findAllUsers</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.dynamicproxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 被代理类：用户管理的具体实现类</div><div class="line"> * </div><div class="line"> * 方法的实现只是简单的输出由谁执行</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UsermManagerImpl</span> <span class="keyword">implements</span> <span class="title">UserManager</span> </span>&#123;</div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 增加用户</div><div class="line">	 */</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addUser</span><span class="params">(String userNanme, String password)</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"UsermManagerImpl.addUser()"</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 根据id删除用户</div><div class="line">	 */</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteUserById</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"UsermManagerImpl.deleteUserById()"</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 查找所有用户</div><div class="line">	 */</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">findAllUsers</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"UsermManagerImpl.findAllUserd()"</span>);</div><div class="line">		<span class="keyword">return</span> <span class="string">"user1,user2,user3,...,usern"</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 根据id查找用户</div><div class="line">	 */</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">findUserById</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"UsermManagerImpl.findUserById()"</span>);</div><div class="line">		<span class="keyword">return</span> <span class="string">"user"</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 修改用户信息</div><div class="line">	 */</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateUser</span><span class="params">(<span class="keyword">int</span> id, String userName, String password)</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"UsermManagerImpl.updateUser()"</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.dynamicproxy;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Method;</div><div class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 处理代理类实例</div><div class="line"> * </div><div class="line"> * 当调用代理类时，都会默认调用invoke方法</div><div class="line"> * </div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</div><div class="line">	<span class="comment">// 在这个类也要具体实现类的引用</span></div><div class="line">	<span class="keyword">private</span> Object targetObject;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 获取代理类的实力，在此之前把具体实现类的实例传进来</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">getProxyInstance</span><span class="params">(Object targetObject)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.targetObject = targetObject;</div><div class="line">		<span class="comment">/*</span></div><div class="line">		 * Proxy.newProxyInstance(ClassLoader loader, Class&lt;?&gt;[] interfaces,</div><div class="line">		 * InvocationHandler h)</div><div class="line">		 * </div><div class="line">		 * 使用与目标类相同的类加载器</div><div class="line">		 * </div><div class="line">		 * 与目标类相同实现的接口</div><div class="line">		 * </div><div class="line">		 * 最后一个参数是invocationHandler ，只要把当前对象传过去即可，所以用this</div><div class="line">		 */</div><div class="line">		<span class="keyword">return</span> Proxy.newProxyInstance(<span class="keyword">this</span>.targetObject.getClass()</div><div class="line">				.getClassLoader(),</div><div class="line">				<span class="keyword">this</span>.targetObject.getClass().getInterfaces(), <span class="keyword">this</span>);</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 调用所有代理方法时，都会默认调用这个方法做处理</div><div class="line">	 */</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span></span></div><div class="line">			<span class="keyword">throws</span> Throwable &#123;</div><div class="line">		<span class="comment">// 权限管理，在调用相关代理方法时，都为默认为每一个方法添加权限管理</span></div><div class="line">		checkSecurity();</div><div class="line">		Object result = method.invoke(<span class="keyword">this</span>.targetObject, args);</div><div class="line">		<span class="keyword">return</span> result;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * 权限判断的方法</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">checkSecurity</span><span class="params">()</span> </span>&#123;</div><div class="line">		System.out.println(<span class="string">"进行权限判定~~~~~~~~~~~~~~~~~~！！！！！"</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.dynamicproxy;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 动态代理测试类:通过创建Handler对象来获得代理类实例并且调用相关方法</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">// 具体类实例</span></div><div class="line">		UsermManagerImpl usermManagerImpl = <span class="keyword">new</span> UsermManagerImpl();</div><div class="line"></div><div class="line">		<span class="comment">// 代理类处理实例</span></div><div class="line">		MyHandler myHandler = <span class="keyword">new</span> MyHandler();</div><div class="line"></div><div class="line">		<span class="comment">// 获得代理类</span></div><div class="line">		UserManager manager = (UserManager) myHandler</div><div class="line">				.getProxyInstance(usermManagerImpl);</div><div class="line"></div><div class="line">		<span class="comment">// 调用代理方法</span></div><div class="line">		manager.addUser(<span class="string">"xinpan2"</span>, <span class="string">"password"</span>);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C2.png" alt=""></p>
+<p>类图</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E7%B1%BB%E5%9B%BE.png" alt=""></p>
+<h2 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h2><p>动态代理可以动态的为每一个代理类动态的添加需要同一处理的方法，比如权限管理，在获得代理对象manager后，调用里面的方法，由于这个代理对象实现了invocationHandler接口，所以会默认调用invoke(),在invoke方法中定义需要为所有代理类添加的方法。</p>
+<p>由于在目标类中Object targetObject，设置的是Object类型，这样加宽了目标类的灵活性，而不像静态代理中某个特定的代理类实现共同接口，这种方法也适用于其他需要增加权限判断的类。</p>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="https://www.youtube.com/watch?v=4cwIm9YtEvc" target="_blank" rel="external">王勇-静态代理与动态代理模式</a></p>
+<p><a href="http://pan.baidu.com/s/1o8q1Bbc" target="_blank" rel="external">厉风行-代理模式</a></p>
+<p><a href="http://pan.baidu.com/s/1kVvXyxL" target="_blank" rel="external">高淇-静态代理</a></p>
+<p><a href="http://pan.baidu.com/s/1mh640e0" target="_blank" rel="external">高淇【GOF23设计模式】动态代理开发中常见的场景</a></p>
+<p><a href="http://pan.baidu.com/s/1bo4KVq3" target="_blank" rel="external">高淇【GOF23设计模式】代理模式动态代理_内存和调用过程分析_AOP面向切面编程介绍</a></p>
+<p><a href="http://pan.baidu.com/s/1dFCyDJb" target="_blank" rel="external">大话设计模式-代理模式</a></p>
+<hr>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/qrcode_for_gh_69fa03eccdf5_430.jpg" alt="XinPan wechat" style="width: 200px; max-width: 100%;"/>
+    <div>看完文章有感而发？或者你有什么不一样的见解？欢迎您扫一扫上面的微信公众号，订阅我的博客！！！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/18/享元模式/" rel="next" title="享元模式">
+                <i class="fa fa-chevron-left"></i> 享元模式
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/18/外观模式/" rel="prev" title="外观模式">
+                外观模式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/18/代理模式/"
+           data-title="代理模式" data-url="http://xinpan2.github.io/2016/08/18/代理模式/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">113</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#静态代理"><span class="nav-number">1.</span> <span class="nav-text">静态代理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析"><span class="nav-number">1.1.</span> <span class="nav-text">分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JDk实现动态代理"><span class="nav-number">2.</span> <span class="nav-text">JDk实现动态代理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析-1"><span class="nav-number">2.1.</span> <span class="nav-text">分析</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

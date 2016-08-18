@@ -1,0 +1,686 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+好了，写完了设计模式的相关文章，如果大家想比较系统的阅读的话，在这里先分好类，可以按顺序点链接进行阅读，所有源码在我的github中，大家可以自行下载来测试。
+设计模式的种类
+创建型模式这种类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式导读目录">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/18/设计模式导读目录/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+好了，写完了设计模式的相关文章，如果大家想比较系统的阅读的话，在这里先分好类，可以按顺序点链接进行阅读，所有源码在我的github中，大家可以自行下载来测试。
+设计模式的种类
+创建型模式这种类">
+<meta property="og:updated_time" content="2016-08-18T13:29:09.008Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式导读目录">
+<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+好了，写完了设计模式的相关文章，如果大家想比较系统的阅读的话，在这里先分好类，可以按顺序点链接进行阅读，所有源码在我的github中，大家可以自行下载来测试。
+设计模式的种类
+创建型模式这种类">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/18/设计模式导读目录/"/>
+
+  <title> 设计模式导读目录 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                设计模式导读目录
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-18T09:51:00+08:00" content="2016-08-18">
+              2016-08-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/18/设计模式导读目录/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/18/设计模式导读目录/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
+<p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
+<hr>
+<p>好了，写完了设计模式的相关文章，如果大家想比较系统的阅读的话，在这里先分好类，可以按顺序点链接进行阅读，所有源码在<a href="https://github.com/xinpan2/design-pattern" target="_blank" rel="external">我的github</a>中，大家可以自行下载来测试。</p>
+<p>设计模式的种类</p>
+<h1 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h1><p>这种类型大家可以从名字中知道，这类模式，用于创建对象，当然就包括了：</p>
+<p><a href="http://xinpaninjava.com/2016/05/21/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">简单工厂模式</a></p>
+<p><a href="http://xinpaninjava.com/2016/05/21/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">工厂方法模式</a></p>
+<p><a href="http://xinpaninjava.com/2016/05/22/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">抽象工厂模式</a></p>
+<p><a href="http://xinpaninjava.com/2016/05/23/%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">建造者模式</a>:相比工厂模式多了一个指挥者，把需要定义的复杂对象抽象出来，在子类中具体实现，指挥者通过调用抽象出来的类来获得复杂对象。</p>
+<p><a href="http://xinpaninjava.com/2016/05/23/%E5%8E%9F%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">原型设计模式</a>:这种模式通过使用对象克隆的方法来生成具有大部分相同属性的对象，生成的对象与原对象数据相同，地址不同。</p>
+<p><a href="http://xinpaninjava.com/2016/05/22/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">单例模式</a></p>
+<h1 id="结构型模式"><a href="#结构型模式" class="headerlink" title="结构型模式"></a>结构型模式</h1><p>这种类型的模式属于让系统的整体架构中的类解耦，使软件更易维护、扩展。</p>
+<p><a href="http://xinpaninjava.com/2016/06/16/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">适配器模式</a>:使本来互不兼容的部分兼容起来，大多用于软件的更新换代，想在不改变原来功能的前提下适应新需求。</p>
+<p><a href="http://xinpaninjava.com/2016/06/15/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">桥接模式</a>:将系统中涉及到多个维度的类使用接口分离开来，而不是像以前实现一样每次都定死一种类型，这样在加入新维度或者新增类型又要重新定义多个新类（维度*维度种新类），增加了系统的灵活性</p>
+<p><a href="http://xinpaninjava.com/2016/06/15/%E7%BB%84%E5%90%88%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">组合设计模式 </a>:使对具有树型结构的对象拥有共同的操作，只要让它们实现公共的接口，然后再子类中通过接口调用即可。如果不理解可以想象磁盘杀毒时，所有文件也被查杀。</p>
+<p><a href="http://xinpaninjava.com/2016/06/09/%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">装饰模式</a>: 这种使用具有装饰功能的类与需要被增加功能的类实现共同接口来添加新功能，这种行为的目的是为了叠加对被包装类进行扩展，而不是像以前一样使用继承，造成继承体系臃肿不说还多了好多个重复的类。</p>
+<p><a href="http://xinpaninjava.com/2016/06/14/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">外观模式</a>:这种模式最能体现OOP思想，把整个系统封装成一个接口，方便外部调用。就相当于电器一样，里面结构复杂，但是插电就可以使用，这跟电线就是外观模式的作用</p>
+<p><a href="http://xinpaninjava.com/2016/06/11/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">享元模式</a>: 这种模式大家可能会有困难跟原型模式混淆，其实很容易区分，这种模式是为了避免创建相同的对象，但是原型模式属于创建型模式</p>
+<p><a href="http://xinpaninjava.com/2016/06/13/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">代理模式</a>: 分为静态和动态代理，动态代理比较常用，该模式用于对要访问方法的控制，比如权限的控制，如果不懂可以联系显示生活中的房产中介和明星经纪人。通过这种模式只要在核心类关心核心功能即可，其他复杂细节由代理类实现。</p>
+<h1 id="行为型模式"><a href="#行为型模式" class="headerlink" title="行为型模式"></a>行为型模式</h1><p>该模式用于定义系统需要完成一种功能时，怎样设计更高效、易于扩展和维护</p>
+<p><a href="http://xinpaninjava.com/2016/06/18/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">责任链模式</a>:把所有能实现相同功能的对象实现共同的接口，并把它们连接起来或者放在一个容器中，在客户端只要调用这条责任链的第一个对象，直到完成处理某功能后才结束，而不用客户端关心谁处理的。</p>
+<p><a href="http://xinpaninjava.com/2016/06/20/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">命令模式</a>:用来处理当多个命令发送过来应该怎样处理，参照数据库的事务的处理。</p>
+<p><a href="http://xinpaninjava.com/2016/06/17/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F%E3%80%81%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">解释器模式</a>: 用来处理用户传过来的这一行指令怎样处理</p>
+<p><a href="http://xinpaninjava.com/2016/06/19/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">迭代器模式</a>:用于怎样遍历一个具有聚合对象的容器，实现思路是把遍历操作与删除、添加、修改操作分离开</p>
+<p><a href="http://xinpaninjava.com/2016/06/18/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">中介者模式</a>:该模式跟代理模式有相似之处，只不过这种模式解决的是多个对象之间的交互问题，但是代理模式解决的是多个对象对一个对象的交互问题。</p>
+<p><a href="http://xinpaninjava.com/2016/06/19/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">备忘录模式</a>:该模式经常在软件中体现，日常使用软件的撤销操作还有回溯历史版本操作，用于拷贝对象某时刻的状态，如果要实现开机恢复现场功能，就要把备份的对象持久化。</p>
+<p><a href="http://xinpaninjava.com/2016/06/10/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">观察者模式</a>: 用于实现1对多的广播方式，当某个被监测的对象发生变化时，对监视对象提醒以获得同步。</p>
+<p><a href="http://xinpaninjava.com/2016/06/19/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">状态模式 </a>:该模式用于处理当某个对象处于不同状态时的不同行为，比如网上购物的订单，酒店房间的状态，让状态实现共同的接口，然后再上下文（Context）对象中进行状态的切换，客户端是通过接口调用的，所以很容易扩展</p>
+<p><a href="http://xinpaninjava.com/2016/06/10/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">策略模式</a>:该模式用于在面对不同的条件有不同的算法的情况，把所有算法的公共行为抽取成接口，然后用不同的算法实现这个接口，在上下文中进行算法的切换，使用接口进行调用，这种方法方便扩展。</p>
+<p><a href="http://xinpaninjava.com/2016/06/19/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">模板方法模式</a>:这种模式用于在处理流程确定的情况下，针对不同请求的不同处理的实现，在父类中设计不可覆写的流程方法，让子类来实现具体的业务处理，在调用时依然调用父类的流程方法，只不过用的是子类的具体业务的实现。</p>
+<p><a href="http://xinpaninjava.com/2016/06/17/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F%E3%80%81%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F/" target="_blank" rel="external">访问者模式</a>:该模式用于访问拥有不同类型对象的容器在不改变原有类型的前提下对容器进行访问、解析</p>
+<p>学完了设计模式，主要还是要学会怎样运用在开发中，这点还需要你我共同在以后的开发中逐渐体会，大家共同进步！</p>
+<p>【全文完】</p>
+<p>参考资料</p>
+<p><a href="https://en.wikipedia.org/wiki/Software_design_pattern" target="_blank" rel="external">wiki/Software_design_pattern</a></p>
+<hr>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/qrcode_for_gh_69fa03eccdf5_430.jpg" alt="XinPan wechat" style="width: 200px; max-width: 100%;"/>
+    <div>看完文章有感而发？或者你有什么不一样的见解？欢迎您扫一扫上面的微信公众号，订阅我的博客！！！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/18/命令模式/" rel="next" title="命令模式">
+                <i class="fa fa-chevron-left"></i> 命令模式
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/18/设计模式导读目录/"
+           data-title="设计模式导读目录" data-url="http://xinpan2.github.io/2016/08/18/设计模式导读目录/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">113</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#创建型模式"><span class="nav-number">1.</span> <span class="nav-text">创建型模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结构型模式"><span class="nav-number">2.</span> <span class="nav-text">结构型模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#行为型模式"><span class="nav-number">3.</span> <span class="nav-text">行为型模式</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
