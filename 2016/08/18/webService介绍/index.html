@@ -92,7 +92,7 @@
 <meta property="og:site_name" content="Path">
 <meta property="og:description" content="场景引入比如现在某个公司旗下有：人员管理系统、物流系统、企业门户网站这几个系统，可是它们都是相互孤立的系统，即这几个系统都是使用不同的编程语言和数据库实现的，所以要让这几个系统数据同步代价非常高的。
 假如公司现在聘请了一批人，人事部门最先知道，所以人员管理系统中录入了信息，但是其他系统要想同步，可以通过发送txt文件、共享数据库、edi报文来实现。但是，txt文件在http协议中传输容易被抓下来，">
-<meta property="og:updated_time" content="2016-08-18T11:34:40.133Z">
+<meta property="og:updated_time" content="2016-08-18T12:06:55.608Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webService介绍">
 <meta name="twitter:description" content="场景引入比如现在某个公司旗下有：人员管理系统、物流系统、企业门户网站这几个系统，可是它们都是相互孤立的系统，即这几个系统都是使用不同的编程语言和数据库实现的，所以要让这几个系统数据同步代价非常高的。
@@ -336,6 +336,8 @@
 </blockquote>
 <p>大意：</p>
 <p>Interoperability是一种系统或者产品的特点，它的接口能够完全被理解并且与其他产品或系统在现在或未来协作，这些产品或系统的实现和访问没有任何的限制</p>
+<h1 id="webService好处"><a href="#webService好处" class="headerlink" title="webService好处"></a>webService好处</h1><p>要实现机器间通信，我们可以用socket，但是需要另外开端口监听，但是大部分端口默认情况下是关闭，比如上一篇文章中，测试windows环境下的hadoop编程，测试显示文件名时候，就要手动关闭防火墙，但是webService使用的是http协议的端口号，避免了开端口问题。</p>
+<p>同时增加了软件的复用性，系统的功能不用像以前那样为了一些功能重新做或者自己做一个系统，减少了开销，比如让淘宝自己做物流系统，开支就有点大了，但是可以通过webService来集成不同应用的功能</p>
 <p>【全文完】</p>
 <p>参考资料：</p>
 <p><a href="https://en.wikipedia.org/wiki/Interoperability" target="_blank" rel="external">wiki–Interoperability</a></p>
@@ -499,7 +501,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#场景引入"><span class="nav-number">1.</span> <span class="nav-text">场景引入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#webService定义"><span class="nav-number">2.</span> <span class="nav-text">webService定义</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#场景引入"><span class="nav-number">1.</span> <span class="nav-text">场景引入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#webService定义"><span class="nav-number">2.</span> <span class="nav-text">webService定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#webService好处"><span class="nav-number">3.</span> <span class="nav-text">webService好处</span></a></li></ol></div>
             
           </div>
         </section>
