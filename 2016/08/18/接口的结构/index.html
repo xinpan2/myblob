@@ -1,0 +1,682 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+在jdk8以前，我们所了解的接口只包含两种成员：全局常量、抽象方法，但是在jdk8中，我们可以在接口中定义普通方法、静态方法、内部接口/枚举/注解/类。
+在接口中设计方法
+从上面的代码我们可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="接口的结构">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/18/接口的结构/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+在jdk8以前，我们所了解的接口只包含两种成员：全局常量、抽象方法，但是在jdk8中，我们可以在接口中定义普通方法、静态方法、内部接口/枚举/注解/类。
+在接口中设计方法
+从上面的代码我们可以">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/jdk8%E6%8E%A5%E5%8F%A3%E6%96%B0%E7%89%B9%E6%80%A71.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/jdk8%E6%8E%A5%E5%8F%A3%E6%96%B0%E7%89%B9%E6%80%A7%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/jdk8%E6%8E%A5%E5%8F%A3%E6%96%B0%E7%89%B9%E6%80%A72.png">
+<meta property="og:updated_time" content="2016-08-18T13:30:09.584Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="接口的结构">
+<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+在jdk8以前，我们所了解的接口只包含两种成员：全局常量、抽象方法，但是在jdk8中，我们可以在接口中定义普通方法、静态方法、内部接口/枚举/注解/类。
+在接口中设计方法
+从上面的代码我们可以">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/jdk8%E6%8E%A5%E5%8F%A3%E6%96%B0%E7%89%B9%E6%80%A71.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/18/接口的结构/"/>
+
+  <title> 接口的结构 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                接口的结构
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-18T10:00:00+08:00" content="2016-08-18">
+              2016-08-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/jdk8/" itemprop="url" rel="index">
+                    <span itemprop="name">jdk8</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/18/接口的结构/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/18/接口的结构/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
+<p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
+<hr>
+<p>在jdk8以前，我们所了解的接口只包含两种成员：全局常量、抽象方法，但是在jdk8中，我们可以在接口中定义普通方法、静态方法、内部接口/枚举/注解/类。</p>
+<h1 id="在接口中设计方法"><a href="#在接口中设计方法" class="headerlink" title="在接口中设计方法"></a>在接口中设计方法</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/jdk8%E6%8E%A5%E5%8F%A3%E6%96%B0%E7%89%B9%E6%80%A71.png" alt=""></p>
+<p>从上面的代码我们可以发现，这次没有报错，但是在定义普通方法时，发现public和default竟然可以共存，其实default是在接口中定义普通方法的标识，其实我们也可以直接 static/default 返回值 函数名 来设计函数，因为接口在编译完成后会自动加上默认的修饰符。</p>
+<h1 id="调用接口中定义的方法"><a href="#调用接口中定义的方法" class="headerlink" title="调用接口中定义的方法"></a>调用接口中定义的方法</h1><p>那先从简单的开始说：</p>
+<h2 id="静态方法调用"><a href="#静态方法调用" class="headerlink" title="静态方法调用"></a>静态方法调用</h2><p>静态方法是绑定在具体的类/接口中的，所以调用时不需要实例化，可以通过接口名.方法名 直接调用。</p>
+<h2 id="普通方法调用"><a href="#普通方法调用" class="headerlink" title="普通方法调用"></a>普通方法调用</h2><p>普通方法需要通过对象来调用，但是接口/抽象类不能被实例化，所以只能通过创建一个实现了该接口的子类的对象来调用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.aboutinterface;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * to test the define concrete method body in the interface cannot be invoked</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">// static method</span></div><div class="line">		IPuppy.staticMethod();</div><div class="line">		<span class="comment">// default method</span></div><div class="line">		IPuppyImpl iPuppyImpl = <span class="keyword">new</span> IPuppyImpl();</div><div class="line">		iPuppyImpl.defaultMethod();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/jdk8%E6%8E%A5%E5%8F%A3%E6%96%B0%E7%89%B9%E6%80%A7%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C1.png" alt=""></p>
+<h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><h2 id="关于接口与多继承的问题"><a href="#关于接口与多继承的问题" class="headerlink" title="关于接口与多继承的问题"></a>关于接口与多继承的问题</h2><p>我记得在刚刚开始学javaSE时，常常看到java不直接支持多继承这几个字眼，当时我理解成jdk设计者通过设计接口来曲线实现多继承，就只有一个原因：一个类可以实现多个接口而只能直接继承一个类。在后来学习到软件工程和设计模式时，我理解到，接口对于软件的多态性和许多开发软件的原则（比如开闭原则）特别有用，说的通俗一点就是解耦。对于软件的设计，尽量高内聚低耦合，因为软件的维护占据了软件生命周期的最大份比例。</p>
+<p>话说回来当初java没有从c++中把多继承也拿过来的原因是：”多继承存在安全问题“，当我们有两个接口，分别为A、B，并且它们拥有一样的方法，现在有一个类C同时实现接口A、B，如果它们同样的方法是静态方法，那倒不会报错，因为静态方法是绑定在所在的类/接口中，但如果是普通方法，那么就会报错，原因还是安全问题，在调用时分不清调用的是哪个方法。</p>
+<p>上面这段话也同时隐含了：实现类可以覆写接口中的方法，如果怕出错，可以借助注解。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/jdk8%E6%8E%A5%E5%8F%A3%E6%96%B0%E7%89%B9%E6%80%A72.png" alt=""></p>
+<p>此时IDE会提示，如果你要修改这个错误，可以通过覆写其中一个接口中相同的方法，如果覆写了，就相当于两个接口都没有设计这个方法一样，画蛇添足。</p>
+<p>还有一点需要注意的是：在思考实现类调用哪个接口的哪个方法时，不要与继承弄混淆了，只有继承才涉及到super关键字，并且类C的父类是Object！！！</p>
+<p>所以结论是：java不支持多继承，接口也没有要实现多继承！！！</p>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="http://pan.baidu.com/s/1hrMomPI" target="_blank" rel="external">《Beginning Java 8 Fundamentals》chapter17.Interfaces</a></p>
+<p><a href="http://pan.baidu.com/s/1bTlXvS" target="_blank" rel="external">李兴华-接口定义增强</a></p>
+<p><a href="http://pan.baidu.com/s/1bpqQ6ej" target="_blank" rel="external">黑马程序员JDK8新特性接口01</a></p>
+<hr>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/qrcode_for_gh_69fa03eccdf5_430.jpg" alt="XinPan wechat" style="width: 200px; max-width: 100%;"/>
+    <div>看完文章有感而发？或者你有什么不一样的见解？欢迎您扫一扫上面的微信公众号，订阅我的博客！！！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/18/设计模式导读目录/" rel="next" title="设计模式导读目录">
+                <i class="fa fa-chevron-left"></i> 设计模式导读目录
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/18/lambda表达式及函数式编程/" rel="prev" title="lambda表达式及函数式编程">
+                lambda表达式及函数式编程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/18/接口的结构/"
+           data-title="接口的结构" data-url="http://xinpan2.github.io/2016/08/18/接口的结构/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">134</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#在接口中设计方法"><span class="nav-number">1.</span> <span class="nav-text">在接口中设计方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#调用接口中定义的方法"><span class="nav-number">2.</span> <span class="nav-text">调用接口中定义的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#静态方法调用"><span class="nav-number">2.1.</span> <span class="nav-text">静态方法调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#普通方法调用"><span class="nav-number">2.2.</span> <span class="nav-text">普通方法调用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些思考"><span class="nav-number">3.</span> <span class="nav-text">一些思考</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于接口与多继承的问题"><span class="nav-number">3.1.</span> <span class="nav-text">关于接口与多继承的问题</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
