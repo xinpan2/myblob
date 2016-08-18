@@ -87,28 +87,27 @@
 <meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
 所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
 
-struts2的由来struts2是利了WebWork2的核心+struts1的名气，并且与struts1的编程风格差别很大。
-struts2与struts1的区别
-struts2是无侵入式设">
+国际化，一般对应着资源文件（properties），但是在struts2中，资源文件有3个范围的作用域，分别是全局资源文件、包资源文件、动作类资源文件。
+国际化一般是对于信息的显示起作用，那么">
 <meta property="og:type" content="article">
-<meta property="og:title" content="struts2的简介—_小记">
-<meta property="og:url" content="http://xinpan2.github.io/2016/08/17/struts2的简介—_小记/index.html">
+<meta property="og:title" content="struts2对国际化的支持">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/18/struts2对国际化的支持/index.html">
 <meta property="og:site_name" content="Path">
 <meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
 所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
 
-struts2的由来struts2是利了WebWork2的核心+struts1的名气，并且与struts1的编程风格差别很大。
-struts2与struts1的区别
-struts2是无侵入式设">
-<meta property="og:updated_time" content="2016-08-17T15:02:12.989Z">
+国际化，一般对应着资源文件（properties），但是在struts2中，资源文件有3个范围的作用域，分别是全局资源文件、包资源文件、动作类资源文件。
+国际化一般是对于信息的显示起作用，那么">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150808185158198.jpg">
+<meta property="og:updated_time" content="2016-08-17T15:10:35.778Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="struts2的简介—_小记">
+<meta name="twitter:title" content="struts2对国际化的支持">
 <meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
 所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
 
-struts2的由来struts2是利了WebWork2的核心+struts1的名气，并且与struts1的编程风格差别很大。
-struts2与struts1的区别
-struts2是无侵入式设">
+国际化，一般对应着资源文件（properties），但是在struts2中，资源文件有3个范围的作用域，分别是全局资源文件、包资源文件、动作类资源文件。
+国际化一般是对于信息的显示起作用，那么">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150808185158198.jpg">
 
 
 
@@ -129,9 +128,9 @@ struts2是无侵入式设">
 
 
 
-  <link rel="canonical" href="http://xinpan2.github.io/2016/08/17/struts2的简介—_小记/"/>
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/18/struts2对国际化的支持/"/>
 
-  <title> struts2的简介—_小记 | Path </title>
+  <title> struts2对国际化的支持 | Path </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -261,7 +260,7 @@ struts2是无侵入式设">
             
             
               
-                struts2的简介—_小记
+                struts2对国际化的支持
               
             
           </h1>
@@ -273,8 +272,8 @@ struts2是无侵入式设">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-17T20:58:11+08:00" content="2016-08-17">
-              2016-08-17
+            <time itemprop="dateCreated" datetime="2016-08-18T20:23:46+08:00" content="2016-08-18">
+              2016-08-18
             </time>
           </span>
 
@@ -303,8 +302,8 @@ struts2是无侵入式设">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/17/struts2的简介—_小记/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/17/struts2的简介—_小记/" itemprop="commentsCount"></span>
+                <a href="/2016/08/18/struts2对国际化的支持/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/18/struts2对国际化的支持/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -330,28 +329,49 @@ struts2是无侵入式设">
         <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
 <p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
 <hr>
-<h1 id="struts2的由来"><a href="#struts2的由来" class="headerlink" title="struts2的由来"></a>struts2的由来</h1><p>struts2是利了WebWork2的核心+struts1的名气，并且与struts1的编程风格差别很大。</p>
-<h1 id="struts2与struts1的区别"><a href="#struts2与struts1的区别" class="headerlink" title="struts2与struts1的区别"></a>struts2与struts1的区别</h1><ul>
-<li><p>struts2是无侵入式设计，而struts1是侵入式设计（struts1中的所有action都要继承一个Action类，并覆写其中的execute（abstract）方法</p>
-<p>这里引入一个老生常谈的方法：</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> ActionForward <span class="title">execute</span><span class="params">(ActionMapping mapping,</span></span></div><div class="line">					ActionForm form,</div><div class="line">					javax.servlet.ServletRequest request,</div><div class="line">					javax.servlet.ServletResponse response)</div><div class="line">					<span class="keyword">throws</span> java.lang.Exception</div></pre></td></tr></table></figure>
-<p>这里的javax.servlet.ServletRequest request还有response都是当作参数传进来，如果没有这两个参数，则使用不了struts1的框架，这里的框架与API的耦合度高。 但是在struts2种的execute方法，变成了这样：</p>
-<p><code>String execute()throws Exception</code></p>
-<p>上面的方法是空参，这意味着，struts2实现了与servletAPI和strutsAPI的解耦。判断是否为侵入式设计，网上说这个是相对的，struts2相对于struts1来说，没有那么依赖servletAPI和strutsAPI，但是这个框架还是要运行在servlet容器（或者说引擎）里</p>
+<p>国际化，一般对应着资源文件（properties），但是在struts2中，资源文件有3个范围的作用域，分别是全局资源文件、包资源文件、动作类资源文件。</p>
+<p>国际化一般是对于信息的显示起作用，那么jsp如何读取资源文件的内容呢？动作类又怎样读取资源文件的内容呢？</p>
+<p>首先，我们要把各种范围的资源文件都创建好。</p>
 <ul>
-<li><p>struts1对于用户输入的数据要进行数据的转换时,要通过底层调用BeanUtils来进行数据转换器的注册,而struts2把这些步骤都写到框架里面了.</p>
+<li>全局资源文件</li>
+</ul>
+<p>在Web-Inf/Classes目录下，新建格式为:名字<em>语言</em>国家</p>
+<p>其中中文的value不能直接在properties的source环境下输入，可以借助properties环境下输入，myeclipse会自动帮我们转成字符。</p>
+<ul>
+<li>包资源文件</li>
+</ul>
+<p>名称格式为：package<em>语言</em>国家</p>
+<ul>
+<li>动作类资源文件</li>
+</ul>
+<p>名称格式为：动作类名<em>语言</em>国家</p>
+<p>如图所示：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150808185158198.jpg" alt=""></p>
+<p>里面的内容分别为：welcome=hello、你好</p>
+<p>但是为了区分包和动作类，分别在后面添加了package，action等内容</p>
+<h2 id="jsp读取资源文件的内容"><a href="#jsp读取资源文件的内容" class="headerlink" title="jsp读取资源文件的内容"></a>jsp读取资源文件的内容</h2><ul>
+<li>读取全局资源文件</li>
+</ul>
+<p>在jsp页面中，利用struts提供个标签，s:text，其中的name为properties对应的value。代码如下</p>
+<p><code>&lt;s:text name=&quot;welcome&quot;&gt;&lt;/s:text&gt;</code></p>
+<p>访问的时候，直接输入:<code>http//localhost:8080/struts2Day03/i18n.jsp</code>浏览器就会根据本地的浏览器的语言来选择显式中文还是英文。</p>
+<ul>
+<li><p>如果想使用占位符的形式，那么需要在properties文件的value内容中添加{0} {1}之类的占位符，然后设置的内容就在jsp页面中，利用下面的标签来设置其中的内容，对应其中的顺序即可。</p>
 </li>
-<li><p>struts2提供了拦截器（过滤器又名拦截器，俗名：保安）,利用拦截器可以实现AOP编程（面向方面编程）,在struts1中，Mvc的C是servlet,在struts2是filter.</p>
-</li>
-<li><p>struts1中对于用户输入的信息进行验证时，必须对所有的字段进行验证，而struts2中，可以对指定的字段进行验证。</p>
-</li>
-<li><p>struts1的显示层只支持jsp,但struts2支持jsp、 velocity（myEclipse的jsp模版就是使用它写的）等。</p>
-</li>
-<li><p>struts2提供了全局范围、包范围、action范围的国际化资源文件的管理（其中国际化资源文件的扩展名为：*.properties</p>
+<li><p>如果想访问包范围，或者动作类的资源文件，那么就要通过来实现，其中的name属性，为要访问的资源文件的名称。如访问包资源文件，name格式为：<code>cn/ansel/i18n/package</code>,访问动作类：<code>cn/ansel/i18n/i118nAction</code></p>
 </li>
 </ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;s:i18n name="cn/ansel/i18n/package"&gt;</div><div class="line">            &lt;s:text name="welcome"&gt;</div><div class="line">                &lt;s:param&gt;qwer&lt;/s:param&gt;</div><div class="line">                &lt;s:param&gt;qasd&lt;/s:param&gt;</div><div class="line">            &lt;/s:text&gt;</div><div class="line">&lt;/s:i18n&gt;</div></pre></td></tr></table></figure>
+<h2 id="动作类读取资源文件"><a href="#动作类读取资源文件" class="headerlink" title="动作类读取资源文件"></a>动作类读取资源文件</h2><p>通过在struts.xml文件中，先配置好目标动作类，及结果处理</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;action name="i18n" class="cn.ansel.i18n.i18nAction"&gt;</div><div class="line">          &lt;result name="success"&gt;/sucess.jsp&lt;/result&gt;</div><div class="line">      &lt;/action&gt;</div></pre></td></tr></table></figure>
+<p>创建目标动作类，并且继承actionSupport类、继承该类的目的在于要使用其中的getText来读取资源文件</p>
+<p>把读取到的信息放到request中，然后通过配置文件中的result结果转到目标页面中输出信息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">String value=getText(<span class="string">"welcome"</span>,value);</div><div class="line">        ActionContext.getContext().put(<span class="string">"message"</span>, value);</div><div class="line">        <span class="keyword">return</span> SUCCESS;</div></pre></td></tr></table></figure>
+<p>注意：如果value是数组的话(即使用了占位符)，可以写成：</p>
+<p><code>String value=getText(&quot;welcome&quot;,new String[]{&quot;param1&quot;,&quot;param2&quot;,...});</code></p>
+<p>然后结果处理的Jsp页面直接使用El表达式即可获取到内容，这里由于我把信息放到了message中，所以jsp页面使用的表达式为：</p>
+<p><code>${message}</code></p>
+<p><strong><em>note that:关于资源文件读取的优先级，从最具体的开始，即动作类&gt;包&gt;全局，按照如上的顺序，找到就停止寻找。</em></strong></p>
 <hr>
 
       
@@ -383,12 +403,16 @@ struts2是无侵入式设">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/08/18/ognl表达式入门/" rel="next" title="ognl表达式入门">
+                <i class="fa fa-chevron-left"></i> ognl表达式入门
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/08/18/自定义拦截器/" rel="prev" title="自定义拦截器">
-                自定义拦截器 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/08/18/用户输入验证/" rel="prev" title="用户输入验证">
+                用户输入验证 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -415,8 +439,8 @@ struts2是无侵入式设">
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/17/struts2的简介—_小记/"
-           data-title="struts2的简介—_小记" data-url="http://xinpan2.github.io/2016/08/17/struts2的简介—_小记/">
+      <div class="ds-thread" data-thread-key="2016/08/18/struts2对国际化的支持/"
+           data-title="struts2对国际化的支持" data-url="http://xinpan2.github.io/2016/08/18/struts2对国际化的支持/">
       </div>
     
   </div>
@@ -511,7 +535,7 @@ struts2是无侵入式设">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#struts2的由来"><span class="nav-number">1.</span> <span class="nav-text">struts2的由来</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#struts2与struts1的区别"><span class="nav-number">2.</span> <span class="nav-text">struts2与struts1的区别</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#jsp读取资源文件的内容"><span class="nav-number">1.</span> <span class="nav-text">jsp读取资源文件的内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动作类读取资源文件"><span class="nav-number">2.</span> <span class="nav-text">动作类读取资源文件</span></a></li></ol></div>
             
           </div>
         </section>

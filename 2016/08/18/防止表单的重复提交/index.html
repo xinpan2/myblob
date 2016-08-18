@@ -87,28 +87,28 @@
 <meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
 所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
 
-struts2的由来struts2是利了WebWork2的核心+struts1的名气，并且与struts1的编程风格差别很大。
-struts2与struts1的区别
-struts2是无侵入式设">
+struts2为我们提供了标签，其原理也是跟之前在javaWeb中的一致，通过设置token的值，判断两次提交的token是否一致来辨别是否重复提交；但是struts中是利用拦截器实现了这样的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="struts2的简介—_小记">
-<meta property="og:url" content="http://xinpan2.github.io/2016/08/17/struts2的简介—_小记/index.html">
+<meta property="og:title" content="防止表单的重复提交">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/18/防止表单的重复提交/index.html">
 <meta property="og:site_name" content="Path">
 <meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
 所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
 
-struts2的由来struts2是利了WebWork2的核心+struts1的名气，并且与struts1的编程风格差别很大。
-struts2与struts1的区别
-struts2是无侵入式设">
-<meta property="og:updated_time" content="2016-08-17T15:02:12.989Z">
+struts2为我们提供了标签，其原理也是跟之前在javaWeb中的一致，通过设置token的值，判断两次提交的token是否一致来辨别是否重复提交；但是struts中是利用拦截器实现了这样的">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150810113427342.jpg">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150810114128258.jpg">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/2.jpg">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/4.jpg">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/5.jpg">
+<meta property="og:updated_time" content="2016-08-17T15:14:05.518Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="struts2的简介—_小记">
+<meta name="twitter:title" content="防止表单的重复提交">
 <meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
 所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
 
-struts2的由来struts2是利了WebWork2的核心+struts1的名气，并且与struts1的编程风格差别很大。
-struts2与struts1的区别
-struts2是无侵入式设">
+struts2为我们提供了标签，其原理也是跟之前在javaWeb中的一致，通过设置token的值，判断两次提交的token是否一致来辨别是否重复提交；但是struts中是利用拦截器实现了这样的">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150810113427342.jpg">
 
 
 
@@ -129,9 +129,9 @@ struts2是无侵入式设">
 
 
 
-  <link rel="canonical" href="http://xinpan2.github.io/2016/08/17/struts2的简介—_小记/"/>
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/18/防止表单的重复提交/"/>
 
-  <title> struts2的简介—_小记 | Path </title>
+  <title> 防止表单的重复提交 | Path </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -261,7 +261,7 @@ struts2是无侵入式设">
             
             
               
-                struts2的简介—_小记
+                防止表单的重复提交
               
             
           </h1>
@@ -273,8 +273,8 @@ struts2是无侵入式设">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-17T20:58:11+08:00" content="2016-08-17">
-              2016-08-17
+            <time itemprop="dateCreated" datetime="2016-08-18T20:23:46+08:00" content="2016-08-18">
+              2016-08-18
             </time>
           </span>
 
@@ -303,8 +303,8 @@ struts2是无侵入式设">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/17/struts2的简介—_小记/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/17/struts2的简介—_小记/" itemprop="commentsCount"></span>
+                <a href="/2016/08/18/防止表单的重复提交/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/18/防止表单的重复提交/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -330,28 +330,23 @@ struts2是无侵入式设">
         <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
 <p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
 <hr>
-<h1 id="struts2的由来"><a href="#struts2的由来" class="headerlink" title="struts2的由来"></a>struts2的由来</h1><p>struts2是利了WebWork2的核心+struts1的名气，并且与struts1的编程风格差别很大。</p>
-<h1 id="struts2与struts1的区别"><a href="#struts2与struts1的区别" class="headerlink" title="struts2与struts1的区别"></a>struts2与struts1的区别</h1><ul>
-<li><p>struts2是无侵入式设计，而struts1是侵入式设计（struts1中的所有action都要继承一个Action类，并覆写其中的execute（abstract）方法</p>
-<p>这里引入一个老生常谈的方法：</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> ActionForward <span class="title">execute</span><span class="params">(ActionMapping mapping,</span></span></div><div class="line">					ActionForm form,</div><div class="line">					javax.servlet.ServletRequest request,</div><div class="line">					javax.servlet.ServletResponse response)</div><div class="line">					<span class="keyword">throws</span> java.lang.Exception</div></pre></td></tr></table></figure>
-<p>这里的javax.servlet.ServletRequest request还有response都是当作参数传进来，如果没有这两个参数，则使用不了struts1的框架，这里的框架与API的耦合度高。 但是在struts2种的execute方法，变成了这样：</p>
-<p><code>String execute()throws Exception</code></p>
-<p>上面的方法是空参，这意味着，struts2实现了与servletAPI和strutsAPI的解耦。判断是否为侵入式设计，网上说这个是相对的，struts2相对于struts1来说，没有那么依赖servletAPI和strutsAPI，但是这个框架还是要运行在servlet容器（或者说引擎）里</p>
-<ul>
-<li><p>struts1对于用户输入的数据要进行数据的转换时,要通过底层调用BeanUtils来进行数据转换器的注册,而struts2把这些步骤都写到框架里面了.</p>
-</li>
-<li><p>struts2提供了拦截器（过滤器又名拦截器，俗名：保安）,利用拦截器可以实现AOP编程（面向方面编程）,在struts1中，Mvc的C是servlet,在struts2是filter.</p>
-</li>
-<li><p>struts1中对于用户输入的信息进行验证时，必须对所有的字段进行验证，而struts2中，可以对指定的字段进行验证。</p>
-</li>
-<li><p>struts1的显示层只支持jsp,但struts2支持jsp、 velocity（myEclipse的jsp模版就是使用它写的）等。</p>
-</li>
-<li><p>struts2提供了全局范围、包范围、action范围的国际化资源文件的管理（其中国际化资源文件的扩展名为：*.properties</p>
-</li>
-</ul>
+<p>struts2为我们提供了标签，其原理也是跟之前在javaWeb中的一致，通过设置token的值，判断两次提交的token是否一致来辨别是否重复提交；但是struts中是利用拦截器实现了这样的功能。</p>
+<p>在struts2中是这样完成的：</p>
+<p>先做好表单提交的页面，详细的功能如form的method，还有input等功能，框架已经帮我们封装好了。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;s:form action="addCustomer" namespace="/ns1"&gt;</div><div class="line">  &lt;s:token&gt;&lt;/s:token&gt;</div><div class="line">      &lt;s:textfield name="username" label="用户名"&gt;&lt;/s:textfield&gt;</div><div class="line">      &lt;s:submit value="保存"&gt;&lt;/s:submit&gt;</div><div class="line">  &lt;/s:form&gt;</div></pre></td></tr></table></figure>
+<p>根据表单中的action，namespace编写struts.xml中的动作类</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;package name="p1" namespace="/ns1" extends="struts-default"&gt;</div><div class="line">      &lt;action name="addCustomer" class="cn.ansel.domain.Customer" method="add"&gt;</div><div class="line">          &lt;interceptor-ref name="defaultStack"&gt;&lt;/interceptor-ref&gt;</div><div class="line">          &lt;interceptor-ref name="token"&gt;&lt;/interceptor-ref&gt;</div><div class="line">          &lt;result name="invalid.token"&gt;/success.jsp&lt;/result&gt;</div><div class="line">          &lt;result name="success"&gt;/success.jsp&lt;/result&gt;</div><div class="line">      &lt;/action&gt;</div><div class="line">  &lt;/package&gt;</div></pre></td></tr></table></figure>
+<p>根据struts.xml创建相关的类及方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Customer</span> <span class="keyword">extends</span> <span class="title">ActionSupport</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String username;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getUsername</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> username;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUsername</span><span class="params">(String username)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.username = username;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">add</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(username);</div><div class="line">        <span class="keyword">return</span> SUCCESS;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>在这里也许会有疑问，为什么要注册2个拦截器呢？在文章的开头已经说到，struts2中是利用拦截器完成防止表单的重复提交功能，那么这样就很明显的说明，token拦截器不属于defaultStack，而且，在前面自定义拦截器那一章中我们讨论到如何注册拦截器。</p>
+<p>至于返回结果为 invalid.token ,是我在只返回success结果时候，我再重复提交一次，网页上报错。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150810113427342.jpg" alt=""></p>
+<p>当我按照要求设置了该返回值之后，我再尝试在提交表单成功的页面中刷新3次页面，我用步骤记录器记录下来是这样的：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150810114128258.jpg" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/2.jpg" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/4.jpg" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/5.jpg" alt=""></p>
+<p>大家可以注意一下myecplise的控制台中输出的信息，它只是给了我们警告而已！<br>由此可以看出，框架带给我们的便利，大概就是从繁重的代码中解脱出来，把精力更多的集中在业务的需求上吧？</p>
 <hr>
 
       
@@ -383,12 +378,16 @@ struts2是无侵入式设">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/08/18/struts2的环境搭建/" rel="next" title="struts2的环境搭建">
+                <i class="fa fa-chevron-left"></i> struts2的环境搭建
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/08/18/自定义拦截器/" rel="prev" title="自定义拦截器">
-                自定义拦截器 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/08/18/ognl表达式的部分功能/" rel="prev" title="ognl表达式的部分功能">
+                ognl表达式的部分功能 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -415,8 +414,8 @@ struts2是无侵入式设">
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/17/struts2的简介—_小记/"
-           data-title="struts2的简介—_小记" data-url="http://xinpan2.github.io/2016/08/17/struts2的简介—_小记/">
+      <div class="ds-thread" data-thread-key="2016/08/18/防止表单的重复提交/"
+           data-title="防止表单的重复提交" data-url="http://xinpan2.github.io/2016/08/18/防止表单的重复提交/">
       </div>
     
   </div>
@@ -511,7 +510,7 @@ struts2是无侵入式设">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#struts2的由来"><span class="nav-number">1.</span> <span class="nav-text">struts2的由来</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#struts2与struts1的区别"><span class="nav-number">2.</span> <span class="nav-text">struts2与struts1的区别</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>

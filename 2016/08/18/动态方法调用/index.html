@@ -87,28 +87,31 @@
 <meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
 所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
 
-struts2的由来struts2是利了WebWork2的核心+struts1的名气，并且与struts1的编程风格差别很大。
-struts2与struts1的区别
-struts2是无侵入式设">
+动态方法调用有两种：
+
+通过在动作名后面加上!+相应要调用的动作名。该方法官方不建议使用，并且这种调用可以关闭，在default.properties文件中找到struts.enable.Dy">
 <meta property="og:type" content="article">
-<meta property="og:title" content="struts2的简介—_小记">
-<meta property="og:url" content="http://xinpan2.github.io/2016/08/17/struts2的简介—_小记/index.html">
+<meta property="og:title" content="动态方法调用">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/18/动态方法调用/index.html">
 <meta property="og:site_name" content="Path">
 <meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
 所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
 
-struts2的由来struts2是利了WebWork2的核心+struts1的名气，并且与struts1的编程风格差别很大。
-struts2与struts1的区别
-struts2是无侵入式设">
-<meta property="og:updated_time" content="2016-08-17T15:02:12.989Z">
+动态方法调用有两种：
+
+通过在动作名后面加上!+相应要调用的动作名。该方法官方不建议使用，并且这种调用可以关闭，在default.properties文件中找到struts.enable.Dy">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150803140804009.jpg">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150803141126100.jpg">
+<meta property="og:updated_time" content="2016-08-17T15:08:51.455Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="struts2的简介—_小记">
+<meta name="twitter:title" content="动态方法调用">
 <meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
 所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
 
-struts2的由来struts2是利了WebWork2的核心+struts1的名气，并且与struts1的编程风格差别很大。
-struts2与struts1的区别
-struts2是无侵入式设">
+动态方法调用有两种：
+
+通过在动作名后面加上!+相应要调用的动作名。该方法官方不建议使用，并且这种调用可以关闭，在default.properties文件中找到struts.enable.Dy">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150803140804009.jpg">
 
 
 
@@ -129,9 +132,9 @@ struts2是无侵入式设">
 
 
 
-  <link rel="canonical" href="http://xinpan2.github.io/2016/08/17/struts2的简介—_小记/"/>
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/18/动态方法调用/"/>
 
-  <title> struts2的简介—_小记 | Path </title>
+  <title> 动态方法调用 | Path </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -261,7 +264,7 @@ struts2是无侵入式设">
             
             
               
-                struts2的简介—_小记
+                动态方法调用
               
             
           </h1>
@@ -273,8 +276,8 @@ struts2是无侵入式设">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-17T20:58:11+08:00" content="2016-08-17">
-              2016-08-17
+            <time itemprop="dateCreated" datetime="2016-08-18T20:23:46+08:00" content="2016-08-18">
+              2016-08-18
             </time>
           </span>
 
@@ -303,8 +306,8 @@ struts2是无侵入式设">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/17/struts2的简介—_小记/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/17/struts2的简介—_小记/" itemprop="commentsCount"></span>
+                <a href="/2016/08/18/动态方法调用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/18/动态方法调用/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -330,28 +333,23 @@ struts2是无侵入式设">
         <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
 <p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
 <hr>
-<h1 id="struts2的由来"><a href="#struts2的由来" class="headerlink" title="struts2的由来"></a>struts2的由来</h1><p>struts2是利了WebWork2的核心+struts1的名气，并且与struts1的编程风格差别很大。</p>
-<h1 id="struts2与struts1的区别"><a href="#struts2与struts1的区别" class="headerlink" title="struts2与struts1的区别"></a>struts2与struts1的区别</h1><ul>
-<li><p>struts2是无侵入式设计，而struts1是侵入式设计（struts1中的所有action都要继承一个Action类，并覆写其中的execute（abstract）方法</p>
-<p>这里引入一个老生常谈的方法：</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> ActionForward <span class="title">execute</span><span class="params">(ActionMapping mapping,</span></span></div><div class="line">					ActionForm form,</div><div class="line">					javax.servlet.ServletRequest request,</div><div class="line">					javax.servlet.ServletResponse response)</div><div class="line">					<span class="keyword">throws</span> java.lang.Exception</div></pre></td></tr></table></figure>
-<p>这里的javax.servlet.ServletRequest request还有response都是当作参数传进来，如果没有这两个参数，则使用不了struts1的框架，这里的框架与API的耦合度高。 但是在struts2种的execute方法，变成了这样：</p>
-<p><code>String execute()throws Exception</code></p>
-<p>上面的方法是空参，这意味着，struts2实现了与servletAPI和strutsAPI的解耦。判断是否为侵入式设计，网上说这个是相对的，struts2相对于struts1来说，没有那么依赖servletAPI和strutsAPI，但是这个框架还是要运行在servlet容器（或者说引擎）里</p>
+<p>动态方法调用有两种：</p>
 <ul>
-<li><p>struts1对于用户输入的数据要进行数据的转换时,要通过底层调用BeanUtils来进行数据转换器的注册,而struts2把这些步骤都写到框架里面了.</p>
+<li><p>通过在动作名后面加上!+相应要调用的动作名。该方法官方不建议使用，并且这种调用可以关闭，在default.properties文件中找到struts.enable.DynamicMethodInvocation 属性，然后在struts.xml文件中，利用更改常量的方法关闭。</p>
 </li>
-<li><p>struts2提供了拦截器（过滤器又名拦截器，俗名：保安）,利用拦截器可以实现AOP编程（面向方面编程）,在struts1中，Mvc的C是servlet,在struts2是filter.</p>
-</li>
-<li><p>struts1中对于用户输入的信息进行验证时，必须对所有的字段进行验证，而struts2中，可以对指定的字段进行验证。</p>
-</li>
-<li><p>struts1的显示层只支持jsp,但struts2支持jsp、 velocity（myEclipse的jsp模版就是使用它写的）等。</p>
-</li>
-<li><p>struts2提供了全局范围、包范围、action范围的国际化资源文件的管理（其中国际化资源文件的扩展名为：*.properties</p>
+<li><p>在没使用通配符对方法进行调用的时候，struts.xml文件的代码是这样的：</p>
 </li>
 </ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;action name="customer_add" class="cn.ansel.domain.Customer" method="add"&gt;</div><div class="line">	&lt;result name="success"&gt;/add.jsp&lt;/result&gt;</div><div class="line"> &lt;/action&gt;</div><div class="line">&lt;action name="customer_delete" class="cn.ansel.domain.Customer" method="delete"&gt;</div><div class="line">	&lt;result name="success"&gt;/delete.jsp&lt;/result&gt;</div><div class="line"> &lt;/action&gt;</div><div class="line">&lt;action name="customer_update" class="cn.ansel.domain.Customer" method="update"&gt;</div><div class="line">	&lt;result name="success"&gt;/update.jsp&lt;/result&gt;</div><div class="line">&lt;/action&gt;</div><div class="line">&lt;action name="customer_query" class="cn.ansel.domain.Customer" method="query"&gt;</div><div class="line">	&lt;result name="success"&gt;/query.jsp&lt;/result&gt;</div><div class="line">&lt;/action&gt;</div></pre></td></tr></table></figure>
+<p>在地址栏中输入：<code>http://localhost:8080/struts2Day02/ns2/customer_query</code>的时候，显示</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150803140804009.jpg" alt=""></p>
+<p>当使用通配符进行方法调用的时候，struts.xml文件是这样写的:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;package name="p2" extends="struts-default" namespace="/ns2"&gt;</div><div class="line">       &lt;action name="customer_*" class="cn.ansel.domain.Customer" method="&#123;1&#125;"&gt;</div><div class="line">           &lt;result name="success"&gt;/&#123;1&#125;.jsp&lt;/result&gt;</div><div class="line">       &lt;/action&gt;</div></pre></td></tr></table></figure>
+<p>这里主要利用的时命名规则，在前面利用ajax+jquery进行应用的时候:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150803141126100.jpg" alt=""></p>
+<p>当选择一个子元素时，父元素就被选中。当所有子元素都没有被选中时，父元素也不被选中，这里利用的就是命名的规则，把customer_customer作为父元素的名字，子元素的名字为<code>customer_visit</code>,<code>customer_list</code>,<code>customer_records</code>,<code>customer_set</code>(图中第一栏).</p>
+<p>要获取到父元素，这里有子元素的名字，只要把子元素的名字用JavaScript的正则表达式的split方法，以”_“把名字分开，即可获取到父元素对象。这里也是一样的道理。可见命名对于编程的重要性。</p>
+<p>这里的{1}就是对应地址栏中输入的动作名称。可见，这样使配置文件明了了许多</p>
 <hr>
 
       
@@ -383,12 +381,16 @@ struts2是无侵入式设">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/08/18/自定义类型转换器/" rel="next" title="自定义类型转换器">
+                <i class="fa fa-chevron-left"></i> 自定义类型转换器
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/08/18/自定义拦截器/" rel="prev" title="自定义拦截器">
-                自定义拦截器 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/08/18/获取请求参数/" rel="prev" title="获取请求参数">
+                获取请求参数 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -415,8 +417,8 @@ struts2是无侵入式设">
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/17/struts2的简介—_小记/"
-           data-title="struts2的简介—_小记" data-url="http://xinpan2.github.io/2016/08/17/struts2的简介—_小记/">
+      <div class="ds-thread" data-thread-key="2016/08/18/动态方法调用/"
+           data-title="动态方法调用" data-url="http://xinpan2.github.io/2016/08/18/动态方法调用/">
       </div>
     
   </div>
@@ -511,7 +513,7 @@ struts2是无侵入式设">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#struts2的由来"><span class="nav-number">1.</span> <span class="nav-text">struts2的由来</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#struts2与struts1的区别"><span class="nav-number">2.</span> <span class="nav-text">struts2与struts1的区别</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
