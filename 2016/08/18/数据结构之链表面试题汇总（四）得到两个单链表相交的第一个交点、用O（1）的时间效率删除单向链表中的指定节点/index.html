@@ -1,0 +1,734 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+得到两个单链表相交的第一个交点思路：
+
+要得到两个单链表相交的第一个交点，首先得判断这两个单链表有没有相交
+而判断两个单链表是否相交，就要判断两个单链表的最后一个节点是否电箱
+只有两个链表的最">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构之链表面试题汇总（四）得到两个单链表相交的第一个交点、用O（1）的时间效率删除单向链表中的指定节点">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/18/数据结构之链表面试题汇总（四）得到两个单链表相交的第一个交点、用O（1）的时间效率删除单向链表中的指定节点/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+得到两个单链表相交的第一个交点思路：
+
+要得到两个单链表相交的第一个交点，首先得判断这两个单链表有没有相交
+而判断两个单链表是否相交，就要判断两个单链表的最后一个节点是否电箱
+只有两个链表的最">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%BE%97%E5%88%B0%E9%93%BE%E8%A1%A8%E7%9B%B8%E4%BA%A4%E8%8A%82%E7%82%B9.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%BE%97%E5%88%B0%E9%93%BE%E8%A1%A8%E7%9B%B8%E4%BA%A4%E8%8A%82%E7%82%B92.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%BE%97%E5%88%B0%E9%93%BE%E8%A1%A8%E7%9B%B8%E4%BA%A4%E8%8A%82%E7%82%B93.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%BE%97%E5%88%B0%E9%93%BE%E8%A1%A8%E7%9B%B8%E4%BA%A4%E8%8A%82%E7%82%B94.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%BE%97%E5%88%B0%E9%93%BE%E8%A1%A8%E7%9B%B8%E4%BA%A4%E8%8A%82%E7%82%B9%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%BE%97%E5%88%B0%E9%93%BE%E8%A1%A8%E7%9B%B8%E4%BA%A4%E8%8A%82%E7%82%B9%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/O1%E5%88%A0%E9%99%A4%E8%8A%82%E7%82%B9.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/O1%E5%88%A0%E9%99%A4%E8%8A%82%E7%82%B92.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/O1%E5%88%A0%E9%99%A4%E8%8A%82%E7%82%B9%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/O1%E5%88%A0%E9%99%A4%E8%8A%82%E7%82%B9%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C2.png">
+<meta property="og:updated_time" content="2016-08-18T13:11:25.205Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构之链表面试题汇总（四）得到两个单链表相交的第一个交点、用O（1）的时间效率删除单向链表中的指定节点">
+<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+得到两个单链表相交的第一个交点思路：
+
+要得到两个单链表相交的第一个交点，首先得判断这两个单链表有没有相交
+而判断两个单链表是否相交，就要判断两个单链表的最后一个节点是否电箱
+只有两个链表的最">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%BE%97%E5%88%B0%E9%93%BE%E8%A1%A8%E7%9B%B8%E4%BA%A4%E8%8A%82%E7%82%B9.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/18/数据结构之链表面试题汇总（四）得到两个单链表相交的第一个交点、用O（1）的时间效率删除单向链表中的指定节点/"/>
+
+  <title> 数据结构之链表面试题汇总（四）得到两个单链表相交的第一个交点、用O（1）的时间效率删除单向链表中的指定节点 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                数据结构之链表面试题汇总（四）得到两个单链表相交的第一个交点、用O（1）的时间效率删除单向链表中的指定节点
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-18T09:15:00+08:00" content="2016-08-18">
+              2016-08-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/18/数据结构之链表面试题汇总（四）得到两个单链表相交的第一个交点、用O（1）的时间效率删除单向链表中的指定节点/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/18/数据结构之链表面试题汇总（四）得到两个单链表相交的第一个交点、用O（1）的时间效率删除单向链表中的指定节点/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
+<p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
+<hr>
+<h1 id="得到两个单链表相交的第一个交点"><a href="#得到两个单链表相交的第一个交点" class="headerlink" title="得到两个单链表相交的第一个交点"></a>得到两个单链表相交的第一个交点</h1><p>思路：</p>
+<ul>
+<li>要得到两个单链表相交的第一个交点，首先得判断这两个单链表有没有相交</li>
+<li>而判断两个单链表是否相交，就要判断两个单链表的最后一个节点是否电箱</li>
+<li>只有两个链表的最后一个节点相等，两个链表才可能相交。</li>
+<li>同时还需要考虑两个单链表长度的问题，既然两个链表相交是相交之后那部分的节点一样，那么我们可以把较长链表前面那部分截成跟较短链表长度一样，然后再找相交节点</li>
+</ul>
+<p>图解：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%BE%97%E5%88%B0%E9%93%BE%E8%A1%A8%E7%9B%B8%E4%BA%A4%E8%8A%82%E7%82%B9.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%BE%97%E5%88%B0%E9%93%BE%E8%A1%A8%E7%9B%B8%E4%BA%A4%E8%8A%82%E7%82%B92.png" alt="1"></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%BE%97%E5%88%B0%E9%93%BE%E8%A1%A8%E7%9B%B8%E4%BA%A4%E8%8A%82%E7%82%B93.png" alt="1"></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%BE%97%E5%88%B0%E9%93%BE%E8%A1%A8%E7%9B%B8%E4%BA%A4%E8%8A%82%E7%82%B94.png" alt=""></p>
+<p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FirstIntersectNode</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Node <span class="title">getFirstIntersectNode</span><span class="params">(Node head1, Node head2)</span> </span>&#123;</div><div class="line">		<span class="comment">// judge head1 and head2 wether is null,if true return null</span></div><div class="line">		<span class="keyword">if</span> (head1 == <span class="keyword">null</span> || head2 == <span class="keyword">null</span>)</div><div class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">		<span class="comment">// use 2 variables to record their length</span></div><div class="line">		<span class="keyword">int</span> length1 = <span class="number">0</span>;</div><div class="line">		<span class="keyword">int</span> length2 = <span class="number">0</span>;</div><div class="line">		<span class="comment">// compare them move longer one to the equal length</span></div><div class="line">		Node current1 = head1;</div><div class="line">		Node current2 = head2;</div><div class="line">		Node last1 = head1;</div><div class="line">		Node last2 = head2;</div><div class="line"></div><div class="line">		<span class="comment">// get these lists's length and the tail node</span></div><div class="line">		<span class="keyword">while</span> (last1.getNext() != <span class="keyword">null</span>) &#123;</div><div class="line">			length1++;</div><div class="line">			last1 = last1.getNext();</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">while</span> (last2.getNext() != <span class="keyword">null</span>) &#123;</div><div class="line">			length2++;</div><div class="line">			last2 = last2.getNext();</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="comment">// if their last node unequal that they have no intersection</span></div><div class="line">		<span class="keyword">if</span> (last1 != last2) &#123;</div><div class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="comment">// set their length to equal</span></div><div class="line">		<span class="keyword">if</span> (length1 &gt; length2) &#123;</div><div class="line">			<span class="keyword">int</span> k = length1 - length2;</div><div class="line">			<span class="keyword">while</span> (k != <span class="number">0</span>) &#123;</div><div class="line">				current1.getNext();</div><div class="line">				k--;</div><div class="line">			&#125;</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			<span class="keyword">int</span> k = length2 - length1;</div><div class="line">			<span class="keyword">while</span> (k != <span class="number">0</span>) &#123;</div><div class="line">				current2.getNext();</div><div class="line">				k--;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="comment">// while the current node is not the last node</span></div><div class="line">		<span class="keyword">while</span> (current1 != <span class="keyword">null</span>) &#123;</div><div class="line">			<span class="comment">// move these pointers together backward in one step</span></div><div class="line">			current1 = current1.getNext();</div><div class="line">			current2 = current2.getNext();</div><div class="line">			<span class="keyword">if</span> (current1 == current2) &#123;</div><div class="line">				<span class="comment">// compare the two current node if equal return node</span></div><div class="line">				<span class="keyword">return</span> current1;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>测试代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReverseLinkedListTest</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Node node1 = <span class="keyword">new</span> Node(<span class="number">1</span>);</div><div class="line">		Node node2 = <span class="keyword">new</span> Node(<span class="number">2</span>);</div><div class="line">		Node node3 = <span class="keyword">new</span> Node(<span class="number">3</span>);</div><div class="line">		Node node4 = <span class="keyword">new</span> Node(<span class="number">4</span>);</div><div class="line">		Node node5 = <span class="keyword">new</span> Node(<span class="number">5</span>);</div><div class="line">		node1.setNext(node2);</div><div class="line">		node2.setNext(node3);</div><div class="line">		node3.setNext(node4);</div><div class="line">		node4.setNext(node5);</div><div class="line"></div><div class="line">		Node list1 = <span class="keyword">new</span> Node(<span class="number">23</span>);</div><div class="line">		Node list2 = <span class="keyword">new</span> Node(<span class="number">23</span>);</div><div class="line">		Node list3 = <span class="keyword">new</span> Node(<span class="number">2</span>);</div><div class="line">		Node list4 = node4;</div><div class="line">		Node list5 = node5;</div><div class="line">		list1.setNext(list2);</div><div class="line">		list2.setNext(list3);</div><div class="line">		list3.setNext(list4);</div><div class="line">		list4.setNext(list5);</div><div class="line"></div><div class="line">		System.out.println(FirstIntersectNode.getFirstIntersectNode(node1,</div><div class="line">				list1).getRecord());</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%BE%97%E5%88%B0%E9%93%BE%E8%A1%A8%E7%9B%B8%E4%BA%A4%E8%8A%82%E7%82%B9%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.png" alt=""></p>
+<p>测试代码:不相交的两条链表</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReverseLinkedListTest</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">	 * <span class="doctag">@param</span> args</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Node node1 = <span class="keyword">new</span> Node(<span class="number">1</span>);</div><div class="line">		Node node2 = <span class="keyword">new</span> Node(<span class="number">2</span>);</div><div class="line">		Node node3 = <span class="keyword">new</span> Node(<span class="number">3</span>);</div><div class="line">		Node node4 = <span class="keyword">new</span> Node(<span class="number">4</span>);</div><div class="line">		Node node5 = <span class="keyword">new</span> Node(<span class="number">5</span>);</div><div class="line">		node1.setNext(node2);</div><div class="line">		node2.setNext(node3);</div><div class="line">		node3.setNext(node4);</div><div class="line">		node4.setNext(node5);</div><div class="line"></div><div class="line">		Node list1 = <span class="keyword">new</span> Node(<span class="number">23</span>);</div><div class="line">		Node list2 = <span class="keyword">new</span> Node(<span class="number">23</span>);</div><div class="line">		Node list3 = <span class="keyword">new</span> Node(<span class="number">2</span>);</div><div class="line">		Node list4 = <span class="keyword">new</span> Node(<span class="number">2</span>);</div><div class="line">		Node list5 = <span class="keyword">new</span> Node(<span class="number">2</span>);</div><div class="line">		list1.setNext(list2);</div><div class="line">		list2.setNext(list3);</div><div class="line">		list3.setNext(list4);</div><div class="line">		list4.setNext(list5);</div><div class="line"></div><div class="line">		System.out.println(FirstIntersectNode.getFirstIntersectNode(node1,</div><div class="line">				list1).getRecord());</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%BE%97%E5%88%B0%E9%93%BE%E8%A1%A8%E7%9B%B8%E4%BA%A4%E8%8A%82%E7%82%B9%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C2.png" alt=""></p>
+<h1 id="用O（1）的时间效率删除单向链表中的指定节点"><a href="#用O（1）的时间效率删除单向链表中的指定节点" class="headerlink" title="用O（1）的时间效率删除单向链表中的指定节点"></a>用O（1）的时间效率删除单向链表中的指定节点</h1><p>思路：</p>
+<ul>
+<li>用O（1）的时间效率删除单向链表中指定节点，猛然一看好像不可能，因为单向链表是线性的，既然要删除指定的节点，必须要对整个链表进行遍历。</li>
+</ul>
+<ul>
+<li>再仔细想想，好像也不一定需要遍历整条链表，有没有考虑过需要遍历整条链表的情况？那是最坏的情况吧？即要删除的节点在指定链表的最后一个节点，这时就需要遍历整条链表，得到最后一个节点的前一个节点，然后设置前一个节点的后面节点为空</li>
+</ul>
+<ul>
+<li>可是整条链表前n-1个元素，都可以直接通过设置当前节点的值和指向下一个节点的引用，即通过把下一个节点的值赋给当前节点的值，把下一个节点的下一个节点的指向，赋给当前节点的下一个节点指向即可</li>
+</ul>
+<ul>
+<li>这样删除的时间复杂度为 前n-1个元素为O（1），最后一个为O（n) 但是总的来说 (n-1)*O(1)+O(n)]/n=O(1)</li>
+</ul>
+<p>图解：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/O1%E5%88%A0%E9%99%A4%E8%8A%82%E7%82%B9.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/O1%E5%88%A0%E9%99%A4%E8%8A%82%E7%82%B92.png" alt=""></p>
+<p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">O1DeleteNode</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">deleteNode</span><span class="params">(Node head, Node targetNode)</span> </span>&#123;</div><div class="line">		<span class="comment">// judge head and tnode if they are null throw ex</span></div><div class="line">		<span class="keyword">if</span> (head == <span class="keyword">null</span> || targetNode == <span class="keyword">null</span>)</div><div class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"the head or tnode is null"</span>);</div><div class="line">		<span class="comment">// judge tnode is the last node get the front node and set its next null</span></div><div class="line">		<span class="keyword">if</span> (targetNode.getNext() == <span class="keyword">null</span>) &#123;</div><div class="line">			Node current = head;</div><div class="line">			<span class="keyword">while</span> (current.getNext() != targetNode) &#123;</div><div class="line">				current = current.getNext();</div><div class="line">			&#125;</div><div class="line">			current.setNext(<span class="keyword">null</span>);</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			<span class="comment">// else directely assign the next value to tnode and next to tnode</span></div><div class="line">			targetNode.setRecord(targetNode.getNext().getRecord());</div><div class="line">			targetNode.setNext(targetNode.getNext().getNext());</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>测试代码：情况一：非末尾节点:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReverseLinkedListTest</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Node node1 = <span class="keyword">new</span> Node(<span class="number">1</span>);</div><div class="line">		Node node2 = <span class="keyword">new</span> Node(<span class="number">2</span>);</div><div class="line">		Node node3 = <span class="keyword">new</span> Node(<span class="number">3</span>);</div><div class="line">		Node node4 = <span class="keyword">new</span> Node(<span class="number">4</span>);</div><div class="line">		Node node5 = <span class="keyword">new</span> Node(<span class="number">5</span>);</div><div class="line">		node1.setNext(node2);</div><div class="line">		node2.setNext(node3);</div><div class="line">		node3.setNext(node4);</div><div class="line">		node4.setNext(node5);</div><div class="line"></div><div class="line">		RecustionAllElementOfLinkedList.printAllElements(node1);</div><div class="line">		System.out.println(<span class="string">"----------------------------------------------"</span>);</div><div class="line">		O1DeleteNode.deleteNode(node1, node4);</div><div class="line">		System.out.println(<span class="string">"----------------------------------------------"</span>);</div><div class="line">		RecustionAllElementOfLinkedList.printAllElements(node1);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/O1%E5%88%A0%E9%99%A4%E8%8A%82%E7%82%B9%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.png" alt=""></p>
+<p>测试代码：情况二：删除末尾节点：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReverseLinkedListTest</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		Node node1 = <span class="keyword">new</span> Node(<span class="number">1</span>);</div><div class="line">		Node node2 = <span class="keyword">new</span> Node(<span class="number">2</span>);</div><div class="line">		Node node3 = <span class="keyword">new</span> Node(<span class="number">3</span>);</div><div class="line">		Node node4 = <span class="keyword">new</span> Node(<span class="number">4</span>);</div><div class="line">		Node node5 = <span class="keyword">new</span> Node(<span class="number">5</span>);</div><div class="line">		node1.setNext(node2);</div><div class="line">		node2.setNext(node3);</div><div class="line">		node3.setNext(node4);</div><div class="line">		node4.setNext(node5);</div><div class="line"></div><div class="line">		RecustionAllElementOfLinkedList.printAllElements(node1);</div><div class="line">		System.out.println(<span class="string">"----------------------------------------------"</span>);</div><div class="line">		O1DeleteNode.deleteNode(node1, node5);</div><div class="line">		System.out.println(<span class="string">"----------------------------------------------"</span>);</div><div class="line">		RecustionAllElementOfLinkedList.printAllElements(node1);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/O1%E5%88%A0%E9%99%A4%E8%8A%82%E7%82%B9%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C2.png" alt=""></p>
+<p>链表部分已完结，如果遇到新的，会持续更新……</p>
+<p>参考资料：</p>
+<p><a href="https://zh.wikipedia.org/wiki/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F" target="_blank" rel="external">归并排序–维基百科</a></p>
+<p><a href="http://vdisk.weibo.com/s/zFeQnf4q_bKG6" target="_blank" rel="external">程序员实用算法—Andrew Binstock / John Rex 机械工业出版 第二章第一节 链表 下载地址</a></p>
+<p><a href="http://blog.csdn.net/beiyetengqing/article/details/7596554" target="_blank" rel="external">使用递归和非递归方式反转单向链表</a></p>
+<p><a href="http://hanhailong.com/2016/02/25/Java%E5%8F%8D%E8%BD%AC%E5%8D%95%E9%93%BE%E8%A1%A8%E5%AE%9E%E6%88%98/" target="_blank" rel="external">Java反转单链表实战</a></p>
+<p><a href="http://blog.csdn.net/feliciafay/article/details/6841115" target="_blank" rel="external">看图理解单链表的反转</a></p>
+<p><a href="http://www.lai18.com/content/623523.html" target="_blank" rel="external">剑指offer面试题13——在O（1）删除链表节点</a></p>
+<p><a href="http://www.cnblogs.com/kubixuesheng/p/4390917.html" target="_blank" rel="external">时间复杂度分别为 O（n）和 O（1）的删除单链表结点的方法</a></p>
+<p><a href="http://www.cnblogs.com/smyhvae/p/4782595.html" target="_blank" rel="external">链表面试题Java实现【重要】</a></p>
+<p><a href="http://www.cnblogs.com/jax/archive/2009/12/11/1621504.html" target="_blank" rel="external">算法大全（1）单链表</a></p>
+<p><a href="http://blog.csdn.net/fightforyourdream/article/details/16353519" target="_blank" rel="external">面试大总结之一：Java搞定面试中的链表题目</a></p>
+<hr>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/qrcode_for_gh_69fa03eccdf5_430.jpg" alt="XinPan wechat" style="width: 200px; max-width: 100%;"/>
+    <div>看完文章有感而发？或者你有什么不一样的见解？欢迎您扫一扫上面的微信公众号，订阅我的博客！！！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/18/数据结构之链表面试题汇总（三）判断单链表是否有环、取出环的起始点、得到有环链表中环的长度/" rel="next" title="数据结构之链表面试题汇总（三）判断单链表是否有环、取出环的起始点、得到有环链表中环的长度">
+                <i class="fa fa-chevron-left"></i> 数据结构之链表面试题汇总（三）判断单链表是否有环、取出环的起始点、得到有环链表中环的长度
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/18/二叉树面试题汇总(一)/" rel="prev" title="二叉树面试题汇总(一)">
+                二叉树面试题汇总(一) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/18/数据结构之链表面试题汇总（四）得到两个单链表相交的第一个交点、用O（1）的时间效率删除单向链表中的指定节点/"
+           data-title="数据结构之链表面试题汇总（四）得到两个单链表相交的第一个交点、用O（1）的时间效率删除单向链表中的指定节点" data-url="http://xinpan2.github.io/2016/08/18/数据结构之链表面试题汇总（四）得到两个单链表相交的第一个交点、用O（1）的时间效率删除单向链表中的指定节点/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">77</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#得到两个单链表相交的第一个交点"><span class="nav-number">1.</span> <span class="nav-text">得到两个单链表相交的第一个交点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用O（1）的时间效率删除单向链表中的指定节点"><span class="nav-number">2.</span> <span class="nav-text">用O（1）的时间效率删除单向链表中的指定节点</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

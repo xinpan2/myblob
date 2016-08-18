@@ -1,0 +1,881 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+二叉树的先序遍历递归法思路：
+
+二叉树的先序、中序、后序遍历使用递归法实现非常简单，因为树是由递归定义的。
+
+不管使用递归还是非递归方法实现对于二叉树的遍历，首先我们需要抓住遍历的关键，即对节">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二叉树面试题汇总(二)">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/18/二叉树面试题汇总(二)/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+二叉树的先序遍历递归法思路：
+
+二叉树的先序、中序、后序遍历使用递归法实现非常简单，因为树是由递归定义的。
+
+不管使用递归还是非递归方法实现对于二叉树的遍历，首先我们需要抓住遍历的关键，即对节">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91%E9%80%92%E5%BD%92%E6%B3%951.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91%E9%80%92%E5%BD%92%E6%B3%952.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91%E9%80%92%E5%BD%92%E6%B3%953.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E6%A0%91%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E6%A0%91%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86%E9%9D%9E%E9%80%92%E5%BD%92.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91%E9%80%92%E5%BD%921.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E9%9D%9E%E9%80%92%E5%BD%921.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E9%9D%9E%E9%80%92%E5%BD%922.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E9%9D%9E%E9%80%92%E5%BD%923.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E6%A0%91%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E6%A0%91%E7%BB%93%E6%9E%842.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E9%9D%9E%E9%80%92%E5%BD%924.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E9%80%92%E5%BD%921.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E6%A0%91%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E7%BB%93%E6%9E%9C.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E4%BE%8B%E5%AD%901.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E4%BE%8B%E5%AD%902.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E6%A0%91%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E7%BB%93%E6%9E%9C3.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%E9%9D%9E%E9%80%92%E5%BD%921.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E6%A0%91%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%E9%9D%9E%E9%80%92%E5%BD%92%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%E9%9D%9E%E9%80%92%E5%BD%92%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%E9%80%92%E5%BD%92xx.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E6%A0%91%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%E9%80%92%E5%BD%92%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.png">
+<meta property="og:updated_time" content="2016-08-18T13:12:02.681Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="二叉树面试题汇总(二)">
+<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+
+二叉树的先序遍历递归法思路：
+
+二叉树的先序、中序、后序遍历使用递归法实现非常简单，因为树是由递归定义的。
+
+不管使用递归还是非递归方法实现对于二叉树的遍历，首先我们需要抓住遍历的关键，即对节">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91%E9%80%92%E5%BD%92%E6%B3%951.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/18/二叉树面试题汇总(二)/"/>
+
+  <title> 二叉树面试题汇总(二) | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                二叉树面试题汇总(二)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-18T09:17:00+08:00" content="2016-08-18">
+              2016-08-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/18/二叉树面试题汇总(二)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/18/二叉树面试题汇总(二)/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
+<p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
+<hr>
+<h1 id="二叉树的先序遍历"><a href="#二叉树的先序遍历" class="headerlink" title="二叉树的先序遍历"></a>二叉树的先序遍历</h1><h2 id="递归法"><a href="#递归法" class="headerlink" title="递归法"></a>递归法</h2><p>思路：</p>
+<ul>
+<li><p>二叉树的先序、中序、后序遍历使用递归法实现非常简单，因为树是由递归定义的。</p>
+</li>
+<li><p>不管使用递归还是非递归方法实现对于二叉树的遍历，首先我们需要抓住遍历的关键，即对节点的访问顺序。</p>
+</li>
+<li><p>使用不同的方法，对每个节点的访问顺序不同。</p>
+</li>
+<li><p>先序遍历、中序遍历、后序遍历中，先、中、后是指根节点的访问顺序，一般二叉树分为“DLR”，其中D 代表根节点，L代表左子树，R代表右子树，先序为DLR,中序为LDR,后序为LRD</p>
+</li>
+<li><p>掌握了上面的要领，那么实现对二叉树的先中后序遍历就非常简单了。</p>
+</li>
+</ul>
+<p>代码实现:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">preOrderTraverseByRecursion</span><span class="params">(BinaryTree root)</span> </span>&#123;</div><div class="line">		<span class="comment">// 递归的出口</span></div><div class="line">		<span class="keyword">if</span> (root == <span class="keyword">null</span>)</div><div class="line">			<span class="keyword">return</span>;</div><div class="line">		<span class="comment">// 1、先访问根节点，在这里只是做简单的数据输出</span></div><div class="line">		System.out.print(root.getValue() + <span class="string">" "</span>);</div><div class="line">		<span class="comment">// 2、递归访问左子节点，因为左子节点可能还有子节点</span></div><div class="line">		preOrderTraverseByRecursion(root.getLeftChild());</div><div class="line">		<span class="comment">// 3、递归访问右子节点，理由同上</span></div><div class="line">		preOrderTraverseByRecursion(root.getRightChild());</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<p>图解：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91%E9%80%92%E5%BD%92%E6%B3%951.png" alt=""></p>
+<hr>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91%E9%80%92%E5%BD%92%E6%B3%952.png" alt=""></p>
+<hr>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91%E9%80%92%E5%BD%92%E6%B3%953.png" alt=""></p>
+<p>测试代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.btree;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinaryTreeCountNodesTest</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		BinaryTree n1 = <span class="keyword">new</span> BinaryTree(<span class="number">1</span>);</div><div class="line">		BinaryTree n2 = <span class="keyword">new</span> BinaryTree(<span class="number">2</span>);</div><div class="line">		BinaryTree n3 = <span class="keyword">new</span> BinaryTree(<span class="number">3</span>);</div><div class="line">		BinaryTree n4 = <span class="keyword">new</span> BinaryTree(<span class="number">4</span>);</div><div class="line">		BinaryTree n5 = <span class="keyword">new</span> BinaryTree(<span class="number">5</span>);</div><div class="line">		BinaryTree n6 = <span class="keyword">new</span> BinaryTree(<span class="number">6</span>);</div><div class="line"></div><div class="line">		n1.setLeftChild(n2);</div><div class="line">		n1.setRightChild(n3);</div><div class="line">		n2.setLeftChild(n4);</div><div class="line">		n2.setRightChild(n5);</div><div class="line">		n3.setRightChild(n6);</div><div class="line"></div><div class="line">		BTreeTraverse.preOrderTraverseByRecursion(n1);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>树结构：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E6%A0%91%E7%BB%93%E6%9E%84.png" alt=""></p>
+<p>运行结果</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C1.png" alt=""></p>
+<h2 id="迭代法"><a href="#迭代法" class="headerlink" title="迭代法"></a>迭代法</h2><p>思路：</p>
+<ul>
+<li><p>要使用非递归法实现二叉树的先序遍历，可以这样想，既然可以用递归实现，那么就可以用栈实现（为什么？）。</p>
+</li>
+<li><p>即使使用非递归实现二叉树的先序遍历，也要抓住各个节点的访问顺序，在这里，最先访问的是根节点，所以当有节点入栈时，它可以看成是其子节点的根节点，那么可以直接输出该节点的数据</p>
+</li>
+<li><p>然后再判断当前节点有无左右子节点，这里要注意栈的特点，先存右子树，再存左子树</p>
+</li>
+<li><p>如果还不能理解，可以通过自己随意画一棵二叉树，对着进栈出栈的顺序来看代码。或者自己根据先序遍历的顺序来写代码也行，重要的是想法。</p>
+</li>
+</ul>
+<p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 非递归法 遍历二叉树</div><div class="line"> * </div><div class="line"> * <span class="doctag">@param</span> root</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">preOrderTraverseByIterative</span><span class="params">(BinaryTree root)</span> </span>&#123;</div><div class="line">	<span class="comment">// 判断当前节点是否为空，为空就空操作</span></div><div class="line">	<span class="keyword">if</span> (root == <span class="keyword">null</span>)</div><div class="line">		<span class="keyword">return</span>;</div><div class="line">	<span class="comment">// 定义一个栈来存储节点，一个变量来记录当前节点</span></div><div class="line">	Stack&lt;BinaryTree&gt; stack = <span class="keyword">new</span> Stack&lt;BinaryTree&gt;();</div><div class="line">	BinaryTree currentNode = root;</div><div class="line">	stack.push(currentNode);</div><div class="line">	<span class="comment">// 进入循环体，条件:栈不为空</span></div><div class="line">	<span class="keyword">while</span> (!stack.isEmpty()) &#123;</div><div class="line">		<span class="comment">// 栈顶节点出栈并赋值给当前节点</span></div><div class="line">		currentNode = stack.pop();</div><div class="line">		<span class="comment">// 输出根节点数据</span></div><div class="line">		System.out.print(currentNode.getValue() + <span class="string">"："</span>);</div><div class="line">		<span class="comment">// 判断当前节点有无右子树，有入栈</span></div><div class="line">		<span class="keyword">if</span> (currentNode.getRightChild() != <span class="keyword">null</span>)</div><div class="line">			stack.push(currentNode.getRightChild());</div><div class="line">		<span class="comment">// 判断当前节点有无左子树，有入栈</span></div><div class="line">		<span class="keyword">if</span> (currentNode.getLeftChild() != <span class="keyword">null</span>)</div><div class="line">			stack.push(currentNode.getLeftChild());</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>树结构：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E6%A0%91%E7%BB%93%E6%9E%84.png" alt=""></p>
+<p>运行结果：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86%E9%9D%9E%E9%80%92%E5%BD%92.png" alt=""></p>
+<h1 id="二叉树的中序遍历"><a href="#二叉树的中序遍历" class="headerlink" title="二叉树的中序遍历"></a>二叉树的中序遍历</h1><h2 id="递归法-1"><a href="#递归法-1" class="headerlink" title="递归法"></a>递归法</h2><p>思路:</p>
+<ul>
+<li><p>抓住访问顺序，中序遍历:LDR,代码实现可以参照先序遍历。</p>
+</li>
+<li><p>首先得到根节点，但是中序遍历要先访问左子节点，所以先递归得到子节点，然后再访问根节点，最后访问右子节点</p>
+</li>
+</ul>
+<p>图解：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91%E9%80%92%E5%BD%921.png" alt=""></p>
+<p>代码实现:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 使用递归中序遍历二叉树</div><div class="line"> * </div><div class="line"> * <span class="doctag">@param</span> root</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">inOrderTraverseByRecursion</span><span class="params">(BinaryTree root)</span> </span>&#123;</div><div class="line">	<span class="comment">// 递归出口</span></div><div class="line">	<span class="keyword">if</span> (root == <span class="keyword">null</span>)</div><div class="line">		<span class="keyword">return</span>;</div><div class="line">	<span class="comment">// 递归访问左子树</span></div><div class="line">	inOrderTraverseByRecursion(root.getLeftChild());</div><div class="line">	<span class="comment">// 访问根节点</span></div><div class="line">	System.out.print(root.getValue() + <span class="string">" "</span>);</div><div class="line">	<span class="comment">// 递归访问右子树</span></div><div class="line">	inOrderTraverseByRecursion(root.getRightChild());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>测试代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.btree;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinaryTreeCountNodesTest</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		BinaryTree n1 = <span class="keyword">new</span> BinaryTree(<span class="number">1</span>);</div><div class="line">		BinaryTree n2 = <span class="keyword">new</span> BinaryTree(<span class="number">2</span>);</div><div class="line">		BinaryTree n3 = <span class="keyword">new</span> BinaryTree(<span class="number">3</span>);</div><div class="line">		BinaryTree n4 = <span class="keyword">new</span> BinaryTree(<span class="number">4</span>);</div><div class="line">		BinaryTree n5 = <span class="keyword">new</span> BinaryTree(<span class="number">5</span>);</div><div class="line">		BinaryTree n6 = <span class="keyword">new</span> BinaryTree(<span class="number">6</span>);</div><div class="line"></div><div class="line">		n1.setLeftChild(n2);</div><div class="line">		n1.setRightChild(n3);</div><div class="line">		n2.setLeftChild(n4);</div><div class="line">		n2.setRightChild(n5);</div><div class="line">		n3.setRightChild(n6);</div><div class="line"></div><div class="line">		BTreeTraverse.inOrderTraverseByRecursion(n1);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E4%BA%8C%E5%8F%89%E6%A0%91%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C1.png" alt=""></p>
+<h2 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h2><p>思路：</p>
+<ul>
+<li><p>中序遍历，就先要得到左叶子节点，定义一个栈用来存储左节点（同时也可能是根节点），一个变量来指向当前节点（开始是根节点）</p>
+</li>
+<li><p>得到左叶子节点后，访问该节点，在本文中，访问的意思是：该节点出栈，并输出该节点的数据，</p>
+</li>
+<li><p>该节点出栈之后，意味着现在栈顶节点为刚刚出栈节点的根节点</p>
+</li>
+<li><p>把当前节点指向刚刚出栈节点的右子节点，到这里再返回上面的循环中，如果当前节点（此时指向了右子节点）为空，直接弹出栈顶节点（刚刚出栈节点的根节点），</p>
+</li>
+</ul>
+<p>图解:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E9%9D%9E%E9%80%92%E5%BD%921.png" alt=""></p>
+<hr>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E9%9D%9E%E9%80%92%E5%BD%922.png" alt=""></p>
+<hr>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E9%9D%9E%E9%80%92%E5%BD%923.png" alt=""></p>
+<hr>
+<p>实现代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">inOrderTraverseByIterative</span><span class="params">(BinaryTree root)</span> </span>&#123;</div><div class="line">		<span class="comment">// 首先判断根节点是否为空，为空空操作</span></div><div class="line">		<span class="keyword">if</span> (root == <span class="keyword">null</span>)</div><div class="line">			<span class="keyword">return</span>;</div><div class="line">		<span class="comment">// 创建一个栈来存储节点，创建一个节点来指向当前节点</span></div><div class="line">		Stack&lt;BinaryTree&gt; stack = <span class="keyword">new</span> Stack&lt;BinaryTree&gt;();</div><div class="line">		BinaryTree currentNode = root;</div><div class="line">		<span class="comment">// 定义一个循环,循环体为:</span></div><div class="line">		<span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</div><div class="line">			<span class="comment">// 1、循环把左子节点的所有左节点加入栈，条件是当前节点不为空</span></div><div class="line">			<span class="keyword">while</span> (currentNode != <span class="keyword">null</span>) &#123;</div><div class="line">				stack.push(currentNode);</div><div class="line">				currentNode = currentNode.getLeftChild();</div><div class="line">			&#125;</div><div class="line">			<span class="comment">// 2、当栈为空时跳出总循环,为什么在这里跳？不在外层直接定义条件？</span></div><div class="line">			<span class="comment">// 因为刚刚开始栈为空，并且是在循环体内对栈进行压栈操作</span></div><div class="line">			<span class="keyword">if</span> (stack.isEmpty())</div><div class="line">				<span class="keyword">break</span>;</div><div class="line">			<span class="comment">// 3、访问节点</span></div><div class="line">			currentNode = stack.pop();</div><div class="line">			System.out.print(currentNode.getValue() + <span class="string">" "</span>);</div><div class="line">			<span class="comment">// 4、把当前节点指向刚刚弹栈的右子节点</span></div><div class="line">			currentNode = currentNode.getRightChild();</div><div class="line">		&#125;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<p>测试代码：</p>
+<p>情况一:根节点最后一个左子节点是叶子节点</p>
+<p>树结构：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E6%A0%91%E7%BB%93%E6%9E%84.png" alt=""></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.btree;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinaryTreeCountNodesTest</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		BinaryTree n1 = <span class="keyword">new</span> BinaryTree(<span class="number">1</span>);</div><div class="line">		BinaryTree n2 = <span class="keyword">new</span> BinaryTree(<span class="number">2</span>);</div><div class="line">		BinaryTree n3 = <span class="keyword">new</span> BinaryTree(<span class="number">3</span>);</div><div class="line">		BinaryTree n4 = <span class="keyword">new</span> BinaryTree(<span class="number">4</span>);</div><div class="line">		BinaryTree n5 = <span class="keyword">new</span> BinaryTree(<span class="number">5</span>);</div><div class="line">		BinaryTree n6 = <span class="keyword">new</span> BinaryTree(<span class="number">6</span>);</div><div class="line">		<span class="comment">// BinaryTree n7 = new BinaryTree(7);</span></div><div class="line">		<span class="comment">// BinaryTree n8 = new BinaryTree(8);</span></div><div class="line"></div><div class="line">		n1.setLeftChild(n2);</div><div class="line">		n1.setRightChild(n3);</div><div class="line">		n2.setLeftChild(n4);</div><div class="line">		n2.setRightChild(n5);</div><div class="line">		n3.setRightChild(n6);</div><div class="line"></div><div class="line">		<span class="comment">// n4.setRightChild(n7);</span></div><div class="line">		<span class="comment">// n7.setLeftChild(n8);</span></div><div class="line"></div><div class="line">		BTreeTraverse.inOrderTraverseByIterative(n1);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C1.png" alt=""></p>
+<p>情况二：左子树最后一个左子节点不是叶子节点</p>
+<p>树的结构：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E6%A0%91%E7%BB%93%E6%9E%842.png" alt=""></p>
+<p>测试代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.btree;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinaryTreeCountNodesTest</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		BinaryTree n1 = <span class="keyword">new</span> BinaryTree(<span class="number">1</span>);</div><div class="line">		BinaryTree n2 = <span class="keyword">new</span> BinaryTree(<span class="number">2</span>);</div><div class="line">		BinaryTree n3 = <span class="keyword">new</span> BinaryTree(<span class="number">3</span>);</div><div class="line">		BinaryTree n4 = <span class="keyword">new</span> BinaryTree(<span class="number">4</span>);</div><div class="line">		BinaryTree n5 = <span class="keyword">new</span> BinaryTree(<span class="number">5</span>);</div><div class="line">		BinaryTree n6 = <span class="keyword">new</span> BinaryTree(<span class="number">6</span>);</div><div class="line">		BinaryTree n7 = <span class="keyword">new</span> BinaryTree(<span class="number">7</span>);</div><div class="line">		BinaryTree n8 = <span class="keyword">new</span> BinaryTree(<span class="number">8</span>);</div><div class="line"></div><div class="line">		n1.setLeftChild(n2);</div><div class="line">		n1.setRightChild(n3);</div><div class="line">		n2.setLeftChild(n4);</div><div class="line">		n2.setRightChild(n5);</div><div class="line">		n3.setRightChild(n6);</div><div class="line"></div><div class="line">		n4.setRightChild(n7);</div><div class="line">		n7.setLeftChild(n8);</div><div class="line"></div><div class="line">		BTreeTraverse.inOrderTraverseByIterative(n1);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E9%9D%9E%E9%80%92%E5%BD%924.png" alt=""></p>
+<h1 id="二叉树的后序遍历"><a href="#二叉树的后序遍历" class="headerlink" title="二叉树的后序遍历"></a>二叉树的后序遍历</h1><h2 id="递归法-2"><a href="#递归法-2" class="headerlink" title="递归法"></a>递归法</h2><p>思路：</p>
+<p>后续遍历节点访问顺序： LRD，思路可以参考先序、中序遍历~</p>
+<p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">postOrderTraverseByRecursion</span><span class="params">(BinaryTree root)</span> </span>&#123;</div><div class="line">	<span class="comment">// 使用递归方法后序遍历二叉树</span></div><div class="line"></div><div class="line">	<span class="comment">// 递归出口</span></div><div class="line">	<span class="keyword">if</span> (root == <span class="keyword">null</span>)</div><div class="line">		<span class="keyword">return</span>;</div><div class="line">	<span class="comment">// 递归访问左子节点</span></div><div class="line">	postOrderTraverseByRecursion(root.getLeftChild());</div><div class="line">	<span class="comment">// 递归访问右子节点</span></div><div class="line">	postOrderTraverseByRecursion(root.getRightChild());</div><div class="line">	<span class="comment">// 访问根节点</span></div><div class="line">	System.out.print(root.getValue() + <span class="string">" "</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>图解:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E9%80%92%E5%BD%921.png" alt=""></p>
+<p>测试代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.btree;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinaryTreeCountNodesTest</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		BinaryTree n1 = <span class="keyword">new</span> BinaryTree(<span class="number">1</span>);</div><div class="line">		BinaryTree n2 = <span class="keyword">new</span> BinaryTree(<span class="number">2</span>);</div><div class="line">		BinaryTree n3 = <span class="keyword">new</span> BinaryTree(<span class="number">3</span>);</div><div class="line">		BinaryTree n4 = <span class="keyword">new</span> BinaryTree(<span class="number">4</span>);</div><div class="line">		BinaryTree n5 = <span class="keyword">new</span> BinaryTree(<span class="number">5</span>);</div><div class="line">		BinaryTree n6 = <span class="keyword">new</span> BinaryTree(<span class="number">6</span>);</div><div class="line"></div><div class="line">		n1.setLeftChild(n2);</div><div class="line">		n1.setRightChild(n3);</div><div class="line">		n2.setLeftChild(n4);</div><div class="line">		n2.setRightChild(n5);</div><div class="line">		n3.setRightChild(n6);</div><div class="line"></div><div class="line">		BTreeTraverse.postOrderTraverseByRecursion(n1);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>树结构:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E6%A0%91%E7%BB%93%E6%9E%84.png" alt=""></p>
+<p>运行结果：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E7%BB%93%E6%9E%9C.png" alt=""></p>
+<h2 id="迭代法-1"><a href="#迭代法-1" class="headerlink" title="迭代法"></a>迭代法</h2><p>思路：</p>
+<ul>
+<li><p>后续遍历对节点的访问顺序是LRD，就在我百思不得其解的时候，我看出了一些破绽</p>
+</li>
+<li><p>它就是先序遍历的倒序版，既然上面我们已经解决了先序遍历的迭代方法，那么我们只需要多弄一个栈，把里面的节点倒过来，不就实现了后序遍历吗? 够给力吗？</p>
+</li>
+<li><p>可能有些人会说，先序遍历是DLR啊，后序遍历是LRD，怎么一样？如果你有这样的疑问，那我只能说你不是真的懂先序遍历</p>
+</li>
+<li><p>先序遍历使用迭代方式实现的时候，不是要把输出当前信息的节点的左右子节点存到栈里面吗?只需要调整左右节点进栈的顺序即可！</p>
+</li>
+</ul>
+<p>图解:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E4%BE%8B%E5%AD%901.png" alt=""></p>
+<hr>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E4%BE%8B%E5%AD%902.png" alt=""></p>
+<hr>
+<p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 使用非递归方式实现二叉树的后序遍历</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">postOrderTraverseByIterative</span><span class="params">(BinaryTree root)</span> </span>&#123;</div><div class="line">	<span class="comment">// 首先判断传进来的根节点是否为空，为空空操作</span></div><div class="line">	<span class="keyword">if</span> (root == <span class="keyword">null</span>)</div><div class="line">		<span class="keyword">return</span>;</div><div class="line">	<span class="comment">// 定义两个栈，一个用来实现”DRL"的先序遍历，另外一个栈用来颠倒前面栈的顺序</span></div><div class="line">	Stack&lt;BinaryTree&gt; stack = <span class="keyword">new</span> Stack&lt;BinaryTree&gt;();</div><div class="line">	Stack&lt;BinaryTree&gt; outStack = <span class="keyword">new</span> Stack&lt;BinaryTree&gt;();</div><div class="line">	BinaryTree currentNode = root;</div><div class="line">	stack.push(currentNode);</div><div class="line">	<span class="keyword">while</span> (!stack.isEmpty()) &#123;</div><div class="line">		<span class="comment">// 既然要实现先序遍历，当然是先访问根节点，把先出栈的放到另外一个栈</span></div><div class="line">		currentNode = stack.pop();</div><div class="line">		outStack.push(currentNode);</div><div class="line">		<span class="comment">// 再判断左子节点，不为空入栈1</span></div><div class="line">		<span class="keyword">if</span> (currentNode.getLeftChild() != <span class="keyword">null</span>)</div><div class="line">			stack.push(currentNode.getLeftChild());</div><div class="line">		<span class="comment">// 判断右子节点，不为空，入栈1</span></div><div class="line">		<span class="keyword">if</span> (currentNode.getRightChild() != <span class="keyword">null</span>)</div><div class="line">			stack.push(currentNode.getRightChild());</div><div class="line">	&#125;</div><div class="line">	<span class="comment">// 输出outStack栈中的节点</span></div><div class="line">	<span class="keyword">while</span> (!outStack.isEmpty()) &#123;</div><div class="line">		System.out.print(outStack.pop().getValue() + <span class="string">" "</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>测试代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.btree;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinaryTreeCountNodesTest</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		BinaryTree n1 = <span class="keyword">new</span> BinaryTree(<span class="number">1</span>);</div><div class="line">		BinaryTree n2 = <span class="keyword">new</span> BinaryTree(<span class="number">2</span>);</div><div class="line">		BinaryTree n3 = <span class="keyword">new</span> BinaryTree(<span class="number">3</span>);</div><div class="line">		BinaryTree n4 = <span class="keyword">new</span> BinaryTree(<span class="number">4</span>);</div><div class="line">		BinaryTree n5 = <span class="keyword">new</span> BinaryTree(<span class="number">5</span>);</div><div class="line">		BinaryTree n6 = <span class="keyword">new</span> BinaryTree(<span class="number">6</span>);</div><div class="line"></div><div class="line">		n1.setLeftChild(n2);</div><div class="line">		n1.setRightChild(n3);</div><div class="line">		n2.setLeftChild(n4);</div><div class="line">		n2.setRightChild(n5);</div><div class="line">		n3.setRightChild(n6);</div><div class="line"></div><div class="line">		BTreeTraverse.postOrderTraverseByIterative(n1);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>树结构：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E6%A0%91%E7%BB%93%E6%9E%84.png" alt=""></p>
+<p>运行结果:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E7%BB%93%E6%9E%9C3.png" alt=""></p>
+<h1 id="层次查询"><a href="#层次查询" class="headerlink" title="层次查询"></a>层次查询</h1><h2 id="非递归方式"><a href="#非递归方式" class="headerlink" title="非递归方式"></a>非递归方式</h2><p>思路：</p>
+<ul>
+<li><p>按层次遍历，讲的也是节点访问的顺序。</p>
+</li>
+<li><p>这时候使用栈就不合适了，应该使用队列，先访问到的可以先输出</p>
+</li>
+<li><p>先把根节点入队， 当队列不为空的时候，队头节点出队，再判断当前出队节点是否有左右子节点，有就入队</p>
+</li>
+</ul>
+<p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 非递归方式实现层次遍历</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">levelTraverseByIterative</span><span class="params">(BinaryTree root)</span> </span>&#123;</div><div class="line">		<span class="keyword">if</span> (root == <span class="keyword">null</span>)</div><div class="line">			<span class="keyword">return</span>;</div><div class="line">		<span class="comment">// 定义一个队列来实现</span></div><div class="line">		Queue&lt;BinaryTree&gt; queue = <span class="keyword">new</span> LinkedList&lt;BinaryTree&gt;();</div><div class="line">		<span class="comment">// 首先把根节点入队</span></div><div class="line">		queue.add(root);</div><div class="line">		BinaryTree currentNode = root;</div><div class="line">		<span class="keyword">while</span> (!queue.isEmpty()) &#123;</div><div class="line">			<span class="comment">// 入队再出队</span></div><div class="line">			currentNode = queue.remove();</div><div class="line">			System.out.print(currentNode.getValue() + <span class="string">" "</span>);</div><div class="line">			<span class="comment">// 然后把左右子节点入队</span></div><div class="line">			<span class="keyword">if</span> (currentNode.getLeftChild() != <span class="keyword">null</span>)</div><div class="line">				queue.add(currentNode.getLeftChild());</div><div class="line">			<span class="keyword">if</span> (currentNode.getRightChild() != <span class="keyword">null</span>)</div><div class="line">				queue.add(currentNode.getRightChild());</div><div class="line">		&#125;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<p>图解:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%E9%9D%9E%E9%80%92%E5%BD%921.png" alt=""></p>
+<p>测试代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.btree;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinaryTreeCountNodesTest</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		BinaryTree n1 = <span class="keyword">new</span> BinaryTree(<span class="number">1</span>);</div><div class="line">		BinaryTree n2 = <span class="keyword">new</span> BinaryTree(<span class="number">2</span>);</div><div class="line">		BinaryTree n3 = <span class="keyword">new</span> BinaryTree(<span class="number">3</span>);</div><div class="line">		BinaryTree n4 = <span class="keyword">new</span> BinaryTree(<span class="number">4</span>);</div><div class="line">		BinaryTree n5 = <span class="keyword">new</span> BinaryTree(<span class="number">5</span>);</div><div class="line">		BinaryTree n6 = <span class="keyword">new</span> BinaryTree(<span class="number">6</span>);</div><div class="line"></div><div class="line">		n1.setLeftChild(n2);</div><div class="line">		n1.setRightChild(n3);</div><div class="line">		n2.setLeftChild(n4);</div><div class="line">		n2.setRightChild(n5);</div><div class="line">		n3.setRightChild(n6);</div><div class="line"></div><div class="line">		BTreeTraverse.levelTraverseByIterative(n1);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>树结构:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E6%A0%91%E7%BB%93%E6%9E%84.png" alt=""></p>
+<p>运行结果:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%E9%9D%9E%E9%80%92%E5%BD%92%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C1.png" alt=""></p>
+<h2 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h2><p>在上面的运行结果中我们可以看到，虽然是按分层形式访问的，可是结果并没有显示哪些节点属于哪一层，很容易让人觉得好像这些节点都是属于同一层节点，那么怎样实现让函数在算完一层之后输出一个换行呢?</p>
+<p>思路：</p>
+<ul>
+<li><p>可以借助前面求树深度迭代方法实现的思路，在这里定义两个变量，一个用来记住当前层次的节点数，另外一个用来记录下一层的节点数</p>
+</li>
+<li><p>当记录当前层节点数为0时，输出换行，并且在每次把节点出队和入队，都对这两个变量进行修改，这样就可以实现分层输出！</p>
+</li>
+</ul>
+<p>代码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 非递归方式实现层次遍历</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">levelTraverseByIterative</span><span class="params">(BinaryTree root)</span> </span>&#123;</div><div class="line">	<span class="keyword">if</span> (root == <span class="keyword">null</span>)</div><div class="line">		<span class="keyword">return</span>;</div><div class="line">	<span class="comment">// 定义一个队列来实现</span></div><div class="line">	Queue&lt;BinaryTree&gt; queue = <span class="keyword">new</span> LinkedList&lt;BinaryTree&gt;();</div><div class="line"></div><div class="line">	<span class="comment">// 新定义的两个变量！大家可以通过名字来了解其作用</span></div><div class="line">	<span class="keyword">int</span> currentLevelNodes = <span class="number">1</span>, nextLevelNodes = <span class="number">0</span>;</div><div class="line">	<span class="comment">// 首先把根节点入队</span></div><div class="line"></div><div class="line">	queue.add(root);</div><div class="line">	BinaryTree currentNode = root;</div><div class="line">	<span class="keyword">while</span> (!queue.isEmpty()) &#123;</div><div class="line">		<span class="comment">// 入队再出队</span></div><div class="line">		currentNode = queue.remove();</div><div class="line">		<span class="comment">// 在出队时，对当前层节点数进行修改！</span></div><div class="line">		currentLevelNodes--;</div><div class="line">		System.out.print(currentNode.getValue() + <span class="string">" "</span>);</div><div class="line">		<span class="comment">// 然后把左右子节点入队</span></div><div class="line">		<span class="keyword">if</span> (currentNode.getLeftChild() != <span class="keyword">null</span>) &#123;</div><div class="line">			queue.add(currentNode.getLeftChild());</div><div class="line">			<span class="comment">// 在入队时，对下一层节点数进行修改！</span></div><div class="line">			nextLevelNodes++;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span> (currentNode.getRightChild() != <span class="keyword">null</span>) &#123;</div><div class="line">			queue.add(currentNode.getRightChild());</div><div class="line">			<span class="comment">// 在入队时，对下一层节点数进行修改！</span></div><div class="line">			nextLevelNodes++;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="comment">// 当前层节点数为0时，输出换行，并且把“这一行移到下一行”</span></div><div class="line">		<span class="comment">// 其实就是把下一行的节点数赋值给当前行节点数</span></div><div class="line">		<span class="keyword">if</span> (currentLevelNodes == <span class="number">0</span>) &#123;</div><div class="line">			System.out.println();</div><div class="line">			currentLevelNodes = nextLevelNodes;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>测试代码还是一样，即树结构一样。</p>
+<p>运行结果：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%E9%9D%9E%E9%80%92%E5%BD%92%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C2.png" alt=""></p>
+<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>思路：</p>
+<ul>
+<li><p>向要分层的遍历二叉树，首先想能不能用什么容器把节点”分层“存储？</p>
+</li>
+<li><p>定义一个二维数组，每一层存放每一层的节点，最后遍历数组即可得到每一层的节点</p>
+</li>
+<li><p>对于每一个传进来的节点，首先判断其是否为空，为空空操作</p>
+</li>
+<li><p>不为空根据上一次的操作结果，加上当前节点，存入指定的层数</p>
+</li>
+</ul>
+<p>图解:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%E9%80%92%E5%BD%92xx.png" alt=""></p>
+<p>实现代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 递归方式实现层次遍历</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">levelTraverseByRecursion</span><span class="params">(BinaryTree root)</span> </span>&#123;</div><div class="line">	<span class="comment">// 判断根节点是否为空，为空空操作</span></div><div class="line">	<span class="keyword">if</span> (root == <span class="keyword">null</span>)</div><div class="line">		<span class="keyword">return</span>;</div><div class="line">	<span class="comment">// 定义一个双层链表</span></div><div class="line">	ArrayList&lt;ArrayList&lt;Integer&gt;&gt; list = <span class="keyword">new</span> ArrayList&lt;ArrayList&lt;Integer&gt;&gt;();</div><div class="line">	<span class="comment">// 使用bfs</span></div><div class="line">	recursion(root, <span class="number">0</span>, list);</div><div class="line">	<span class="comment">// 输出链表</span></div><div class="line">	System.out.println(list);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 按层次递归遍历二叉树</div><div class="line"> * </div><div class="line"> * <span class="doctag">@param</span> root</div><div class="line"> *            当前节点</div><div class="line"> * <span class="doctag">@param</span> level</div><div class="line"> *            层数</div><div class="line"> * <span class="doctag">@param</span> list</div><div class="line"> *            要存储到的容器</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">recursion</span><span class="params">(BinaryTree root, <span class="keyword">int</span> level,</span></span></div><div class="line">		ArrayList&lt;ArrayList&lt;Integer&gt;&gt; list) &#123;</div><div class="line">	<span class="comment">// 当前节点为空，空操作</span></div><div class="line">	<span class="keyword">if</span> (root == <span class="keyword">null</span>)</div><div class="line">		<span class="keyword">return</span>;</div><div class="line">	<span class="comment">// 若当前的层数大于等于链表的“层数”，那么为链表“加层”</span></div><div class="line">	<span class="keyword">if</span> (level &gt;= list.size()) &#123;</div><div class="line">		list.add(<span class="keyword">new</span> ArrayList&lt;Integer&gt;());</div><div class="line">	&#125;</div><div class="line">	<span class="comment">// 把当前节点存到指定层数中</span></div><div class="line">	list.get(level).add(root.getValue());</div><div class="line">	<span class="comment">// 递归把左子节点对应的树存入链表</span></div><div class="line">	recursion(root.getLeftChild(), level + <span class="number">1</span>, list);</div><div class="line">	<span class="comment">// 递归把右子节点对应的树存入链表</span></div><div class="line">	recursion(root.getRightChild(), level + <span class="number">1</span>, list);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>测试代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.btree;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BinaryTreeCountNodesTest</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		BinaryTree n1 = <span class="keyword">new</span> BinaryTree(<span class="number">1</span>);</div><div class="line">		BinaryTree n2 = <span class="keyword">new</span> BinaryTree(<span class="number">2</span>);</div><div class="line">		BinaryTree n3 = <span class="keyword">new</span> BinaryTree(<span class="number">3</span>);</div><div class="line">		BinaryTree n4 = <span class="keyword">new</span> BinaryTree(<span class="number">4</span>);</div><div class="line">		BinaryTree n5 = <span class="keyword">new</span> BinaryTree(<span class="number">5</span>);</div><div class="line">		BinaryTree n6 = <span class="keyword">new</span> BinaryTree(<span class="number">6</span>);</div><div class="line"></div><div class="line">		n1.setLeftChild(n2);</div><div class="line">		n1.setRightChild(n3);</div><div class="line">		n2.setLeftChild(n4);</div><div class="line">		n2.setRightChild(n5);</div><div class="line">		n3.setRightChild(n6);</div><div class="line"></div><div class="line">		BTreeTraverse.levelTraverseByRecursion(n1);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>树结构:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E6%A0%91%E7%BB%93%E6%9E%84.png" alt=""></p>
+<p>运行结果</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%E9%80%92%E5%BD%92%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.png" alt=""></p>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="http://www.youtube.com/watch?v=uPTCbdHSFg4" target="_blank" rel="external">Pre-Order Traversal of Binary Tree (Iterative)</a></p>
+<p><a href="http://www.youtube.com/watch?v=50v1sJkjxoc" target="_blank" rel="external">Inorder Binary Tree Traversal (Iteratively)</a></p>
+<p><a href="https://www.youtube.com/watch?v=hv-mJUs5mvU" target="_blank" rel="external">Print a Binary Tree in Post Order Traversal (Iterative using Stack)</a></p>
+<p><a href="http://bookshadow.com/weblog/2015/01/19/binary-tree-post-order-traversal/" target="_blank" rel="external">二叉树后序遍历的非递归实现</a></p>
+<p><a href="http://m.ithao123.cn/content-2544020.html" target="_blank" rel="external">二叉树前序、中序、后序遍历非递归写法的透彻解析</a></p>
+<p><a href="http://www.ptpedu.com.cn/HomePage/Detail.aspx?id=16296" target="_blank" rel="external">数据结构（C语言版）（第2版）-5.3.1遍历二叉树    </a></p>
+<p><a href="http://pan.baidu.com/s/1mh4s3ck" target="_blank" rel="external">郝斌数据结构-第67-72个视频，提取密码:hvzr</a></p>
+<hr>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/qrcode_for_gh_69fa03eccdf5_430.jpg" alt="XinPan wechat" style="width: 200px; max-width: 100%;"/>
+    <div>看完文章有感而发？或者你有什么不一样的见解？欢迎您扫一扫上面的微信公众号，订阅我的博客！！！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/18/二叉树面试题汇总(一)/" rel="next" title="二叉树面试题汇总(一)">
+                <i class="fa fa-chevron-left"></i> 二叉树面试题汇总(一)
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/18/二叉树面试题汇总(二)/"
+           data-title="二叉树面试题汇总(二)" data-url="http://xinpan2.github.io/2016/08/18/二叉树面试题汇总(二)/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">77</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉树的先序遍历"><span class="nav-number">1.</span> <span class="nav-text">二叉树的先序遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#递归法"><span class="nav-number">1.1.</span> <span class="nav-text">递归法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代法"><span class="nav-number">1.2.</span> <span class="nav-text">迭代法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉树的中序遍历"><span class="nav-number">2.</span> <span class="nav-text">二叉树的中序遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#递归法-1"><span class="nav-number">2.1.</span> <span class="nav-text">递归法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代"><span class="nav-number">2.2.</span> <span class="nav-text">迭代</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉树的后序遍历"><span class="nav-number">3.</span> <span class="nav-text">二叉树的后序遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#递归法-2"><span class="nav-number">3.1.</span> <span class="nav-text">递归法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代法-1"><span class="nav-number">3.2.</span> <span class="nav-text">迭代法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#层次查询"><span class="nav-number">4.</span> <span class="nav-text">层次查询</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#非递归方式"><span class="nav-number">4.1.</span> <span class="nav-text">非递归方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进"><span class="nav-number">4.2.</span> <span class="nav-text">改进</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递归"><span class="nav-number">4.3.</span> <span class="nav-text">递归</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
