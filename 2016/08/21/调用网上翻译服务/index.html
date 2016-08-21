@@ -1,0 +1,740 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+本来我昨天就写了这篇文章，可是无奈于昨天登陆网站一直显示连接已重置……可能是翻墙工具的问题，刚刚没有开翻墙居然进到网站了
+登陆目标网站访问http://webxml.com.cn
+
+
+点击如图所示红色框总标题，进入网页
+
+
+在这个页面中可以看到关于本网站上翻译服务的各种功能，点击进去就是各种功能的详细调用方法，但是在这里我们要先拿到">
+<meta property="og:type" content="article">
+<meta property="og:title" content="调用网上翻译服务">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/21/调用网上翻译服务/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+本来我昨天就写了这篇文章，可是无奈于昨天登陆网站一直显示连接已重置……可能是翻墙工具的问题，刚刚没有开翻墙居然进到网站了
+登陆目标网站访问http://webxml.com.cn
+
+
+点击如图所示红色框总标题，进入网页
+
+
+在这个页面中可以看到关于本网站上翻译服务的各种功能，点击进去就是各种功能的详细调用方法，但是在这里我们要先拿到">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A8.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A82.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A83.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A84.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A85.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A86.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A87.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A88.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A89.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A810.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A811.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A812.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A813.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A814.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A815.png">
+<meta property="og:updated_time" content="2016-08-21T05:17:24.084Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="调用网上翻译服务">
+<meta name="twitter:description" content="本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+本来我昨天就写了这篇文章，可是无奈于昨天登陆网站一直显示连接已重置……可能是翻墙工具的问题，刚刚没有开翻墙居然进到网站了
+登陆目标网站访问http://webxml.com.cn
+
+
+点击如图所示红色框总标题，进入网页
+
+
+在这个页面中可以看到关于本网站上翻译服务的各种功能，点击进去就是各种功能的详细调用方法，但是在这里我们要先拿到">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A8.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/21/调用网上翻译服务/"/>
+
+  <title> 调用网上翻译服务 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                调用网上翻译服务
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-21T11:46:11+08:00" content="2016-08-21">
+              2016-08-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/webService/" itemprop="url" rel="index">
+                    <span itemprop="name">webService</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/21/调用网上翻译服务/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/21/调用网上翻译服务/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong><em>本文代码在<a href="https://github.com/xinpan2/webService" target="_blank" rel="external">这里</a>，其他文章的代码从<a href="https://github.com/xinpan2?tab=repositories" target="_blank" rel="external">这里</a>可以找到，记得对号入座！！！</em></strong></p>
+<p>本来我昨天就写了这篇文章，可是无奈于昨天登陆网站一直显示连接已重置……可能是翻墙工具的问题，刚刚没有开翻墙居然进到网站了</p>
+<h1 id="登陆目标网站"><a href="#登陆目标网站" class="headerlink" title="登陆目标网站"></a>登陆目标网站</h1><p>访问<a href="http://webxml.com.cn" target="_blank" rel="external">http://webxml.com.cn</a></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A8.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A82.png" alt=""></p>
+<p>点击如图所示红色框总标题，进入网页</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A83.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A84.png" alt=""></p>
+<p>在这个页面中可以看到关于本网站上翻译服务的各种功能，点击进去就是各种功能的详细调用方法，但是在这里我们要先拿到WSDL，才能调用某个功能。</p>
+<h1 id="得到WSDL文件"><a href="#得到WSDL文件" class="headerlink" title="得到WSDL文件"></a>得到WSDL文件</h1><p>进入刚刚点进翻译功能的页面，点击服务说明</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A85.png" alt=""></p>
+<p>在新打开的网页中展示了一个xml文件：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A86.png" alt=""></p>
+<h1 id="得到源文件"><a href="#得到源文件" class="headerlink" title="得到源文件"></a>得到源文件</h1><p>在得到了WSDL文件之后，我们可以通过<code>wsimport</code> 指令来得到供本地java代码调用的.java和.class文件,因为wsimport是jdk提供的，存在于bin目录中。</p>
+<p>在cmd命令模式中，输入：</p>
+<p><code>wsimport -s . http://fy.webxml.com.cn/webservices/EnglishChinese.asmx?WSDL</code></p>
+<ul>
+<li><p><code>.</code> : 代表当前所在目录下生成</p>
+</li>
+<li><p>-s : 在本地生成.java .class文件</p>
+</li>
+<li><p>后面的链接地址： 指向的是xml文件</p>
+</li>
+</ul>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A87.png" alt=""></p>
+<p>报错了，但为了能够运行，我们把这个WSDL文件下载到本地C盘，当然其他盘也可以，C盘好找，有些浏览器直接点击网站的文件按钮即可保存，但是搜狗浏览器要在菜单按钮保存，保存的是xml文件</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A88.png" alt="1"></p>
+<p>浏览器自动识别xml文件</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A89.png" alt=""></p>
+<p>保存到C盘之后，我们把刚刚无法解析的19、105行删除掉，完成之后再命令行输入如下指令：</p>
+<p><code>wsimport -s . EnglichChinese.xml</code></p>
+<ul>
+<li>EnglishChinese.xml: 因为该文件就在C盘，并且命令行当前也在C盘，所以直接输入文件名即可</li>
+</ul>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A810.png" alt=""></p>
+<p>刚刚的错误已经消失，只是有几个警告而已，并且提示正在生成、编译代码，我们打开C盘看看生成的文件：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A811.png" alt=""></p>
+<p>大家注意看文件的路径：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A812.png" alt="1"></p>
+<p>既然得到了WSDL文件，那么下一步就是具体功能的调用了：</p>
+<h1 id="功能调用"><a href="#功能调用" class="headerlink" title="功能调用"></a>功能调用</h1><p>启动eclipse，创建java项目</p>
+<p>把刚刚生成的.class文件删除，保留java文件，并把整个文件拷贝到项目中</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A813.png" alt=""></p>
+<p>自己创建一个类，用来测试翻译功能：</p>
+<p>思路：</p>
+<ul>
+<li><p>得到翻译服务的对象</p>
+</li>
+<li><p>因为刚刚点击翻译服务，打开一个页面还有其他很多的子服务，所以要得到这些子服务的集合</p>
+</li>
+<li><p>查看WSDL，了解到输入的参数和返回值，如下图，输入字符串，返回字符串数组</p>
+</li>
+</ul>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A814.png" alt=""></p>
+<ul>
+<li>调用功能</li>
+</ul>
+<p>实现：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E7%BF%BB%E8%AF%91%E8%B0%83%E7%94%A815.png" alt=""></p>
+<p><strong><em>在这里需要注意的是：有些IDE需要自己导入Junit包，如果输入<code>@Test</code>注解没有提示自动导入jar包，可以在文章末尾处下载Junit包，还有刚刚保存的WSDL文件，如果在运行时，显示无法找到C:/EnglishChinese.xml文件，那么把刚刚下载的EnglishChinese.asmx.xml重命名成EnglishChinese.xml，然后才能运行成功！亲测！！！</em></strong></p>
+<p>如果需要详细了解调用过程，大家可以从网站上访问指定的功能，点名字进去会有详细的测试调用及调用信息！！！</p>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="http://pan.baidu.com/s/1qY1qEMK" target="_blank" rel="external">3-调用网上提供的一个WebService翻译</a></p>
+<p>用到的工具：</p>
+<p><a href="http://pan.baidu.com/s/1hrZgJhM" target="_blank" rel="external">junit-4.8.2.jar</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/qrcode_for_gh_69fa03eccdf5_430.jpg" alt="XinPan wechat" style="width: 200px; max-width: 100%;"/>
+    <div>看完文章有感而发？或者你有什么不一样的见解？欢迎您扫一扫上面的微信公众号，订阅我的博客！！！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/19/webService三大要素及运行原理/" rel="next" title="webService三大要素及运行原理">
+                <i class="fa fa-chevron-left"></i> webService三大要素及运行原理
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/21/调用网上翻译服务/"
+           data-title="调用网上翻译服务" data-url="http://xinpan2.github.io/2016/08/21/调用网上翻译服务/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">136</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#登陆目标网站"><span class="nav-number">1.</span> <span class="nav-text">登陆目标网站</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#得到WSDL文件"><span class="nav-number">2.</span> <span class="nav-text">得到WSDL文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#得到源文件"><span class="nav-number">3.</span> <span class="nav-text">得到源文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#功能调用"><span class="nav-number">4.</span> <span class="nav-text">功能调用</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
