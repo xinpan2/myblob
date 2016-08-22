@@ -1,0 +1,725 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+在前面讲过了如何调用网上的ws服务，现在我们来自定义一个ws服务，让别人也可以调用。
+不知道如何下手，我们可以从api开始，大家可以从javax.xml.ws开始，因为从名字来看，这个包是属于webS而vice的。下图是这个包的结构图：
+
+
+我们从第一个类开始，因为EndPoint这个名词，在前面讲ws原理时遇到过，下面我们看看这个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自定义ws服务">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/22/自定义ws服务/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+在前面讲过了如何调用网上的ws服务，现在我们来自定义一个ws服务，让别人也可以调用。
+不知道如何下手，我们可以从api开始，大家可以从javax.xml.ws开始，因为从名字来看，这个包是属于webS而vice的。下图是这个包的结构图：
+
+
+我们从第一个类开始，因为EndPoint这个名词，在前面讲ws原理时遇到过，下面我们看看这个">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89ws7.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89ws8.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89ws9.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89ws10.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89ws11.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89ws12.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89ws13.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89ws14.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89ws15.png">
+<meta property="og:updated_time" content="2016-08-22T07:19:29.161Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自定义ws服务">
+<meta name="twitter:description" content="本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+在前面讲过了如何调用网上的ws服务，现在我们来自定义一个ws服务，让别人也可以调用。
+不知道如何下手，我们可以从api开始，大家可以从javax.xml.ws开始，因为从名字来看，这个包是属于webS而vice的。下图是这个包的结构图：
+
+
+我们从第一个类开始，因为EndPoint这个名词，在前面讲ws原理时遇到过，下面我们看看这个">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89ws7.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/22/自定义ws服务/"/>
+
+  <title> 自定义ws服务 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                自定义ws服务
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-22T11:53:54+08:00" content="2016-08-22">
+              2016-08-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/webService/" itemprop="url" rel="index">
+                    <span itemprop="name">webService</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/22/自定义ws服务/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/22/自定义ws服务/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong><em>本文代码在<a href="https://github.com/xinpan2/webService/tree/master/myws" target="_blank" rel="external">这里</a>，其他文章的代码从<a href="https://github.com/xinpan2?tab=repositories" target="_blank" rel="external">这里</a>可以找到，记得对号入座！！！</em></strong></p>
+<p>在前面讲过了如何调用网上的ws服务，现在我们来自定义一个ws服务，让别人也可以调用。</p>
+<p>不知道如何下手，我们可以从api开始，大家可以从javax.xml.ws开始，因为从名字来看，这个包是属于webS而vice的。下图是这个包的结构图：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89ws7.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89ws8.png" alt=""></p>
+<p>我们从第一个类开始，因为EndPoint这个名词，在前面讲ws原理时遇到过，下面我们看看这个类的说明：</p>
+<blockquote>
+<p>javax.xml.ws<br>Class Endpoint</p>
+<p>java.lang.Object<br>javax.xml.ws.Endpoint</p>
+<p>public abstract class Endpoint<br>extends Object</p>
+<p>A Web service endpoint.<br>Endpoints are created using the static methods defined in this class. An endpoint is always tied to one Binding and one implementor, both set at endpoint creation time.</p>
+<p>An endpoint is either in a published or an unpublished state. The publish methods can be used to start publishing an endpoint, at which point it starts accepting incoming requests. Conversely, the stop method can be used to stop accepting incoming requests and take the endpoint down. Once stopped, an endpoint cannot be published again.</p>
+<p>An Executor may be set on the endpoint in order to gain better control over the threads used to dispatch incoming requests. For instance, thread pooling with certain parameters can be enabled by creating a ThreadPoolExecutor and registering it with the endpoint.</p>
+<p>Handler chains can be set using the contained Binding.</p>
+<p>An endpoint may have a list of metadata documents, such as WSDL and XMLSchema documents, bound to it. At publishing time, the JAX-WS implementation will try to reuse as much of that metadata as possible instead of generating new ones based on the annotations present on the implementor.</p>
+<p>Since:<br>JAX-WS 2.0<br>See Also:<br>Binding, BindingType, SOAPBinding, Executor</p>
+</blockquote>
+<p>大意：</p>
+<p>这是一个ws的端点（在前面ws的介绍中，维基百科的介绍说过end user那时候我翻译成目的用户），端点-即从这里开始或结束的点。</p>
+<p>端点（Endpoint）可以通过这个类中的静态方法来获得对象，一个端点总是与一个地址和一个实现者绑定，这两者都在被创建时被赋值。</p>
+<blockquote>
+<p><strong><em>这段不是翻译，是说明</em></strong>： 我把binding翻译成地址，是根据维基百科对binding的翻译：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89ws9.png" alt=""></p>
+<p>结合两点，翻译成地址。</p>
+</blockquote>
+<p>端点的两个状态分别是已发布或未发布，<code>publish</code>方法能够被用来发布一个端点，这个端点就能开始接收传入的请求；相反的，<code>stop</code>方法可以被用来暂停一个端点接收请求并让这个端点停止工作。一旦这个端点被关闭，这个端点就不能被继续发布。</p>
+<blockquote>
+<p><strong><em>说明：关于一旦这个端点被关闭，这个端点不能继续发布这句话我持怀疑态度，因为我在测试的时候，前前后后启动过很多次发布方法，但是都可以接收请求……这点有待后面的研究！！！！！！</em></strong></p>
+</blockquote>
+<p>为了让端点使用多线程啦分发传入的请求获得更好的控制，Excutor应该被设置在端点中。例如，通过创建<code>ThreadPoolExecutor</code>对象并用端点注册它，线程池又拥有具体的配置之后可以被使用。</p>
+<blockquote>
+<p>说明：Exccutor、ThreadPoolExecutor在前面的公众号文章主题为：&lt;关于内容说明&gt;这篇文章中看到，公众号二维码在文章末尾处。</p>
+</blockquote>
+<p>处理链可以通过被包含的地址来设置</p>
+<p>一个端点应该拥有一串的元数据文档，就像WDDL和XMLSCHEMA文档来约束它。在发布时，ws的实现会尽可能的重用元数据而不是基于当前实现者的注解来创建新的元数据。</p>
+<p>从JAX-WS 2.0版本开始</p>
+<h1 id="创建服务端"><a href="#创建服务端" class="headerlink" title="创建服务端"></a>创建服务端</h1><p>既然Endpoint就是用来创建服务端的，那么我们就来使用它，刚刚在上面的翻译中可以知道，endpoint是通过publish方法来得到其实例由此来创建服务器的，那么我们就来看看里的publish方法</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89ws10.png" alt=""></p>
+<p>在这里我测试的代码将会使用第四种publish方法来发表服务。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89ws11.png" alt=""></p>
+<p>大意：</p>
+<p>通过在给定地址的实现者对象创建和发表一个endpoint</p>
+<p>必要的服务端的基础设施将被创建和被JAS-WS的实现者使用一些默认配置来配置这些设施。如果为了在服务配置中得到更多的控制，请使用create(String,Object)和publish(Object)方法来代替当前的publish方法。</p>
+<p>参数：</p>
+<p>address：URI和传输协议/端口，并且这个地址使用的是soap1.1版本和http协议。</p>
+<p>implementor: 端点的实现者</p>
+<p>返回值：</p>
+<p>新创建的端点</p>
+<p>异常：</p>
+<p><code>SecurityException</code>：如果安全管理对象正在被使用和这个应用没有ws的发布权限，将会抛出该异常。</p>
+<h2 id="创建java项目"><a href="#创建java项目" class="headerlink" title="创建java项目"></a>创建java项目</h2><p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89ws12.png" alt=""></p>
+<p>在写好地址之后，大家应该注意我们设置的地址中端口及方法名，首先要检查我们设置的端口有没有被使用，在windows的命令行中输入<code>netstat -a</code></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89ws13.png" alt=""></p>
+<p>当前使用的端口没有冲突之后，再检查端口后面的方法名与我们等下再客户端要调用的指定方法名字需要一致，还有地址输入的冒号，记得别输入中文状态下的，否则回报无法解析异常！！！都无误后，运行</p>
+<p>控制台：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89ws14.png" alt=""></p>
+<p>端口：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89ws15.png" alt=""></p>
+<p>这样，服务端就编写完毕，接下来就是客户端的编写。</p>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="http://pan.baidu.com/s/1geRHraz" target="_blank" rel="external">4-第一个WebService服务端</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/qrcode_for_gh_69fa03eccdf5_430.jpg" alt="XinPan wechat" style="width: 200px; max-width: 100%;"/>
+    <div>看完文章有感而发？或者你有什么不一样的见解？欢迎您扫一扫上面的微信公众号，订阅我的博客！！！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/21/调用网上翻译服务/" rel="next" title="调用网上翻译服务">
+                <i class="fa fa-chevron-left"></i> 调用网上翻译服务
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/22/访问自定义的ws服务/" rel="prev" title="访问自定义的ws服务">
+                访问自定义的ws服务 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/22/自定义ws服务/"
+           data-title="自定义ws服务" data-url="http://xinpan2.github.io/2016/08/22/自定义ws服务/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">138</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#创建服务端"><span class="nav-number">1.</span> <span class="nav-text">创建服务端</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建java项目"><span class="nav-number">1.1.</span> <span class="nav-text">创建java项目</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
