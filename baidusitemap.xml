@@ -4,6 +4,24 @@
 
     
   <url>
+    <loc>http://xinpan2.github.io/2016/08/22/%E8%87%AA%E5%AE%9A%E4%B9%89ws%E6%9C%8D%E5%8A%A1/</loc>
+    <lastmod>2016-08-22T15:01:12.649Z</lastmod>
+    <data>
+        <display>
+        <title>自定义ws服务</title>
+        <pubTime>2016-08-22T03:53:54.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="webService" url="http://xinpan2.github.io/categories/webService/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://xinpan2.github.io/2016/08/22/eclipse-MyEclipse%E6%8F%90%E4%BE%9Bws%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2016-08-22T12:36:03.233Z</lastmod>
     <data>
@@ -28,24 +46,6 @@
         <display>
         <title>如何查看WSDL文档</title>
         <pubTime>2016-08-22T11:05:17.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="webService" url="http://xinpan2.github.io/categories/webService/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://xinpan2.github.io/2016/08/22/%E8%87%AA%E5%AE%9A%E4%B9%89ws%E6%9C%8D%E5%8A%A1/</loc>
-    <lastmod>2016-08-22T11:36:11.247Z</lastmod>
-    <data>
-        <display>
-        <title>自定义ws服务</title>
-        <pubTime>2016-08-22T03:53:54.000Z</pubTime>
         
          
            
