@@ -1,0 +1,762 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="从第一次我们使用hdfs时，首先要做的就是得到文件系统，可是一直都在输入这行代码，却不知道它内部是如何工作的，所以现在我们来看看，当我们调用
+FileSystem fs=FileSystem.get(conf)
+这行代码会执行哪些动作才能得到一个fs实例！
+运行测试下载方法：首先进入断点，在获取fs处
+
+进入get方法：
+
+可以看到，这个方法中，其他步骤都是从配置文件（conf）中获得参数，比如t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="得到文件系统实例的流程源码解析">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/24/得到文件系统实例的流程源码解析/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="从第一次我们使用hdfs时，首先要做的就是得到文件系统，可是一直都在输入这行代码，却不知道它内部是如何工作的，所以现在我们来看看，当我们调用
+FileSystem fs=FileSystem.get(conf)
+这行代码会执行哪些动作才能得到一个fs实例！
+运行测试下载方法：首先进入断点，在获取fs处
+
+进入get方法：
+
+可以看到，这个方法中，其他步骤都是从配置文件（conf）中获得参数，比如t">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%811.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%812.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%813.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%814.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%815.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%816.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%817.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%818.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%819.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8111.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8112.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8113.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8114.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8115.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8116.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8117.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8118.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8119.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8125.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8126.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8127.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8128.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8129.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8130.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8131.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8132.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8133.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8134.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8135.png">
+<meta property="og:updated_time" content="2016-08-24T14:55:55.475Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="得到文件系统实例的流程源码解析">
+<meta name="twitter:description" content="从第一次我们使用hdfs时，首先要做的就是得到文件系统，可是一直都在输入这行代码，却不知道它内部是如何工作的，所以现在我们来看看，当我们调用
+FileSystem fs=FileSystem.get(conf)
+这行代码会执行哪些动作才能得到一个fs实例！
+运行测试下载方法：首先进入断点，在获取fs处
+
+进入get方法：
+
+可以看到，这个方法中，其他步骤都是从配置文件（conf）中获得参数，比如t">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%811.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/24/得到文件系统实例的流程源码解析/"/>
+
+  <title> 得到文件系统实例的流程源码解析 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                得到文件系统实例的流程源码解析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-24T20:24:00+08:00" content="2016-08-24">
+              2016-08-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/24/得到文件系统实例的流程源码解析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/24/得到文件系统实例的流程源码解析/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>从第一次我们使用hdfs时，首先要做的就是得到文件系统，可是一直都在输入这行代码，却不知道它内部是如何工作的，所以现在我们来看看，当我们调用</p>
+<p><code>FileSystem fs=FileSystem.get(conf)</code></p>
+<p>这行代码会执行哪些动作才能得到一个fs实例！</p>
+<p>运行测试下载方法：首先进入断点，在获取fs处</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%811.png" alt=""></p>
+<p>进入get方法：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%812.png" alt=""></p>
+<p>可以看到，这个方法中，其他步骤都是从配置文件（conf）中获得参数，比如ticketCachePath，ugi，在这个方法中，只有最下面的return方法才是得到文件系统实例，所以点进去</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%813.png" alt="1"></p>
+<p>看图中断点，在第一行代码中设置之后，点击箭头指向的绿色按钮，意思就是让右边红色框框的记录为当前断点行数，当我们点到别的地方要倒回来，直接点右边红色框那一行数据即可。</p>
+<p>英文注释的大意：</p>
+<p>根据传进来的uri中的方案（1）和权限（2）返回文件系统实例，uri中的方案决定了<code>fs.scheme.class</code>的属性名，这个属性对应的值用来作为文件系统的名字，整个uri对象会被传送给文件系统的构造函数</p>
+<p>在上面标了（1）和（2），其中，方案也可以理解成所选择的文件系统，有hdfs,也有本地文件系统（file:///），关于（2），实际上说的就是访问的具体路径，下面两幅图是debug模式下（1）和（2）的结果：</p>
+<p>（1）：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%814.png" alt=""></p>
+<p>（2）：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%815.png" alt=""></p>
+<p>由于scheme和authority都不是nul,所以两个判断流程不经过，直接进入后面的代码块。<code>String.format</code>方法就是方法注释中说的，scheme决定的名字，这里用来设置名字:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%816.png" alt=""></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">conf.getBoolean(disableCacheName, <span class="keyword">false</span>)</div></pre></td></tr></table></figure>
+<p>用来判断<code>disableCacheName</code>是否为空，即文件系统是否为空，如果为空，即值为false，就创建一个文件系统，但是可以从上一张图看到，这个属性是有值的，所以不执行判断语句块中的内容而直接跳到最后面的return语句。进入到CACHE.get()方法：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%817.png" alt=""></p>
+<p>这个方法把uri跟配置属性conf包装成一个类中，再进入返回语句的方法：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%818.png" alt=""></p>
+<p>在这里把刚刚封装的key传过来，看来这里有一个map,从map的返回结果可以看到，key对应的value是fs实例，由于这里的key是null,所以返回的是空，这种map，用的是设计模式的单例模式中的懒汉式！</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%819.png" alt=""></p>
+<p>下一步，就是创建fs实例的步骤，点进去：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8111.png" alt=""></p>
+<p>第一行代码，非常明显的反射技术，但是不知道大家有没有注意到，带每一步带的参数中，好像哪里都有conf…去哪里都带着几个配置文件，会不会有点数据冗余啊……</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8112.png" alt=""></p>
+<p>好，执行完这一步，已经根据scheme名字，得到了文件系统的字节码对象：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8113.png" alt=""></p>
+<p>创建文件系统的实例：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8114.png" alt=""></p>
+<p>大家可以看到，虽然创建了实例，但是里面的配置是null,所以，还要经过初始化，根据配置文件为一些属性赋值，所以我们进去初始化方法瞧瞧，里面都有哪些属性需要初始化：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8115.png" alt=""></p>
+<p>进入了分布式文件系统这个类，在执行初始化方法之前，需要调用父类（即fieSystem）的初始化方法：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8116.png" alt=""></p>
+<p>在父类的初始化方法只是把统计的信息重置为0：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8117.png" alt=""></p>
+<p>然后回到分布式文件系统中：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8118.png" alt=""></p>
+<p>在后面的这几步中，uri.workingDir都是设置的字符串，所以没什么窍门，但是这里有给dfs复制，我们怎样也要进去看看：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8119.png" alt=""></p>
+<p>在dfsClient中，居然有一个nameNode属性！这里的nameNodeProxy代理，实际上代理的是nameNode的socket，使用的泛型<clientprotocol>实际上就是它们遵循公共接口！但是到目前为止，代理对象还是null，接口也为null，所以，执行判断语句块中的else</clientprotocol></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8125.png" alt=""></p>
+<p>于是点进了创建代理对象中：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8126.png" alt=""></p>
+<p>failover是指是否支持多个nameNode,由于我们是单节点集群，所以failOver为null。这里创建的是单节点代理</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8127.png" alt=""></p>
+<p>再往里走：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8128.png" alt=""></p>
+<p>在这里创建代理对象也用到了RPC框架，并且最后一步对代理对象进行了进一步的处理：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8129.png" alt=""></p>
+<p>然后返回proxyInfo对象</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8130.png" alt=""></p>
+<p>并且把代理对象赋值给nameNode。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8131.png" alt=""></p>
+<p>到目前位置，代理对象已经创建完毕。然后就是这些字符串的赋值:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8132.png" alt=""></p>
+<p>再返回刚刚创建好的文件系统对象：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8133.png" alt=""></p>
+<p>对象创建完成：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8134.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/fs%E6%B5%81%E7%A8%8B%E6%BA%90%E7%A0%8135.png" alt=""></p>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="http://pan.baidu.com/s/1c2xBAAc" target="_blank" rel="external">09-hdfs源码跟踪之getFileSystem</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/qrcode_for_gh_69fa03eccdf5_430.jpg" alt="XinPan wechat" style="width: 200px; max-width: 100%;"/>
+    <div>看完文章有感而发？或者你有什么不一样的见解？欢迎您扫一扫上面的微信公众号，订阅我的博客！！！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/24/RPC例子/" rel="next" title="RPC例子">
+                <i class="fa fa-chevron-left"></i> RPC例子
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/24/得到文件系统实例的流程源码解析/"
+           data-title="得到文件系统实例的流程源码解析" data-url="http://xinpan2.github.io/2016/08/24/得到文件系统实例的流程源码解析/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">143</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/andy_px" target="_blank" title="CSDN" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
