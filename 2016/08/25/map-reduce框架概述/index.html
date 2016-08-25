@@ -84,28 +84,30 @@
 
 
 
-<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+<meta name="description" content="在前面已经有一片文章讲到了该框架的原理，现在我们在这里做进一步的讨论，并且分析前面调用map-reduce的例子。
+在前面我们使用过一次map-reduce框架，就是使用例子里面的统计方法，来统计每个单词出现了多少次，具体参考原文伪分布式集群的搭建-8.3. 使用mapreduce的一个小功能
+说到这里我要引入一张map-reduce的工作流程图：
 
-ormapping的意思是object-relation mapping 对象关系映射。即表明ormapping是让对象跟数据库建立关系的框架。那么它是怎样建立关系的呢？
-通过配置文件，拿我们">
+在map-reduce中，数据都是以键值对的形">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于ormapping">
-<meta property="og:url" content="http://xinpan2.github.io/2016/08/18/关于ormapping/index.html">
+<meta property="og:title" content="map-reduce框架概述">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/25/map-reduce框架概述/index.html">
 <meta property="og:site_name" content="Path">
-<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+<meta property="og:description" content="在前面已经有一片文章讲到了该框架的原理，现在我们在这里做进一步的讨论，并且分析前面调用map-reduce的例子。
+在前面我们使用过一次map-reduce框架，就是使用例子里面的统计方法，来统计每个单词出现了多少次，具体参考原文伪分布式集群的搭建-8.3. 使用mapreduce的一个小功能
+说到这里我要引入一张map-reduce的工作流程图：
 
-ormapping的意思是object-relation mapping 对象关系映射。即表明ormapping是让对象跟数据库建立关系的框架。那么它是怎样建立关系的呢？
-通过配置文件，拿我们">
-<meta property="og:updated_time" content="2016-08-18T12:53:57.234Z">
+在map-reduce中，数据都是以键值对的形">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/map-reduce%E6%A6%82%E8%BF%B0.png">
+<meta property="og:updated_time" content="2016-08-25T08:08:53.992Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于ormapping">
-<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+<meta name="twitter:title" content="map-reduce框架概述">
+<meta name="twitter:description" content="在前面已经有一片文章讲到了该框架的原理，现在我们在这里做进一步的讨论，并且分析前面调用map-reduce的例子。
+在前面我们使用过一次map-reduce框架，就是使用例子里面的统计方法，来统计每个单词出现了多少次，具体参考原文伪分布式集群的搭建-8.3. 使用mapreduce的一个小功能
+说到这里我要引入一张map-reduce的工作流程图：
 
-ormapping的意思是object-relation mapping 对象关系映射。即表明ormapping是让对象跟数据库建立关系的框架。那么它是怎样建立关系的呢？
-通过配置文件，拿我们">
+在map-reduce中，数据都是以键值对的形">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/map-reduce%E6%A6%82%E8%BF%B0.png">
 
 
 
@@ -126,9 +128,9 @@ ormapping的意思是object-relation mapping 对象关系映射。即表明ormap
 
 
 
-  <link rel="canonical" href="http://xinpan2.github.io/2016/08/18/关于ormapping/"/>
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/25/map-reduce框架概述/"/>
 
-  <title> 关于ormapping | Path </title>
+  <title> map-reduce框架概述 | Path </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -258,7 +260,7 @@ ormapping的意思是object-relation mapping 对象关系映射。即表明ormap
             
             
               
-                关于ormapping
+                map-reduce框架概述
               
             
           </h1>
@@ -270,8 +272,8 @@ ormapping的意思是object-relation mapping 对象关系映射。即表明ormap
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-18T08:19:00+08:00" content="2016-08-18">
-              2016-08-18
+            <time itemprop="dateCreated" datetime="2016-08-25T15:31:45+08:00" content="2016-08-25">
+              2016-08-25
             </time>
           </span>
 
@@ -284,8 +286,8 @@ ormapping的意思是object-relation mapping 对象关系映射。即表明ormap
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/hibernate入门/" itemprop="url" rel="index">
-                    <span itemprop="name">hibernate入门</span>
+                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop笔记</span>
                   </a>
                 </span>
 
@@ -300,8 +302,8 @@ ormapping的意思是object-relation mapping 对象关系映射。即表明ormap
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/18/关于ormapping/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/18/关于ormapping/" itemprop="commentsCount"></span>
+                <a href="/2016/08/25/map-reduce框架概述/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/25/map-reduce框架概述/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -324,29 +326,19 @@ ormapping的意思是object-relation mapping 对象关系映射。即表明ormap
       
 
       
-        <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
-<p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
-<hr>
-<p>ormapping的意思是object-relation mapping 对象关系映射。即表明ormapping是让对象跟数据库建立关系的框架。那么它是怎样建立关系的呢？</p>
-<p>通过配置文件，拿我们老生常谈的例子，person类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Long id;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="comment">//这里省略getter()&amp;setter()</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这里我们可以把person这个类成为pojo(持久化类)，那么为什么叫pojo?因为对象本来实例化之后，存在内存中，我们把它存到硬盘中，以后访问也不会丢失数据，就叫做pojo。</p>
-<p>同时，有些人可能会迷惑：它跟javaBean很像啊，对，没有错，它就是一个javaBean。关于它实现的seralizable接口，这个接口里面什么内容都没有，是个标识接口，那么它有什么用呢？</p>
-<p>既然我们说它是标识接口，那么标记作用就一定有，其实serializable又叫序列化，为什么要序列化呢？用于对象在网络上传输，只有把对象转换成二进制才能在网络上传输，但是有时候把对象转换成二进制是比较麻烦的一件事，因为有些对象里面还有其他的类，所以就用一个标识接口标记起来，让困难的给JVM完成，等JVM看到这个接口，就会把这个对象转换成二进制。就好像有同学上课的时候在举手，老师看见了，就知道有问题了，它们的作用一致。</p>
-<p>话又说回来，既然ormapping是让对象跟数据库建立关系，它们通过配置文件产生关系，那么它们都有哪些关系呢？</p>
-<p>比如我这里还有一张表，名字叫aa，有2个字段，名字分别为a,b（这里故意不用与对象相同的名字）。那么我们要确立它们的关系，就要确定：</p>
-<ul>
-<li><p>对象和表的关系</p>
-</li>
-<li><p>对象中的属性跟表中字段的关系</p>
-</li>
-<li><p>对象中的属性的类型跟表中字段类型的关系</p>
-</li>
-<li><p>一对多和多对多转换成面向对象的关系</p>
-</li>
-</ul>
-<p>这些内容都在.hbm.xml（这个文件叫映射文件）上，其中是pojo的名字</p>
-<hr>
+        <p>在前面已经有一片文章讲到了该框架的原理，现在我们在这里做进一步的讨论，并且分析前面调用map-reduce的例子。</p>
+<p>在前面我们使用过一次map-reduce框架，就是使用例子里面的统计方法，来统计每个单词出现了多少次，具体参考原文<a href="http://xinpaninjava.com/2016/08/18/%E4%BC%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E7%BE%A4%E7%9A%84%E6%90%AD%E5%BB%BA/" target="_blank" rel="external">伪分布式集群的搭建-8.3. 使用mapreduce的一个小功能</a></p>
+<p>说到这里我要引入一张map-reduce的工作流程图：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/map-reduce%E6%A6%82%E8%BF%B0.png" alt=""></p>
+<p>在map-reduce中，数据都是以键值对的形式存在的，比如我们之前那个例子，整个文本被切成很多个小文件，并被分发到各个节点上，每一个Mapper Task都是一个进程，在一台节点上可以有1个或多个进程，这取决于节点的性能，那么map阶段怎样得到数据呢？</p>
+<p>map阶段的数据是以及被框架封装好的，也是以键值对的形式，其中key代表要处理文件的偏移量，value代表读取到的那一行数据，这样，多个进程并发的被执行，也就不会处理到相同的偏移量上的数据，map处理阶段的伪代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">//把一行数据分成一个个单词存在数组中</span></div><div class="line">String[] words=value.toString().split(<span class="string">" "</span>);</div><div class="line"><span class="comment">//分别以每个单词作为key,1作为value，写到上下文中，作为记录这个单词出现了一次</span></div><div class="line"><span class="keyword">for</span>(String word:words)&#123;</div><div class="line"></div><div class="line">	context.write(word,<span class="number">1</span>);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当map阶段的所有工作都完成了之后，先把所有key一致的数据拿出来整合，形成(key,[v,v,v,v,……,v])的类型，这样先整合便于reduce阶段的处理，保证了reduce阶段处理的每一个key的结果都是全局的结果！</p>
+<p>这时整合后的数据（key,[v,v,v,v,……,v]）被传到reduce中，reduce做的工作就是先把里面所有的v拿出来相加保存在一个变量中，然后再以键值对形式把这个单词出现的次数放在context中，下面是reduce阶段的伪代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">sum+=value;</div><div class="line"></div><div class="line">context.write(key,sum);</div></pre></td></tr></table></figure>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="http://pan.baidu.com/s/1o8tT2B4" target="_blank" rel="external">02-mapreduce框架概略</a></p>
 
       
     </div>
@@ -377,17 +369,13 @@ ormapping的意思是object-relation mapping 对象关系映射。即表明ormap
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/18/分析hibernate与jdbC的优缺点/" rel="next" title="分析hibernate与jdbC的优缺点">
-                <i class="fa fa-chevron-left"></i> 分析hibernate与jdbC的优缺点
+              <a href="/2016/08/24/得到文件系统实例的流程源码解析/" rel="next" title="得到文件系统实例的流程源码解析">
+                <i class="fa fa-chevron-left"></i> 得到文件系统实例的流程源码解析
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/18/hibernate第一个例子，保存一个对象/" rel="prev" title="hibernate第一个例子，保存一个对象">
-                hibernate第一个例子，保存一个对象 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -413,8 +401,8 @@ ormapping的意思是object-relation mapping 对象关系映射。即表明ormap
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/18/关于ormapping/"
-           data-title="关于ormapping" data-url="http://xinpan2.github.io/2016/08/18/关于ormapping/">
+      <div class="ds-thread" data-thread-key="2016/08/25/map-reduce框架概述/"
+           data-title="map-reduce框架概述" data-url="http://xinpan2.github.io/2016/08/25/map-reduce框架概述/">
       </div>
     
   </div>
