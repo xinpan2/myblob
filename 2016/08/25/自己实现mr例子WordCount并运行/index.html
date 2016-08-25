@@ -1,0 +1,740 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+在前面我们自己调用了map-reduce的一个例子：wordcount来实现文本的统计，现在我们要自己来写一个wordcount，在上一篇文章中，我们给出了map和reduce的一些伪代码，如果对思路还不太清晰，推荐看一下上一篇文章以及前面调用例子那篇文章，现在回到主题。
+我们可以选择在linux中开启eclipse来写，也可以在w">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自己实现mr例子WordCount并运行">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/25/自己实现mr例子WordCount并运行/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+在前面我们自己调用了map-reduce的一个例子：wordcount来实现文本的统计，现在我们要自己来写一个wordcount，在上一篇文章中，我们给出了map和reduce的一些伪代码，如果对思路还不太清晰，推荐看一下上一篇文章以及前面调用例子那篇文章，现在回到主题。
+我们可以选择在linux中开启eclipse来写，也可以在w">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount3.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount8.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount5.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount6.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount7.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount9.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount9.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount12.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount13.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount14.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount15.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount16.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount17.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount18.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount19.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount20.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount21.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/wordcount%E8%BF%90%E8%A1%8C.gif">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount22.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount23.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount24.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount25.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount26.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount27.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount28.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount29.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount30.png">
+<meta property="og:updated_time" content="2016-08-25T14:27:54.950Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自己实现mr例子WordCount并运行">
+<meta name="twitter:description" content="本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+在前面我们自己调用了map-reduce的一个例子：wordcount来实现文本的统计，现在我们要自己来写一个wordcount，在上一篇文章中，我们给出了map和reduce的一些伪代码，如果对思路还不太清晰，推荐看一下上一篇文章以及前面调用例子那篇文章，现在回到主题。
+我们可以选择在linux中开启eclipse来写，也可以在w">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/25/自己实现mr例子WordCount并运行/"/>
+
+  <title> 自己实现mr例子WordCount并运行 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                自己实现mr例子WordCount并运行
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-25T20:27:26+08:00" content="2016-08-25">
+              2016-08-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/25/自己实现mr例子WordCount并运行/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/25/自己实现mr例子WordCount并运行/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong><em>本文代码在<a href="https://github.com/xinpan2/hadoopStudy/tree/master/wordcount" target="_blank" rel="external">这里</a>，其他文章的代码从<a href="https://github.com/xinpan2?tab=repositories" target="_blank" rel="external">这里</a>可以找到，记得对号入座！！！</em></strong></p>
+<p>在前面我们自己调用了map-reduce的一个例子：wordcount来实现文本的统计，现在我们要自己来写一个wordcount，在上一篇文章中，我们给出了map和reduce的一些伪代码，如果对思路还不太清晰，推荐看一下上一篇文章以及前面调用例子那篇文章，现在回到主题。</p>
+<p>我们可以选择在linux中开启eclipse来写，也可以在windows中远程写，我选择在windows中，大家随意。</p>
+<p> mapper类</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount1.png" alt=""></p>
+<p><strong><em>注：如果不太懂思路，可以在github中看类注释！！！对于可以截上类注释我都会带上！！！还有，大家要注意导入的引用，有些类的名字一样，但是全名不一样！！否则会报错，或者没有指定参数的选项！！亲测！！！</em></strong></p>
+<p> reducer类</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount2.png" alt=""></p>
+<p> Runner类</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount3.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount8.png" alt=""></p>
+<h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><p>首先把整个项目打成jar包，放在C盘根目录下，方便等下传送到linux中。<strong><em>注意：代码不能有警告，即warnings,否则打包时会出错！</em></strong></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount5.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount6.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount7.png" alt=""></p>
+<p>在C盘根目录下找到jar包：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount9.png" alt=""></p>
+<p>首先开启好虚拟机，以及远程登陆好，首先关闭防火墙，为了等下方便在网页中查看上传的文件或者处理结果。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount9.png" alt=""></p>
+<p>先启动dfs,再启动yarn</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount12.png" alt=""></p>
+<p>检查是否启动成功：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount13.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount14.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount15.png" alt=""></p>
+<p>首先在hadoop中安装刚刚在runner类中写的数据源路径创建好</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount16.png" alt=""></p>
+<p>并把文件上传到里面：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount17.png" alt=""></p>
+<p>验证是否上传成功，注意文件的大小：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount18.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount19.png" alt=""></p>
+<p>把刚刚生成的jar包传到linux中：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount20.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount21.png" alt=""></p>
+<p>工作准备完毕，开始运行：</p>
+<p>在命令行输入</p>
+<p><code>hadoop jar wordCount.jar wordcount.WordCountRunner</code></p>
+<p>在jar包后面输入runner类全名的目的是为了让hadoop知道哪个是runner类，下面是动态图：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/wordcount%E8%BF%90%E8%A1%8C.gif" alt=""></p>
+<p>查看运行结果：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount22.png" alt=""></p>
+<h1 id="分析多个文件"><a href="#分析多个文件" class="headerlink" title="分析多个文件"></a>分析多个文件</h1><p>不知道大家有没有注意到，我们在写文件源地址时，写的是目录，并没有指定哪个文件，所以，就是要把需要分析的文件放到该目录下，指定时，分析该目录的所有文件，现在我们再上传一个文件，让它分析两个文件试试，首先我们要把结果目录删除，否则会报错！！！</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount23.png" alt=""></p>
+<p>检查一下是否删除成功，但是要记得刷新页面！！！：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount24.png" alt=""></p>
+<p>在上传一个文本文件到linux中，大家自由发挥文本的内容，但是大家也可以拷贝我的，在文章结尾处的参考资料中下载：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount25.png" alt=""></p>
+<p>上传以及检查是否上传成功</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount26.png" alt=""></p>
+<p>再运行一次：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount27.png" alt=""></p>
+<p>查看结果：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount28.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount29.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%87%AA%E5%AE%9A%E4%B9%89WordCount30.png" alt=""></p>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="http://pan.baidu.com/s/1b78UJG" target="_blank" rel="external">03-mapreduce-demo-wordcount</a></p>
+<p>测试用到的文本文件及刚刚打成的jar包：</p>
+<p><a href="http://pan.baidu.com/s/1mhQRwEW" target="_blank" rel="external">wordcount测试用到的文件及现成的jar包</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/qrcode_for_gh_69fa03eccdf5_430.jpg" alt="XinPan wechat" style="width: 200px; max-width: 100%;"/>
+    <div>看完文章有感而发？或者你有什么不一样的见解？欢迎您扫一扫上面的微信公众号，订阅我的博客！！！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/25/map-reduce框架概述/" rel="next" title="map-reduce框架概述">
+                <i class="fa fa-chevron-left"></i> map-reduce框架概述
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/25/自己实现mr例子WordCount并运行/"
+           data-title="自己实现mr例子WordCount并运行" data-url="http://xinpan2.github.io/2016/08/25/自己实现mr例子WordCount并运行/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">145</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/andy_px" target="_blank" title="CSDN" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#运行"><span class="nav-number">1.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析多个文件"><span class="nav-number">2.</span> <span class="nav-text">分析多个文件</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
