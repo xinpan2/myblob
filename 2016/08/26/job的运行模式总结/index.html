@@ -84,28 +84,37 @@
 
 
 
-<meta name="description" content="先卖个关子：我们来讨论一个新名词，RPC，remote procedure call,远程过程调用，它是hadoop中各节点通信的机制。
-场景引入就拿任意一个系统的登陆功能来说，假设这个系统是MVC模式，那么登陆的控制器在一台节点上，但是，service层的代码在另外一个节点，那么我们应该怎样的方法使得整个登陆流程能够正确的被执行呢？
-
-如上图所示，在图中只是简易的调用过程，思路是为了实现节点间的">
+<meta name="description" content="从前面的例子中我们说到了job在yarn集群中运行，在上一篇文章的例子中，我们job在本地的运行，现在我们来做一次汇总：
+在windows环境让job在yarn中运行通过指令我们第一次测试job能否运行的例子就是在远程登陆hadoop命令行中输入如下指令：
+hadoop jar wordCount.jar woordcount.WordCount
+关于这种方式运行job的细节，前面第二篇文章很详细">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RPC底层实现原理">
-<meta property="og:url" content="http://xinpan2.github.io/2016/08/23/RPC底层实现原理/index.html">
+<meta property="og:title" content="job的运行模式总结">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/26/job的运行模式总结/index.html">
 <meta property="og:site_name" content="Path">
-<meta property="og:description" content="先卖个关子：我们来讨论一个新名词，RPC，remote procedure call,远程过程调用，它是hadoop中各节点通信的机制。
-场景引入就拿任意一个系统的登陆功能来说，假设这个系统是MVC模式，那么登陆的控制器在一台节点上，但是，service层的代码在另外一个节点，那么我们应该怎样的方法使得整个登陆流程能够正确的被执行呢？
-
-如上图所示，在图中只是简易的调用过程，思路是为了实现节点间的">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%8A%82%E7%82%B9%E9%97%B4%E9%80%9A%E4%BF%A1.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/sample2.png">
-<meta property="og:updated_time" content="2016-08-23T17:01:31.936Z">
+<meta property="og:description" content="从前面的例子中我们说到了job在yarn集群中运行，在上一篇文章的例子中，我们job在本地的运行，现在我们来做一次汇总：
+在windows环境让job在yarn中运行通过指令我们第一次测试job能否运行的例子就是在远程登陆hadoop命令行中输入如下指令：
+hadoop jar wordCount.jar woordcount.WordCount
+关于这种方式运行job的细节，前面第二篇文章很详细">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%931.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%932.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%9314.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%9313.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%934.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%935.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%938.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%939.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%9310.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%9311.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%9312.png">
+<meta property="og:updated_time" content="2016-08-26T09:45:56.043Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RPC底层实现原理">
-<meta name="twitter:description" content="先卖个关子：我们来讨论一个新名词，RPC，remote procedure call,远程过程调用，它是hadoop中各节点通信的机制。
-场景引入就拿任意一个系统的登陆功能来说，假设这个系统是MVC模式，那么登陆的控制器在一台节点上，但是，service层的代码在另外一个节点，那么我们应该怎样的方法使得整个登陆流程能够正确的被执行呢？
-
-如上图所示，在图中只是简易的调用过程，思路是为了实现节点间的">
-<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%8A%82%E7%82%B9%E9%97%B4%E9%80%9A%E4%BF%A1.png">
+<meta name="twitter:title" content="job的运行模式总结">
+<meta name="twitter:description" content="从前面的例子中我们说到了job在yarn集群中运行，在上一篇文章的例子中，我们job在本地的运行，现在我们来做一次汇总：
+在windows环境让job在yarn中运行通过指令我们第一次测试job能否运行的例子就是在远程登陆hadoop命令行中输入如下指令：
+hadoop jar wordCount.jar woordcount.WordCount
+关于这种方式运行job的细节，前面第二篇文章很详细">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%931.png">
 
 
 
@@ -126,9 +135,9 @@
 
 
 
-  <link rel="canonical" href="http://xinpan2.github.io/2016/08/23/RPC底层实现原理/"/>
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/26/job的运行模式总结/"/>
 
-  <title> RPC底层实现原理 | Path </title>
+  <title> job的运行模式总结 | Path </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -258,7 +267,7 @@
             
             
               
-                RPC底层实现原理
+                job的运行模式总结
               
             
           </h1>
@@ -270,8 +279,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-23T19:18:18+08:00" content="2016-08-23">
-              2016-08-23
+            <time itemprop="dateCreated" datetime="2016-08-26T16:22:28+08:00" content="2016-08-26">
+              2016-08-26
             </time>
           </span>
 
@@ -300,8 +309,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/23/RPC底层实现原理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/23/RPC底层实现原理/" itemprop="commentsCount"></span>
+                <a href="/2016/08/26/job的运行模式总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/26/job的运行模式总结/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -324,22 +333,43 @@
       
 
       
-        <p>先卖个关子：我们来讨论一个新名词，RPC，remote procedure call,远程过程调用，它是hadoop中各节点通信的机制。</p>
-<h1 id="场景引入"><a href="#场景引入" class="headerlink" title="场景引入"></a>场景引入</h1><p>就拿任意一个系统的登陆功能来说，假设这个系统是MVC模式，那么登陆的控制器在一台节点上，但是，service层的代码在另外一个节点，那么我们应该怎样的方法使得整个登陆流程能够正确的被执行呢？</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%8A%82%E7%82%B9%E9%97%B4%E9%80%9A%E4%BF%A1.png" alt=""></p>
-<p>如上图所示，在图中只是简易的调用过程，思路是为了实现节点间的通信，即controller能够调用到service层的代码。</p>
-<p>你会怎样实现？</p>
-<h2 id="思路一"><a href="#思路一" class="headerlink" title="思路一"></a>思路一</h2><p>首先我们应该想到的是socket编程，在controller设计一个客户端<code>socket</code>，在<code>service</code>层设计一个<code>serverSocket</code>，我们把用户名和密码，以字符串的形式传给service层，service层接到数据之后进行处理，处理完毕之后返回处理结果。</p>
-<h2 id="思路二"><a href="#思路二" class="headerlink" title="思路二"></a>思路二</h2><p>就在上几篇文章中，我介绍过ws,它是天然的分布式系统的调用，虽然它能够解决这种场景，但是两系统间不存在异构的话，会慢很多，ws封装了自己的东西在http中，加上ws的传输协议是SOAP（以http协议来传送和接收xml文件）。</p>
-<p>话说回来，RPC，从名字就能知道它有什么功能，就是负责远程的过程调用，不过RPC使用起来，不用我们担心通信的细节，就像调用本地方法一样来调用远程的方法，在hadoop的RPC中，使用3种技术实现，反射、动态代理、socket编程，这就是“太阳底下无新鲜事”的很好体现！</p>
-<h1 id="RPC流程"><a href="#RPC流程" class="headerlink" title="RPC流程"></a>RPC流程</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/sample2.png" alt=""></p>
-<p>RPC中的网络编程不用我们处理，我们只需要在节点3中得到代理对象，调用其中的登陆方法，因为controller和service都实现了相同的接口，虽然controller实际代理的是socket，当我们调用代理对象的login方法，由于是动态代理，所以可以在调用的前先封装信息然后再发送到服务端，由于中间socket部分不用我们关心，那样方法调用开起来跟本地的调用是一致的!!!</p>
+        <p>从前面的例子中我们说到了job在yarn集群中运行，在上一篇文章的例子中，我们job在本地的运行，现在我们来做一次汇总：</p>
+<h1 id="在windows环境"><a href="#在windows环境" class="headerlink" title="在windows环境"></a>在windows环境</h1><h2 id="让job在yarn中运行"><a href="#让job在yarn中运行" class="headerlink" title="让job在yarn中运行"></a>让job在yarn中运行</h2><h3 id="通过指令"><a href="#通过指令" class="headerlink" title="通过指令"></a>通过指令</h3><p>我们第一次测试job能否运行的例子就是在远程登陆hadoop命令行中输入如下指令：</p>
+<p><code>hadoop jar wordCount.jar woordcount.WordCount</code></p>
+<p>关于这种方式运行job的细节，前面第二篇文章很详细的讲解的大致的步骤。</p>
+<h3 id="通过运行在winodws的eclipse中Ruuner类的main方法"><a href="#通过运行在winodws的eclipse中Ruuner类的main方法" class="headerlink" title="通过运行在winodws的eclipse中Ruuner类的main方法"></a>通过运行在winodws的eclipse中Ruuner类的main方法</h3><p>这种方式不推荐，因为要涉及到修改源代码，但是修改源码最好的方法是在本项目中建立一个包名、类名都与源码一致的类，然后再运行时当作覆盖处理。</p>
+<p>大家都知道，windows跟linux中，关于路径的描述是不相同的，windows下的分隔符为分号<code>;</code>但是linux运行为冒号<code>:</code>，windows路径分隔符为反斜线<code>\</code>，linux路径分隔符为斜线<code>/</code></p>
+<p>这些还不够，还需要修改HADOOP_HOME,JAVA_HOME的路径，修改成linux的格式。</p>
+<h2 id="让job在本地运行"><a href="#让job在本地运行" class="headerlink" title="让job在本地运行"></a>让job在本地运行</h2><p>上一篇文章很详细的讲解了这种运行方式，可以直接通过运行main方法，并且设置相关的权限。</p>
+<h1 id="在linux环境"><a href="#在linux环境" class="headerlink" title="在linux环境"></a>在linux环境</h1><h2 id="让job在本地中运行"><a href="#让job在本地中运行" class="headerlink" title="让job在本地中运行"></a>让job在本地中运行</h2><h3 id="eclipse中运行main方法"><a href="#eclipse中运行main方法" class="headerlink" title="eclipse中运行main方法"></a>eclipse中运行main方法</h3><p>当我们拷贝windows中的代码到linux环境下的eclipse时，要注意好设置linux系统运行的内存，如果为512M，就可能跟我电脑一样，出现OutOfMemoryException，这种方法通过把内存设置大一点再重启即可解决。</p>
+<p>由于在linux中本地运行，不存在权限的问题，所以可以直接运行main方法：</p>
+<p>首先为了避免每次运行测试代码时，都会忘记删除输出路径下的文件，所以在设置输出文件时，设置如果已存在，就删除：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%931.png" alt=""></p>
+<p>然后直接运行main方法：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%932.png" alt=""></p>
+<h2 id="让job在yarn中运行-1"><a href="#让job在yarn中运行-1" class="headerlink" title="让job在yarn中运行"></a>让job在yarn中运行</h2><p>在linux的eclipse运行main方法来使job运行在yarn中比较方便，我们需要设置一个参数，即使用yarn运行job，我们在yarn-site.xml中有配置过这个值，但是我们了这个值之后，还需要MR的配置，所以在这里可以把这两个配置文件拷贝到工作目录下：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%9314.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%9313.png" alt=""></p>
+<p>除此之外，还需要把wordcount.jar也放在工作目录下，因为运行时需要找.class类，但是直接运行main方法找不到。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%934.png" alt=""></p>
+<p>把jar包放到当前目录下：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%935.png" alt=""></p>
+<p>再运行一次：</p>
+<p>但是程序在这里就不动了，仔细看提示：找不到job jar</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%938.png" alt=""></p>
+<p>进入8088端口看看，</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%939.png" alt=""></p>
+<p>这说明我们之前用的通过当前类来设置路径这个方法行不通，我们另外通过一个参数来设置jar包的路径：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%9310.png" alt=""></p>
+<p>再运行一次：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%9311.png" alt=""></p>
+<p>进入8088观察页面：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%9312.png" alt=""></p>
+<p>显示已完成~！！</p>
 <p>【全文完】</p>
 <p>参考资料：</p>
-<p><a href="http://pan.baidu.com/s/1jHQVr4y" target="_blank" rel="external">06-RPC实现的底层原理</a></p>
-<p><a href="http://pan.baidu.com/s/1bpBQIMN" target="_blank" rel="external">07-RPC框架的应用demo</a></p>
-<p><a href="https://en.wikipedia.org/wiki/Remote_procedure_call" target="_blank" rel="external">wiki-Remote procedure call</a></p>
-<p><a href="https://en.wikipedia.org/wiki/Analog" target="_blank" rel="external">wiki-Analog</a></p>
+<p><a href="http://pan.baidu.com/s/1pKUjcvD" target="_blank" rel="external">05-job提交执行的几种模式</a></p>
+<p><a href="http://pan.baidu.com/s/1pKJZFBl" target="_blank" rel="external">06-job提交执行的几种模式2</a></p>
 
       
     </div>
@@ -370,17 +400,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/22/eclipse-MyEclipse提供ws测试工具/" rel="next" title="eclipse/MyEclipse提供ws测试工具">
-                <i class="fa fa-chevron-left"></i> eclipse/MyEclipse提供ws测试工具
+              <a href="/2016/08/26/job的本地运行/" rel="next" title="job的本地运行">
+                <i class="fa fa-chevron-left"></i> job的本地运行
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/24/RPC例子/" rel="prev" title="RPC例子">
-                RPC例子 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -406,8 +432,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/23/RPC底层实现原理/"
-           data-title="RPC底层实现原理" data-url="http://xinpan2.github.io/2016/08/23/RPC底层实现原理/">
+      <div class="ds-thread" data-thread-key="2016/08/26/job的运行模式总结/"
+           data-title="job的运行模式总结" data-url="http://xinpan2.github.io/2016/08/26/job的运行模式总结/">
       </div>
     
   </div>
@@ -511,7 +537,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#场景引入"><span class="nav-number">1.</span> <span class="nav-text">场景引入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#思路一"><span class="nav-number">1.1.</span> <span class="nav-text">思路一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思路二"><span class="nav-number">1.2.</span> <span class="nav-text">思路二</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RPC流程"><span class="nav-number">2.</span> <span class="nav-text">RPC流程</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#在windows环境"><span class="nav-number">1.</span> <span class="nav-text">在windows环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#让job在yarn中运行"><span class="nav-number">1.1.</span> <span class="nav-text">让job在yarn中运行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过指令"><span class="nav-number">1.1.1.</span> <span class="nav-text">通过指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过运行在winodws的eclipse中Ruuner类的main方法"><span class="nav-number">1.1.2.</span> <span class="nav-text">通过运行在winodws的eclipse中Ruuner类的main方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#让job在本地运行"><span class="nav-number">1.2.</span> <span class="nav-text">让job在本地运行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在linux环境"><span class="nav-number">2.</span> <span class="nav-text">在linux环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#让job在本地中运行"><span class="nav-number">2.1.</span> <span class="nav-text">让job在本地中运行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#eclipse中运行main方法"><span class="nav-number">2.1.1.</span> <span class="nav-text">eclipse中运行main方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#让job在yarn中运行-1"><span class="nav-number">2.2.</span> <span class="nav-text">让job在yarn中运行</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
