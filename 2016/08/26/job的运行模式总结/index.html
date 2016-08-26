@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="从前面的例子中我们说到了job在yarn集群中运行，在上一篇文章的例子中，我们job在本地的运行，现在我们来做一次汇总：
+<meta name="description" content="本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+从前面的例子中我们说到了job在yarn集群中运行，在上一篇文章的例子中，我们job在本地的运行，现在我们来做一次汇总：
 在windows环境让job在yarn中运行通过指令我们第一次测试job能否运行的例子就是在远程登陆hadoop命令行中输入如下指令：
-hadoop jar wordCount.jar woordcount.WordCount
-关于这种方式运行job的细节，前面第二篇文章很详细">
+hadoop jar wordCount.jar woordcount.Wo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="job的运行模式总结">
 <meta property="og:url" content="http://xinpan2.github.io/2016/08/26/job的运行模式总结/index.html">
 <meta property="og:site_name" content="Path">
-<meta property="og:description" content="从前面的例子中我们说到了job在yarn集群中运行，在上一篇文章的例子中，我们job在本地的运行，现在我们来做一次汇总：
+<meta property="og:description" content="本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+从前面的例子中我们说到了job在yarn集群中运行，在上一篇文章的例子中，我们job在本地的运行，现在我们来做一次汇总：
 在windows环境让job在yarn中运行通过指令我们第一次测试job能否运行的例子就是在远程登陆hadoop命令行中输入如下指令：
-hadoop jar wordCount.jar woordcount.WordCount
-关于这种方式运行job的细节，前面第二篇文章很详细">
+hadoop jar wordCount.jar woordcount.Wo">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%931.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%932.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%9314.png">
@@ -107,13 +107,13 @@ hadoop jar wordCount.jar woordcount.WordCount
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%9310.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%9311.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%9312.png">
-<meta property="og:updated_time" content="2016-08-26T09:45:56.043Z">
+<meta property="og:updated_time" content="2016-08-26T10:42:26.955Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="job的运行模式总结">
-<meta name="twitter:description" content="从前面的例子中我们说到了job在yarn集群中运行，在上一篇文章的例子中，我们job在本地的运行，现在我们来做一次汇总：
+<meta name="twitter:description" content="本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+从前面的例子中我们说到了job在yarn集群中运行，在上一篇文章的例子中，我们job在本地的运行，现在我们来做一次汇总：
 在windows环境让job在yarn中运行通过指令我们第一次测试job能否运行的例子就是在远程登陆hadoop命令行中输入如下指令：
-hadoop jar wordCount.jar woordcount.WordCount
-关于这种方式运行job的细节，前面第二篇文章很详细">
+hadoop jar wordCount.jar woordcount.Wo">
 <meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%931.png">
 
 
@@ -333,7 +333,8 @@ hadoop jar wordCount.jar woordcount.WordCount
       
 
       
-        <p>从前面的例子中我们说到了job在yarn集群中运行，在上一篇文章的例子中，我们job在本地的运行，现在我们来做一次汇总：</p>
+        <p><strong><em>本文代码在<a href="https://github.com/xinpan2/hadoopStudy/tree/master/wordcountInLinux" target="_blank" rel="external">这里</a>，其他文章的代码从<a href="https://github.com/xinpan2?tab=repositories" target="_blank" rel="external">这里</a>可以找到，记得对号入座！！！</em></strong></p>
+<p>从前面的例子中我们说到了job在yarn集群中运行，在上一篇文章的例子中，我们job在本地的运行，现在我们来做一次汇总：</p>
 <h1 id="在windows环境"><a href="#在windows环境" class="headerlink" title="在windows环境"></a>在windows环境</h1><h2 id="让job在yarn中运行"><a href="#让job在yarn中运行" class="headerlink" title="让job在yarn中运行"></a>让job在yarn中运行</h2><h3 id="通过指令"><a href="#通过指令" class="headerlink" title="通过指令"></a>通过指令</h3><p>我们第一次测试job能否运行的例子就是在远程登陆hadoop命令行中输入如下指令：</p>
 <p><code>hadoop jar wordCount.jar woordcount.WordCount</code></p>
 <p>关于这种方式运行job的细节，前面第二篇文章很详细的讲解的大致的步骤。</p>
