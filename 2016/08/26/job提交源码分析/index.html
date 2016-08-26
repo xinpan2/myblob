@@ -125,17 +125,20 @@ job.waitForCompletion(true);
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA24.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA25.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA26.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA27.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA39.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA28.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA29.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA30.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA31.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA37.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA32.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA33.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA34.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA35.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA36.png">
-<meta property="og:updated_time" content="2016-08-26T14:39:01.558Z">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA38.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA40.png">
+<meta property="og:updated_time" content="2016-08-26T16:01:16.457Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="job提交源码分析">
 <meta name="twitter:description" content="现在我们在linux中的eclipse中追踪一下job提交的源码：
@@ -401,7 +404,7 @@ job.waitForCompletion(true);
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA20.png" alt=""></p>
 <p>接下来就是把当前的provider赋值给clientProtocolProvider，把clientProtocol赋值给client，然后进行下一步操作：</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA21.png" alt=""></p>
-<p>这是，cluster的初始化完毕，其里面就是包含了刚的clientProtocolProvider和clientprotocol，即用来接收客户端提交job的对象。</p>
+<p>这时，cluster的初始化完毕，其里面就是包含了刚的clientProtocolProvider和clientprotocol，即用来接收客户端提交job的对象。</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA22.png" alt=""></p>
 <p>连接方法完毕之后，接下来就是任务的提交了！现在断点停在submitter中，现在进入submitJobInternal中，看看是怎样提交的！</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA23.png" alt=""></p>
@@ -412,7 +415,7 @@ job.waitForCompletion(true);
 <p>判断刚刚获取到的路径是否存在，如果存在就说明以前执行过任务，那么我们直接获取以前写入的资源信息即可，如果以前没有提交过任务，就新建一个目录来存放所有job的信息。然后再返回一个路径，其实这就是一个任务队列的路径！又经过一系列参数赋值操作之后，现在生成jobID：</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA26.png" alt=""></p>
 <p>再把刚刚生产的id赋值给当前job的id属性</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA27.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA39.png" alt=""></p>
 <p>然后根据任务队列的路径和当前jobid的值生成一个提交当前任务的路径：</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA28.png" alt=""></p>
 <p>又经过一系列的参数赋值之后，现在为job创建块信息，然后把块的饿信息写入到日志中：</p>
@@ -421,6 +424,8 @@ job.waitForCompletion(true);
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA30.png" alt=""></p>
 <p>然后把job加入到任务队列中：</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA31.png" alt=""></p>
+<p>把job的信息：切片情况（下篇文章详细分析）、job配置等信息放到指定的路径中，大家可以根据途中显示值的路径自己访问！</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA37.png" alt=""></p>
 <p>又经历过一系列的参数赋值之后，到了真正提交任务的时候：</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA32.png" alt=""></p>
 <p>submitClient就是YARNRunner！</p>
@@ -430,9 +435,14 @@ job.waitForCompletion(true);
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA35.png" alt=""></p>
 <p>又返回最开始进入的地方：</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA36.png" alt=""></p>
+<p>运行完程序之后，我又打开刚刚job信息的目录中：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA38.png" alt=""></p>
+<p>我把这些文档先下载下来，大家也可以到参考资料下载：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/job%E6%8F%90%E4%BA%A4%E6%BA%90%E7%A0%81%E8%BF%BD%E8%B8%AA40.png" alt=""></p>
 <p>【全文完】</p>
 <p>参考资料：</p>
 <p><a href="http://pan.baidu.com/s/1i4Vbovb" target="_blank" rel="external">07-job提交的源码跟踪</a></p>
+<p><a href="http://pan.baidu.com/s/1pKUPeEB" target="_blank" rel="external">job信息</a></p>
 
       
     </div>
