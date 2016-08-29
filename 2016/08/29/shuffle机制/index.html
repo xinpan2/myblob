@@ -85,41 +85,29 @@
 
 
 <meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+有一个流程我们一直是简略的讨论，就是当map处理完数据之后，再由reduce处理各个map的中间结果，这个过程就是shuffle的机制。
+下图是hadoop权威指南第三版英文版对shuffle机制的描述:
 
-使用默认的名字为hibernate.cfg.xml
-得到配置文件的源代码为:
-
-第二种方法：使用我们自定义的配置文件名和存放位置
-得到配置文件的源代码为">
+map阶段经过前面job的提交流程的参与角色我们了解到：“map task 和reduce task都是">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hibernate加载配置文件的两种方式">
-<meta property="og:url" content="http://xinpan2.github.io/2016/08/18/hibernate加载配置文件的两种方式/index.html">
+<meta property="og:title" content="shuffle机制">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/29/shuffle机制/index.html">
 <meta property="og:site_name" content="Path">
 <meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+有一个流程我们一直是简略的讨论，就是当map处理完数据之后，再由reduce处理各个map的中间结果，这个过程就是shuffle的机制。
+下图是hadoop权威指南第三版英文版对shuffle机制的描述:
 
-使用默认的名字为hibernate.cfg.xml
-得到配置文件的源代码为:
-
-第二种方法：使用我们自定义的配置文件名和存放位置
-得到配置文件的源代码为">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150902085809961.jpg">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150902085838872.jpg">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150902085912209.jpg">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150902085931355.jpg">
-<meta property="og:updated_time" content="2016-08-18T12:55:23.220Z">
+map阶段经过前面job的提交流程的参与角色我们了解到：“map task 和reduce task都是">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/shuffle%E6%9C%BA%E5%88%B61.png">
+<meta property="og:updated_time" content="2016-08-29T06:02:44.188Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hibernate加载配置文件的两种方式">
+<meta name="twitter:title" content="shuffle机制">
 <meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+有一个流程我们一直是简略的讨论，就是当map处理完数据之后，再由reduce处理各个map的中间结果，这个过程就是shuffle的机制。
+下图是hadoop权威指南第三版英文版对shuffle机制的描述:
 
-使用默认的名字为hibernate.cfg.xml
-得到配置文件的源代码为:
-
-第二种方法：使用我们自定义的配置文件名和存放位置
-得到配置文件的源代码为">
-<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/20150902085809961.jpg">
+map阶段经过前面job的提交流程的参与角色我们了解到：“map task 和reduce task都是">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/shuffle%E6%9C%BA%E5%88%B61.png">
 
 
 
@@ -140,9 +128,9 @@
 
 
 
-  <link rel="canonical" href="http://xinpan2.github.io/2016/08/18/hibernate加载配置文件的两种方式/"/>
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/29/shuffle机制/"/>
 
-  <title> hibernate加载配置文件的两种方式 | Path </title>
+  <title> shuffle机制 | Path </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -272,7 +260,7 @@
             
             
               
-                hibernate加载配置文件的两种方式
+                shuffle机制
               
             
           </h1>
@@ -284,8 +272,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-18T08:23:00+08:00" content="2016-08-18">
-              2016-08-18
+            <time itemprop="dateCreated" datetime="2016-08-29T11:27:31+08:00" content="2016-08-29">
+              2016-08-29
             </time>
           </span>
 
@@ -298,8 +286,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/hibernate入门/" itemprop="url" rel="index">
-                    <span itemprop="name">hibernate入门</span>
+                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop笔记</span>
                   </a>
                 </span>
 
@@ -314,8 +302,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/18/hibernate加载配置文件的两种方式/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/18/hibernate加载配置文件的两种方式/" itemprop="commentsCount"></span>
+                <a href="/2016/08/29/shuffle机制/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/29/shuffle机制/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -338,16 +326,24 @@
       
 
       
-        <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
-<p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
-<hr>
-<h1 id="使用默认的名字为hibernate-cfg-xml"><a href="#使用默认的名字为hibernate-cfg-xml" class="headerlink" title="使用默认的名字为hibernate.cfg.xml"></a>使用默认的名字为hibernate.cfg.xml</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150902085809961.jpg" alt=""></p>
-<p>得到配置文件的源代码为:</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150902085838872.jpg" alt=""></p>
-<h1 id="第二种方法：使用我们自定义的配置文件名和存放位置"><a href="#第二种方法：使用我们自定义的配置文件名和存放位置" class="headerlink" title="第二种方法：使用我们自定义的配置文件名和存放位置"></a>第二种方法：使用我们自定义的配置文件名和存放位置</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150902085912209.jpg" alt="1"></p>
-<p>得到配置文件的源代码为</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/20150902085931355.jpg" alt=""></p>
-<hr>
+        <p><strong><em>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</em></strong></p>
+<p>有一个流程我们一直是简略的讨论，就是当map处理完数据之后，再由reduce处理各个map的中间结果，这个过程就是shuffle的机制。</p>
+<p>下图是hadoop权威指南第三版英文版对shuffle机制的描述:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/shuffle%E6%9C%BA%E5%88%B61.png" alt=""></p>
+<h1 id="map阶段"><a href="#map阶段" class="headerlink" title="map阶段"></a>map阶段</h1><p>经过前面job的提交流程的参与角色我们了解到：“map task 和reduce task都是由一个叫做MRAppMaster创建的，这个进程由RM创建及销毁。“</p>
+<p>当map task任务被创建时（map task的个数由切片的数量决定），可能有1个或多个map stask,当每个map处理其对应的切片时，会把处理完的数据根据key分区及排序之后，写到每个map stask 所在container的内存缓冲区中，这个内存缓冲区的默认大小为100M，大家应该知道，一个切片的默认大小就是块的大小，即128M，并且这个内存缓冲区还有一个阈值（threshold），指数为0.8，不知道大家对ArrayList的源码有没有映像，当数组的容量达到0.8时，即数组的元素个数=数组容量*0.8，也会执行扩容操作，容量变为原来的1.5倍，其中的0.8也是阈值！</p>
+<p>但是面对大量的数据，如果不对这个默认的缓冲区大小或者阈值进行修改，肯定会导致内存存不下map处理完的中间结果数据的，开发者使用的思路是：”把达到阈值之后的数据存储在磁盘文件中，这些磁盘文件被按照round-robin算法存储在该job提交路径下，通常是./staging/jobID/轮询算法的结果/spill文件名，“，轮询算法就是”i = （i+1)% n“从而算出应该写入哪个文件夹。</p>
+<p>如果写入磁盘中的溢出文件大于3个，会在写入之前再调用combiner方法，如果有combiner方法的话，用来减少写入磁盘的数据量，大家可能都听说过一句话，大数据的瓶颈就是IO操作，这句话的意思是，当我们需要对一个文件进行写入操作时，并且这些写入操作通常不是连续的写入，即直接在文件末尾加入数据，很多时候是在某一部分插入的，所以降低了map的处理速度。</p>
+<p>如果有溢出文件，并且这些溢出文件都已经写入到磁盘之后， 这时候应该对内存和磁盘中的溢出数据再进行一次整合，整合成一个更大的中间结果，这时又要进行一次分区和排序。</p>
+<p>当上述操作都处理完之后，就向MRAppMaster发送报告（通过心跳机制），报告内容包括：当前map的处理状态（成功/失败），中间结果的具体位置（包括节点位置，文件位置，数据的偏移量），偏移量是指从文件的什么地方开始，到什么地方结束。</p>
+<p>当所有map都向MRAppMaster发送完报告之后，shuffle阶段的map操作就处理完毕，接下来时reduce阶段的操作。</p>
+<h1 id="reduce阶段"><a href="#reduce阶段" class="headerlink" title="reduce阶段"></a>reduce阶段</h1><p>到了reduce阶段，如果有多个map,由于每个map完成操作的时间不一样，所以，一旦map task向RM发送成功报告，reduce的某些用来下载map阶段的output线程就开始根据报告的内容并发下载中间结果到内存中如果超过阈值也会写到磁盘中，写到磁盘之前还会调用combiner（这次没有什么数量要求）。</p>
+<p>现在磁盘跟内存中拷贝到了所有map输出的中间结果，reduce task会进行把相同key的数据进行合并排序操作，形成一个以该key为键的键值对集合，并且对所有key进行排序，如果根据job有设置reduce task的数量，就会根据指定的分区把key放到提前分配好的reduce中处理数据。</p>
+<p>处理完毕之后，输出结果。</p>
+<p><strong><em>注意，map阶段的output是存在于磁盘中，但是reduce阶段不一定只是在磁盘中！！！</em></strong></p>
+<p>【全文完】</p>
+<p><a href="http://pan.baidu.com/s/1bS7Q7k" target="_blank" rel="external">06-shuffle机制</a></p>
+<p><a href="http://pan.baidu.com/s/1kVGu1Xt" target="_blank" rel="external">Hadoop权威指南（第三版）英文版.pdf</a></p>
 
       
     </div>
@@ -378,17 +374,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/18/保存信息到person中/" rel="next" title="保存信息到person中">
-                <i class="fa fa-chevron-left"></i> 保存信息到person中
+              <a href="/2016/08/28/对用户流量使用结果进行分组/" rel="next" title="对用户流量使用结果进行分组">
+                <i class="fa fa-chevron-left"></i> 对用户流量使用结果进行分组
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/18/hibernate加载顺序/" rel="prev" title="hibernate加载顺序">
-                hibernate加载顺序 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -414,8 +406,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/18/hibernate加载配置文件的两种方式/"
-           data-title="hibernate加载配置文件的两种方式" data-url="http://xinpan2.github.io/2016/08/18/hibernate加载配置文件的两种方式/">
+      <div class="ds-thread" data-thread-key="2016/08/29/shuffle机制/"
+           data-title="shuffle机制" data-url="http://xinpan2.github.io/2016/08/29/shuffle机制/">
       </div>
     
   </div>
@@ -519,7 +511,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用默认的名字为hibernate-cfg-xml"><span class="nav-number">1.</span> <span class="nav-text">使用默认的名字为hibernate.cfg.xml</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二种方法：使用我们自定义的配置文件名和存放位置"><span class="nav-number">2.</span> <span class="nav-text">第二种方法：使用我们自定义的配置文件名和存放位置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#map阶段"><span class="nav-number">1.</span> <span class="nav-text">map阶段</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#reduce阶段"><span class="nav-number">2.</span> <span class="nav-text">reduce阶段</span></a></li></ol></div>
             
           </div>
         </section>
