@@ -1,0 +1,686 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+上一篇文章中我们说到了hadoop1.x与2.x的区别，其中涉及到了几个陌生的名词，HA和federation，现在我们先来讨论什么是HA机制。
+到目前为止，前面的文章及代码实现都是基于单节点的伪分布式集群实现的，即在一台机器上负责hdfs、yarn、MR，我们都知道hdfs中最重要的就是NameNode，里面">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于ZooKeeper实现的HA机制">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/30/基于ZooKeeper实现的HA机制/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+上一篇文章中我们说到了hadoop1.x与2.x的区别，其中涉及到了几个陌生的名词，HA和federation，现在我们先来讨论什么是HA机制。
+到目前为止，前面的文章及代码实现都是基于单节点的伪分布式集群实现的，即在一台机器上负责hdfs、yarn、MR，我们都知道hdfs中最重要的就是NameNode，里面">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/HA%E6%9C%BA%E5%88%B62.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/HA%E6%9C%BA%E5%88%B63.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/HA%E6%9C%BA%E5%88%B64.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/HA%E6%9C%BA%E5%88%B65.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/HA%E6%9C%BA%E5%88%B66.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/zookeeper.png">
+<meta property="og:updated_time" content="2016-08-30T03:51:25.799Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于ZooKeeper实现的HA机制">
+<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+上一篇文章中我们说到了hadoop1.x与2.x的区别，其中涉及到了几个陌生的名词，HA和federation，现在我们先来讨论什么是HA机制。
+到目前为止，前面的文章及代码实现都是基于单节点的伪分布式集群实现的，即在一台机器上负责hdfs、yarn、MR，我们都知道hdfs中最重要的就是NameNode，里面">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/HA%E6%9C%BA%E5%88%B62.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/30/基于ZooKeeper实现的HA机制/"/>
+
+  <title> 基于ZooKeeper实现的HA机制 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                基于ZooKeeper实现的HA机制
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-30T10:29:20+08:00" content="2016-08-30">
+              2016-08-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/30/基于ZooKeeper实现的HA机制/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/30/基于ZooKeeper实现的HA机制/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong><em>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</em></strong></p>
+<p>上一篇文章中我们说到了hadoop1.x与2.x的区别，其中涉及到了几个陌生的名词，HA和federation，现在我们先来讨论什么是HA机制。</p>
+<p>到目前为止，前面的文章及代码实现都是基于单节点的伪分布式集群实现的，即在一台机器上负责hdfs、yarn、MR，我们都知道hdfs中最重要的就是NameNode，里面存储着大量的元数据，但是NameNode只有一分，如果NameNode宕机了，整个hdfs就瘫痪了……</p>
+<p>下面是图解：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/HA%E6%9C%BA%E5%88%B62.png" alt=""></p>
+<p>所以hadoop2.x中支持HA机制，HA机制有两个NameNode，分别是ActiveNameNOde，另外一个是StandByNameNode，用户正常的发送请求以及申请写数据的操作都是通过ActiveNameNode来实现，当ActiveNameNode也宕机，StandByNameNode可以转换成ActiveNameNode使得HDFS能够正常运转。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/HA%E6%9C%BA%E5%88%B63.png" alt=""></p>
+<h1 id="ActiveNameNode和StandByNameNode怎样实现数据一致？"><a href="#ActiveNameNode和StandByNameNode怎样实现数据一致？" class="headerlink" title="ActiveNameNode和StandByNameNode怎样实现数据一致？"></a>ActiveNameNode和StandByNameNode怎样实现数据一致？</h1><h1 id="方法一：同时写操作到两份edits-log中"><a href="#方法一：同时写操作到两份edits-log中" class="headerlink" title="方法一：同时写操作到两份edits.log中"></a>方法一：同时写操作到两份edits.log中</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/HA%E6%9C%BA%E5%88%B64.png" alt=""></p>
+<p>这种做法的弊端是，每次写入操作都要同时上传两份，并且任意一方都不能上传失败，否则为了元数据的一致性，上传成功的一方需要进行回滚操作。这种方法效率极低。</p>
+<h1 id="方法二：把edits-log文件抽取出来"><a href="#方法二：把edits-log文件抽取出来" class="headerlink" title="方法二：把edits.log文件抽取出来"></a>方法二：把edits.log文件抽取出来</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/HA%E6%9C%BA%E5%88%B65.png" alt=""></p>
+<p>这样看起来确实是好了那么一点，但是这台DataNode宕机了呢?也是一样HDFS瘫痪了……于是下面这种方法出来了……</p>
+<h1 id="方法三：把edits-log文件存在集群中"><a href="#方法三：把edits-log文件存在集群中" class="headerlink" title="方法三：把edits.log文件存在集群中"></a>方法三：把edits.log文件存在集群中</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/HA%E6%9C%BA%E5%88%B66.png" alt=""></p>
+<p>但是集群需要考虑的问题也随之而来：我们怎样确定让ActiveNameNode写入到哪个节点的edits.log文件中？又如何保证这几个edits.log文件的数据一致性？</p>
+<h1 id="ZooKeeper"><a href="#ZooKeeper" class="headerlink" title="ZooKeeper"></a>ZooKeeper</h1><p>主角总是最后登场的，其实上面我们考虑到的问题，zookeeper都替我们解决了，我们先来看看什么是zookeeper</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/zookeeper.png" alt=""></p>
+<p>大意:</p>
+<p>ZooKeeper致力于发展和维护一个开源能够支持协作高可靠的分布式服务</p>
+<p>什么是ZooKeeper？</p>
+<p>ZooKeeper is a centralized service for maintaining configuration information, naming, providing distributed synchronization, and providing group services. All of these kinds of services are used in some form or another by distributed applications. Each time they are implemented there is a lot of work that goes into fixing the bugs and race conditions that are inevitable. Because of the difficulty of implementing these kinds of services, applications initially usually skimp on them ,which make them brittle in the presence of change and difficult to manage. Even when done correctly, different implementations of these services lead to management complexity when the applications are deployed.</p>
+<p>ZooKeeper的专注于对维护配置信息、名字、提供分布式同步和组提供服务。所有类型的服务应用在不定形式的分布式应用中。每当这些服务被实现时，就需要对修改bug和race condition等不可避免因素投入大量工作。由于实现这些服务非常困难，许多软件经常跳过这些服务，这使得这些服务在遇到改变时，很难管理。即使这些服务被正确实现，当程序被部署时，这些服务的不同实现方式导致其管理有难度</p>
+<p>race condition：根据维基百科的解释：</p>
+<blockquote>
+<p>A race condition or race hazard is the behavior of an electronic, software or other system where the output is dependent on the sequence or timing of other uncontrollable events.</p>
+</blockquote>
+<p>race condition 或被称为竞争危害，它是电子、软件或其他系统中的输出依赖于时间的先后顺序或者其他不可控的事件的一种行为</p>
+<p>我们把需要共享的重要信息存放在zookeeper中，比如在HA机制中我们讨论到的edits.log文件，让zookeeper帮我们解决集群需要解决的各种问题。关于zookeeper的进一步理解，请关注后续文章！</p>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="http://pan.baidu.com/s/1bo8Tbl1" target="_blank" rel="external">01-zookeeper</a></p>
+<p><a href="http://pan.baidu.com/s/1pLxV1qz" target="_blank" rel="external">01-hadoop HA引入及zookeeper介绍前10分钟</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/qrcode_for_gh_69fa03eccdf5_430.jpg" alt="XinPan wechat" style="width: 200px; max-width: 100%;"/>
+    <div>看完文章有感而发？或者你有什么不一样的见解？欢迎您扫一扫上面的微信公众号，订阅我的博客！！！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/30/hadoop-1-x与2-x的区别/" rel="next" title="hadoop 1.x与2.x的区别">
+                <i class="fa fa-chevron-left"></i> hadoop 1.x与2.x的区别
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/30/基于ZooKeeper实现的HA机制/"
+           data-title="基于ZooKeeper实现的HA机制" data-url="http://xinpan2.github.io/2016/08/30/基于ZooKeeper实现的HA机制/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">158</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/andy_px" target="_blank" title="CSDN" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ActiveNameNode和StandByNameNode怎样实现数据一致？"><span class="nav-number">1.</span> <span class="nav-text">ActiveNameNode和StandByNameNode怎样实现数据一致？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法一：同时写操作到两份edits-log中"><span class="nav-number">2.</span> <span class="nav-text">方法一：同时写操作到两份edits.log中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法二：把edits-log文件抽取出来"><span class="nav-number">3.</span> <span class="nav-text">方法二：把edits.log文件抽取出来</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法三：把edits-log文件存在集群中"><span class="nav-number">4.</span> <span class="nav-text">方法三：把edits.log文件存在集群中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ZooKeeper"><span class="nav-number">5.</span> <span class="nav-text">ZooKeeper</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
