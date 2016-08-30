@@ -4,12 +4,12 @@
 
     
   <url>
-    <loc>http://xinpan2.github.io/2016/08/30/%E5%9F%BA%E4%BA%8EZooKeeper%E5%AE%9E%E7%8E%B0%E7%9A%84HA%E6%9C%BA%E5%88%B6/</loc>
-    <lastmod>2016-08-30T06:31:56.435Z</lastmod>
+    <loc>http://xinpan2.github.io/2016/08/30/ZoopKeeper%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</loc>
+    <lastmod>2016-08-30T07:20:45.474Z</lastmod>
     <data>
         <display>
-        <title>基于ZooKeeper实现的HA机制</title>
-        <pubTime>2016-08-30T02:29:20.000Z</pubTime>
+        <title>ZoopKeeper工作原理</title>
+        <pubTime>2016-08-30T06:10:13.000Z</pubTime>
         
          
            
@@ -22,17 +22,17 @@
 
     
   <url>
-    <loc>http://xinpan2.github.io/2016/08/30/ZoopKeeper%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</loc>
-    <lastmod>2016-08-30T06:31:14.553Z</lastmod>
+    <loc>http://xinpan2.github.io/2016/08/30/%E5%9F%BA%E4%BA%8EZooKeeper%E5%AE%9E%E7%8E%B0%E7%9A%84HA%E6%9C%BA%E5%88%B6/</loc>
+    <lastmod>2016-08-30T06:31:56.435Z</lastmod>
     <data>
         <display>
-        <title>ZoopKeeper工作原理</title>
-        <pubTime>2016-08-30T06:10:13.000Z</pubTime>
+        <title>基于ZooKeeper实现的HA机制</title>
+        <pubTime>2016-08-30T02:29:20.000Z</pubTime>
         
          
            
              
-              <breadCrumb title="haoop笔记" url="http://xinpan2.github.io/categories/haoop%E7%AC%94%E8%AE%B0/"/>
+              <breadCrumb title="hadoop笔记" url="http://xinpan2.github.io/categories/hadoop%E7%AC%94%E8%AE%B0/"/>
           
         </display>
     </data>
