@@ -86,24 +86,25 @@
 
 <meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
 在上一篇文章中我们说到了HA的机制以及介绍了ZooKeeper是干什么的，现在我们来讨论一下ZooKeeper的工作原理。下图是hadoop权威指南第三版中关于ZooKeeper工作原理的描述
-
-大家可以看大ZK中的节点有一个是Leader，剩下的是Follower，并且客户端申请读操作时，所有节点都可以完成；">
+为所有follower注册监听器
+大家可以看大ZK中的节点有一个是Leader，剩下的是Follower，并且客户端申">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ZoopKeeper工作原理">
 <meta property="og:url" content="http://xinpan2.github.io/2016/08/30/ZoopKeeper工作原理/index.html">
 <meta property="og:site_name" content="Path">
 <meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
 在上一篇文章中我们说到了HA的机制以及介绍了ZooKeeper是干什么的，现在我们来讨论一下ZooKeeper的工作原理。下图是hadoop权威指南第三版中关于ZooKeeper工作原理的描述
-
-大家可以看大ZK中的节点有一个是Leader，剩下的是Follower，并且客户端申请读操作时，所有节点都可以完成；">
+为所有follower注册监听器
+大家可以看大ZK中的节点有一个是Leader，剩下的是Follower，并且客户端申">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/zookeeper%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%861.png">
-<meta property="og:updated_time" content="2016-08-30T07:20:45.474Z">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85ZK11.png">
+<meta property="og:updated_time" content="2016-08-31T04:10:01.632Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ZoopKeeper工作原理">
 <meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
 在上一篇文章中我们说到了HA的机制以及介绍了ZooKeeper是干什么的，现在我们来讨论一下ZooKeeper的工作原理。下图是hadoop权威指南第三版中关于ZooKeeper工作原理的描述
-
-大家可以看大ZK中的节点有一个是Leader，剩下的是Follower，并且客户端申请读操作时，所有节点都可以完成；">
+为所有follower注册监听器
+大家可以看大ZK中的节点有一个是Leader，剩下的是Follower，并且客户端申">
 <meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/zookeeper%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%861.png">
 
 
@@ -325,10 +326,13 @@
       
         <p><strong><em>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</em></strong></p>
 <p>在上一篇文章中我们说到了HA的机制以及介绍了ZooKeeper是干什么的，现在我们来讨论一下ZooKeeper的工作原理。下图是hadoop权威指南第三版中关于ZooKeeper工作原理的描述</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/zookeeper%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%861.png" alt=""></p>
+<h1 id="为所有follower注册监听器"><a href="#为所有follower注册监听器" class="headerlink" title="为所有follower注册监听器"></a>为所有follower注册监听器</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/zookeeper%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%861.png" alt=""></p>
 <p>大家可以看大ZK中的节点有一个是Leader，剩下的是Follower，并且客户端申请读操作时，所有节点都可以完成；但是写操作时，虽然请求的不是Leader节点，但是接收申请的Follower也会转发给Leader节点。</p>
 <p>如果没有Leader节点，那么用户在申请写操作时，会发生随便写到一台节点上，然后其他节点经过同步，但是如果有Leader节点，所有的写操作都写到Leader中，Follower节点为Leader节点注册一个监听器，一旦有写入的数据时，就立刻通知给所有注册了监听器的Follower，让它们保持与Leader中数据的一致性！</p>
 <p>关于ZK中的Leader节点是如何选出来的呢?通过paxos算法，这种算法以投票的形式选出Leader，在ZK启动时，所有节点为自己及其他节点投票，到了第二阶段，所有节点根据当前结点的情况，再决定把票投给谁，可以不投给自己，所以到第三阶段，某个节点就会得到所有的票从而变成Leader节点。</p>
+<p>在前面的例子中我们说过一个例子，就是当客户端往ActiveNameNode中进行edits.log的写操作时，如果StandByNN没有写入成功，ANN就会撤回操作，但是在ZK中，只要有一半以上的节点存活就可以正常工作！！</p>
+<h1 id="保存需要协调集群的小文件"><a href="#保存需要协调集群的小文件" class="headerlink" title="保存需要协调集群的小文件"></a>保存需要协调集群的小文件</h1><p>存储客户端提交的小数据，每一分数据被存储成znode，以树状结构存储。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85ZK11.png" alt=""></p>
 <p>【全文完】</p>
 <p>参考资料：</p>
 <p><a href="http://pan.baidu.com/s/1pLxV1qz" target="_blank" rel="external">01-hadoop HA引入及zookeeper介绍</a></p>
@@ -370,6 +374,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/30/安装ZooKeeper/" rel="prev" title="安装ZooKeeper">
+                安装ZooKeeper <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -441,7 +449,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">159</span>
+              <span class="site-state-item-count">161</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -449,7 +457,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -500,7 +508,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为所有follower注册监听器"><span class="nav-number">1.</span> <span class="nav-text">为所有follower注册监听器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#保存需要协调集群的小文件"><span class="nav-number">2.</span> <span class="nav-text">保存需要协调集群的小文件</span></a></li></ol></div>
             
           </div>
         </section>
