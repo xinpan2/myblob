@@ -84,36 +84,31 @@
 
 
 
-<meta name="description" content="三大要素：
+<meta name="description" content="现在我们已经把zk的原理以及运行模式稍微的过了一遍，现在我们回到HA机制，第一次我们接触HA机制是通过基于ZooKeeper实现的HA机制这篇文章，里面说道了NN的管理，需要依靠ZK来协调，现在我们展开来说
 
-UDDI： Universal Discription Discovery and Integration 全局资源发现和整合
+当ActiveNND正常工作的时候，客户端请求能够及时响应，但是，当ActiveNN发生故障之后：
 
-UDDI是一种服务器，用户在里面部署自己的UDDI服务，其他用户可以通过UUDI来查找可调用的具体服务，就相当于一个池，供客户端查找、管理服务等等
-
-WSDL： WebService Description Language  webService描述语言">
+在ActiveNN发生故障之后，FailOverController会通过SSH发送指令">
 <meta property="og:type" content="article">
-<meta property="og:title" content="webService三大要素及运行原理">
-<meta property="og:url" content="http://xinpan2.github.io/2016/08/19/webService三大要素及运行原理/index.html">
+<meta property="og:title" content="HA状态切换的Fencing机制">
+<meta property="og:url" content="http://xinpan2.github.io/2016/08/31/HA状态切换的Fencing机制/index.html">
 <meta property="og:site_name" content="Path">
-<meta property="og:description" content="三大要素：
+<meta property="og:description" content="现在我们已经把zk的原理以及运行模式稍微的过了一遍，现在我们回到HA机制，第一次我们接触HA机制是通过基于ZooKeeper实现的HA机制这篇文章，里面说道了NN的管理，需要依靠ZK来协调，现在我们展开来说
 
-UDDI： Universal Discription Discovery and Integration 全局资源发现和整合
+当ActiveNND正常工作的时候，客户端请求能够及时响应，但是，当ActiveNN发生故障之后：
 
-UDDI是一种服务器，用户在里面部署自己的UDDI服务，其他用户可以通过UUDI来查找可调用的具体服务，就相当于一个池，供客户端查找、管理服务等等
-
-WSDL： WebService Description Language  webService描述语言">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/webService.jpg">
-<meta property="og:updated_time" content="2016-08-19T15:04:27.668Z">
+在ActiveNN发生故障之后，FailOverController会通过SSH发送指令">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/Facing%E6%9C%BA%E5%88%B61.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/Facing%E6%9C%BA%E5%88%B63.png">
+<meta property="og:updated_time" content="2016-08-31T11:12:38.956Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="webService三大要素及运行原理">
-<meta name="twitter:description" content="三大要素：
+<meta name="twitter:title" content="HA状态切换的Fencing机制">
+<meta name="twitter:description" content="现在我们已经把zk的原理以及运行模式稍微的过了一遍，现在我们回到HA机制，第一次我们接触HA机制是通过基于ZooKeeper实现的HA机制这篇文章，里面说道了NN的管理，需要依靠ZK来协调，现在我们展开来说
 
-UDDI： Universal Discription Discovery and Integration 全局资源发现和整合
+当ActiveNND正常工作的时候，客户端请求能够及时响应，但是，当ActiveNN发生故障之后：
 
-UDDI是一种服务器，用户在里面部署自己的UDDI服务，其他用户可以通过UUDI来查找可调用的具体服务，就相当于一个池，供客户端查找、管理服务等等
-
-WSDL： WebService Description Language  webService描述语言">
-<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/webService.jpg">
+在ActiveNN发生故障之后，FailOverController会通过SSH发送指令">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/Facing%E6%9C%BA%E5%88%B61.png">
 
 
 
@@ -134,9 +129,9 @@ WSDL： WebService Description Language  webService描述语言">
 
 
 
-  <link rel="canonical" href="http://xinpan2.github.io/2016/08/19/webService三大要素及运行原理/"/>
+  <link rel="canonical" href="http://xinpan2.github.io/2016/08/31/HA状态切换的Fencing机制/"/>
 
-  <title> webService三大要素及运行原理 | Path </title>
+  <title> HA状态切换的Fencing机制 | Path </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -266,7 +261,7 @@ WSDL： WebService Description Language  webService描述语言">
             
             
               
-                webService三大要素及运行原理
+                HA状态切换的Fencing机制
               
             
           </h1>
@@ -278,8 +273,8 @@ WSDL： WebService Description Language  webService描述语言">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-19T20:50:34+08:00" content="2016-08-19">
-              2016-08-19
+            <time itemprop="dateCreated" datetime="2016-08-31T18:00:08+08:00" content="2016-08-31">
+              2016-08-31
             </time>
           </span>
 
@@ -292,8 +287,8 @@ WSDL： WebService Description Language  webService描述语言">
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/webService/" itemprop="url" rel="index">
-                    <span itemprop="name">webService</span>
+                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop笔记</span>
                   </a>
                 </span>
 
@@ -308,8 +303,8 @@ WSDL： WebService Description Language  webService描述语言">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/19/webService三大要素及运行原理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/19/webService三大要素及运行原理/" itemprop="commentsCount"></span>
+                <a href="/2016/08/31/HA状态切换的Fencing机制/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/31/HA状态切换的Fencing机制/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -332,24 +327,15 @@ WSDL： WebService Description Language  webService描述语言">
       
 
       
-        <p>三大要素：</p>
-<ul>
-<li>UDDI： Universal Discription Discovery and Integration 全局资源发现和整合</li>
-</ul>
-<pre><code>UDDI是一种服务器，用户在里面部署自己的UDDI服务，其他用户可以通过UUDI来查找可调用的具体服务，就相当于一个池，供客户端查找、管理服务等等
-</code></pre><ul>
-<li>WSDL： WebService Description Language  webService描述语言</li>
-</ul>
-<pre><code>就相当于软件的用户手册，描述的是客户端要怎样调用具体的服务，并引导客户端输入所需的参数及接收服务的返回值
-</code></pre><ul>
-<li>SOAP： Simple Object Access Protocol 简单对象访问协议</li>
-</ul>
-<pre><code>这种协议是基于http协议的，我们知道windows能够自动的解析xml文件，但是在我们学校网络编程时，用过httpwatch，查看过http的消息是通过txt来传输的，但是txt的弊端就像上一篇文章讲的那样，只能用简单的分隔符来分割信息，阅读性很弱，但是xml可以把数据以结构化的形式展现，并且机器能够自动处理。
-</code></pre><h1 id="webService工作原理"><a href="#webService工作原理" class="headerlink" title="webService工作原理"></a>webService工作原理</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/webService.jpg" alt=""></p>
-<p>从图中可以看到，webService的工作原理是与上面三个要素紧密相关的，利用SOAP来让客户端-目的客户端发送和接收信息，使用WSDL来让客户机与服务器交互，把部署好的服务器存放在UDDI中。</p>
+        <p>现在我们已经把zk的原理以及运行模式稍微的过了一遍，现在我们回到HA机制，第一次我们接触HA机制是通过<a href="http://xinpaninjava.com/2016/08/30/基于ZooKeeper实现的HA机制/" target="_blank" rel="external">基于ZooKeeper实现的HA机制</a>这篇文章，里面说道了NN的管理，需要依靠ZK来协调，现在我们展开来说</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/Facing%E6%9C%BA%E5%88%B61.png" alt=""></p>
+<p>当ActiveNND正常工作的时候，客户端请求能够及时响应，但是，当ActiveNN发生故障之后：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/Facing%E6%9C%BA%E5%88%B63.png" alt=""></p>
+<p>在ActiveNN发生故障之后，FailOverController会通过SSH发送指令关闭掉当前的ActiveNN进程，如果当前ActiveNN进程关闭成功，FailOverController就会把Leader中当前ActiveNN的主机信息修改成当前StandByNN的主机信息，然后再把状态切换成Active；由于指令是通过网络传输，一旦涉及到网络传输，就可能发生失败，那么在FailOverController等待指定的时间内没有收到当前发生故障的ActiveNN的响应的话，就会进行第二步工作，即执行自定义的处理文件，这个自定义文件怎样处理，就看具体的需求了，可以让当前的ActiveNN执行断电操作等等……</p>
+<p>因为如果没有fencing机制的话，让FailOverController一旦感知到当前ActiveNN发生异常，就进行切换操作，如果ActiveNN在不久后又恢复了，这时可能出现两个ActiveNN。所以要让当前发生故障的ActiveNN确保关闭掉进程之后才进行切换操作！！</p>
 <p>【全文完】</p>
 <p>参考资料：</p>
-<p><a href="http://pan.baidu.com/s/1skX2wfr" target="_blank" rel="external">2-提供WebService的网站webxml</a></p>
+<p><a href="http://pan.baidu.com/s/1eRESBxo" target="_blank" rel="external">03-ha的配置</a></p>
 
       
     </div>
@@ -380,17 +366,13 @@ WSDL： WebService Description Language  webService描述语言">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/18/webService介绍/" rel="next" title="webService介绍">
-                <i class="fa fa-chevron-left"></i> webService介绍
+              <a href="/2016/08/31/zk的使用/" rel="next" title="zk的使用">
+                <i class="fa fa-chevron-left"></i> zk的使用
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/21/调用网上翻译服务/" rel="prev" title="调用网上翻译服务">
-                调用网上翻译服务 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -416,8 +398,8 @@ WSDL： WebService Description Language  webService描述语言">
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/19/webService三大要素及运行原理/"
-           data-title="webService三大要素及运行原理" data-url="http://xinpan2.github.io/2016/08/19/webService三大要素及运行原理/">
+      <div class="ds-thread" data-thread-key="2016/08/31/HA状态切换的Fencing机制/"
+           data-title="HA状态切换的Fencing机制" data-url="http://xinpan2.github.io/2016/08/31/HA状态切换的Fencing机制/">
       </div>
     
   </div>
@@ -521,7 +503,7 @@ WSDL： WebService Description Language  webService描述语言">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#webService工作原理"><span class="nav-number">1.</span> <span class="nav-text">webService工作原理</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
