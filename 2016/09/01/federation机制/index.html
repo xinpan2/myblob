@@ -94,14 +94,14 @@
 <meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
 前面我们说到了HDFS的HA机制，现在我们来谈谈Hadoop2.x中新引入的Federation机制，从英文单词字面来看，是联邦的意思，我对联邦的印象就是学历史的时候，学的联邦制，各个州保持自由但是共同组成一个国家。
 我们知道HA机制中只有两个NN，即ActiveNN，StandByNN，但是只有两台NN但是真">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/Federation%E6%9C%BA%E5%88%B61.png">
-<meta property="og:updated_time" content="2016-09-01T02:27:04.481Z">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/Federation%E6%9C%BA%E5%88%B62.png">
+<meta property="og:updated_time" content="2016-09-01T02:40:09.649Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="federation机制">
 <meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
 前面我们说到了HDFS的HA机制，现在我们来谈谈Hadoop2.x中新引入的Federation机制，从英文单词字面来看，是联邦的意思，我对联邦的印象就是学历史的时候，学的联邦制，各个州保持自由但是共同组成一个国家。
 我们知道HA机制中只有两个NN，即ActiveNN，StandByNN，但是只有两台NN但是真">
-<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/Federation%E6%9C%BA%E5%88%B61.png">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/Federation%E6%9C%BA%E5%88%B62.png">
 
 
 
@@ -323,7 +323,7 @@
         <p><strong><em>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</em></strong></p>
 <p>前面我们说到了HDFS的HA机制，现在我们来谈谈Hadoop2.x中新引入的Federation机制，从英文单词字面来看，是联邦的意思，我对联邦的印象就是学历史的时候，学的联邦制，各个州保持自由但是共同组成一个国家。</p>
 <p>我们知道HA机制中只有两个NN，即ActiveNN，StandByNN，但是只有两台NN但是真正用的只有一台，这台节点的内存就那么大，如果一个公司的业务及数据非常大的话，会部分的元数据存储不下，为了解决这个问题，Hadoop退出了Federation机制。</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/Federation%E6%9C%BA%E5%88%B61.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/Federation%E6%9C%BA%E5%88%B62.png" alt=""></p>
 <p>解读：</p>
 <p>如上图所示，由一对NN组成组成一个NameService，一个集群中可以存在多个NameService，我们在访问指定节点的时候不是像以前那样使用</p>
 <p><code>hdfs://namenode:9000</code></p>
@@ -339,11 +339,6 @@
     <div>
       
         
-<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
-    <img id="wechat_subscriber_qcode" src="/uploads/qrcode_for_gh_69fa03eccdf5_430.jpg" alt="XinPan wechat" style="width: 200px; max-width: 100%;"/>
-    <div>看完文章有感而发？或者你有什么不一样的见解？欢迎您扫一扫上面的微信公众号，订阅我的博客！！！</div>
-</div>
-
 
       
     </div>
