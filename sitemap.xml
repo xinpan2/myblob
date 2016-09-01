@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://xinpan2.github.io/2016/09/01/federation%E6%9C%BA%E5%88%B6/</loc>
+    
+    <lastmod>2016-09-01T02:27:04.481Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://xinpan2.github.io/2016/08/31/HA%E7%8A%B6%E6%80%81%E5%88%87%E6%8D%A2%E7%9A%84Fencing%E6%9C%BA%E5%88%B6/</loc>
     
-    <lastmod>2016-08-31T11:41:45.588Z</lastmod>
+    <lastmod>2016-09-01T02:26:59.169Z</lastmod>
     
   </url>
   
