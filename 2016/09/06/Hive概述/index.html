@@ -84,51 +84,38 @@
 
 
 
-<meta name="description" content="在eclipse/MyEclipse中，有个图标我们见过它很多次，但是却不知道它有什么作用：
+<meta name="description" content="现在我们来谈谈hive，现在引用Apache中hive的定义
 
-这个图标按照提示是用来展示ws的浏览器，所以我们点进去，出现如下窗口：
+大意：
+Hive这款数据仓库软件通过使用SQL语句来提高基于分布式存储的大数据集的读、写和管理。相应的数据结构能够映射到仓库（即我们通过sql语句的表能够在存储在仓库中找到对应的数据）。我们可以使用JDBC驱动和命令行模式来连接到hive中。
+下图是Hadoop权威指南第三版对hive架构的描述
 
-UDDI是在ws三要素那篇文章中提到，但是我们前面的例子并没有在这个服务器中发布服务，所以在这里我们不使用它，我们点击右边的图标，可以用来测试WSDL！
-
-点进去之后，出现如下窗口：
-
-点击WSDL Main,右边出现如下窗口：">
+图中显示用户通过jdbc连接到hiv">
 <meta property="og:type" content="article">
-<meta property="og:title" content="eclipse/MyEclipse提供ws测试工具">
-<meta property="og:url" content="http://xinpan2.github.io/2016/08/22/eclipse-MyEclipse提供ws测试工具/index.html">
+<meta property="og:title" content="Hive概述">
+<meta property="og:url" content="http://xinpan2.github.io/2016/09/06/Hive概述/index.html">
 <meta property="og:site_name" content="Path">
-<meta property="og:description" content="在eclipse/MyEclipse中，有个图标我们见过它很多次，但是却不知道它有什么作用：
+<meta property="og:description" content="现在我们来谈谈hive，现在引用Apache中hive的定义
 
-这个图标按照提示是用来展示ws的浏览器，所以我们点进去，出现如下窗口：
+大意：
+Hive这款数据仓库软件通过使用SQL语句来提高基于分布式存储的大数据集的读、写和管理。相应的数据结构能够映射到仓库（即我们通过sql语句的表能够在存储在仓库中找到对应的数据）。我们可以使用JDBC驱动和命令行模式来连接到hive中。
+下图是Hadoop权威指南第三版对hive架构的描述
 
-UDDI是在ws三要素那篇文章中提到，但是我们前面的例子并没有在这个服务器中发布服务，所以在这里我们不使用它，我们点击右边的图标，可以用来测试WSDL！
-
-点进去之后，出现如下窗口：
-
-点击WSDL Main,右边出现如下窗口：">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/eclipse%E6%8F%90%E4%BE%9Bws%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/eclipse%E6%8F%90%E4%BE%9Bws%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B71.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/eclipse%E6%8F%90%E4%BE%9Bws%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B72.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/eclipse%E6%8F%90%E4%BE%9Bws%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B73.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/eclipse%E6%8F%90%E4%BE%9Bws%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B74.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/eclipse%E6%8F%90%E4%BE%9Bws%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B75.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/eclipse%E6%8F%90%E4%BE%9Bws%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B76.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/eclipse%E6%8F%90%E4%BE%9Bws%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B77.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/eclipse%E6%8F%90%E4%BE%9Bws%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B78.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/eclipse%E6%8F%90%E4%BE%9Bws%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B79.png">
-<meta property="og:updated_time" content="2016-08-22T12:36:03.233Z">
+图中显示用户通过jdbc连接到hiv">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E6%A6%82%E8%BF%B01.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E6%A6%82%E8%BF%B02.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E6%A6%82%E8%BF%B03.png">
+<meta property="og:updated_time" content="2016-09-06T02:42:35.175Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="eclipse/MyEclipse提供ws测试工具">
-<meta name="twitter:description" content="在eclipse/MyEclipse中，有个图标我们见过它很多次，但是却不知道它有什么作用：
+<meta name="twitter:title" content="Hive概述">
+<meta name="twitter:description" content="现在我们来谈谈hive，现在引用Apache中hive的定义
 
-这个图标按照提示是用来展示ws的浏览器，所以我们点进去，出现如下窗口：
+大意：
+Hive这款数据仓库软件通过使用SQL语句来提高基于分布式存储的大数据集的读、写和管理。相应的数据结构能够映射到仓库（即我们通过sql语句的表能够在存储在仓库中找到对应的数据）。我们可以使用JDBC驱动和命令行模式来连接到hive中。
+下图是Hadoop权威指南第三版对hive架构的描述
 
-UDDI是在ws三要素那篇文章中提到，但是我们前面的例子并没有在这个服务器中发布服务，所以在这里我们不使用它，我们点击右边的图标，可以用来测试WSDL！
-
-点进去之后，出现如下窗口：
-
-点击WSDL Main,右边出现如下窗口：">
-<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/eclipse%E6%8F%90%E4%BE%9Bws%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7.png">
+图中显示用户通过jdbc连接到hiv">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E6%A6%82%E8%BF%B01.png">
 
 
 
@@ -149,9 +136,9 @@ UDDI是在ws三要素那篇文章中提到，但是我们前面的例子并没�
 
 
 
-  <link rel="canonical" href="http://xinpan2.github.io/2016/08/22/eclipse-MyEclipse提供ws测试工具/"/>
+  <link rel="canonical" href="http://xinpan2.github.io/2016/09/06/Hive概述/"/>
 
-  <title> eclipse/MyEclipse提供ws测试工具 | Path </title>
+  <title> Hive概述 | Path </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -281,7 +268,7 @@ UDDI是在ws三要素那篇文章中提到，但是我们前面的例子并没�
             
             
               
-                eclipse/MyEclipse提供ws测试工具
+                Hive概述
               
             
           </h1>
@@ -293,8 +280,8 @@ UDDI是在ws三要素那篇文章中提到，但是我们前面的例子并没�
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-22T20:04:09+08:00" content="2016-08-22">
-              2016-08-22
+            <time itemprop="dateCreated" datetime="2016-09-06T09:48:52+08:00" content="2016-09-06">
+              2016-09-06
             </time>
           </span>
 
@@ -307,8 +294,8 @@ UDDI是在ws三要素那篇文章中提到，但是我们前面的例子并没�
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/webService/" itemprop="url" rel="index">
-                    <span itemprop="name">webService</span>
+                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop笔记</span>
                   </a>
                 </span>
 
@@ -323,8 +310,8 @@ UDDI是在ws三要素那篇文章中提到，但是我们前面的例子并没�
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/22/eclipse-MyEclipse提供ws测试工具/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/22/eclipse-MyEclipse提供ws测试工具/" itemprop="commentsCount"></span>
+                <a href="/2016/09/06/Hive概述/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/06/Hive概述/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -347,31 +334,27 @@ UDDI是在ws三要素那篇文章中提到，但是我们前面的例子并没�
       
 
       
-        <p>在eclipse/MyEclipse中，有个图标我们见过它很多次，但是却不知道它有什么作用：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/eclipse%E6%8F%90%E4%BE%9Bws%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7.png" alt=""></p>
-<p>这个图标按照提示是用来展示ws的浏览器，所以我们点进去，出现如下窗口：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/eclipse%E6%8F%90%E4%BE%9Bws%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B71.png" alt=""></p>
-<p>UDDI是在ws三要素那篇文章中提到，但是我们前面的例子并没有在这个服务器中发布服务，所以在这里我们不使用它，我们点击右边的图标，可以用来测试WSDL！</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/eclipse%E6%8F%90%E4%BE%9Bws%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B72.png" alt=""></p>
-<p>点进去之后，出现如下窗口：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/eclipse%E6%8F%90%E4%BE%9Bws%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B73.png" alt=""></p>
-<p>点击WSDL Main,右边出现如下窗口：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/eclipse%E6%8F%90%E4%BE%9Bws%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B74.png" alt=""></p>
-<p>接下来我们就输入之前在浏览器输入的wsdl地址，但是需要保证服务器已经处于开启状态！！！</p>
-<p><code>http://localhost:8888/sayHello?wsdl</code></p>
-<p>连接成功后出现如下页面：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/eclipse%E6%8F%90%E4%BE%9Bws%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B75.png" alt=""></p>
-<p>点击该服务的端口，即前面我们在浏览器看wsdl时，ws服务名的端口中的binding内容：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/eclipse%E6%8F%90%E4%BE%9Bws%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B76.png" alt=""></p>
-<p>在这里由于只有一个方法sayHello，所以只显示了一个。在点卡的页面中，可以看到分成了两部分，一部分是body上面那部分，另外一部分就是body……在下面我们可以看到sayHello的蓝色链接，还有arg0,string,Add,Remove。这部分是用来测试sayHello方法的。</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/eclipse%E6%8F%90%E4%BE%9Bws%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B77.png" alt=""></p>
-<p>测试sayHello方法：点击add，由于前面提示了arg0的类型为string，所以我们要输入一个字符串，至于这里的arg0为什么不是我们在方法中设置的name,这一点后面再讲。</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/eclipse%E6%8F%90%E4%BE%9Bws%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B78.png" alt="1"></p>
-<p>在输入了参数并点击了Go按钮之后，出现了如上的结果，我们可以看到，status中也有了数据为调用该方法的返回信息，包含了返回数据的类型以及返回值，大家肯定有注意到右边的Source按钮！所以点进去</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/eclipse%E6%8F%90%E4%BE%9Bws%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B79.png" alt=""></p>
+        <p>现在我们来谈谈hive，现在引用Apache中hive的定义</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E6%A6%82%E8%BF%B01.png" alt=""></p>
+<p>大意：</p>
+<p>Hive这款数据仓库软件通过使用SQL语句来提高基于分布式存储的大数据集的读、写和管理。相应的数据结构能够映射到仓库（即我们通过sql语句的表能够在存储在仓库中找到对应的数据）。我们可以使用JDBC驱动和命令行模式来连接到hive中。</p>
+<p>下图是Hadoop权威指南第三版对hive架构的描述</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E6%A6%82%E8%BF%B02.png" alt=""></p>
+<p>图中显示用户通过jdbc连接到hive server中，上面的CLI指的是连接hive的另外一种方法：Command Line Interface即命令行接口。我们也可以看到hive中还有driver，我在hive用户指南中找到了hive的完整架构：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E6%A6%82%E8%BF%B03.png" alt=""></p>
+<p>图中的Driver中还包含了编译、优化、执行，这样做是因为Hive是通过接受sql语句来分析、编译、优化后形成默认的MR程序，然后再提交到yarn中执行，之前我们学MR时，写过的几个WordCount程序，其中有自定义的mapper、reducer、runner，对于每个mr程序来说都有固定的格式，但是hive中对于每一种SQL语句都有一个MR程序的模板，所以就不用我们再去编写MR程序，即使使用者不懂java，只要懂得SQL规范，就可以使用hive，这样大大减轻了学习java所需的学习时间，能够快速上手。</p>
+<p>那么现在又有疑问，我们输入的sql语句，到底hive是怎样运作的？</p>
+<p>首先我们通过JDBC或者CLI访问到hive，然后我们根据业务需求输入SQL语句，大家都知道SQL语句都是</p>
+<p><code>select 字段名，字段名 from 表名 [where 筛选条件] [group by 排序条件]</code></p>
+<p>当然我们还需要指定我们需要分析的文件的路径，当hive收到指定的路径和SQL语句时，会根据SQL中的表名与路径中的文件名关联起来，然后再由用户指定分隔符来得到所有字段，比如前面我们自己写的MR程序都是使用<code>\t</code>，hive中让SQL语句中的表名与文件连接关系实际就是创建了一些表的信息，并把这些表的信息与关联的文件路径存储在metastore中，这个metastore我们可以把它存储在本地文件系统中，但是考虑到我们需要大量的CRUD操作，所以我们可以把它存入数据库中。</p>
+<p>把元数据存入数据库之后，接下来driver中产生相应的MR程序，然后再由Driver的executor来提交任务，实际上executor的效果就相当于我们在命令行中写的</p>
+<p><code>haddop jar MR程序名</code></p>
+<p>只不过编写MR程序和提交MR程序的工作交给hive来完成，执行MR程序还是借助Hadoop的yarn！</p>
 <p>【全文完】</p>
-<p>参考资料：</p>
-<p><a href="http://pan.baidu.com/s/1nvi0aj3" target="_blank" rel="external">7-MyEclipse提供浏览测试WebService工具</a></p>
+<p>参考资料</p>
+<p><a href="http://pan.baidu.com/s/1kU6Bker" target="_blank" rel="external">07-hive简介</a></p>
+<p><a href="http://pan.baidu.com/s/1eSJmSkq" target="_blank" rel="external">09-hive入门</a></p>
+<p><a href="http://pan.baidu.com/s/1qYQZZqO" target="_blank" rel="external">Hive用户指南(Hive_user<em>guide)</em>中文版</a></p>
 
       
     </div>
@@ -397,17 +380,13 @@ UDDI是在ws三要素那篇文章中提到，但是我们前面的例子并没�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/22/如何查看WSDL文档/" rel="next" title="如何查看WSDL文档">
-                <i class="fa fa-chevron-left"></i> 如何查看WSDL文档
+              <a href="/2016/09/03/增加DataNode/" rel="next" title="增加DataNode">
+                <i class="fa fa-chevron-left"></i> 增加DataNode
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/23/RPC底层实现原理/" rel="prev" title="RPC底层实现原理">
-                RPC底层实现原理 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -433,8 +412,8 @@ UDDI是在ws三要素那篇文章中提到，但是我们前面的例子并没�
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/22/eclipse-MyEclipse提供ws测试工具/"
-           data-title="eclipse/MyEclipse提供ws测试工具" data-url="http://xinpan2.github.io/2016/08/22/eclipse-MyEclipse提供ws测试工具/">
+      <div class="ds-thread" data-thread-key="2016/09/06/Hive概述/"
+           data-title="Hive概述" data-url="http://xinpan2.github.io/2016/09/06/Hive概述/">
       </div>
     
   </div>
