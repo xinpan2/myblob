@@ -84,35 +84,35 @@
 
 
 
-<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
-
-在jdk8以前，我们所了解的接口只包含两种成员：全局常量、抽象方法，但是在jdk8中，我们可以在接口中定义普通方法、静态方法、内部接口/枚举/注解/类。
-在接口中设计方法
-从上面的代码我们可以">
+<meta name="description" content="关于建表，前面已经建立了几个表，但是还有一些参数没有说，
+12345create table 表名（字段名 类型，字段名2 类型2，字段名3 类型3）ROW format delimitedfields terminated by &apos;\t&apos;store by sequencefile/txtfile;
+其中txtfile是系统默认的，即我们不标明以哪种形式存储，用的就是TXT文件，sequencef">
 <meta property="og:type" content="article">
-<meta property="og:title" content="接口的结构">
-<meta property="og:url" content="http://xinpan2.github.io/2016/08/18/接口的结构/index.html">
+<meta property="og:title" content="hive的初体验：建表、加载数据">
+<meta property="og:url" content="http://xinpan2.github.io/2016/09/08/hive的初体验：建表、加载数据/index.html">
 <meta property="og:site_name" content="Path">
-<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
-
-在jdk8以前，我们所了解的接口只包含两种成员：全局常量、抽象方法，但是在jdk8中，我们可以在接口中定义普通方法、静态方法、内部接口/枚举/注解/类。
-在接口中设计方法
-从上面的代码我们可以">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/jdk8%E6%8E%A5%E5%8F%A3%E6%96%B0%E7%89%B9%E6%80%A71.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/jdk8%E6%8E%A5%E5%8F%A3%E6%96%B0%E7%89%B9%E6%80%A7%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C1.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/jdk8%E6%8E%A5%E5%8F%A3%E6%96%B0%E7%89%B9%E6%80%A72.png">
-<meta property="og:updated_time" content="2016-08-18T13:30:09.584Z">
+<meta property="og:description" content="关于建表，前面已经建立了几个表，但是还有一些参数没有说，
+12345create table 表名（字段名 类型，字段名2 类型2，字段名3 类型3）ROW format delimitedfields terminated by &apos;\t&apos;store by sequencefile/txtfile;
+其中txtfile是系统默认的，即我们不标明以哪种形式存储，用的就是TXT文件，sequencef">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C3.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C4.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C5.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C6.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C7.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C8.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C9.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C10.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C11.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C12.png">
+<meta property="og:updated_time" content="2016-09-08T14:53:37.395Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="接口的结构">
-<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
-
-在jdk8以前，我们所了解的接口只包含两种成员：全局常量、抽象方法，但是在jdk8中，我们可以在接口中定义普通方法、静态方法、内部接口/枚举/注解/类。
-在接口中设计方法
-从上面的代码我们可以">
-<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/jdk8%E6%8E%A5%E5%8F%A3%E6%96%B0%E7%89%B9%E6%80%A71.png">
+<meta name="twitter:title" content="hive的初体验：建表、加载数据">
+<meta name="twitter:description" content="关于建表，前面已经建立了几个表，但是还有一些参数没有说，
+12345create table 表名（字段名 类型，字段名2 类型2，字段名3 类型3）ROW format delimitedfields terminated by &apos;\t&apos;store by sequencefile/txtfile;
+其中txtfile是系统默认的，即我们不标明以哪种形式存储，用的就是TXT文件，sequencef">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C1.png">
 
 
 
@@ -133,9 +133,9 @@
 
 
 
-  <link rel="canonical" href="http://xinpan2.github.io/2016/08/18/接口的结构/"/>
+  <link rel="canonical" href="http://xinpan2.github.io/2016/09/08/hive的初体验：建表、加载数据/"/>
 
-  <title> 接口的结构 | Path </title>
+  <title> hive的初体验：建表、加载数据 | Path </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -265,7 +265,7 @@
             
             
               
-                接口的结构
+                hive的初体验：建表、加载数据
               
             
           </h1>
@@ -277,8 +277,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-18T10:00:00+08:00" content="2016-08-18">
-              2016-08-18
+            <time itemprop="dateCreated" datetime="2016-09-08T21:23:42+08:00" content="2016-09-08">
+              2016-09-08
             </time>
           </span>
 
@@ -291,8 +291,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/jdk8/" itemprop="url" rel="index">
-                    <span itemprop="name">jdk8</span>
+                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop笔记</span>
                   </a>
                 </span>
 
@@ -307,8 +307,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/18/接口的结构/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/18/接口的结构/" itemprop="commentsCount"></span>
+                <a href="/2016/09/08/hive的初体验：建表、加载数据/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/08/hive的初体验：建表、加载数据/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -331,31 +331,40 @@
       
 
       
-        <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
-<p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
-<hr>
-<p>在jdk8以前，我们所了解的接口只包含两种成员：全局常量、抽象方法，但是在jdk8中，我们可以在接口中定义普通方法、静态方法、内部接口/枚举/注解/类。</p>
-<h1 id="在接口中设计方法"><a href="#在接口中设计方法" class="headerlink" title="在接口中设计方法"></a>在接口中设计方法</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/jdk8%E6%8E%A5%E5%8F%A3%E6%96%B0%E7%89%B9%E6%80%A71.png" alt=""></p>
-<p>从上面的代码我们可以发现，这次没有报错，但是在定义普通方法时，发现public和default竟然可以共存，其实default是在接口中定义普通方法的标识，其实我们也可以直接 static/default 返回值 函数名 来设计函数，因为接口在编译完成后会自动加上默认的修饰符。</p>
-<h1 id="调用接口中定义的方法"><a href="#调用接口中定义的方法" class="headerlink" title="调用接口中定义的方法"></a>调用接口中定义的方法</h1><p>那先从简单的开始说：</p>
-<h2 id="静态方法调用"><a href="#静态方法调用" class="headerlink" title="静态方法调用"></a>静态方法调用</h2><p>静态方法是绑定在具体的类/接口中的，所以调用时不需要实例化，可以通过接口名.方法名 直接调用。</p>
-<h2 id="普通方法调用"><a href="#普通方法调用" class="headerlink" title="普通方法调用"></a>普通方法调用</h2><p>普通方法需要通过对象来调用，但是接口/抽象类不能被实例化，所以只能通过创建一个实现了该接口的子类的对象来调用。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.xinpaninjava.aboutinterface;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * to test the define concrete method body in the interface cannot be invoked</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">// static method</span></div><div class="line">		IPuppy.staticMethod();</div><div class="line">		<span class="comment">// default method</span></div><div class="line">		IPuppyImpl iPuppyImpl = <span class="keyword">new</span> IPuppyImpl();</div><div class="line">		iPuppyImpl.defaultMethod();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>运行结果:</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/jdk8%E6%8E%A5%E5%8F%A3%E6%96%B0%E7%89%B9%E6%80%A7%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C1.png" alt=""></p>
-<h1 id="一些思考"><a href="#一些思考" class="headerlink" title="一些思考"></a>一些思考</h1><h2 id="关于接口与多继承的问题"><a href="#关于接口与多继承的问题" class="headerlink" title="关于接口与多继承的问题"></a>关于接口与多继承的问题</h2><p>我记得在刚刚开始学javaSE时，常常看到java不直接支持多继承这几个字眼，当时我理解成jdk设计者通过设计接口来曲线实现多继承，就只有一个原因：一个类可以实现多个接口而只能直接继承一个类。在后来学习到软件工程和设计模式时，我理解到，接口对于软件的多态性和许多开发软件的原则（比如开闭原则）特别有用，说的通俗一点就是解耦。对于软件的设计，尽量高内聚低耦合，因为软件的维护占据了软件生命周期的最大份比例。</p>
-<p>话说回来当初java没有从c++中把多继承也拿过来的原因是：”多继承存在安全问题“，当我们有两个接口，分别为A、B，并且它们拥有一样的方法，现在有一个类C同时实现接口A、B，如果它们同样的方法是静态方法，那倒不会报错，因为静态方法是绑定在所在的类/接口中，但如果是普通方法，那么就会报错，原因还是安全问题，在调用时分不清调用的是哪个方法。</p>
-<p>上面这段话也同时隐含了：实现类可以覆写接口中的方法，如果怕出错，可以借助注解。</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/jdk8%E6%8E%A5%E5%8F%A3%E6%96%B0%E7%89%B9%E6%80%A72.png" alt=""></p>
-<p>此时IDE会提示，如果你要修改这个错误，可以通过覆写其中一个接口中相同的方法，如果覆写了，就相当于两个接口都没有设计这个方法一样，画蛇添足。</p>
-<p>还有一点需要注意的是：在思考实现类调用哪个接口的哪个方法时，不要与继承弄混淆了，只有继承才涉及到super关键字，并且类C的父类是Object！！！</p>
-<p>所以结论是：java不支持多继承，接口也没有要实现多继承！！！</p>
+        <p>关于建表，前面已经建立了几个表，但是还有一些参数没有说，</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> 表名（字段名 类型，字段名<span class="number">2</span> 类型<span class="number">2</span>，字段名<span class="number">3</span> 类型<span class="number">3</span>）</div><div class="line"><span class="keyword">ROW</span> <span class="keyword">format</span> <span class="keyword">delimited</span></div><div class="line"><span class="keyword">fields</span> <span class="keyword">terminated</span> <span class="keyword">by</span> <span class="string">'\t'</span></div><div class="line"><span class="keyword">store</span> <span class="keyword">by</span> sequencefile/txtfile</div><div class="line">;</div></pre></td></tr></table></figure>
+<p>其中txtfile是系统默认的，即我们不标明以哪种形式存储，用的就是TXT文件，sequencefile指的是把这个表的文件以二进制的形式存储。</p>
+<p>在创建表之前，我们要把之前用来测试的表删除掉。</p>
+<p>现在拿我这学期要上的课作为例子吧：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C1.png" alt=""></p>
+<p>我们先来看看在数据库中是如何存储表信息的：</p>
+<p>首先打开可视化数据库操作软件，我使用的是sqlyog</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C2.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C3.png" alt=""></p>
+<p>我们可以看到每个数据库对应dfs的路径：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C4.png" alt=""></p>
+<p>看看我们刚刚创建的表：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C5.png" alt=""></p>
+<p>点进去，由于表刚刚创建，并没有导入数据，所以这里是空的：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C6.png" alt=""></p>
+<p>我们还可以看到这张表的所有字段：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C7.png" alt=""></p>
+<h1 id="为表导入数据"><a href="#为表导入数据" class="headerlink" title="为表导入数据"></a>为表导入数据</h1><p>想要为表导入数据，首先我们要先有数据，创建courses.data文件</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C8.png" alt=""></p>
+<p>我们可以通过指令为表加载数据</p>
+<p><code>load data local inpath &#39;/home/hadoop/coursec.data&#39; into table courses_list</code></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C9.png" alt=""></p>
+<p>再到dfs中查看：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C10.png" alt=""></p>
+<p>事实上数据的加载就是把数据文件拷贝到表目录中！！！</p>
+<p>查询表中的数据：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C11.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C12.png" alt=""></p>
+<p>领教了hive的运行时间之后吗，我知道为什么spark和storm为什么那么火了，虽然它们是在内存中运算，但是hive主要面向离线数据……</p>
 <p>【全文完】</p>
 <p>参考资料：</p>
-<p><a href="http://pan.baidu.com/s/1hrMomPI" target="_blank" rel="external">《Beginning Java 8 Fundamentals》chapter17.Interfaces</a></p>
-<p><a href="http://pan.baidu.com/s/1bTlXvS" target="_blank" rel="external">李兴华-接口定义增强</a></p>
-<p><a href="http://pan.baidu.com/s/1bpqQ6ej" target="_blank" rel="external">黑马程序员JDK8新特性接口01</a></p>
-<hr>
+<p><a href="http://pan.baidu.com/s/1hs6rJxE" target="_blank" rel="external">03-hive的使用</a></p>
+<p><a href="http://pan.baidu.com/s/1o8Clg86" target="_blank" rel="external">SQLyog-11.5.1-0.x64Community</a></p>
 
       
     </div>
@@ -381,17 +390,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/18/设计模式导读目录/" rel="next" title="设计模式导读目录">
-                <i class="fa fa-chevron-left"></i> 设计模式导读目录
+              <a href="/2016/09/08/为hive的元数据库配置mysql/" rel="next" title="为hive的元数据库配置mysql">
+                <i class="fa fa-chevron-left"></i> 为hive的元数据库配置mysql
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/18/lambda表达式及函数式编程/" rel="prev" title="lambda表达式及函数式编程">
-                lambda表达式及函数式编程 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -417,8 +422,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/18/接口的结构/"
-           data-title="接口的结构" data-url="http://xinpan2.github.io/2016/08/18/接口的结构/">
+      <div class="ds-thread" data-thread-key="2016/09/08/hive的初体验：建表、加载数据/"
+           data-title="hive的初体验：建表、加载数据" data-url="http://xinpan2.github.io/2016/09/08/hive的初体验：建表、加载数据/">
       </div>
     
   </div>
@@ -522,7 +527,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#在接口中设计方法"><span class="nav-number">1.</span> <span class="nav-text">在接口中设计方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#调用接口中定义的方法"><span class="nav-number">2.</span> <span class="nav-text">调用接口中定义的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#静态方法调用"><span class="nav-number">2.1.</span> <span class="nav-text">静态方法调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#普通方法调用"><span class="nav-number">2.2.</span> <span class="nav-text">普通方法调用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些思考"><span class="nav-number">3.</span> <span class="nav-text">一些思考</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于接口与多继承的问题"><span class="nav-number">3.1.</span> <span class="nav-text">关于接口与多继承的问题</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为表导入数据"><span class="nav-number">1.</span> <span class="nav-text">为表导入数据</span></a></li></ol></div>
             
           </div>
         </section>

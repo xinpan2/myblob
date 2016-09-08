@@ -4,6 +4,24 @@
 
     
   <url>
+    <loc>http://xinpan2.github.io/2016/09/08/hive%E7%9A%84%E5%88%9D%E4%BD%93%E9%AA%8C%EF%BC%9A%E5%BB%BA%E8%A1%A8%E3%80%81%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE/</loc>
+    <lastmod>2016-09-08T14:53:37.395Z</lastmod>
+    <data>
+        <display>
+        <title>hive的初体验：建表、加载数据</title>
+        <pubTime>2016-09-08T13:23:42.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="hadoop笔记" url="http://xinpan2.github.io/categories/hadoop%E7%AC%94%E8%AE%B0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://xinpan2.github.io/2016/09/08/%E4%B8%BAhive%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AEmysql/</loc>
     <lastmod>2016-09-08T12:55:36.049Z</lastmod>
     <data>
