@@ -4,6 +4,24 @@
 
     
   <url>
+    <loc>http://xinpan2.github.io/2016/09/08/%E4%B8%BAhive%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AEmysql/</loc>
+    <lastmod>2016-09-08T12:55:36.049Z</lastmod>
+    <data>
+        <display>
+        <title>为hive的元数据库配置mysql</title>
+        <pubTime>2016-09-08T12:00:55.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="hadoop笔记" url="http://xinpan2.github.io/categories/hadoop%E7%AC%94%E8%AE%B0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://xinpan2.github.io/2016/09/06/Hive0.12.0%E5%AE%89%E8%A3%85/</loc>
     <lastmod>2016-09-06T12:19:53.802Z</lastmod>
     <data>
