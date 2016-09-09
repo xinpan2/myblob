@@ -1,0 +1,730 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="managed表我们打开可视化数据库，看看我们昨天创建的表：
+
+可以看到表类型为managed，在hive中，还有另外一种类型的表，为external。那么managed类型的表有什么特点呢？
+我们通过上一篇文章可以知道，我们为某个表加载数据就相当于把相应的数据文件拷贝到表的目录下，但是我们来看看这个源文件在被拷贝之后，是属于移动呢还是属于拷贝。
+现在对于源文件有两种可能：
+
+源文件存在本地文件系">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hive的external表与partition">
+<meta property="og:url" content="http://xinpan2.github.io/2016/09/09/hive的external表与partition/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="managed表我们打开可视化数据库，看看我们昨天创建的表：
+
+可以看到表类型为managed，在hive中，还有另外一种类型的表，为external。那么managed类型的表有什么特点呢？
+我们通过上一篇文章可以知道，我们为某个表加载数据就相当于把相应的数据文件拷贝到表的目录下，但是我们来看看这个源文件在被拷贝之后，是属于移动呢还是属于拷贝。
+现在对于源文件有两种可能：
+
+源文件存在本地文件系">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A8.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A81.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A83.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A82.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A84.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A85.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A86.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A87.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A88.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A89.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A810.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A811.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A812.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A813.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A814.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A815.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A816.png">
+<meta property="og:updated_time" content="2016-09-09T05:39:22.398Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hive的external表与partition">
+<meta name="twitter:description" content="managed表我们打开可视化数据库，看看我们昨天创建的表：
+
+可以看到表类型为managed，在hive中，还有另外一种类型的表，为external。那么managed类型的表有什么特点呢？
+我们通过上一篇文章可以知道，我们为某个表加载数据就相当于把相应的数据文件拷贝到表的目录下，但是我们来看看这个源文件在被拷贝之后，是属于移动呢还是属于拷贝。
+现在对于源文件有两种可能：
+
+源文件存在本地文件系">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A8.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/09/09/hive的external表与partition/"/>
+
+  <title> hive的external表与partition | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                hive的external表与partition
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-09T12:22:59+08:00" content="2016-09-09">
+              2016-09-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/09/hive的external表与partition/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/09/hive的external表与partition/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="managed表"><a href="#managed表" class="headerlink" title="managed表"></a>managed表</h1><p>我们打开可视化数据库，看看我们昨天创建的表：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A8.png" alt=""></p>
+<p>可以看到表类型为managed，在hive中，还有另外一种类型的表，为external。那么managed类型的表有什么特点呢？</p>
+<p>我们通过上一篇文章可以知道，我们为某个表加载数据就相当于把相应的数据文件拷贝到表的目录下，但是我们来看看这个源文件在被拷贝之后，是属于移动呢还是属于拷贝。</p>
+<p>现在对于源文件有两种可能：</p>
+<ul>
+<li><p>源文件存在本地文件系统</p>
+</li>
+<li><p>源文件存在dfs</p>
+</li>
+</ul>
+<h2 id="源文件存在本地文件系统"><a href="#源文件存在本地文件系统" class="headerlink" title="源文件存在本地文件系统"></a>源文件存在本地文件系统</h2><p>由于在上一篇文章我们已经为刚刚创建的表courses_list加载了本地文件系统的数据文件，但是现在我查看本地文件系统还有这份文件：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A81.png" alt=""></p>
+<p>所以说，在本地文件系统中，对于managed表，导入数据就是拷贝一份数据到相应表的目录下。</p>
+<h2 id="源文件存在dfs"><a href="#源文件存在dfs" class="headerlink" title="源文件存在dfs"></a>源文件存在dfs</h2><p>然后对我们昨天创建的courses_list表加载数据，当然我们最好修改一下里面的id.</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A83.png" alt=""></p>
+<p>首先我把刚刚的源文件上传到dfs根目录下，然后再导入数据，当然为了不产生冲突，在上传时顺便把文件名改掉：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A82.png" alt=""></p>
+<p>然后启动hive</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A84.png" alt=""></p>
+<p>再看看源文件是否还在原位：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A85.png" alt=""></p>
+<p>从结果可知，存在于dfs中的源文件被移动到表的目录下，如果对于一些重要的业务数据，这样被移动，就显得有点危险，所以hive中支持另外一种表类型：external，这种表对于存在于dfs中的源文件不会移动，而是进行复制！</p>
+<h1 id="external表的创建："><a href="#external表的创建：" class="headerlink" title="external表的创建："></a>external表的创建：</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">external</span> <span class="keyword">table</span> (字段名 类型，字段名<span class="number">1</span> 类型)</div><div class="line"><span class="keyword">row</span> <span class="keyword">format</span> <span class="keyword">delimited</span></div><div class="line"><span class="keyword">fields</span> terminited <span class="keyword">by</span> <span class="string">'\t'</span></div><div class="line">location <span class="string">'指定该表的地址默认为dfs地址'</span>;</div></pre></td></tr></table></figure>
+<p>要创建external表，首先我们要创建好地址与该表对应，所以我们现在dfs中创建好文件夹：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A86.png" alt=""></p>
+<p>我们就用刚刚创建的external_table作为external表的地址。</p>
+<p>现在我们来创建external表，通过指令：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A87.png" alt=""></p>
+<p>然后我们看看数据库中表的信息：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A88.png" alt=""></p>
+<p>我们继续为external表加载数据，同样是在dfs中的文件：</p>
+<p>这是我们要重复刚刚的上传步骤，因为刚刚我们上传到dfs的文件被移动到courses_list表中了：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A89.png" alt=""></p>
+<p>加载数据到external表：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A810.png" alt=""></p>
+<p>在看看原来的数据文件是否还在dfs的根目录下：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A811.png" alt=""></p>
+<p>这就是external表跟managed表的区别！！</p>
+<h1 id="partition"><a href="#partition" class="headerlink" title="partition"></a>partition</h1><p>从这个单词的字面意思来看，是分区的意思 。</p>
+<p>如果我们有很多数据，就要涉及到分区，这个分区可以是任意一个字段，可以是定义在表的字段，也可以是没有定义在表中的字段，如下是分区创建的指令：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> 表名（字段名 类型，字段名<span class="number">1</span> 类型）</div><div class="line">partitioned <span class="keyword">by</span>(字段名 类型)</div><div class="line"><span class="keyword">row</span> <span class="keyword">format</span> <span class="keyword">delimited</span></div><div class="line"><span class="keyword">fields</span> <span class="keyword">terminated</span> <span class="keyword">by</span> <span class="string">'\t'</span>;</div></pre></td></tr></table></figure>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A812.png" alt=""></p>
+<p>为partition表导入数据：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A813.png" alt=""></p>
+<p>再导入一个分区：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A814.png" alt=""></p>
+<p>在上面两条导入语句，大家可以看到，我们需要在最后面加上我们的分区，方便我们以后的统计！</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A815.png" alt=""></p>
+<p>从dfs的存储信息来看，我们创建的分区实际上就是在表的目录下多创建了一个目录！</p>
+<h1 id="查询分区表"><a href="#查询分区表" class="headerlink" title="查询分区表"></a>查询分区表</h1><p>已经创建好了分区表，并且表中拥有了数据，接下来就是对分区表的查询了：</p>
+<p>对于分区表的查询，hive把分区当成一个属性，即我们可以通过在where语句中加以限定：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E7%9A%84managed%E8%A1%A816.png" alt=""></p>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="http://pan.baidu.com/s/1pL2FElH" target="_blank" rel="external">04-hive的常用语法</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/08/hive的初体验：建表、加载数据/" rel="next" title="hive的初体验：建表、加载数据">
+                <i class="fa fa-chevron-left"></i> hive的初体验：建表、加载数据
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/09/hive的external表与partition/"
+           data-title="hive的external表与partition" data-url="http://xinpan2.github.io/2016/09/09/hive的external表与partition/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">171</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/andy_px" target="_blank" title="CSDN" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#managed表"><span class="nav-number">1.</span> <span class="nav-text">managed表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#源文件存在本地文件系统"><span class="nav-number">1.1.</span> <span class="nav-text">源文件存在本地文件系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源文件存在dfs"><span class="nav-number">1.2.</span> <span class="nav-text">源文件存在dfs</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#external表的创建："><span class="nav-number">2.</span> <span class="nav-text">external表的创建：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#partition"><span class="nav-number">3.</span> <span class="nav-text">partition</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查询分区表"><span class="nav-number">4.</span> <span class="nav-text">查询分区表</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
