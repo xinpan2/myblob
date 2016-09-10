@@ -84,35 +84,32 @@
 
 
 
-<meta name="description" content="关于建表，前面已经建立了几个表，但是还有一些参数没有说，
-12345create table 表名（字段名 类型，字段名2 类型2，字段名3 类型3）ROW format delimitedfields terminated by &apos;\t&apos;store by sequencefile/txtfile;
-其中txtfile是系统默认的，即我们不标明以哪种形式存储，用的就是TXT文件，sequencef">
+<meta name="description" content="在上一篇文章我们说到了什么是Hbase，以及其与传统数据库的区别，现在我们来讲讲HBASE表的结构。
+首先我们先来说说传统数据库中表的结构：
+
+比如我们正在录入一份个人信息表，里面涉及到人的id号、姓名、性别、职位，可是在录入李四这个人时，由于她有多个职位，这时候表就需要多一个字段来存储她的另外一个职位：教授。
+但是传统数据库的表一旦创建之后，列名和该列对应的类型是对所有行生效，即不会对其中的某一">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hive的初体验：建表、加载数据">
-<meta property="og:url" content="http://xinpan2.github.io/2016/09/08/hive的初体验：建表、加载数据/index.html">
+<meta property="og:title" content="HBase表的结构">
+<meta property="og:url" content="http://xinpan2.github.io/2016/09/10/HBase表的结构/index.html">
 <meta property="og:site_name" content="Path">
-<meta property="og:description" content="关于建表，前面已经建立了几个表，但是还有一些参数没有说，
-12345create table 表名（字段名 类型，字段名2 类型2，字段名3 类型3）ROW format delimitedfields terminated by &apos;\t&apos;store by sequencefile/txtfile;
-其中txtfile是系统默认的，即我们不标明以哪种形式存储，用的就是TXT文件，sequencef">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C1.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C2.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C3.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C4.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C5.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C6.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C7.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C8.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C9.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C10.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C11.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C12.png">
-<meta property="og:updated_time" content="2016-09-08T15:07:01.194Z">
+<meta property="og:description" content="在上一篇文章我们说到了什么是Hbase，以及其与传统数据库的区别，现在我们来讲讲HBASE表的结构。
+首先我们先来说说传统数据库中表的结构：
+
+比如我们正在录入一份个人信息表，里面涉及到人的id号、姓名、性别、职位，可是在录入李四这个人时，由于她有多个职位，这时候表就需要多一个字段来存储她的另外一个职位：教授。
+但是传统数据库的表一旦创建之后，列名和该列对应的类型是对所有行生效，即不会对其中的某一">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/HBase%E8%A1%A8%E7%BB%93%E6%9E%841.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/HBase%E8%A1%A8%E7%BB%93%E6%9E%842.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/HBase%E8%A1%A8%E7%BB%93%E6%9E%843.png">
+<meta property="og:updated_time" content="2016-09-10T09:16:21.470Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hive的初体验：建表、加载数据">
-<meta name="twitter:description" content="关于建表，前面已经建立了几个表，但是还有一些参数没有说，
-12345create table 表名（字段名 类型，字段名2 类型2，字段名3 类型3）ROW format delimitedfields terminated by &apos;\t&apos;store by sequencefile/txtfile;
-其中txtfile是系统默认的，即我们不标明以哪种形式存储，用的就是TXT文件，sequencef">
-<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C1.png">
+<meta name="twitter:title" content="HBase表的结构">
+<meta name="twitter:description" content="在上一篇文章我们说到了什么是Hbase，以及其与传统数据库的区别，现在我们来讲讲HBASE表的结构。
+首先我们先来说说传统数据库中表的结构：
+
+比如我们正在录入一份个人信息表，里面涉及到人的id号、姓名、性别、职位，可是在录入李四这个人时，由于她有多个职位，这时候表就需要多一个字段来存储她的另外一个职位：教授。
+但是传统数据库的表一旦创建之后，列名和该列对应的类型是对所有行生效，即不会对其中的某一">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/HBase%E8%A1%A8%E7%BB%93%E6%9E%841.png">
 
 
 
@@ -133,9 +130,9 @@
 
 
 
-  <link rel="canonical" href="http://xinpan2.github.io/2016/09/08/hive的初体验：建表、加载数据/"/>
+  <link rel="canonical" href="http://xinpan2.github.io/2016/09/10/HBase表的结构/"/>
 
-  <title> hive的初体验：建表、加载数据 | Path </title>
+  <title> HBase表的结构 | Path </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -265,7 +262,7 @@
             
             
               
-                hive的初体验：建表、加载数据
+                HBase表的结构
               
             
           </h1>
@@ -277,8 +274,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-08T21:23:42+08:00" content="2016-09-08">
-              2016-09-08
+            <time itemprop="dateCreated" datetime="2016-09-10T16:36:52+08:00" content="2016-09-10">
+              2016-09-10
             </time>
           </span>
 
@@ -307,8 +304,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/08/hive的初体验：建表、加载数据/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/08/hive的初体验：建表、加载数据/" itemprop="commentsCount"></span>
+                <a href="/2016/09/10/HBase表的结构/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/10/HBase表的结构/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -331,40 +328,25 @@
       
 
       
-        <p>关于建表，前面已经建立了几个表，但是还有一些参数没有说，</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> 表名（字段名 类型，字段名<span class="number">2</span> 类型<span class="number">2</span>，字段名<span class="number">3</span> 类型<span class="number">3</span>）</div><div class="line"><span class="keyword">ROW</span> <span class="keyword">format</span> <span class="keyword">delimited</span></div><div class="line"><span class="keyword">fields</span> <span class="keyword">terminated</span> <span class="keyword">by</span> <span class="string">'\t'</span></div><div class="line"><span class="keyword">store</span> <span class="keyword">by</span> sequencefile/txtfile</div><div class="line">;</div></pre></td></tr></table></figure>
-<p>其中txtfile是系统默认的，即我们不标明以哪种形式存储，用的就是TXT文件，sequencefile指的是把这个表的文件以二进制的形式存储。</p>
-<p>在创建表之前，我们要把之前用来测试的表删除掉。</p>
-<p>现在拿我这学期要上的课作为例子吧：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C1.png" alt=""></p>
-<p>我们先来看看在数据库中是如何存储表信息的：</p>
-<p>首先打开可视化数据库操作软件，我使用的是sqlyog</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C2.png" alt=""></p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C3.png" alt=""></p>
-<p>我们可以看到每个数据库对应dfs的路径：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C4.png" alt=""></p>
-<p>看看我们刚刚创建的表：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C5.png" alt=""></p>
-<p>点进去，由于表刚刚创建，并没有导入数据，所以这里是空的：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C6.png" alt=""></p>
-<p>我们还可以看到这张表的所有字段：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C7.png" alt=""></p>
-<h1 id="为表导入数据"><a href="#为表导入数据" class="headerlink" title="为表导入数据"></a>为表导入数据</h1><p>想要为表导入数据，首先我们要先有数据，创建courses.data文件</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C8.png" alt=""></p>
-<p>我们可以通过指令为表加载数据</p>
-<p><code>load data local inpath &#39;/home/hadoop/coursec.data&#39; into table courses_list</code></p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C9.png" alt=""></p>
-<p>再到dfs中查看：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C10.png" alt=""></p>
-<p>事实上数据的加载就是把数据文件拷贝到表目录中！！！</p>
-<p>查询表中的数据：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C11.png" alt=""></p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hive%E5%88%9D%E4%BD%93%E9%AA%8C12.png" alt=""></p>
-<p>领教了hive的运行时间之后，我知道为什么spark和storm那么火了，虽然它们是在内存中运算，实时性很高，而hive主要面向离线数据……</p>
+        <p>在上一篇文章我们说到了什么是Hbase，以及其与传统数据库的区别，现在我们来讲讲HBASE表的结构。</p>
+<p>首先我们先来说说传统数据库中表的结构：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/HBase%E8%A1%A8%E7%BB%93%E6%9E%841.png" alt=""></p>
+<p>比如我们正在录入一份个人信息表，里面涉及到人的id号、姓名、性别、职位，可是在录入李四这个人时，由于她有多个职位，这时候表就需要多一个字段来存储她的另外一个职位：教授。</p>
+<p>但是传统数据库的表一旦创建之后，列名和该列对应的类型是对所有行生效，即不会对其中的某一行产生多一个或几个字段，如果现在我们要想在传统关系型数据库中实现多一个字段的方法，那就通过alter语句，让表多一个字段，这样做的效果是之前列没有这个属性的值将会被设置成null。</p>
+<p>另外，我们在设计数据库时，总会考虑到三大范式，尽量把数据库中的内容创建的简洁、冗余小。这样也就涉及到了多表查询~，多表查询也会自然产生笛卡尔积。</p>
+<p>但是在hbase中，一个表的定义只需限定：行键（类似于行的id号），列族</p>
+<p>关于族，在前面我们学习设计模式中，有涉及到产品族的概念，即相近或有某种共同属性的产品。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/HBase%E8%A1%A8%E7%BB%93%E6%9E%842.png" alt=""></p>
+<p>在hbase的表中，我们可以定义任意个列，每一行的列数不一样都可以，但是这让很多人想到，这样做不是会有很多冗余吗？相同的字段都要定义很多次，大家要记住，我们的应用场景是大数据，我们可以不必担心内存空间的消耗，其空间是线性级增加的！</p>
+<p>但是对于我们对于某一个列的修改操作，hbase也不会删除掉历史记录，而是同样记录下来，把每个字段对应的值都用一个时间戳来记录，这个时间戳当做历史版本的版本号。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/HBase%E8%A1%A8%E7%BB%93%E6%9E%843.png" alt=""></p>
+<p>对于这种情况，我们可以在查询时通过指定版本号来得到某个历史记录，hbase是默认为我们提供最新修改的记录！</p>
+<p>在hbase中<code>name:{李四 修改时间戳1，李红 修改时间戳2，李义 修改时间戳3}</code>被称为cell，记录着该字段的所有历史记录及相应的版本号。</p>
 <p>【全文完】</p>
 <p>参考资料：</p>
-<p><a href="http://pan.baidu.com/s/1hs6rJxE" target="_blank" rel="external">03-hive的使用</a></p>
-<p><a href="http://pan.baidu.com/s/1o8Clg86" target="_blank" rel="external">SQLyog-11.5.1-0.x64Community</a></p>
+<p><a href="http://www.cnblogs.com/zhhh/archive/2011/04/21/2023355.html" target="_blank" rel="external">数据库设计的三大范式
+</a></p>
+<p><a href="http://pan.baidu.com/s/1o8AjtMi" target="_blank" rel="external">06-hbase表结构</a></p>
 
       
     </div>
@@ -390,17 +372,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/09/08/为hive的元数据库配置mysql/" rel="next" title="为hive的元数据库配置mysql">
-                <i class="fa fa-chevron-left"></i> 为hive的元数据库配置mysql
+              <a href="/2016/09/10/什么是HBase/" rel="next" title="什么是HBase?">
+                <i class="fa fa-chevron-left"></i> 什么是HBase?
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/09/09/hive的external表与partition/" rel="prev" title="hive的external表与partition">
-                hive的external表与partition <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -426,8 +404,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/09/08/hive的初体验：建表、加载数据/"
-           data-title="hive的初体验：建表、加载数据" data-url="http://xinpan2.github.io/2016/09/08/hive的初体验：建表、加载数据/">
+      <div class="ds-thread" data-thread-key="2016/09/10/HBase表的结构/"
+           data-title="HBase表的结构" data-url="http://xinpan2.github.io/2016/09/10/HBase表的结构/">
       </div>
     
   </div>
@@ -531,7 +509,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为表导入数据"><span class="nav-number">1.</span> <span class="nav-text">为表导入数据</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
