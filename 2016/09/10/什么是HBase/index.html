@@ -84,48 +84,30 @@
 
 
 
-<meta name="description" content="本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
-场景引入在我们前面写的wordcount例子中，每一个map task处理一个切片，并且这个切片中每一行被读取到的信息，比如
+<meta name="description" content="今天我们来接触一个新的知识点：HBase.每次涉及到新的知识点时，我总是喜欢上官网找他们的解释，因为他们的解释更加专业和全面，这次也不例外：
 
-hello world
-
-下面是mapper的处理代码:
-
-这一行数据，被map task读取之后的结果为：
-123&amp;lt;hello,1&amp;gt;&amp;lt;world,1&amp;gt;
-并且每一个单词都被写到con">
+大意：
+Apache HBase是Hadoop用于大数据存储的可扩展、分布式的数据库。
+当你需要随机、实时对于你的大数据进行读写时，可以使用HBase。这个项目旨在维护商业硬件（即普通PC机）集群上许多的大表，这些表可以容纳几十亿行、几百万个字段。HBas">
 <meta property="og:type" content="article">
-<meta property="og:title" content="combiner组件的机制及使用">
-<meta property="og:url" content="http://xinpan2.github.io/2016/08/27/combiner组件的机制及使用/index.html">
+<meta property="og:title" content="什么是HBase?">
+<meta property="og:url" content="http://xinpan2.github.io/2016/09/10/什么是HBase/index.html">
 <meta property="og:site_name" content="Path">
-<meta property="og:description" content="本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
-场景引入在我们前面写的wordcount例子中，每一个map task处理一个切片，并且这个切片中每一行被读取到的信息，比如
+<meta property="og:description" content="今天我们来接触一个新的知识点：HBase.每次涉及到新的知识点时，我总是喜欢上官网找他们的解释，因为他们的解释更加专业和全面，这次也不例外：
 
-hello world
-
-下面是mapper的处理代码:
-
-这一行数据，被map task读取之后的结果为：
-123&amp;lt;hello,1&amp;gt;&amp;lt;world,1&amp;gt;
-并且每一个单词都被写到con">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/combiner%E7%BB%84%E4%BB%B6%E7%9A%84%E6%9C%BA%E5%88%B6%E5%8F%8A%E4%BD%BF%E7%94%A8.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/combiner%E7%BB%84%E4%BB%B6%E7%9A%84%E6%9C%BA%E5%88%B6%E5%8F%8A%E4%BD%BF%E7%94%A81.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/combiner%E7%BB%84%E4%BB%B6%E7%9A%84%E6%9C%BA%E5%88%B6%E5%8F%8A%E4%BD%BF%E7%94%A82.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/combiner%E7%BB%84%E4%BB%B6%E7%9A%84%E6%9C%BA%E5%88%B6%E5%8F%8A%E4%BD%BF%E7%94%A83.png">
-<meta property="og:updated_time" content="2016-08-27T04:28:13.932Z">
+大意：
+Apache HBase是Hadoop用于大数据存储的可扩展、分布式的数据库。
+当你需要随机、实时对于你的大数据进行读写时，可以使用HBase。这个项目旨在维护商业硬件（即普通PC机）集群上许多的大表，这些表可以容纳几十亿行、几百万个字段。HBas">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%BB%80%E4%B9%88%E6%98%AFHBase.png">
+<meta property="og:updated_time" content="2016-09-10T03:12:22.868Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="combiner组件的机制及使用">
-<meta name="twitter:description" content="本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
-场景引入在我们前面写的wordcount例子中，每一个map task处理一个切片，并且这个切片中每一行被读取到的信息，比如
+<meta name="twitter:title" content="什么是HBase?">
+<meta name="twitter:description" content="今天我们来接触一个新的知识点：HBase.每次涉及到新的知识点时，我总是喜欢上官网找他们的解释，因为他们的解释更加专业和全面，这次也不例外：
 
-hello world
-
-下面是mapper的处理代码:
-
-这一行数据，被map task读取之后的结果为：
-123&amp;lt;hello,1&amp;gt;&amp;lt;world,1&amp;gt;
-并且每一个单词都被写到con">
-<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/combiner%E7%BB%84%E4%BB%B6%E7%9A%84%E6%9C%BA%E5%88%B6%E5%8F%8A%E4%BD%BF%E7%94%A8.png">
+大意：
+Apache HBase是Hadoop用于大数据存储的可扩展、分布式的数据库。
+当你需要随机、实时对于你的大数据进行读写时，可以使用HBase。这个项目旨在维护商业硬件（即普通PC机）集群上许多的大表，这些表可以容纳几十亿行、几百万个字段。HBas">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%BB%80%E4%B9%88%E6%98%AFHBase.png">
 
 
 
@@ -146,9 +128,9 @@ hello world
 
 
 
-  <link rel="canonical" href="http://xinpan2.github.io/2016/08/27/combiner组件的机制及使用/"/>
+  <link rel="canonical" href="http://xinpan2.github.io/2016/09/10/什么是HBase/"/>
 
-  <title> combiner组件的机制及使用 | Path </title>
+  <title> 什么是HBase? | Path </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -278,7 +260,7 @@ hello world
             
             
               
-                combiner组件的机制及使用
+                什么是HBase?
               
             
           </h1>
@@ -290,8 +272,8 @@ hello world
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-27T11:47:08+08:00" content="2016-08-27">
-              2016-08-27
+            <time itemprop="dateCreated" datetime="2016-09-10T10:44:03+08:00" content="2016-09-10">
+              2016-09-10
             </time>
           </span>
 
@@ -320,8 +302,8 @@ hello world
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/27/combiner组件的机制及使用/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/27/combiner组件的机制及使用/" itemprop="commentsCount"></span>
+                <a href="/2016/09/10/什么是HBase/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/10/什么是HBase/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -344,28 +326,21 @@ hello world
       
 
       
-        <p><strong><em>本文代码在<a href="https://github.com/xinpan2/hadoopStudy/tree/master/wordcountWithCombiner" target="_blank" rel="external">这里</a>，其他文章的代码从<a href="https://github.com/xinpan2?tab=repositories" target="_blank" rel="external">这里</a>可以找到，记得对号入座！！！</em></strong></p>
-<h1 id="场景引入"><a href="#场景引入" class="headerlink" title="场景引入"></a>场景引入</h1><p>在我们前面写的wordcount例子中，每一个map task处理一个切片，并且这个切片中每一行被读取到的信息，比如</p>
-<blockquote>
-<p>hello world</p>
-</blockquote>
-<p>下面是mapper的处理代码:</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/combiner%E7%BB%84%E4%BB%B6%E7%9A%84%E6%9C%BA%E5%88%B6%E5%8F%8A%E4%BD%BF%E7%94%A8.png" alt=""></p>
-<p>这一行数据，被map task读取之后的结果为：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;hello,<span class="number">1</span>&gt;</div><div class="line"></div><div class="line">&lt;world,<span class="number">1</span>&gt;</div></pre></td></tr></table></figure>
-<p>并且每一个单词都被写到context中，context通过网络的io留，把每一个键值对传送给reduce，试下一下，如果每个切片的大小恰好是128M，128M的数据，大概有几十万行，比如说这个切片出现了5万次hello，那么就要用网络io流传输5万次<code>&lt;hello,1&gt;</code>给reduce，可想而知这样肯定影响效率！</p>
-<p>这时候可以考虑一下使用combiner组件，它在每一个map task本地中运行，原理如下图：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/combiner%E7%BB%84%E4%BB%B6%E7%9A%84%E6%9C%BA%E5%88%B6%E5%8F%8A%E4%BD%BF%E7%94%A81.png" alt=""></p>
-<p>但是这时我们加入一个combiner组件：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/combiner%E7%BB%84%E4%BB%B6%E7%9A%84%E6%9C%BA%E5%88%B6%E5%8F%8A%E4%BD%BF%E7%94%A82.png" alt=""></p>
-<h1 id="combiner机制"><a href="#combiner机制" class="headerlink" title="combiner机制"></a>combiner机制</h1><p>正如上图所示，当map task处理完一个切片之后，通过context传送给combiner，而不是直接通过网络io传输给reduce，并且这个combiner在当前map task的本地当中，所以也避免了多次<code>&lt;单词,1&gt;</code>的网络传输，这样效率大大提升！！！</p>
-<h1 id="combiner的使用"><a href="#combiner的使用" class="headerlink" title="combiner的使用"></a>combiner的使用</h1><p>在runner中，直接通过setCombiner可以设定，并且combiner继承reducer……，意思就是说，combiner就是一个小reduce，在这个场景中，我们可以把reduce直接拿过来当成combiner使用！</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/combiner%E7%BB%84%E4%BB%B6%E7%9A%84%E6%9C%BA%E5%88%B6%E5%8F%8A%E4%BD%BF%E7%94%A83.png" alt=""></p>
-<p>其他部分不变。</p>
-<p>但是combiner不能每次都照搬reduce来使用，比如说求平均值，map task中有3个数，直接在combiner中求了3个数的，但是目标是求每个map task的总数的平均数。！</p>
+        <p>今天我们来接触一个新的知识点：HBase.每次涉及到新的知识点时，我总是喜欢上官网找他们的解释，因为他们的解释更加专业和全面，这次也不例外：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E4%BB%80%E4%B9%88%E6%98%AFHBase.png" alt=""></p>
+<p>大意：</p>
+<p>Apache HBase是Hadoop用于大数据存储的可扩展、分布式的数据库。</p>
+<p>当你需要随机、实时对于你的大数据进行读写时，可以使用HBase。这个项目旨在维护商业硬件（即普通PC机）集群上许多的大表，这些表可以容纳几十亿行、几百万个字段。HBase是根据谷歌的BIGTABLE这篇论文模仿出来的开源、分布式、有版本管理、非关系型数据库。就像在谷歌BIGTABLE为了平衡文件系统存储分布式大数据的效率，Apache HBase基于Hadoop和HDFS提供了像BIGTABLE的能力。</p>
+<p>官方文档翻译完了，大家可能有很多疑问，我们可以一起讨论一下，大家在之前以前都有接触到HDFS，那么我们HDFS跟HBase的区别是一个是文件系统、另外一个是数据库。</p>
+<p>现在问题来了，文件系统跟数据库的区别是什么，我们到底使用HDFS还是HBase？</p>
+<p>按照我以前的学习经验，我觉得数据库是基于文件系统实现，通过维护、映射一系列的结构从而实现对数据的快速读写的应用，就像HBase的作用那样，为什么这样说？因为我们在对文件进行操作时，我们要读一个文件，只能从头或尾开始读，如果要读其他部分，就需要我们自己设置偏移量，但是我们读取数据库中的数据时，我们可以随机的访问读取，即不管你这个数据在哪里，只要知道数据库名，表名，限定条件，有足够的权限就可以得到我们想要的数据。但是我们对于一个文件不可能在中间位置或其他出了头和尾之外的位置任意插入和读取把？</p>
+<p>所以，就像官方文档介绍的那样，当我们需要对分布式大数据的表进行快速、实时的读写，就可以使用HBase,如果没有这个需求，用HDFS就够了！</p>
+<p>HBase跟传统数据库有什么区别？</p>
+<p>从我之前接触到的SQL server、MYSQL、Oracle，都是关系型数据库。我感觉到，传统的数据库对于表间的关系维护的比较好，我们也可以通过一些列的SQL语句来对表连接查询的优化，但是Hbase是非关系型数据库，它不支持JOIN,GROUP BY等操作，因为HBase中存储的数据就像上文说的那样，支持几十亿行、几百万列，一涉及到多表连接，就涉及到笛卡尔积，效率肯定会下降，所以相对于关系型数据库来说，HBASE显得有点单纯而快速。</p>
 <p>【全文完】</p>
 <p>参考资料：</p>
-<p><a href="http://pan.baidu.com/s/1qYlHZbe" target="_blank" rel="external">02-combiner组件的机制和使用</a></p>
+<p><a href="http://hbase.apache.org/" target="_blank" rel="external">Apache HBase™</a></p>
+<p><a href="http://pan.baidu.com/s/1o8AjtMi" target="_blank" rel="external">06-hbase表结构</a></p>
 
       
     </div>
@@ -391,17 +366,13 @@ hello world
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/27/job提交源码分析2-切片详解/" rel="next" title="job提交源码分析2-切片详解">
-                <i class="fa fa-chevron-left"></i> job提交源码分析2-切片详解
+              <a href="/2016/09/09/hive的自定义函数/" rel="next" title="hive的自定义函数">
+                <i class="fa fa-chevron-left"></i> hive的自定义函数
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/27/hadoop的序列化机制/" rel="prev" title="hadoop的序列化机制">
-                hadoop的序列化机制 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -427,8 +398,8 @@ hello world
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/27/combiner组件的机制及使用/"
-           data-title="combiner组件的机制及使用" data-url="http://xinpan2.github.io/2016/08/27/combiner组件的机制及使用/">
+      <div class="ds-thread" data-thread-key="2016/09/10/什么是HBase/"
+           data-title="什么是HBase?" data-url="http://xinpan2.github.io/2016/09/10/什么是HBase/">
       </div>
     
   </div>
@@ -532,7 +503,7 @@ hello world
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#场景引入"><span class="nav-number">1.</span> <span class="nav-text">场景引入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#combiner机制"><span class="nav-number">2.</span> <span class="nav-text">combiner机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#combiner的使用"><span class="nav-number">3.</span> <span class="nav-text">combiner的使用</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
