@@ -1,0 +1,733 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="主机规划：
+由于节点1、2已经部署了NameNode，考虑到节点3、4上只是运行yarn，我们可以把hmaster部署到其中，配置两台hmaster也是为了高可用，就像HA机制那样！然后我们在节点5、6、7部署regionServer，这就是部署hbase的规划。
+准备安装包把下载好的hbase安装包上传到节点3中。我使用的是hbase-0.96.2-hadoop2-bin.tar版，大家需要可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hbase集群部署">
+<meta property="og:url" content="http://xinpan2.github.io/2016/09/11/hbase集群部署/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="主机规划：
+由于节点1、2已经部署了NameNode，考虑到节点3、4上只是运行yarn，我们可以把hmaster部署到其中，配置两台hmaster也是为了高可用，就像HA机制那样！然后我们在节点5、6、7部署regionServer，这就是部署hbase的规划。
+准备安装包把下载好的hbase安装包上传到节点3中。我使用的是hbase-0.96.2-hadoop2-bin.tar版，大家需要可以">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B21.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B22.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B23.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B24.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B25.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B26.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B27.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B28.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B29.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B210.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B211.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B212.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B214.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B215.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B216.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B217.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B218.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B219.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B220.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B222.png">
+<meta property="og:updated_time" content="2016-09-14T14:11:36.178Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hbase集群部署">
+<meta name="twitter:description" content="主机规划：
+由于节点1、2已经部署了NameNode，考虑到节点3、4上只是运行yarn，我们可以把hmaster部署到其中，配置两台hmaster也是为了高可用，就像HA机制那样！然后我们在节点5、6、7部署regionServer，这就是部署hbase的规划。
+准备安装包把下载好的hbase安装包上传到节点3中。我使用的是hbase-0.96.2-hadoop2-bin.tar版，大家需要可以">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B21.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/09/11/hbase集群部署/"/>
+
+  <title> hbase集群部署 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                hbase集群部署
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-11T16:10:02+08:00" content="2016-09-11">
+              2016-09-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/11/hbase集群部署/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/11/hbase集群部署/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>主机规划：</p>
+<p>由于节点1、2已经部署了NameNode，考虑到节点3、4上只是运行yarn，我们可以把hmaster部署到其中，配置两台hmaster也是为了高可用，就像HA机制那样！然后我们在节点5、6、7部署regionServer，这就是部署hbase的规划。</p>
+<h1 id="准备安装包"><a href="#准备安装包" class="headerlink" title="准备安装包"></a>准备安装包</h1><p>把下载好的hbase安装包上传到节点3中。我使用的是<code>hbase-0.96.2-hadoop2-bin.tar</code>版，大家需要可以上官网下载，也可以在文章结尾处参考资料中下载。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B21.png" alt=""></p>
+<h1 id="解压安装包"><a href="#解压安装包" class="headerlink" title="解压安装包"></a>解压安装包</h1><p><code>tar -zxvf hbase-0.96.2-hadoop2-bin.tar.gz -C app/</code></p>
+<p>这条命令相信很多人都敲烂了……</p>
+<p>解压完毕之后，进入软件目录：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B22.png" alt=""></p>
+<p>根据以往的经验，我都是先进入conf文件夹来配置参数文件！这次也不例外。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B23.png" alt=""></p>
+<h1 id="配置文件设置"><a href="#配置文件设置" class="headerlink" title="配置文件设置"></a>配置文件设置</h1><h2 id="hbase-env-sh"><a href="#hbase-env-sh" class="headerlink" title="hbase-env.sh"></a>hbase-env.sh</h2><p>在这个文件中我们需要配置两个参数，一个是JAVA_HOME，我们把它的值设置成绝对路径，就像Hadoop的hadoop-env.sh一样</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B24.png" alt=""></p>
+<p>一打开文件，就发现了JAVA_HOME参数，但是它被设置成了注释形式，我们首先需要把注释打开，然后再设置值</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B25.png" alt=""></p>
+<p>还有另外一个属性：<code>HBASE_MANAGES_ZK</code></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B26.png" alt=""></p>
+<p>由于这个文件有很多行数据，大家可以通过命令模式输入</p>
+<p><code>:/ZK</code></p>
+<p>然后就可以直接跳转到这个参数上！</p>
+<p>把参数的注释放开，然后设置成false</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B27.png" alt=""></p>
+<p>这是因为hbase为我们自带了ZK，但是我们已经配置好了ZK，所以就不适用hbase自带的，而是用我们自己的！</p>
+<p>关于这个文件的配置就完成了，保存后退出。</p>
+<h1 id="hbase-site-xml"><a href="#hbase-site-xml" class="headerlink" title="hbase-site.xml"></a>hbase-site.xml</h1><p>打开文件发现是一个空配置文件：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B28.png" alt=""></p>
+<p>我们往里面添加如下数据：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--指定hbase在dfs中的目录 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.rootdir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://ns1/hbase<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!--设置hbase为集群模式 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.cluster.distributed<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!--由于在hbase-env.sh中设置了用自己的ZK，所以在这里需要指定ZK地址 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.zookeeper.quorum<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>xinpan5:2181,xinpan6:2181,xinpan7:2181<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>设置完成之后：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B29.png" alt=""></p>
+<h1 id="regionservers"><a href="#regionservers" class="headerlink" title="regionservers"></a>regionservers</h1><p>跟Hadoop中的slaves文件一样，我们也需要在hbase中自己regionservers，用来指定regionServer的地址：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B210.png" alt=""></p>
+<p>设置之后保存退出</p>
+<h1 id="文件拷贝"><a href="#文件拷贝" class="headerlink" title="文件拷贝"></a>文件拷贝</h1><p>到目前为止我们配置完了hbase中的参数，但是我们在hbase-site.xml文件中配置了hbase在dfs中的存储目录，使用到了</p>
+<p><code>hdfs://ns1/hbase</code></p>
+<p>大家当初在配置Hadoop的时候应该有印象，直接使用ns1是解析不了的，我们还通过其他配置来设置ns1,所以我们应该把Hadoop中的core-site.xml,hdfs-site.xml两个文件拷贝到当前目录下，从而免去配置nn1,nn2的麻烦！通过以下指令：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B211.png" alt=""></p>
+<p>到此，hbase的配置完毕，接下来进行hbase文件的分发：</p>
+<p>分别发送到4567节点上，但是在这之前我们最好把hbase根目录下的doc文件夹删除掉，因为里面有很多的HTML文件，删除掉并不影响我们的使用，并且能提高传输速度！</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B212.png" alt=""></p>
+<p>开始分发文件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">scp -r hbase-<span class="number">0.96</span>.2-hadoop2/ xinpan4:/home/hadoop/app/</div><div class="line"></div><div class="line">scp -r hbase-<span class="number">0.96</span>.2-hadoop2/ xinpan5:/home/hadoop/app/</div><div class="line"></div><div class="line">scp -r hbase-<span class="number">0.96</span>.2-hadoop2/ xinpan6:/home/hadoop/app/</div><div class="line"></div><div class="line">scp -r hbase-<span class="number">0.96</span>.2-hadoop2/ xinpan7:/home/hadoop/app/</div></pre></td></tr></table></figure>
+<h1 id="启动hbase"><a href="#启动hbase" class="headerlink" title="启动hbase"></a>启动hbase</h1><p>到hbase的bin目录下执行<code>hbase-start.sh</code></p>
+<p>当然我们也可以像Hadoop一样，首先为hbase配置好环境变量</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B214.png" alt=""></p>
+<p>开启hbase</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B215.png" alt=""></p>
+<p>查看各个主机进程状态 ：</p>
+<p>节点4：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B216.png" alt=""></p>
+<p>当初我们规划有两个hmaster，但是现在节点4没有hmaster进程，这就意味着需要我们手动启动hmaster：</p>
+<p>首先我们像节点3一样，配置好环境变量，然后通过指令：</p>
+<p><code>hbase-daemon.sh start master</code></p>
+<p>启动hmaster进程</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B217.png" alt=""></p>
+<p>节点5：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B218.png" alt=""></p>
+<p>节点6</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B219.png" alt=""></p>
+<p>节点7</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B220.png" alt=""></p>
+<p>从网页访问hbase：</p>
+<p>通过master节点+60010，即</p>
+<p><code>xinpan3:60010</code></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B222.png" alt=""></p>
+<p>hbase集群部署完毕！</p>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="http://pan.baidu.com/s/1sk9Nktf" target="_blank" rel="external">08-hbase-shell</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/10/hbase的存储机制及寻址机制/" rel="next" title="hbase的存储机制及寻址机制">
+                <i class="fa fa-chevron-left"></i> hbase的存储机制及寻址机制
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/11/hbase集群部署/"
+           data-title="hbase集群部署" data-url="http://xinpan2.github.io/2016/09/11/hbase集群部署/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">176</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/andy_px" target="_blank" title="CSDN" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备安装包"><span class="nav-number">1.</span> <span class="nav-text">准备安装包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解压安装包"><span class="nav-number">2.</span> <span class="nav-text">解压安装包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置文件设置"><span class="nav-number">3.</span> <span class="nav-text">配置文件设置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#hbase-env-sh"><span class="nav-number">3.1.</span> <span class="nav-text">hbase-env.sh</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hbase-site-xml"><span class="nav-number">4.</span> <span class="nav-text">hbase-site.xml</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#regionservers"><span class="nav-number">5.</span> <span class="nav-text">regionservers</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件拷贝"><span class="nav-number">6.</span> <span class="nav-text">文件拷贝</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动hbase"><span class="nav-number">7.</span> <span class="nav-text">启动hbase</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

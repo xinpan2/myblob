@@ -107,7 +107,8 @@
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B64.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B65.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B67.png">
-<meta property="og:updated_time" content="2016-09-10T16:58:57.111Z">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B68.png">
+<meta property="og:updated_time" content="2016-09-11T02:34:04.676Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hbase的存储机制及寻址机制">
 <meta name="twitter:description" content="存储机制现在我们来讨论一下hbase的表是怎样存储的：
@@ -362,6 +363,7 @@
 <p>这个ROOT表的位置在ZK中设置</p>
 <p>完成的hbase存储机制：</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B67.png" alt=""></p>
+<h1 id="region的细节"><a href="#region的细节" class="headerlink" title="region的细节"></a>region的细节</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B68.png" alt=""></p>
 <h1 id="寻址机制"><a href="#寻址机制" class="headerlink" title="寻址机制"></a>寻址机制</h1><p>如果我们要查找表1中的第十一万行数据，应该怎样查找呢？</p>
 <p>就是上面那张图的倒序……</p>
 <p>首先从zk中读取root表的信息，再根据我们要找的行数，十一万行，招待指定的region存储节点，然后再找到指定的meta表，找到相应的行所在的主机，然后再得到这一行的数据！</p>
@@ -369,6 +371,7 @@
 <p>【全文完】</p>
 <p>参考资料：</p>
 <p><a href="http://pan.baidu.com/s/1kVhjkIr" target="_blank" rel="external">07-hbase集群架构及表存储机制</a></p>
+<p><a href="http://www.searchtb.com/2011/01/understanding-hbase.html" target="_blank" rel="external">HBase技术介绍</a></p>
 
       
     </div>
@@ -401,6 +404,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/11/hbase集群部署/" rel="prev" title="hbase集群部署">
+                hbase集群部署 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -472,7 +479,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">175</span>
+              <span class="site-state-item-count">176</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -531,7 +538,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#存储机制"><span class="nav-number">1.</span> <span class="nav-text">存储机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#寻址机制"><span class="nav-number">2.</span> <span class="nav-text">寻址机制</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#存储机制"><span class="nav-number">1.</span> <span class="nav-text">存储机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#region的细节"><span class="nav-number">2.</span> <span class="nav-text">region的细节</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#寻址机制"><span class="nav-number">3.</span> <span class="nav-text">寻址机制</span></a></li></ol></div>
             
           </div>
         </section>
