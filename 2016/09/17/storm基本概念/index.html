@@ -84,25 +84,29 @@
 
 
 
-<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+<meta name="description" content="现在我们来接触一个新的知识点：storm，在前面学习MR时我们就讨论过，storm是实时性比较强的运算系统，并且是实时的，MR是离线的，现在我们要学习它，首先看看官方文档是怎样介绍的：
 
-首先选择好构建struts2环境所需的jar包（这个可以打开各自下载的struts压缩包的apps目录下的blank压缩包，在里面找到lib目录，然后把里面的jar拷到相应开发软件中， 在2.">
+大意：
+++Apache storm是一个免费和开源的实时分布式计算系统，它让可靠的访问无界限的数据流变得简单，并且是对数据实时的处理而Hadoop的MR是离线的批处理。它简单并且能跟任何语言一起工作，并且用起来">
 <meta property="og:type" content="article">
-<meta property="og:title" content="struts2的环境搭建">
-<meta property="og:url" content="http://xinpan2.github.io/2016/08/18/struts2的环境搭建/index.html">
+<meta property="og:title" content="storm基本概念">
+<meta property="og:url" content="http://xinpan2.github.io/2016/09/17/storm基本概念/index.html">
 <meta property="og:site_name" content="Path">
-<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+<meta property="og:description" content="现在我们来接触一个新的知识点：storm，在前面学习MR时我们就讨论过，storm是实时性比较强的运算系统，并且是实时的，MR是离线的，现在我们要学习它，首先看看官方文档是怎样介绍的：
 
-首先选择好构建struts2环境所需的jar包（这个可以打开各自下载的struts压缩包的apps目录下的blank压缩包，在里面找到lib目录，然后把里面的jar拷到相应开发软件中， 在2.">
-<meta property="og:updated_time" content="2016-08-18T12:47:31.862Z">
+大意：
+++Apache storm是一个免费和开源的实时分布式计算系统，它让可靠的访问无界限的数据流变得简单，并且是对数据实时的处理而Hadoop的MR是离线的批处理。它简单并且能跟任何语言一起工作，并且用起来">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E6%A6%82%E8%BF%B01.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E6%A6%82%E8%BF%B05.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E6%A6%82%E8%BF%B06.png">
+<meta property="og:updated_time" content="2016-09-17T15:28:46.077Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="struts2的环境搭建">
-<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+<meta name="twitter:title" content="storm基本概念">
+<meta name="twitter:description" content="现在我们来接触一个新的知识点：storm，在前面学习MR时我们就讨论过，storm是实时性比较强的运算系统，并且是实时的，MR是离线的，现在我们要学习它，首先看看官方文档是怎样介绍的：
 
-首先选择好构建struts2环境所需的jar包（这个可以打开各自下载的struts压缩包的apps目录下的blank压缩包，在里面找到lib目录，然后把里面的jar拷到相应开发软件中， 在2.">
+大意：
+++Apache storm是一个免费和开源的实时分布式计算系统，它让可靠的访问无界限的数据流变得简单，并且是对数据实时的处理而Hadoop的MR是离线的批处理。它简单并且能跟任何语言一起工作，并且用起来">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E6%A6%82%E8%BF%B01.png">
 
 
 
@@ -123,9 +127,9 @@
 
 
 
-  <link rel="canonical" href="http://xinpan2.github.io/2016/08/18/struts2的环境搭建/"/>
+  <link rel="canonical" href="http://xinpan2.github.io/2016/09/17/storm基本概念/"/>
 
-  <title> struts2的环境搭建 | Path </title>
+  <title> storm基本概念 | Path </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -255,7 +259,7 @@
             
             
               
-                struts2的环境搭建
+                storm基本概念
               
             
           </h1>
@@ -267,8 +271,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-18T08:01:00+08:00" content="2016-08-18">
-              2016-08-18
+            <time itemprop="dateCreated" datetime="2016-09-17T22:36:48+08:00" content="2016-09-17">
+              2016-09-17
             </time>
           </span>
 
@@ -281,8 +285,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/struts入门/" itemprop="url" rel="index">
-                    <span itemprop="name">struts入门</span>
+                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop笔记</span>
                   </a>
                 </span>
 
@@ -297,8 +301,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/18/struts2的环境搭建/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/18/struts2的环境搭建/" itemprop="commentsCount"></span>
+                <a href="/2016/09/17/storm基本概念/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/17/storm基本概念/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -321,16 +325,41 @@
       
 
       
-        <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
-<p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
-<hr>
-<p>首先选择好构建struts2环境所需的jar包（这个可以打开各自下载的struts压缩包的apps目录下的blank压缩包，在里面找到lib目录，然后把里面的jar拷到相应开发软件中， 在2.1.8中，没有commons-loging.jar）</p>
-<p>在Web-Inf的classes目录下建立struts2.xml（在开发阶段可以直接创建在src目录下），然后配置好里面的dtd约束及内容。（引入dtd文件可以在下载到的struts压缩包中直接查找*.dtd文件，然后找到相应的版本点进去，可以看到dtd的引入方法）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE struts PUBLIC</div><div class="line"></div><div class="line"><span class="string">"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"</span></div><div class="line"></div><div class="line"><span class="string">"http://struts.apache.org/dtds/struts-2.1.7.dtd"</span>&gt;</div></pre></td></tr></table></figure>
-<p>在web.xml文件中配置好过滤器的启动，在myEclipse的reference libraries目录下 找到struts2.core.jar–〉找到以filter结尾的包—-〉找到名字最长的.class文件—-〉copy文件名。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;filter&gt;</div><div class="line"></div><div class="line">  &lt;filter-name&gt;struts2&lt;/filter-name&gt;</div><div class="line"></div><div class="line">  &lt;filter-class&gt;org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter&lt;/filter-class&gt;</div><div class="line"></div><div class="line">  &lt;/filter&gt;</div><div class="line"></div><div class="line">  &lt;filter-mapping&gt;</div><div class="line"></div><div class="line">  &lt;filter-name&gt;struts2&lt;/filter-name&gt;</div><div class="line"></div><div class="line">  &lt;url-pattern&gt;/*&lt;/url-pattern&gt;</div><div class="line"></div><div class="line">  &lt;/filter-mapping&gt;</div></pre></td></tr></table></figure>
-<p>这样，struts的配置完成。</p>
-<hr>
+        <p>现在我们来接触一个新的知识点：storm，在前面学习MR时我们就讨论过，storm是实时性比较强的运算系统，并且是实时的，MR是离线的，现在我们要学习它，首先看看官方文档是怎样介绍的：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E6%A6%82%E8%BF%B01.png" alt=""></p>
+<p>大意：</p>
+<p>++Apache storm是一个免费和开源的实时分布式计算系统，它让可靠的访问无界限的数据流变得简单，并且是对数据实时的处理而Hadoop的MR是离线的批处理。它简单并且能跟任何语言一起工作，并且用起来很有趣！++</p>
+<p>++storm有许多应用场景：实时分析，在线机器学习，不间断计算，分布式RPC，ELT等等。storm是很高效的：它进行了benchmark测试，每台节点每秒可以处理一百万个任务（tuple），同时它是可扩展的，容错的，能跟保证你的数据能够被访问，并且storm很容易搭建和操作。++</p>
+<p>++storm通常与队列和数据库一起工作，一个storm的任务处理许多数据流并且以复杂的任意方式来访问这些流，对于每个阶段必要的计算，storm会对这些流重新分区，在介绍文档中查看更多细节。++</p>
+<p>关于分布式RPC即DRPC：即使用storm来实现分布式RPC，在学习WS和讲解Hadoop各组节点通信时我们提到过RPC，这两者不一样，DRPC是把所有处理的逻辑分发到每个节点中，并且并行执行这些逻辑，让它们变成服务，这些服务能够并行的相应客户端的请求。</p>
+<p>为什么storm通常与队列和数据库一起工作？因为storm只是负责运算的系统，不作任何的数据存储，所以需要通过队列来达到数据源，通过数据库来存储处理的结果。</p>
+<h1 id="一些新术语"><a href="#一些新术语" class="headerlink" title="一些新术语"></a>一些新术语</h1><ul>
+<li><p>topology：拓扑，又称为任务</p>
+</li>
+<li><p>spout：（英文释义：喷口，源头）用来读取数据源</p>
+</li>
+<li><p>bolt： （英文释义：门闩）用来处理流入的数据</p>
+</li>
+<li><p>tuple: 数据元组，storm传输的最小单位，就像MR传输的序列流</p>
+</li>
+<li><p>worker： 每个任务的进程</p>
+</li>
+<li><p>executor： 每个worker的线程</p>
+</li>
+<li><p>task： 每个bolt的处理内容</p>
+</li>
+</ul>
+<p>觉得这些术语很生疏？下面我们来看看storm官方是怎样描述一个topology的：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E6%A6%82%E8%BF%B05.png" alt=""></p>
+<p>注：字体和表格是我标上去的，原图并没有这些内容！</p>
+<p>大家可以把整个拓扑想象成废水处理，首先我们从spout中得到废水，然后再经过一系列的处理，比如经过各个bolt，从而得到清澈的水，图中大家可以看到，从spout中出来的tuple可以经过不同的路径从而得到最终的结果，它们之间的逻辑流程不一样，我们可以在程序中进行干预！比如国内的数据、国外的数据，可以分不同的路径走！</p>
+<h1 id="topology的执行底层"><a href="#topology的执行底层" class="headerlink" title="topology的执行底层"></a>topology的执行底层</h1><p>当一个拓扑执行时，storm集群中的节点产生worker进程，在进程里面有许多executor线程，在线程中包含着多个相同的task，比如包含多个bolt A处理的内容，直到任务完成，得到最终的结果。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E6%A6%82%E8%BF%B06.png" alt=""></p>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="http://storm.apache.org/releases/current/Distributed-RPC.html" target="_blank" rel="external">Distributed RPC</a></p>
+<p><a href="http://storm.apache.org/" target="_blank" rel="external">http://storm.apache.org/</a></p>
+<p><a href="http://pan.baidu.com/s/1hrRG9P6" target="_blank" rel="external">01-storm基本概念</a></p>
 
       
     </div>
@@ -356,17 +385,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/18/struts2的简介—小记/" rel="next" title="struts2的简介—小记">
-                <i class="fa fa-chevron-left"></i> struts2的简介—小记
+              <a href="/2016/09/16/hbase的API调用/" rel="next" title="hbase的API调用">
+                <i class="fa fa-chevron-left"></i> hbase的API调用
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/18/简单的struts2案例/" rel="prev" title="简单的struts2案例">
-                简单的struts2案例 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -392,8 +417,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/18/struts2的环境搭建/"
-           data-title="struts2的环境搭建" data-url="http://xinpan2.github.io/2016/08/18/struts2的环境搭建/">
+      <div class="ds-thread" data-thread-key="2016/09/17/storm基本概念/"
+           data-title="storm基本概念" data-url="http://xinpan2.github.io/2016/09/17/storm基本概念/">
       </div>
     
   </div>
@@ -497,7 +522,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一些新术语"><span class="nav-number">1.</span> <span class="nav-text">一些新术语</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#topology的执行底层"><span class="nav-number">2.</span> <span class="nav-text">topology的执行底层</span></a></li></ol></div>
             
           </div>
         </section>
