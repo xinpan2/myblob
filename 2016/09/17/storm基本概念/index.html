@@ -87,7 +87,8 @@
 <meta name="description" content="现在我们来接触一个新的知识点：storm，在前面学习MR时我们就讨论过，storm是实时性比较强的运算系统，并且是实时的，MR是离线的，现在我们要学习它，首先看看官方文档是怎样介绍的：
 
 大意：
-++Apache storm是一个免费和开源的实时分布式计算系统，它让可靠的访问无界限的数据流变得简单，并且是对数据实时的处理而Hadoop的MR是离线的批处理。它简单并且能跟任何语言一起工作，并且用起来">
+
+Apache storm是一个免费和开源的实时分布式计算系统，它让可靠的访问无界限的数据流变得简单，并且是对数据实时的处理而Hadoop的MR是离线的批处理。它简单并且能跟任何语言一起工作，并且用起来很">
 <meta property="og:type" content="article">
 <meta property="og:title" content="storm基本概念">
 <meta property="og:url" content="http://xinpan2.github.io/2016/09/17/storm基本概念/index.html">
@@ -95,17 +96,19 @@
 <meta property="og:description" content="现在我们来接触一个新的知识点：storm，在前面学习MR时我们就讨论过，storm是实时性比较强的运算系统，并且是实时的，MR是离线的，现在我们要学习它，首先看看官方文档是怎样介绍的：
 
 大意：
-++Apache storm是一个免费和开源的实时分布式计算系统，它让可靠的访问无界限的数据流变得简单，并且是对数据实时的处理而Hadoop的MR是离线的批处理。它简单并且能跟任何语言一起工作，并且用起来">
+
+Apache storm是一个免费和开源的实时分布式计算系统，它让可靠的访问无界限的数据流变得简单，并且是对数据实时的处理而Hadoop的MR是离线的批处理。它简单并且能跟任何语言一起工作，并且用起来很">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E6%A6%82%E8%BF%B01.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E6%A6%82%E8%BF%B05.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E6%A6%82%E8%BF%B06.png">
-<meta property="og:updated_time" content="2016-09-17T15:28:46.077Z">
+<meta property="og:updated_time" content="2016-09-17T15:35:44.011Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="storm基本概念">
 <meta name="twitter:description" content="现在我们来接触一个新的知识点：storm，在前面学习MR时我们就讨论过，storm是实时性比较强的运算系统，并且是实时的，MR是离线的，现在我们要学习它，首先看看官方文档是怎样介绍的：
 
 大意：
-++Apache storm是一个免费和开源的实时分布式计算系统，它让可靠的访问无界限的数据流变得简单，并且是对数据实时的处理而Hadoop的MR是离线的批处理。它简单并且能跟任何语言一起工作，并且用起来">
+
+Apache storm是一个免费和开源的实时分布式计算系统，它让可靠的访问无界限的数据流变得简单，并且是对数据实时的处理而Hadoop的MR是离线的批处理。它简单并且能跟任何语言一起工作，并且用起来很">
 <meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E6%A6%82%E8%BF%B01.png">
 
 
@@ -328,9 +331,11 @@
         <p>现在我们来接触一个新的知识点：storm，在前面学习MR时我们就讨论过，storm是实时性比较强的运算系统，并且是实时的，MR是离线的，现在我们要学习它，首先看看官方文档是怎样介绍的：</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E6%A6%82%E8%BF%B01.png" alt=""></p>
 <p>大意：</p>
-<p>++Apache storm是一个免费和开源的实时分布式计算系统，它让可靠的访问无界限的数据流变得简单，并且是对数据实时的处理而Hadoop的MR是离线的批处理。它简单并且能跟任何语言一起工作，并且用起来很有趣！++</p>
-<p>++storm有许多应用场景：实时分析，在线机器学习，不间断计算，分布式RPC，ELT等等。storm是很高效的：它进行了benchmark测试，每台节点每秒可以处理一百万个任务（tuple），同时它是可扩展的，容错的，能跟保证你的数据能够被访问，并且storm很容易搭建和操作。++</p>
-<p>++storm通常与队列和数据库一起工作，一个storm的任务处理许多数据流并且以复杂的任意方式来访问这些流，对于每个阶段必要的计算，storm会对这些流重新分区，在介绍文档中查看更多细节。++</p>
+<blockquote>
+<p>Apache storm是一个免费和开源的实时分布式计算系统，它让可靠的访问无界限的数据流变得简单，并且是对数据实时的处理而Hadoop的MR是离线的批处理。它简单并且能跟任何语言一起工作，并且用起来很有趣！</p>
+<p>storm有许多应用场景：实时分析，在线机器学习，不间断计算，分布式RPC，ELT等等。storm是很高效的：它进行了benchmark测试，每台节点每秒可以处理一百万个任务（tuple），同时它是可扩展的，容错的，能跟保证你的数据能够被访问，并且storm很容易搭建和操作。</p>
+<p>storm通常与队列和数据库一起工作，一个storm的任务处理许多数据流并且以复杂的任意方式来访问这些流，对于每个阶段必要的计算，storm会对这些流重新分区，在介绍文档中查看更多细节。</p>
+</blockquote>
 <p>关于分布式RPC即DRPC：即使用storm来实现分布式RPC，在学习WS和讲解Hadoop各组节点通信时我们提到过RPC，这两者不一样，DRPC是把所有处理的逻辑分发到每个节点中，并且并行执行这些逻辑，让它们变成服务，这些服务能够并行的相应客户端的请求。</p>
 <p>为什么storm通常与队列和数据库一起工作？因为storm只是负责运算的系统，不作任何的数据存储，所以需要通过队列来达到数据源，通过数据库来存储处理的结果。</p>
 <h1 id="一些新术语"><a href="#一些新术语" class="headerlink" title="一些新术语"></a>一些新术语</h1><ul>
@@ -358,7 +363,7 @@
 <p>【全文完】</p>
 <p>参考资料：</p>
 <p><a href="http://storm.apache.org/releases/current/Distributed-RPC.html" target="_blank" rel="external">Distributed RPC</a></p>
-<p><a href="http://storm.apache.org/" target="_blank" rel="external">http://storm.apache.org/</a></p>
+<p><a href="http://storm.apache.org/" target="_blank" rel="external">Apache Storm</a></p>
 <p><a href="http://pan.baidu.com/s/1hrRG9P6" target="_blank" rel="external">01-storm基本概念</a></p>
 
       
