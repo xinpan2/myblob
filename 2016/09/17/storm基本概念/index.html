@@ -100,8 +100,8 @@ Apache storm是一个免费和开源的实时分布式计算系统，它让可�
 Apache storm是一个免费和开源的实时分布式计算系统，它让可靠的访问无界限的数据流变得简单，并且是对数据实时的处理而Hadoop的MR是离线的批处理。它简单并且能跟任何语言一起工作，并且用起来很">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E6%A6%82%E8%BF%B01.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E6%A6%82%E8%BF%B05.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E6%A6%82%E8%BF%B06.png">
-<meta property="og:updated_time" content="2016-09-17T15:35:44.011Z">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E6%A6%82%E8%BF%B07.png">
+<meta property="og:updated_time" content="2016-09-18T02:01:07.863Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="storm基本概念">
 <meta name="twitter:description" content="现在我们来接触一个新的知识点：storm，在前面学习MR时我们就讨论过，storm是实时性比较强的运算系统，并且是实时的，MR是离线的，现在我们要学习它，首先看看官方文档是怎样介绍的：
@@ -358,8 +358,8 @@ Apache storm是一个免费和开源的实时分布式计算系统，它让可�
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E6%A6%82%E8%BF%B05.png" alt=""></p>
 <p>注：字体和表格是我标上去的，原图并没有这些内容！</p>
 <p>大家可以把整个拓扑想象成废水处理，首先我们从spout中得到废水，然后再经过一系列的处理，比如经过各个bolt，从而得到清澈的水，图中大家可以看到，从spout中出来的tuple可以经过不同的路径从而得到最终的结果，它们之间的逻辑流程不一样，我们可以在程序中进行干预！比如国内的数据、国外的数据，可以分不同的路径走！</p>
-<h1 id="topology的执行底层"><a href="#topology的执行底层" class="headerlink" title="topology的执行底层"></a>topology的执行底层</h1><p>当一个拓扑执行时，storm集群中的节点产生worker进程，在进程里面有许多executor线程，在线程中包含着多个相同的task，比如包含多个bolt A处理的内容，直到任务完成，得到最终的结果。</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E6%A6%82%E8%BF%B06.png" alt=""></p>
+<h1 id="topology的执行底层"><a href="#topology的执行底层" class="headerlink" title="topology的执行底层"></a>topology的执行底层</h1><p>当一个拓扑执行时，storm集群中的节点产生worker进程，在进程里面有许多executor线程，在线程中包含着多个相同的task，比如包含多个bolt A处理的内容（即一个bolt可以在executor中有一个或多个task！），直到任务完成，得到最终的结果。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E6%A6%82%E8%BF%B07.png" alt=""></p>
 <p>【全文完】</p>
 <p>参考资料：</p>
 <p><a href="http://storm.apache.org/releases/current/Distributed-RPC.html" target="_blank" rel="external">Distributed RPC</a></p>
@@ -397,6 +397,10 @@ Apache storm是一个免费和开源的实时分布式计算系统，它让可�
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/18/storm集群的搭建/" rel="prev" title="storm集群的搭建">
+                storm集群的搭建 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -468,7 +472,7 @@ Apache storm是一个免费和开源的实时分布式计算系统，它让可�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">180</span>
+              <span class="site-state-item-count">181</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

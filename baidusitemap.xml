@@ -4,12 +4,12 @@
 
     
   <url>
-    <loc>http://xinpan2.github.io/2016/09/16/hbase%E7%9A%84API%E8%B0%83%E7%94%A8/</loc>
-    <lastmod>2016-09-17T15:36:40.403Z</lastmod>
+    <loc>http://xinpan2.github.io/2016/09/18/storm%E9%9B%86%E7%BE%A4%E7%9A%84%E6%90%AD%E5%BB%BA/</loc>
+    <lastmod>2016-09-18T04:50:07.499Z</lastmod>
     <data>
         <display>
-        <title>hbase的API调用</title>
-        <pubTime>2016-09-16T09:17:29.000Z</pubTime>
+        <title>storm集群的搭建</title>
+        <pubTime>2016-09-18T02:59:30.000Z</pubTime>
         
          
            
@@ -23,11 +23,29 @@
     
   <url>
     <loc>http://xinpan2.github.io/2016/09/17/storm%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</loc>
-    <lastmod>2016-09-17T15:35:44.011Z</lastmod>
+    <lastmod>2016-09-18T02:01:07.863Z</lastmod>
     <data>
         <display>
         <title>storm基本概念</title>
         <pubTime>2016-09-17T14:36:48.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="hadoop笔记" url="http://xinpan2.github.io/categories/hadoop%E7%AC%94%E8%AE%B0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://xinpan2.github.io/2016/09/16/hbase%E7%9A%84API%E8%B0%83%E7%94%A8/</loc>
+    <lastmod>2016-09-17T15:36:40.403Z</lastmod>
+    <data>
+        <display>
+        <title>hbase的API调用</title>
+        <pubTime>2016-09-16T09:17:29.000Z</pubTime>
         
          
            

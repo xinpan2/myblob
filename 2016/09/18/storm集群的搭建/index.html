@@ -1,0 +1,733 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="要搭建storm，需要借助ZK，在上一篇文章我们说到，storm的执行底层，有两个节点来运行拓扑，我们另外还需要一个节点来进行协调，所以我们需要3个节点来搭建storm，加上又要借助ZK，所以就在节点567搭建
+首先要确保ZK启动：
+
+
+
+首先把storm的安装包上传到节点5中，然后解压到app目录下
+
+修改配置文件进入storm目录下的conf，修改其中的storm.yaml文件
+
+进入修改文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="storm集群的搭建">
+<meta property="og:url" content="http://xinpan2.github.io/2016/09/18/storm集群的搭建/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="要搭建storm，需要借助ZK，在上一篇文章我们说到，storm的执行底层，有两个节点来运行拓扑，我们另外还需要一个节点来进行协调，所以我们需要3个节点来搭建storm，加上又要借助ZK，所以就在节点567搭建
+首先要确保ZK启动：
+
+
+
+首先把storm的安装包上传到节点5中，然后解压到app目录下
+
+修改配置文件进入storm目录下的conf，修改其中的storm.yaml文件
+
+进入修改文件">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA3.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA4.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA5.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA6.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA7.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA8.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA9.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA10.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA11.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA12.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA13.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA14.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA15.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA16.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA17.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA18.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA19.png">
+<meta property="og:updated_time" content="2016-09-18T04:50:07.499Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="storm集群的搭建">
+<meta name="twitter:description" content="要搭建storm，需要借助ZK，在上一篇文章我们说到，storm的执行底层，有两个节点来运行拓扑，我们另外还需要一个节点来进行协调，所以我们需要3个节点来搭建storm，加上又要借助ZK，所以就在节点567搭建
+首先要确保ZK启动：
+
+
+
+首先把storm的安装包上传到节点5中，然后解压到app目录下
+
+修改配置文件进入storm目录下的conf，修改其中的storm.yaml文件
+
+进入修改文件">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/09/18/storm集群的搭建/"/>
+
+  <title> storm集群的搭建 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                storm集群的搭建
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-18T10:59:30+08:00" content="2016-09-18">
+              2016-09-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/18/storm集群的搭建/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/18/storm集群的搭建/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>要搭建storm，需要借助ZK，在上一篇文章我们说到，storm的执行底层，有两个节点来运行拓扑，我们另外还需要一个节点来进行协调，所以我们需要3个节点来搭建storm，加上又要借助ZK，所以就在节点567搭建</p>
+<p>首先要确保ZK启动：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA1.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA2.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA3.png" alt=""></p>
+<p>首先把storm的安装包上传到节点5中，然后解压到app目录下</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA4.png" alt=""></p>
+<h1 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h1><p>进入storm目录下的conf，修改其中的storm.yaml文件</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA5.png" alt=""></p>
+<p>进入修改文件页面可以看到，非常引人注目的注释，上面标着这些配置必须要设置</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA6.png" alt=""></p>
+<p>其中的<code>storm.zookeeper.servers</code>的值即ZK的主机地址。<code>nimbus.host</code>的值就是前面我们说的用于协调storm节点的主机。按照习惯，我把第一台节点作为协调节点。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA7.png" alt=""></p>
+<p>修改完毕后保存，然后发送到节点6、7</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA8.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA9.png" alt=""></p>
+<p>发送完毕之后，首先启动storm，同时我们有可以启动一个storm的UI端口，用于在网页查看storm的工作状态。</p>
+<h1 id="启动storm"><a href="#启动storm" class="headerlink" title="启动storm"></a>启动storm</h1><p>首先我们要启动进行协调的节点：nimbus,在nimbus节点中storm目录的bin目录下执行，在这里我们配置的numbus节点是5:</p>
+<p><code>./storm nimbus</code></p>
+<p>启动之后：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA10.png" alt=""></p>
+<p>然后我们克隆当前会话，查看进程：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA11.png" alt=""></p>
+<p>多了一个nimbus进程，在这个会话中，我们也可以开启storm的UI进程，同样也是在storm的bin目录下通过指令：</p>
+<p><code>./storm ui</code></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA12.png" alt=""></p>
+<p>现在可以通过网页访问：</p>
+<p><code>xinpan5:8080</code></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA13.png" alt=""></p>
+<p>由于我们还没有启动执行worker进程的节点，这些节点被称为supervisor，现在我们启动节点6的supervisor，通过指令：（在storm的bin目录下）</p>
+<p><code>./storm supervisor</code></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA14.png" alt=""></p>
+<p>克隆当前会话，查看进程：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA15.png" alt=""></p>
+<p>supervisor进程产生了，现在也可以刷新UI：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA16.png" alt=""></p>
+<p>可以看到frees lots和total slots下面新增了4，这个4就是可以执行的worker，下面一个框显示的是每台supervisor可以最多执行4个worker进程</p>
+<p>现在我们开启节点7的supervisor：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA17.png" alt=""></p>
+<p>克隆当前会话，查看进程：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA18.png" alt=""></p>
+<p>刷新UI：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/storm%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA19.png" alt=""></p>
+<p>storm集群搭建完毕！</p>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="http://storm.apache.org/releases/1.0.2/Setting-up-a-Storm-cluster.html" target="_blank" rel="external">Setting up a Storm Cluster</a></p>
+<p><a href="http://pan.baidu.com/s/1hrRG9P6" target="_blank" rel="external">01-storm基本概念</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/17/storm基本概念/" rel="next" title="storm基本概念">
+                <i class="fa fa-chevron-left"></i> storm基本概念
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/18/storm集群的搭建/"
+           data-title="storm集群的搭建" data-url="http://xinpan2.github.io/2016/09/18/storm集群的搭建/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">181</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/andy_px" target="_blank" title="CSDN" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#修改配置文件"><span class="nav-number">1.</span> <span class="nav-text">修改配置文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动storm"><span class="nav-number">2.</span> <span class="nav-text">启动storm</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
