@@ -1,0 +1,748 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="前面讲过，storm经常配合消息队列和数据库使用，现在我们来讨论一下什么是消息队列。
+在storm中，比如现在需要分析一家银行的什么业务最火，首先要知道这个银行有哪些业务，比如保险、金融、信贷，它们分别有自己的系统：
+
+我们使用信息采集系统从不同的系统中得到数据，然后把分析得到的数据封装在消息队列中，每个信息都会被标上id作为序号，然后按照顺序流入相应的spout中，进行相应的逻辑业务处理。
+在图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kafka介绍">
+<meta property="og:url" content="http://xinpan2.github.io/2016/09/22/kafka介绍/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="前面讲过，storm经常配合消息队列和数据库使用，现在我们来讨论一下什么是消息队列。
+在storm中，比如现在需要分析一家银行的什么业务最火，首先要知道这个银行有哪些业务，比如保险、金融、信贷，它们分别有自己的系统：
+
+我们使用信息采集系统从不同的系统中得到数据，然后把分析得到的数据封装在消息队列中，每个信息都会被标上id作为序号，然后按照顺序流入相应的spout中，进行相应的逻辑业务处理。
+在图">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D3.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D6.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D4.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D5.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D7.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D8.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D9.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D10.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D11.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D12.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D13.png">
+<meta property="og:updated_time" content="2016-09-22T12:14:35.745Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kafka介绍">
+<meta name="twitter:description" content="前面讲过，storm经常配合消息队列和数据库使用，现在我们来讨论一下什么是消息队列。
+在storm中，比如现在需要分析一家银行的什么业务最火，首先要知道这个银行有哪些业务，比如保险、金融、信贷，它们分别有自己的系统：
+
+我们使用信息采集系统从不同的系统中得到数据，然后把分析得到的数据封装在消息队列中，每个信息都会被标上id作为序号，然后按照顺序流入相应的spout中，进行相应的逻辑业务处理。
+在图">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/09/22/kafka介绍/"/>
+
+  <title> kafka介绍 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                kafka介绍
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-22T13:51:44+08:00" content="2016-09-22">
+              2016-09-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/22/kafka介绍/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/22/kafka介绍/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>前面讲过，storm经常配合消息队列和数据库使用，现在我们来讨论一下什么是消息队列。</p>
+<p>在storm中，比如现在需要分析一家银行的什么业务最火，首先要知道这个银行有哪些业务，比如保险、金融、信贷，它们分别有自己的系统：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D1.png" alt=""></p>
+<p>我们使用信息采集系统从不同的系统中得到数据，然后把分析得到的数据封装在消息队列中，每个信息都会被标上id作为序号，然后按照顺序流入相应的spout中，进行相应的逻辑业务处理。</p>
+<p>在图中的消息队列，就是我们今天要介绍的kafka,它也是Apache的一个项目，属于Hadoop Ecosystem一员。</p>
+<p>我们先来看看官网是怎样介绍kafka的：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D2.png" alt=""></p>
+<p>大意：</p>
+<p>kafka是基于发布-订阅的作为分布式提交日志的消息系统</p>
+<ul>
+<li><p>快速：单一的kafka节点能够处理每秒来自几千个客户端的几百M读和写操作。</p>
+</li>
+<li><p>可扩展： kafka被设计成一个大组织集群的数据中心，它能够在不停止服务的前提下进行弹性和透明的扩展。数据流被分区并发送到集群的其他节点上以保证kafka能够处理比单节点能够处理的数据流的最大容量还大的数据流，并同时协调其中的consumer角色。</p>
+</li>
+<li><p>耐用： 消息被持久化到磁盘上并且拷贝到集群中以防数据丢失，每个broker能够在处理TB级别的消息时不影响kafka的性能。</p>
+</li>
+<li><p>为分布式而生： kafka拥有先进的以集群为中心的设计，即提供了高可用性和容错机制的保障。</p>
+</li>
+</ul>
+<h1 id="Apache对于kafka的介绍"><a href="#Apache对于kafka的介绍" class="headerlink" title="Apache对于kafka的介绍"></a>Apache对于kafka的介绍</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D3.png" alt=""></p>
+<p>大意：</p>
+<p>kafka是拥有分布式、分区、多副本的提交日志的服务，它提供了基于队列的消息系统功能。</p>
+<p>它们到底有什么含义？</p>
+<p>我们首先来复习一些消息的术语：</p>
+<ul>
+<li><p>topic： kafka维护了不同种类的消息源，每一种称为一个topic</p>
+</li>
+<li><p>producer： 提交消息到topic的进程</p>
+</li>
+<li><p>consumer： 从topic中得到被提交的消息的进程</p>
+</li>
+<li><p>broker： 构成kafka集群的每一台服务器</p>
+</li>
+</ul>
+<p>producer通过网络发送消息到kafka集群中，这个集群有序的为consumer提供消息</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D6.png" alt=""></p>
+<p>producer和consumer的交流通过简单、高性能、与语言无关的TCP协议实现，我们为kafka提供了java客户端，但是其他许多语言也有对应的客户端。</p>
+<h1 id="topic-and-logs"><a href="#topic-and-logs" class="headerlink" title="topic and logs"></a>topic and logs</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D4.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D5.png" alt=""></p>
+<p>大意：</p>
+<p>我们先讨论高度抽象的kafka中的topic</p>
+<p>一个topic就是一个被提交消息的种类或者该消息数据源的名字，对于每一个topic，kafka集群维护了一个关于分区的日志，就像下图那样</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D7.png" alt=""></p>
+<p>每个分区都是一个有序的，不可修改的消息序列，并且这些消息被源源不断的添加到每个分区的后面，即一个提交日志。每个在分区中的消息都会被设定一个序列的id号，这个id号叫做offset，用来与分区中的其他消息区别开（<strong><em>就像图中的 1—12，就是每个消息的offset</em></strong>）。</p>
+<p>kafka集群中保存着所有被提交的消息，不管它们在可配置的时间段内是否被consumer得到。加入log的保存时间被设置成两天，那么当这个消息被提交之后的两天中，它是可以被consumer得到的，一旦超过了这个时间，这个消息将会被丢弃以释放空间。kafka的性能随着数据量的增加基本不变，所以对于保存大量的数据是没有压力的。</p>
+<p>事实上，每个consumer中都有唯一的元数据，这个元数据记录的是当前consumer在log的位置，这个记录叫做offset。这个offset由其对应的consumer控制，通常情况下，consumer会线性地提前分配好它的offset，因为它需要读取消息，但实际上consumer的位置由consumer控制，并且它能够以任意的顺序来读取信息。例如一个consumer可以在重启时从以前没处理完的offset处开始读取信息。</p>
+<p>这些特性的组合意味着使用kafka中的consumer是非常低耗的，它们可以在任意的位置读取消息而不会影响集群和其他的consumer。例如，你可以借助命令行工具来得到任意topic的内容而不用改变当前在读取这个消息的consumer。</p>
+<p>分区在log中拥有不同的目的。首先，它们允许log被扩展成一台单节点服务器不能容纳的大小。每个单独的分区必须能够被它所在的服务器容纳，但是一个topic可以有多个分区，因此它可以处理任意数量的数据。然后，它们作为并行的单元，好像说的有点多了。</p>
+<h1 id="Distribution"><a href="#Distribution" class="headerlink" title="Distribution"></a>Distribution</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D8.png" alt=""></p>
+<p>大意：</p>
+<p>log中的分区被分发到集群中的其他服务器中，每一台服务器能够处理数据和请求其他分区的共享。每个分区通过可配置的副本数量来拷贝分区到指定数量的服务器中以保证集群的容错机制。</p>
+<p>每个分区有一个服务器作为leader，其他的作为follower（有点像ZK集群）。leader节点处理所有对于分区的读和写请求，而follower被动的从leader中拷贝数据。如果leader停止工作，其中一个follower会自动变成新的leader。每个服务器作为一些分区的leader，另外一些分区的follower，这样可以很好的实现集群的负载均衡。</p>
+<h1 id="Producers"><a href="#Producers" class="headerlink" title="Producers"></a>Producers</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D9.png" alt=""></p>
+<p>大意：</p>
+<p>producer提交数据到它们选择的topic中，并负责选定消息设置到topic中的分区中。如果只是为了负载均衡，这些工作可以通过round-robin方法实现；或者根据一些语义分区函数（例如消息基于一些key）实现。第二种情况被使用的多。</p>
+<h1 id="consumers"><a href="#consumers" class="headerlink" title="consumers"></a>consumers</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D10.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D11.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D12.png" alt=""></p>
+<p>大意：</p>
+<p>传统的消息有两种形式，队列和发布-订阅。对于队列，consumer池从服务器中读取消息，并且每个消息不重复；对于发布-订阅，消息被广播到所有的consumer中。kafka中的consumer group实现了上面说的两种形式。</p>
+<p>consumer使用consumer group的名字来标识自己，每个消息被发布到一个topic中都会被分发到每个consumer group的一个consumer实例中（因为consumer group实现了消息的两种形式，而第二种是广播的形式），consumer的实例可以在单独的进程中或者在单独的机器中。</p>
+<p>如果所有的consumer实例都属于同一个consumer group中，那么它的运行就像传统的队列在consumer中实现负载均衡。</p>
+<p>如果所有的consumer实例都属于不同的consumer group，那么它的运行就像发布-订阅模型，所有的消息都会被广播到所有的consumer中。</p>
+<p>更通俗的说，我们已经发现了topic中有一小部分的consumer group，其中一个作为所有topic的逻辑订阅者。每个group由许多的consumer实例组成，用于扩展和容错。这无非就是发布-订阅的语义，在其中订阅者就是consumer的集群而不是单一的进程。</p>
+<p>kafka比传统的消息系统拥有更加强的顺序保证。</p>
+<p>一个传统的队列在服务器中有序的保存消息，但是如果多个consumer从服务器中请求获得消息，然后服务器按照消息存储的顺序把消息分发给consumer。然而即使服务器按顺序分发消息，这些消息都是异步的被发送到consumer中的，所以这些消息可能没有到达准确的consumer中。这意味着有序的消息在并发消费中被遗失了。消息系统通常利用“exclusive consumer”的概念工作，这种consumer允许只有一个进程从队列中得到消息，但是这当然就意味着在访问时没有并发性。</p>
+<p>kafka在这方面做得更好。通过“topic中分区的并发性”的概念，kafka能够提供有序保证和通过consumer进程池来实现负载均衡。这种并发通过把topic中的分区赋值到consumer group的consumer中来实现，因此每个分区都由group中的一个特定的consumer来消费。通过这样的方法来保证当前正在消费的consumer是这个分区唯一的读者和消费有序的数据。因此这里有许多分区仍然能够通过许多consumer实例实现负载均衡。注意，consumer group中consumer的实例不能比分区中的consumer实例多。</p>
+<p>kafka仅仅为分区中的消息提供了总的顺序，而没有为topic中的不同分区提供总的顺序。每个分区的顺序由这个分区是否对于大多数的程序能够通过关键词把数据分区的能力组成。然而，如果你需要一个总的消息顺序，这个可以通过只有一个分区的topic实现，虽然这将意味着每个consumer group只有一个consumer。</p>
+<h1 id="Guarantees"><a href="#Guarantees" class="headerlink" title="Guarantees"></a>Guarantees</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E4%BB%8B%E7%BB%8D13.png" alt=""></p>
+<p>大意：</p>
+<p>在高层次的kafka中，提供了如下保障：</p>
+<ul>
+<li><p>通过producer发送到指定topic的分区中将会按他们的发送顺序被追加到log中，因此，如果一个消息名称为M1被相同的producer又以M2的名字发送了一次，但是M1先被发送，所以M1将会拥有比M2小的offset和比M2更早的出现在log中。</p>
+</li>
+<li><p>consumer读取到消息的顺序就是这些消息被存储到log的顺序。</p>
+</li>
+<li><p>对于一个topic的副本因子N，我们能够承受在没有丢失任何已经提交到log的消息的情况下，N-1台服务器失效</p>
+</li>
+</ul>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="http://www.infoq.com/cn/articles/kafka-analysis-part-1" target="_blank" rel="external">Kafka剖析（一）：Kafka背景及架构介绍</a></p>
+<p><a href="http://kafka.apache.org/" target="_blank" rel="external">Apache Kafka </a></p>
+<p><a href="http://kafka.apache.org/documentation.html#introduction" target="_blank" rel="external">Apache Kafka Introduction</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/21/storm程序demo及运行原理/" rel="next" title="storm程序demo及运行原理">
+                <i class="fa fa-chevron-left"></i> storm程序demo及运行原理
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/22/kafka介绍/"
+           data-title="kafka介绍" data-url="http://xinpan2.github.io/2016/09/22/kafka介绍/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">183</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/andy_px" target="_blank" title="CSDN" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Apache对于kafka的介绍"><span class="nav-number">1.</span> <span class="nav-text">Apache对于kafka的介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#topic-and-logs"><span class="nav-number">2.</span> <span class="nav-text">topic and logs</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Distribution"><span class="nav-number">3.</span> <span class="nav-text">Distribution</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Producers"><span class="nav-number">4.</span> <span class="nav-text">Producers</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#consumers"><span class="nav-number">5.</span> <span class="nav-text">consumers</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Guarantees"><span class="nav-number">6.</span> <span class="nav-text">Guarantees</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
