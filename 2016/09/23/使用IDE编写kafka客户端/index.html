@@ -84,12 +84,16 @@
 
 
 
-<meta name="description" content="在上一篇文章我们讲到了，如何在命令行窗口中使用kafka客户端，我们分别在不同的窗口中启动了producer和consumer，然后在producer的控制台中输入消息，然后consumer中就会自动显示在producer输入的消息，虽然这样做也可以，但是使用命令行工具参数有点多，我们现在来试一下怎样用IDE来编写kafka的客户端程序，即使用IDE来编写producer和consumer，在这里">
+<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+在上一篇文章我们讲到了，如何在命令行窗口中使用kafka客户端，我们分别在不同的窗口中启动了producer和consumer，然后在producer的控制台中输入消息，然后consumer中就会自动显示在producer输入的消息，虽然这样做也">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用IDE编写kafka客户端">
 <meta property="og:url" content="http://xinpan2.github.io/2016/09/23/使用IDE编写kafka客户端/index.html">
 <meta property="og:site_name" content="Path">
-<meta property="og:description" content="在上一篇文章我们讲到了，如何在命令行窗口中使用kafka客户端，我们分别在不同的窗口中启动了producer和consumer，然后在producer的控制台中输入消息，然后consumer中就会自动显示在producer输入的消息，虽然这样做也可以，但是使用命令行工具参数有点多，我们现在来试一下怎样用IDE来编写kafka的客户端程序，即使用IDE来编写producer和consumer，在这里">
+<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+在上一篇文章我们讲到了，如何在命令行窗口中使用kafka客户端，我们分别在不同的窗口中启动了producer和consumer，然后在producer的控制台中输入消息，然后consumer中就会自动显示在producer输入的消息，虽然这样做也">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8IDE%E7%BC%96%E5%86%99kafka%E5%AE%A2%E6%88%B7%E7%AB%AF1.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8IDE%E7%BC%96%E5%86%99kafka%E5%AE%A2%E6%88%B7%E7%AB%AF4.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8IDE%E7%BC%96%E5%86%99kafka%E5%AE%A2%E6%88%B7%E7%AB%AF3.png">
@@ -97,10 +101,12 @@
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8IDE%E7%BC%96%E5%86%99kafka%E5%AE%A2%E6%88%B7%E7%AB%AF6.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8IDE%E7%BC%96%E5%86%99kafka%E5%AE%A2%E6%88%B7%E7%AB%AF8.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8IDE%E7%BC%96%E5%86%99kafka%E5%AE%A2%E6%88%B7%E7%AB%AF9.png">
-<meta property="og:updated_time" content="2016-09-23T08:50:17.176Z">
+<meta property="og:updated_time" content="2016-09-23T08:56:40.852Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用IDE编写kafka客户端">
-<meta name="twitter:description" content="在上一篇文章我们讲到了，如何在命令行窗口中使用kafka客户端，我们分别在不同的窗口中启动了producer和consumer，然后在producer的控制台中输入消息，然后consumer中就会自动显示在producer输入的消息，虽然这样做也可以，但是使用命令行工具参数有点多，我们现在来试一下怎样用IDE来编写kafka的客户端程序，即使用IDE来编写producer和consumer，在这里">
+<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+在上一篇文章我们讲到了，如何在命令行窗口中使用kafka客户端，我们分别在不同的窗口中启动了producer和consumer，然后在producer的控制台中输入消息，然后consumer中就会自动显示在producer输入的消息，虽然这样做也">
 <meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8IDE%E7%BC%96%E5%86%99kafka%E5%AE%A2%E6%88%B7%E7%AB%AF1.png">
 
 
@@ -320,7 +326,9 @@
       
 
       
-        <p>在上一篇文章我们讲到了，如何在命令行窗口中使用kafka客户端，我们分别在不同的窗口中启动了producer和consumer，然后在producer的控制台中输入消息，然后consumer中就会自动显示在producer输入的消息，虽然这样做也可以，但是使用命令行工具参数有点多，我们现在来试一下怎样用IDE来编写kafka的客户端程序，即使用IDE来编写producer和consumer，在这里IDE我选择的是eclipse。</p>
+        <p><strong><em>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</em></strong></p>
+<p><strong><em>本文代码在<a href="https://github.com/xinpan2/hadoopStudy/tree/master/kafkaclient" target="_blank" rel="external">这里</a>，其他文章的代码从<a href="https://github.com/xinpan2?tab=repositories" target="_blank" rel="external">这里</a>可以找到，记得对号入座！！！</em></strong></p>
+<p>在上一篇文章我们讲到了，如何在命令行窗口中使用kafka客户端，我们分别在不同的窗口中启动了producer和consumer，然后在producer的控制台中输入消息，然后consumer中就会自动显示在producer输入的消息，虽然这样做也可以，但是使用命令行工具参数有点多，我们现在来试一下怎样用IDE来编写kafka的客户端程序，即使用IDE来编写producer和consumer，在这里IDE我选择的是eclipse。</p>
 <h1 id="创建一个项目"><a href="#创建一个项目" class="headerlink" title="创建一个项目"></a>创建一个项目</h1><p>创建完项目的第一件事就是导入jar包，相应的jar包在kafka文件夹的lib目录下，大家把其中的jar包拷入即可，<strong><em>如果不是通过add library添加的，一定要记得build path！</em></strong>：</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8IDE%E7%BC%96%E5%86%99kafka%E5%AE%A2%E6%88%B7%E7%AB%AF1.png" alt=""></p>
 <h1 id="编写producer"><a href="#编写producer" class="headerlink" title="编写producer"></a>编写producer</h1><p>添加完jar包之后，开启编写producer，编写顺序：首先创建producer对象，需要的参数在前面创建，我们设置了参数，但是也可以通过从linux中把server.properties文件拷贝到工作目录下。在这里kafka使用了包装模式，把java.util包的properties封装成producerConfig。其中序列化参数是指我们在producer需要发送的消息类型，我们发送的是string，如果发送的是我们自定义的bean，那么就需要bean继承kafka.serializer这个类，然后再设置到serializer.class这个参数中。</p>
