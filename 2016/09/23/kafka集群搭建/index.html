@@ -1,0 +1,748 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="首先把kafka的安装包上传到节点5中，这次我们依然采用3台节点，567,上传完毕之后解压。
+
+server.properties进入config目录，修改server.properties
+
+
+我们规划了三台节点，所以这一台的brokerID不用修改，其他两台需要修改为1、2.
+
+日志文件也需要修改路径，只不过在这里我们只是需要把这个集群跑起来，所以大家按照实际需求设置日志目录。
+
+关于zk的设">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kafka集群搭建">
+<meta property="og:url" content="http://xinpan2.github.io/2016/09/23/kafka集群搭建/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="首先把kafka的安装包上传到节点5中，这次我们依然采用3台节点，567,上传完毕之后解压。
+
+server.properties进入config目录，修改server.properties
+
+
+我们规划了三台节点，所以这一台的brokerID不用修改，其他两台需要修改为1、2.
+
+日志文件也需要修改路径，只不过在这里我们只是需要把这个集群跑起来，所以大家按照实际需求设置日志目录。
+
+关于zk的设">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA3.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA4.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA5.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA6.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA7.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA8.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA9.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA10.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA11.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA12.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA13.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA14.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA15.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA16.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA17.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA18.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA19.png">
+<meta property="og:updated_time" content="2016-09-23T05:31:26.887Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kafka集群搭建">
+<meta name="twitter:description" content="首先把kafka的安装包上传到节点5中，这次我们依然采用3台节点，567,上传完毕之后解压。
+
+server.properties进入config目录，修改server.properties
+
+
+我们规划了三台节点，所以这一台的brokerID不用修改，其他两台需要修改为1、2.
+
+日志文件也需要修改路径，只不过在这里我们只是需要把这个集群跑起来，所以大家按照实际需求设置日志目录。
+
+关于zk的设">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/09/23/kafka集群搭建/"/>
+
+  <title> kafka集群搭建 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                kafka集群搭建
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-23T10:38:55+08:00" content="2016-09-23">
+              2016-09-23
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/23/kafka集群搭建/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/23/kafka集群搭建/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>首先把kafka的安装包上传到节点5中，这次我们依然采用3台节点，567,上传完毕之后解压。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA1.png" alt=""></p>
+<h1 id="server-properties"><a href="#server-properties" class="headerlink" title="server.properties"></a>server.properties</h1><p>进入config目录，修改server.properties</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA2.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA3.png" alt=""></p>
+<p>我们规划了三台节点，所以这一台的brokerID不用修改，其他两台需要修改为1、2.</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA4.png" alt=""></p>
+<p>日志文件也需要修改路径，只不过在这里我们只是需要把这个集群跑起来，所以大家按照实际需求设置日志目录。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA5.png" alt=""></p>
+<p>关于zk的设置，kafka默认使用的是自带的zk，但是我们要修改成我们自己的ZK，修改成：</p>
+<p><code>zookeeper.connect=xinpan5:2181,xinpan6:2181,xinpan7:2181</code></p>
+<p>修改完毕之后保存。</p>
+<p>把kafka目录分发到另外两台节点，然后修改好里面的brokerid：</p>
+<h1 id="在每一台节点上启动broker"><a href="#在每一台节点上启动broker" class="headerlink" title="在每一台节点上启动broker"></a>在每一台节点上启动broker</h1><p>在kafka的目录下，通过指令，当然输入这条指令的前提是，已经把ZK成功启动！：</p>
+<p><code>bin/kafka-server-start.sh config/server.properties</code></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA6.png" alt=""></p>
+<p>出现了一个致命的错误，是由于无法识别VM参数<code>UseCompressedOops</code>引起的，我们试试把这个参数去掉：</p>
+<p>我们首先进入bin目录下</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA7.png" alt=""></p>
+<p>看看ZK启动的配置文件，有没有这个参数：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA8.png" alt=""></p>
+<p>在文件中查找该参数，发现没有找到，可是看到文件最后的一句话，又启动了</p>
+<p><code>kafka-run-class.sh</code></p>
+<p>就是图中红色框起来的部分，所以我们进入bin目录下，在这个文件中查找报错的参数：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA9.png" alt=""></p>
+<p>然后把这个参数给去掉，修改之后的参数：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA10.png" alt=""></p>
+<p>然后在其他两台节点中做同样的操作。</p>
+<p>再次在节点5中启动：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA11.png" alt=""></p>
+<p>启动之后显示server0已经启动，然后在节点6和7中也启动kafka服务：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA12.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA13.png" alt=""></p>
+<h1 id="创建topic"><a href="#创建topic" class="headerlink" title="创建topic"></a>创建topic</h1><p>broker启动完毕之后，接下来就是topic的创建了，我们在第一个broker，即broker0中创建，通过如下指令，依然在kafka目录下：</p>
+<p><code>bin/kafka-topics.sh --create --zookeeper xinpan5:2181 --replication-factor 3 --partitions 1 --topic mysports</code></p>
+<p>需要指定一个ZK的位置，创建有1个分区，3个副本的topic，名称为mysports。</p>
+<p>按回车之后，出现一行创建信息，如下图黄色框内容所示：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA14.png" alt=""></p>
+<p>同时，我们也可以通过如下指令，来查询所有的topic：</p>
+<p><code>bin/kafka-topics.sh --list --zookeeper xinpan5:2181</code></p>
+<p>感觉kafka每次调用都需要指定ZK，好像有点不方便……，查询结果只有一个，就是我们刚刚创建的mysports。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA15.png" alt=""></p>
+<h1 id="创建producer"><a href="#创建producer" class="headerlink" title="创建producer"></a>创建producer</h1><p>创建好topic之后，就是创建producer往topic中写数据，我们可以在任意一台启动了broker中创建producer，在这里我继续在节点5创建，通过如下指令：</p>
+<p><code>bin/kafka-console-producer.sh --broker-list xinpan5:9092 --topic mysports</code></p>
+<p>需要指定一个broker和topic的名字，其中console是控制台的意思，就是为producer创建一个控制台，用于输入消息，创建完毕之后，如图所示：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA16.png" alt=""></p>
+<h1 id="创建consumer"><a href="#创建consumer" class="headerlink" title="创建consumer"></a>创建consumer</h1><p>我们依然可以选择克隆当前会话，继续在节点5中创建consumer，通过如下指令：</p>
+<p><code>bin/kafka-console-consumer.sh --zookeeper xinpan5:2181 --from-beginning --topic mysports</code></p>
+<p>我们除了需要指定ZK的位置之外，还需要指定从哪里开始读取<strong><em>（因为在上一篇文章中我们说到，consumer可以从任意的地方读取消息而不影响集群的运行及更改当前正在读取该消息的其他consumer）</em></strong>，以及topic的名字，运行该命令：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA17.png" alt=""></p>
+<p>现在consumer的控制台也创建完毕，接下来就是为producer中写入数据，利用consumer读取数据。</p>
+<h1 id="生产-消费数据"><a href="#生产-消费数据" class="headerlink" title="生产/消费数据"></a>生产/消费数据</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA18.png" alt=""></p>
+<p>如图所示，当我在producer中写入第一个单词，即basketball时，节点5（2）的图标由绿色勾变成了蓝色圈I的标识，当我写完5个单词之后， 我点开consumer的控制台，即节点5（2）看到，所有在producer输入的数据都显示出来了。</p>
+<h1 id="查看topic的状态"><a href="#查看topic的状态" class="headerlink" title="查看topic的状态"></a>查看topic的状态</h1><p>现在生产者和消费者都创建完毕，并且我们也进行了消息的生产和消费，现在我们来看看topic的状态，这次我们选择克隆一个节点6的会话，通过如下指令，还是一样进入kafka目录：</p>
+<p><code>bin/kafka-topics.sh --describe --zookeeper xinpan5:2181 --topic mysports</code></p>
+<p>需要指定我们查询的topic所在的ZK以及topic的名称，回车之后：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/kafka%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA19.png" alt=""></p>
+<p>从状态可以看出，这个topic有1个分区，3个副本，topic名称为mysports，第一个分区为partition0，当前的leader为broker2，副本所在的broker为broker2,0，1.ISR表示现在已经同步的副本所在的broker<strong><em>（如果我们现在把其中一个kafka进程kill掉，ISR会减少没有kafka进程的broker）</em></strong>。</p>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="http://kafka.apache.org/documentation.html#quickstart" target="_blank" rel="external">Apache Kafka Quick Start</a></p>
+<p><a href="http://pan.baidu.com/s/1qXE9uKO" target="_blank" rel="external">05-kafuka集群部署及客户端编程</a></p>
+<p><a href="http://pan.baidu.com/s/1eS9Ku7C" target="_blank" rel="external">06-kafka消费者java客户端编程</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/22/kafka介绍/" rel="next" title="kafka介绍">
+                <i class="fa fa-chevron-left"></i> kafka介绍
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/23/kafka集群搭建/"
+           data-title="kafka集群搭建" data-url="http://xinpan2.github.io/2016/09/23/kafka集群搭建/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">184</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/andy_px" target="_blank" title="CSDN" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#server-properties"><span class="nav-number">1.</span> <span class="nav-text">server.properties</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在每一台节点上启动broker"><span class="nav-number">2.</span> <span class="nav-text">在每一台节点上启动broker</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建topic"><span class="nav-number">3.</span> <span class="nav-text">创建topic</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建producer"><span class="nav-number">4.</span> <span class="nav-text">创建producer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建consumer"><span class="nav-number">5.</span> <span class="nav-text">创建consumer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生产-消费数据"><span class="nav-number">6.</span> <span class="nav-text">生产/消费数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查看topic的状态"><span class="nav-number">7.</span> <span class="nav-text">查看topic的状态</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
