@@ -84,36 +84,34 @@
 
 
 
-<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+<meta name="description" content="在接下来的文章中，我们将涉及到一个小功能的实现，但是这个小功能的实现，我们需要先学习flume来进行数据采集。
+官方文档的解释：
 
-int 2 byte在java中，我们接触到了八种基本数据类型，byte char short int float long double boolean
-在这里，对于数字类型byte sho">
+大意：
+flume对于高效收集、聚合和移动大量日志数据提供了可靠分布式的服务，它是包含基于数据流的简单可靠的机制，同时它非常强大且能够通过调度依赖机制、容错和恢复机制来实现保障容错，这个框架使用简单可扩展的用于在线分析程序的数据模型。
+从图中大家可以看到，Source">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据类型的转换">
-<meta property="og:url" content="http://xinpan2.github.io/2016/08/18/数据类型的转换/index.html">
+<meta property="og:title" content="flume介绍">
+<meta property="og:url" content="http://xinpan2.github.io/2016/09/24/flume介绍/index.html">
 <meta property="og:site_name" content="Path">
-<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+<meta property="og:description" content="在接下来的文章中，我们将涉及到一个小功能的实现，但是这个小功能的实现，我们需要先学习flume来进行数据采集。
+官方文档的解释：
 
-int 2 byte在java中，我们接触到了八种基本数据类型，byte char short int float long double boolean
-在这里，对于数字类型byte sho">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A21.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A24.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A25.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A22.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A23.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/long%E5%92%8Cfloat%E7%9A%84%E5%8F%96%E5%80%BC%E8%8C%83%E5%9B%B4.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A26.png">
-<meta property="og:updated_time" content="2016-08-18T13:19:52.060Z">
+大意：
+flume对于高效收集、聚合和移动大量日志数据提供了可靠分布式的服务，它是包含基于数据流的简单可靠的机制，同时它非常强大且能够通过调度依赖机制、容错和恢复机制来实现保障容错，这个框架使用简单可扩展的用于在线分析程序的数据模型。
+从图中大家可以看到，Source">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/flume%E4%BB%8B%E7%BB%8D.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/flume%E4%BB%8B%E7%BB%8D1.png">
+<meta property="og:updated_time" content="2016-09-24T15:35:27.404Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据类型的转换">
-<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+<meta name="twitter:title" content="flume介绍">
+<meta name="twitter:description" content="在接下来的文章中，我们将涉及到一个小功能的实现，但是这个小功能的实现，我们需要先学习flume来进行数据采集。
+官方文档的解释：
 
-int 2 byte在java中，我们接触到了八种基本数据类型，byte char short int float long double boolean
-在这里，对于数字类型byte sho">
-<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A21.png">
+大意：
+flume对于高效收集、聚合和移动大量日志数据提供了可靠分布式的服务，它是包含基于数据流的简单可靠的机制，同时它非常强大且能够通过调度依赖机制、容错和恢复机制来实现保障容错，这个框架使用简单可扩展的用于在线分析程序的数据模型。
+从图中大家可以看到，Source">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/flume%E4%BB%8B%E7%BB%8D.png">
 
 
 
@@ -134,9 +132,9 @@ int 2 byte在java中，我们接触到了八种基本数据类型，byte char sh
 
 
 
-  <link rel="canonical" href="http://xinpan2.github.io/2016/08/18/数据类型的转换/"/>
+  <link rel="canonical" href="http://xinpan2.github.io/2016/09/24/flume介绍/"/>
 
-  <title> 数据类型的转换 | Path </title>
+  <title> flume介绍 | Path </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -266,7 +264,7 @@ int 2 byte在java中，我们接触到了八种基本数据类型，byte char sh
             
             
               
-                数据类型的转换
+                flume介绍
               
             
           </h1>
@@ -278,8 +276,8 @@ int 2 byte在java中，我们接触到了八种基本数据类型，byte char sh
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-18T09:09:40+08:00" content="2016-08-18">
-              2016-08-18
+            <time itemprop="dateCreated" datetime="2016-09-24T23:09:05+08:00" content="2016-09-24">
+              2016-09-24
             </time>
           </span>
 
@@ -292,8 +290,8 @@ int 2 byte在java中，我们接触到了八种基本数据类型，byte char sh
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/java基础/" itemprop="url" rel="index">
-                    <span itemprop="name">java基础</span>
+                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop笔记</span>
                   </a>
                 </span>
 
@@ -308,8 +306,8 @@ int 2 byte在java中，我们接触到了八种基本数据类型，byte char sh
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/18/数据类型的转换/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/18/数据类型的转换/" itemprop="commentsCount"></span>
+                <a href="/2016/09/24/flume介绍/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/24/flume介绍/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -332,37 +330,21 @@ int 2 byte在java中，我们接触到了八种基本数据类型，byte char sh
       
 
       
-        <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
-<p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
-<hr>
-<h1 id="int-2-byte"><a href="#int-2-byte" class="headerlink" title="int 2 byte"></a>int 2 byte</h1><p>在java中，我们接触到了八种基本数据类型，<code>byte char short int float long double boolean</code></p>
-<p>在这里，对于数字类型<code>byte short int float long double</code> 作进一步说明。</p>
-<p>在java中，给数字赋值默认使用的是整型常量（int），如果把整型常量赋值给byte,char,short,long，整型常量表示的范围没有超过它们的最大范围,就可以进行默认的类型转换，如果超过了相对应的类型，则会报错,要求强制类型转换</p>
-<p>比如</p>
-<p><code>byte number1 = 100;</code></p>
-<p>因为byte用一个字节表示，有2^8种状态256种,又因为java使用有符号数来表示数字, 所以byte的取值范围在-128~127，100没有超出byte的表示范围，所以100（整型常量）自动转换成byte而不会损失精度</p>
-<p>又比如</p>
-<p><code>byte byte2 = 128;</code></p>
-<p>128不在byte所能表示的范围内，所以写完这句代码时，编译器会报错。</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A21.png" alt=""></p>
-<p>如图所示，编译器要求自行对128进行强制类型转换成byte类型，如果这样做的话，会产生精度损失，即把128的二进制表示截断成8位二进制，把多出来的表示位省去了</p>
-<h1 id="int-2-char"><a href="#int-2-char" class="headerlink" title="int 2 char"></a>int 2 char</h1><p>char对字符使用unicode编码，char用两个字节表示，又因为编码没有负数，所以char的取值范围为<code>2^16=65536</code> ，即<code>0~65535</code> .</p>
-<p>所以，出现下面的赋值并不会报错：</p>
-<p><code>char c1 = 65535;</code></p>
-<p>但是出现下面的赋值，就会报错了</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A24.png" alt=""></p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A25.png" alt=""></p>
-<h1 id="int-2-long"><a href="#int-2-long" class="headerlink" title="int 2 long"></a>int 2 long</h1><p>当赋值给long类型变量又没有添加Long标识时，若没有超过int的表示范围，则不会报错，若超过了int的表示范围，依然报错</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A22.png" alt=""></p>
-<p>避免这种情况的方法是在整数常量int赋值给long类型变量时，在后面添加一个L，表示long类型。建议使用大写的L，因为小写的l看起来跟数字1很相似，让人以为是数字。修改后就没有报错了</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A23.png" alt=""></p>
-<h1 id="long-2-float"><a href="#long-2-float" class="headerlink" title="long 2 float"></a>long 2 float</h1><p>long的表示范围为：<code>-2^63~(2^63)-1</code>,根据包装类，得到float和long的取值范围分别为：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/long%E5%92%8Cfloat%E7%9A%84%E5%8F%96%E5%80%BC%E8%8C%83%E5%9B%B4.png" alt=""></p>
-<p>从结果来看，float比long表示的范围大得多，虽然long用8个字节表示，但是float只用4个字节表示，现在把long赋值给float</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A26.png" alt=""></p>
-<p>long赋值给double也是跟上面一样的结果</p>
-<p><strong><em>注意：在进行两个相同类型的四则运算时，比如整数会出现溢出的现象，得到的运算结果通常是违反直觉的，所以可以使用自动提升的，如把最前面的数后面加上L，表示为long类型，要在开头加，如果在其他位置有可能在这个位置之前就已经发生溢出了，得到的结果也就没有意义了。</em></strong></p>
-<hr>
+        <p>在接下来的文章中，我们将涉及到一个小功能的实现，但是这个小功能的实现，我们需要先学习flume来进行数据采集。</p>
+<p>官方文档的解释：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/flume%E4%BB%8B%E7%BB%8D.png" alt=""></p>
+<p>大意：</p>
+<p>flume对于高效收集、聚合和移动大量日志数据提供了可靠分布式的服务，它是包含基于数据流的简单可靠的机制，同时它非常强大且能够通过调度依赖机制、容错和恢复机制来实现保障容错，这个框架使用简单可扩展的用于在线分析程序的数据模型。</p>
+<p>从图中大家可以看到，Source这个组件从网络中得到数据，然后通过Channel组件来运输数据，最后通过Sink（中文意思：下沉）组件来把数据存放到HDFS中。</p>
+<p>为什么有这幅图呢？大家看看flume的图标：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/flume%E4%BB%8B%E7%BB%8D1.png" alt=""></p>
+<p>图标显示的是一块木头借助水来移动，这是因为在美洲中，森林的覆盖率非常大，不像中国，虽然森林覆盖率低，房子多，但是房价依然非常贵！！！因为他们森林覆盖率高，人口较少，所以很多人都喜欢用木头来建房，要得到木头得上山去砍伐，可是木头很笨重，所以，他们就建筑水渠，把砍伐的木头放入水渠中，借助水力来运输这些笨重的木头，当这些木头到达目的地时，就可以把它们拿出来。</p>
+<p>所以一种比较好的理解方式就是：WebServer是森林，Source是指伐木工砍伐到的树木，Channel是水渠，sink是目的地的落点，HDFS就是房子的位置。</p>
+<p>用到数据采集也是一样的道理，我们从各种系统中得到各式各样的日志文件，然后通过Source来读取这些日志文件，把这些文件的内容借助Channel传输到Sink中，之后经过分析、数据清洗之后存储到数据库。</p>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="http://flume.apache.org/" target="_blank" rel="external">Apache Flume™</a></p>
+<p><a href="http://pan.baidu.com/s/1sljF757" target="_blank" rel="external">03-flume介绍及演示</a></p>
 
       
     </div>
@@ -388,17 +370,13 @@ int 2 byte在java中，我们接触到了八种基本数据类型，byte char sh
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/18/继承的内存分析/" rel="next" title="继承的内存分析">
-                <i class="fa fa-chevron-left"></i> 继承的内存分析
+              <a href="/2016/09/23/storm与kafka整合/" rel="next" title="storm与kafka整合">
+                <i class="fa fa-chevron-left"></i> storm与kafka整合
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/18/理解递归/" rel="prev" title="理解递归">
-                理解递归 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -424,8 +402,8 @@ int 2 byte在java中，我们接触到了八种基本数据类型，byte char sh
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/18/数据类型的转换/"
-           data-title="数据类型的转换" data-url="http://xinpan2.github.io/2016/08/18/数据类型的转换/">
+      <div class="ds-thread" data-thread-key="2016/09/24/flume介绍/"
+           data-title="flume介绍" data-url="http://xinpan2.github.io/2016/09/24/flume介绍/">
       </div>
     
   </div>
@@ -529,7 +507,7 @@ int 2 byte在java中，我们接触到了八种基本数据类型，byte char sh
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#int-2-byte"><span class="nav-number">1.</span> <span class="nav-text">int 2 byte</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#int-2-char"><span class="nav-number">2.</span> <span class="nav-text">int 2 char</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#int-2-long"><span class="nav-number">3.</span> <span class="nav-text">int 2 long</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#long-2-float"><span class="nav-number">4.</span> <span class="nav-text">long 2 float</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
