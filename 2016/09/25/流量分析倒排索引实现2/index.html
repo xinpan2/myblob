@@ -84,43 +84,54 @@
 
 
 
-<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+<meta name="description" content="在第一次我们讲解到倒序索引的实现是通过多个MR程序来实现的，还是用图比较直观：
 
-利用struts2进行文件上传，首先要知道文件上传的前提：
+这样需要使用两次MR，我们现在使用一次MR实现它，在这里我们需要使用到一个集合：TreeMap，这样我们把reduce中每个组的数据处理完之后，都存储到里面，自然就变成有序的了！具体的思路，由于之前写过类似的，就不详细说明了
+下面是代码实现：
+mapper
+bean
 
-必须以post方式提交
-enctype必须为“multipart/form-data”
-必须有type=“file”的输入域
-
-s">
+省略setter&amp;amp;getter
+redu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="文件上传">
-<meta property="og:url" content="http://xinpan2.github.io/2016/08/18/文件上传/index.html">
+<meta property="og:title" content="流量分析倒排索引实现2">
+<meta property="og:url" content="http://xinpan2.github.io/2016/09/25/流量分析倒排索引实现2/index.html">
 <meta property="og:site_name" content="Path">
-<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+<meta property="og:description" content="在第一次我们讲解到倒序索引的实现是通过多个MR程序来实现的，还是用图比较直观：
 
-利用struts2进行文件上传，首先要知道文件上传的前提：
+这样需要使用两次MR，我们现在使用一次MR实现它，在这里我们需要使用到一个集合：TreeMap，这样我们把reduce中每个组的数据处理完之后，都存储到里面，自然就变成有序的了！具体的思路，由于之前写过类似的，就不详细说明了
+下面是代码实现：
+mapper
+bean
 
-必须以post方式提交
-enctype必须为“multipart/form-data”
-必须有type=“file”的输入域
-
-s">
-<meta property="og:updated_time" content="2016-08-18T12:49:48.155Z">
+省略setter&amp;amp;getter
+redu">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C3.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C4.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C5.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C8.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C7.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C9.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C10.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C11.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C12.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C13.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C14.png">
+<meta property="og:updated_time" content="2016-09-25T12:05:18.487Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="文件上传">
-<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+<meta name="twitter:title" content="流量分析倒排索引实现2">
+<meta name="twitter:description" content="在第一次我们讲解到倒序索引的实现是通过多个MR程序来实现的，还是用图比较直观：
 
-利用struts2进行文件上传，首先要知道文件上传的前提：
+这样需要使用两次MR，我们现在使用一次MR实现它，在这里我们需要使用到一个集合：TreeMap，这样我们把reduce中每个组的数据处理完之后，都存储到里面，自然就变成有序的了！具体的思路，由于之前写过类似的，就不详细说明了
+下面是代码实现：
+mapper
+bean
 
-必须以post方式提交
-enctype必须为“multipart/form-data”
-必须有type=“file”的输入域
-
-s">
+省略setter&amp;amp;getter
+redu">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C1.png">
 
 
 
@@ -141,9 +152,9 @@ s">
 
 
 
-  <link rel="canonical" href="http://xinpan2.github.io/2016/08/18/文件上传/"/>
+  <link rel="canonical" href="http://xinpan2.github.io/2016/09/25/流量分析倒排索引实现2/"/>
 
-  <title> 文件上传 | Path </title>
+  <title> 流量分析倒排索引实现2 | Path </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -273,7 +284,7 @@ s">
             
             
               
-                文件上传
+                流量分析倒排索引实现2
               
             
           </h1>
@@ -285,8 +296,8 @@ s">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-18T08:11:00+08:00" content="2016-08-18">
-              2016-08-18
+            <time itemprop="dateCreated" datetime="2016-09-25T15:51:01+08:00" content="2016-09-25">
+              2016-09-25
             </time>
           </span>
 
@@ -299,8 +310,8 @@ s">
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/struts入门/" itemprop="url" rel="index">
-                    <span itemprop="name">struts入门</span>
+                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop笔记</span>
                   </a>
                 </span>
 
@@ -315,8 +326,8 @@ s">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/18/文件上传/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/18/文件上传/" itemprop="commentsCount"></span>
+                <a href="/2016/09/25/流量分析倒排索引实现2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/25/流量分析倒排索引实现2/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -339,38 +350,39 @@ s">
       
 
       
-        <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
-<p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
-<hr>
-<p>利用struts2进行文件上传，首先要知道文件上传的前提：</p>
-<ul>
-<li>必须以post方式提交</li>
-<li>enctype必须为“multipart/form-data”</li>
-<li>必须有type=“file”的输入域</li>
-</ul>
-<p>struts2进行文件上传有如下注意事项：</p>
-<ul>
-<li><p>把在表单中定义的上传文件域的名字，在相应的action类中，定义成File类型，这样框架可以根据其setter方法进行封装（如同设置属性）</p>
-</li>
-<li><p>通过定义文件名fileName可以得到上传文件的名称，而不用像在JavaWeb中学的那样，要切割(split)名字。</p>
-</li>
-<li><p>通过文件名ContentType可以获取文件的mime类型，而不是单单靠文件后缀来判断，这个方法不靠谱。</p>
-</li>
-</ul>
-<p>利用struts2进行文件上传有2种方式：</p>
-<h1 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h1><ul>
-<li>得到存储文件的真实路径</li>
-<li>获取输入输出流</li>
-<li>读写文件的模版</li>
-<li>关流</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">private</span> File file;</div><div class="line"> <span class="keyword">private</span> String fileFileName;</div><div class="line"> <span class="keyword">private</span> String fileContentType;</div><div class="line">     <span class="keyword">try</span> &#123;</div><div class="line"><span class="comment">//1. 得到存储文件的真实路径</span></div><div class="line">         String realpath=ServletActionContext.getServletContext().getRealPath(<span class="string">"/files"</span>);</div><div class="line"><span class="comment">//2. 获取输入输出流</span></div><div class="line">         InputStream in=<span class="keyword">new</span> FileInputStream(file);</div><div class="line">         OutputStream out=<span class="keyword">new</span> FileOutputStream(realpath+<span class="string">"\\"</span>+fileFileName);</div><div class="line"><span class="comment">//3. 读写文件的模版</span></div><div class="line">         <span class="keyword">int</span> len=-<span class="number">1</span>;</div><div class="line">         <span class="keyword">byte</span>[] b=<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</div><div class="line">         <span class="keyword">while</span>((len=in.read(b))!=-<span class="number">1</span>)&#123;</div><div class="line">             out.write(b,<span class="number">0</span>,len);</div><div class="line">         &#125;</div><div class="line"><span class="comment">//4. 关流</span></div><div class="line">         out.close();</div><div class="line">         in.close();</div><div class="line">         <span class="keyword">return</span> SUCCESS;</div><div class="line">     &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">         e.printStackTrace();</div><div class="line">         <span class="keyword">return</span> ERROR;</div><div class="line">     &#125;</div></pre></td></tr></table></figure>
-<h1 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h1><p>利用<code>FileUtils</code>，直接把源文件还有存储的文件名传入参数，即可,（其实，fileUtils就是封装了的方法一）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> File file;</div><div class="line">  <span class="keyword">private</span> String fileFileName;</div><div class="line">  <span class="keyword">private</span> String fileContentType;</div><div class="line">      <span class="keyword">try</span> &#123;</div><div class="line">          FileUtils.copyFile(file, <span class="keyword">new</span> File(realpath+<span class="string">"\\"</span>+fileFileName));</div><div class="line">          <span class="keyword">return</span> SUCCESS;</div><div class="line">      &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">          e.printStackTrace();</div><div class="line">          <span class="keyword">return</span> ERROR;</div><div class="line">      &#125;</div></pre></td></tr></table></figure>
-<p>进行多文件上传也是差不多的道理，只不过定义的File 还有fileName等属性，都变成了数组，一定要定义好setter方法！！一定要定义好setter方法！！一定要定义好setter方法！！</p>
-<p>要读取里面的内容，就要通过数组的遍历来完成。这里最好通过传统的for来循环，因为也要用到数组索引。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">String realpath=ServletActionContext.getServletContext().getRealPath(<span class="string">"/files"</span>);</div><div class="line">       <span class="keyword">try</span> &#123;</div><div class="line">           <span class="keyword">if</span>(files!=<span class="keyword">null</span> &amp;&amp; files.length&gt;<span class="number">0</span>)&#123;</div><div class="line">           <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;files.length;i++)</div><div class="line">               FileUtils.copyFile(files[i], <span class="keyword">new</span> File(realpath+<span class="string">"\\"</span>+filesFileName[i]));</div><div class="line">           ActionContext.getContext().put(<span class="string">"message"</span>, <span class="string">"上传成功！"</span>);</div><div class="line">           &#125;</div><div class="line">           <span class="keyword">return</span> SUCCESS;</div><div class="line">       &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">           e.printStackTrace();</div><div class="line">           <span class="keyword">return</span> ERROR;</div><div class="line">       &#125;</div></pre></td></tr></table></figure>
-<hr>
+        <p>在第一次我们讲解到倒序索引的实现是通过多个MR程序来实现的，还是用图比较直观：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C1.png" alt=""></p>
+<p>这样需要使用两次MR，我们现在使用一次MR实现它，在这里我们需要使用到一个集合：TreeMap，这样我们把reduce中每个组的数据处理完之后，都存储到里面，自然就变成有序的了！具体的思路，由于之前写过类似的，就不详细说明了</p>
+<p>下面是代码实现：</p>
+<h1 id="mapper"><a href="#mapper" class="headerlink" title="mapper"></a>mapper</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C2.png" alt=""></p>
+<h1 id="bean"><a href="#bean" class="headerlink" title="bean"></a>bean</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C3.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C4.png" alt=""></p>
+<p>省略setter&amp;getter</p>
+<h1 id="reducer"><a href="#reducer" class="headerlink" title="reducer"></a>reducer</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C5.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C8.png" alt=""></p>
+<h1 id="runner"><a href="#runner" class="headerlink" title="runner"></a>runner</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C7.png" alt=""></p>
+<p>把当前项目打成jar包，并上传到节点1中，然后把日志文件上传到HDFS中，并创建好相关的目录，根据创建的目录，输入如下指令来执行这个MR程序，第一个参数为数据所在文件夹，第二个参数为结果输出文件夹，在运行之前，要记得启动ZK\HDFS\YARN!!!。</p>
+<p><code>hadoop jar flowanalyze.jar com.xinpaninjava.flowanalyze.mr.FlowURLRunner /logsrc /analyzeres</code></p>
+<p>运行结果：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C9.png" alt=""></p>
+<p>查看结果，因为涉及的结果较多，所以使用less查看：</p>
+<p><code>hadoop fs -cat /analyzeres/part-r-00000 | less</code></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C10.png" alt=""></p>
+<p>发现都是一样的数据……</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C11.png" alt=""></p>
+<p>从动态图可以看到，从头到尾，虽然使用的流量不一样，但是URL是一样的，那么我们可以把错误定位到存储数据到treeMap语句中:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C12.png" alt=""></p>
+<p>从上面的运行结果就可以知道，框架给我们的都是同一个key对象，只是给这个对象不同的值，等到最后一个值复制完给这个key之后，所有数据的URL都指向最后的key!!!所以，我们不能把key直接写进map中，而是把其里面的值传过去！</p>
+<p>修改后的代码：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C13.png" alt=""></p>
+<p>再次打成jar包并且上传，然后把刚刚的结果目录删除掉，或者使用另外一个结果目录，在这里我使用一样的结果目录，所以我把刚刚的结果目录先删除掉。再次执行：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%80%92%E5%8F%99%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B0%E4%BA%8C14.png" alt=""></p>
+<h1 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h1><p>这样比较粗糙的实现了流量的统计，但是如果遇到视频文件，或者下载，肯定流量是比较大的，所以我们还应该做一些过滤，或者直接统计点击的次数。</p>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="http://pan.baidu.com/s/1pLcYdGR" target="_blank" rel="external">04-行为轨迹增强处理流程</a></p>
+<p><a href="http://pan.baidu.com/s/1i5ntEgX" target="_blank" rel="external">05-样本url筛选模块开发</a></p>
+<p><a href="http://pan.baidu.com/s/1miLJ03Q" target="_blank" rel="external">06-行为轨迹增强模块1</a></p>
 
       
     </div>
@@ -396,17 +408,13 @@ s">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/18/获取servlet相关的域对象/" rel="next" title="获取servlet相关的域对象">
-                <i class="fa fa-chevron-left"></i> 获取servlet相关的域对象
+              <a href="/2016/09/24/flume安装/" rel="next" title="flume安装">
+                <i class="fa fa-chevron-left"></i> flume安装
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/18/自定义拦截器/" rel="prev" title="自定义拦截器">
-                自定义拦截器 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -432,8 +440,8 @@ s">
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/18/文件上传/"
-           data-title="文件上传" data-url="http://xinpan2.github.io/2016/08/18/文件上传/">
+      <div class="ds-thread" data-thread-key="2016/09/25/流量分析倒排索引实现2/"
+           data-title="流量分析倒排索引实现2" data-url="http://xinpan2.github.io/2016/09/25/流量分析倒排索引实现2/">
       </div>
     
   </div>
@@ -537,7 +545,7 @@ s">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#方式一"><span class="nav-number">1.</span> <span class="nav-text">方式一</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方式二"><span class="nav-number">2.</span> <span class="nav-text">方式二</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mapper"><span class="nav-number">1.</span> <span class="nav-text">mapper</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bean"><span class="nav-number">2.</span> <span class="nav-text">bean</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#reducer"><span class="nav-number">3.</span> <span class="nav-text">reducer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#runner"><span class="nav-number">4.</span> <span class="nav-text">runner</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#存在的问题"><span class="nav-number">5.</span> <span class="nav-text">存在的问题</span></a></li></ol></div>
             
           </div>
         </section>
