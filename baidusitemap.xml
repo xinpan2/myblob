@@ -4,6 +4,78 @@
 
     
   <url>
+    <loc>http://xinpan2.github.io/2016/09/25/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B02/</loc>
+    <lastmod>2016-09-27T07:28:56.370Z</lastmod>
+    <data>
+        <display>
+        <title>流量分析倒排索引实现2</title>
+        <pubTime>2016-09-25T07:51:01.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="hadoop笔记" url="http://xinpan2.github.io/categories/hadoop%E7%AC%94%E8%AE%B0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://xinpan2.github.io/2016/09/25/%E5%B0%86%E5%88%86%E6%9E%90%E7%9A%84%E6%96%87%E4%BB%B6%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <lastmod>2016-09-27T07:25:53.623Z</lastmod>
+    <data>
+        <display>
+        <title>将分析的文件导入数据库</title>
+        <pubTime>2016-09-25T12:18:27.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="hadoop笔记" url="http://xinpan2.github.io/categories/hadoop%E7%AC%94%E8%AE%B0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://xinpan2.github.io/2016/08/18/%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6/</loc>
+    <lastmod>2016-09-27T07:15:19.857Z</lastmod>
+    <data>
+        <display>
+        <title>安装软件</title>
+        <pubTime>2016-08-18T02:18:00.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="linux" url="http://xinpan2.github.io/categories/linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://xinpan2.github.io/2016/09/01/hadoop2-4-1%E9%9B%86%E7%BE%A4%E7%9A%84%E6%90%AD%E5%BB%BA/</loc>
+    <lastmod>2016-09-27T06:06:00.750Z</lastmod>
+    <data>
+        <display>
+        <title>hadoop2.4.1集群的搭建</title>
+        <pubTime>2016-09-01T04:24:13.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="hadoop笔记" url="http://xinpan2.github.io/categories/hadoop%E7%AC%94%E8%AE%B0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://xinpan2.github.io/2016/09/11/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</loc>
     <lastmod>2016-09-27T04:55:16.488Z</lastmod>
     <data>
@@ -40,48 +112,12 @@
 
     
   <url>
-    <loc>http://xinpan2.github.io/2016/08/18/%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6/</loc>
-    <lastmod>2016-09-27T04:36:47.616Z</lastmod>
-    <data>
-        <display>
-        <title>安装软件</title>
-        <pubTime>2016-08-18T02:18:00.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="linux" url="http://xinpan2.github.io/categories/linux/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://xinpan2.github.io/2016/09/27/%E6%89%A7%E8%A1%8Cjps%E5%87%BA%E7%8E%B0command-not-found%E7%9A%84%E8%A7%A3%E5%86%B3/</loc>
     <lastmod>2016-09-27T03:30:27.262Z</lastmod>
     <data>
         <display>
         <title>执行jps出现command not found的解决</title>
         <pubTime>2016-09-27T03:23:31.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="hadoop笔记" url="http://xinpan2.github.io/categories/hadoop%E7%AC%94%E8%AE%B0/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://xinpan2.github.io/2016/09/01/hadoop2-4-1%E9%9B%86%E7%BE%A4%E7%9A%84%E6%90%AD%E5%BB%BA/</loc>
-    <lastmod>2016-09-27T03:10:18.876Z</lastmod>
-    <data>
-        <display>
-        <title>hadoop2.4.1集群的搭建</title>
-        <pubTime>2016-09-01T04:24:13.000Z</pubTime>
         
          
            
@@ -118,24 +154,6 @@
         <display>
         <title>Hive0.12.0安装</title>
         <pubTime>2016-09-06T10:52:49.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="hadoop笔记" url="http://xinpan2.github.io/categories/hadoop%E7%AC%94%E8%AE%B0/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://xinpan2.github.io/2016/09/25/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B02/</loc>
-    <lastmod>2016-09-25T12:05:18.487Z</lastmod>
-    <data>
-        <display>
-        <title>流量分析倒排索引实现2</title>
-        <pubTime>2016-09-25T07:51:01.000Z</pubTime>
         
          
            

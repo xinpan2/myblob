@@ -121,7 +121,7 @@ rpm安装包虽然RPM软件打上了红帽系统的表情，但是在很多linux
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B613.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.gif">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F2.gif">
-<meta property="og:updated_time" content="2016-09-27T04:36:47.616Z">
+<meta property="og:updated_time" content="2016-09-27T07:15:19.857Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安装软件">
 <meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
@@ -410,7 +410,7 @@ rpm安装包虽然RPM软件打上了红帽系统的表情，但是在很多linux
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/mysql%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95.png" alt=""></p>
 <p>因为我们刚刚在修改密码时，已经设置了可以远程登录，但是为什么还是不行呢？这需要我们赋予权限！</p>
 <p>登录mysql，输入如下指令：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">GRANT</span>   ALL   <span class="keyword">PRIVILEGES</span>   <span class="keyword">ON</span>   *.*   <span class="keyword">TO</span>   <span class="string">'root'</span>@<span class="string">'%'</span>   <span class="keyword">WITH</span>   <span class="keyword">GRANT</span>   <span class="keyword">OPTION</span>; //赋予任何主机访问数据的权限,并且不用密码登录！</div><div class="line"></div><div class="line"><span class="keyword">FLUSH</span>   <span class="keyword">PRIVILEGES</span>; //修改生效</div></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">GRANT</span> ALL <span class="keyword">PRIVILEGES</span> <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'root'</span>@<span class="string">'%'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'root'</span> <span class="keyword">WITH</span> <span class="keyword">GRANT</span> <span class="keyword">OPTION</span>;//赋予任何主机通过root密码访问数据的权限</div><div class="line"></div><div class="line"><span class="keyword">FLUSH</span> <span class="keyword">PRIVILEGES</span>；//修改生效</div></pre></td></tr></table></figure>
 <p>然后再次创建连接，不过这次的连接不需要密码：</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/mysql%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%953.png" alt=""></p>
 <p>连接成功：</p>
@@ -543,7 +543,7 @@ rpm安装包虽然RPM软件打上了红帽系统的表情，但是在很多linux
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">190</span>
+              <span class="site-state-item-count">191</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
