@@ -4,6 +4,24 @@
 
     
   <url>
+    <loc>http://xinpan2.github.io/2016/08/18/%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6/</loc>
+    <lastmod>2016-09-27T04:21:26.018Z</lastmod>
+    <data>
+        <display>
+        <title>安装软件</title>
+        <pubTime>2016-08-18T02:18:00.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="linux" url="http://xinpan2.github.io/categories/linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://xinpan2.github.io/2016/09/27/%E6%89%A7%E8%A1%8Cjps%E5%87%BA%E7%8E%B0command-not-found%E7%9A%84%E8%A7%A3%E5%86%B3/</loc>
     <lastmod>2016-09-27T03:30:27.262Z</lastmod>
     <data>
@@ -1146,24 +1164,6 @@
            
              
               <breadCrumb title="hadoop笔记" url="http://xinpan2.github.io/categories/hadoop%E7%AC%94%E8%AE%B0/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://xinpan2.github.io/2016/08/18/%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6/</loc>
-    <lastmod>2016-08-18T13:34:34.663Z</lastmod>
-    <data>
-        <display>
-        <title>安装软件</title>
-        <pubTime>2016-08-18T02:18:00.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="linux" url="http://xinpan2.github.io/categories/linux/"/>
           
         </display>
     </data>
