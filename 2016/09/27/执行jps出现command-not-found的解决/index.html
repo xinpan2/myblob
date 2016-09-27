@@ -84,15 +84,45 @@
 
 
 
-<meta name="description" content="there is a will,there is a way.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Path">
-<meta property="og:url" content="http://xinpan2.github.io/categories/linux/index.html">
+<meta name="description" content="就在刚刚我重新搭建集群环境时，发现某一台节点的jps指令使用不了，并且有如下提示：
+
+在之前还可以使用，就是在上一步我设置了环境变量之后，就使用不了了，于是我打开/etc/profile
+
+发现没有配置完成……直接在$JAVA_HOME后面加上/bin,修改完毕之后：
+
+保存之后退出，并且让修改生效之后，继续执行jps：
+
+如果不输入sourc /etc/profile指令，刚刚的修改是不会生效的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="执行jps出现command not found的解决">
+<meta property="og:url" content="http://xinpan2.github.io/2016/09/27/执行jps出现command-not-found的解决/index.html">
 <meta property="og:site_name" content="Path">
-<meta property="og:description" content="there is a will,there is a way.">
+<meta property="og:description" content="就在刚刚我重新搭建集群环境时，发现某一台节点的jps指令使用不了，并且有如下提示：
+
+在之前还可以使用，就是在上一步我设置了环境变量之后，就使用不了了，于是我打开/etc/profile
+
+发现没有配置完成……直接在$JAVA_HOME后面加上/bin,修改完毕之后：
+
+保存之后退出，并且让修改生效之后，继续执行jps：
+
+如果不输入sourc /etc/profile指令，刚刚的修改是不会生效的">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8jps%E6%8A%A5%E9%94%99.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8jps%E6%8A%A5%E9%94%991.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8jps%E6%8A%A5%E9%94%992.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8jps%E6%8A%A5%E9%94%994.png">
+<meta property="og:updated_time" content="2016-09-27T03:30:27.262Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Path">
-<meta name="twitter:description" content="there is a will,there is a way.">
+<meta name="twitter:title" content="执行jps出现command not found的解决">
+<meta name="twitter:description" content="就在刚刚我重新搭建集群环境时，发现某一台节点的jps指令使用不了，并且有如下提示：
+
+在之前还可以使用，就是在上一步我设置了环境变量之后，就使用不了了，于是我打开/etc/profile
+
+发现没有配置完成……直接在$JAVA_HOME后面加上/bin,修改完毕之后：
+
+保存之后退出，并且让修改生效之后，继续执行jps：
+
+如果不输入sourc /etc/profile指令，刚刚的修改是不会生效的">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8jps%E6%8A%A5%E9%94%99.png">
 
 
 
@@ -113,9 +143,9 @@
 
 
 
-  <link rel="canonical" href="http://xinpan2.github.io/categories/linux/"/>
+  <link rel="canonical" href="http://xinpan2.github.io/2016/09/27/执行jps出现command-not-found的解决/"/>
 
-  <title> 分类: linux | Path </title>
+  <title> 执行jps出现command not found的解决 | Path </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -136,7 +166,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -224,187 +254,151 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        linux
-        <small>分类</small>
-      </h2>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/08/18/使用密钥登陆/" itemprop="url">
-              
-                <span itemprop="name">使用密钥登陆</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-08-18T10:25:00+08:00"
-              content="2016-08-18" >
-          08-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/08/18/安装软件/" itemprop="url">
-              
-                <span itemprop="name">安装软件</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-08-18T10:18:00+08:00"
-              content="2016-08-18" >
-          08-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/08/18/系统管理/" itemprop="url">
-              
-                <span itemprop="name">系统管理</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-08-18T10:17:00+08:00"
-              content="2016-08-18" >
-          08-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/08/18/linux文件操作/" itemprop="url">
-              
-                <span itemprop="name">linux文件操作</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-08-18T10:16:00+08:00"
-              content="2016-08-18" >
-          08-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/08/18/linux远程登陆及目录结构/" itemprop="url">
-              
-                <span itemprop="name">linux远程登陆及目录结构</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-08-18T10:15:00+08:00"
-              content="2016-08-18" >
-          08-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/08/18/linux安装/" itemprop="url">
-              
-                <span itemprop="name">linux安装</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-08-18T10:14:00+08:00"
-              content="2016-08-18" >
-          08-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </section>
 
   
+  
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                执行jps出现command not found的解决
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-27T11:23:31+08:00" content="2016-09-27">
+              2016-09-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/27/执行jps出现command-not-found的解决/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/27/执行jps出现command-not-found的解决/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>就在刚刚我重新搭建集群环境时，发现某一台节点的jps指令使用不了，并且有如下提示：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8jps%E6%8A%A5%E9%94%99.png" alt=""></p>
+<p>在之前还可以使用，就是在上一步我设置了环境变量之后，就使用不了了，于是我打开/etc/profile</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8jps%E6%8A%A5%E9%94%991.png" alt=""></p>
+<p>发现没有配置完成……直接在$JAVA_HOME后面加上/bin,修改完毕之后：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8jps%E6%8A%A5%E9%94%992.png" alt=""></p>
+<p>保存之后退出，并且让修改生效之后，继续执行jps：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8jps%E6%8A%A5%E9%94%994.png" alt=""></p>
+<p>如果不输入<code>sourc /etc/profile</code>指令，刚刚的修改是不会生效的，除非重启，之后再启动jps进程，就成功了！</p>
+<p>【全文完】</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/25/流量分析倒排索引实现2/" rel="next" title="流量分析倒排索引实现2">
+                <i class="fa fa-chevron-left"></i> 流量分析倒排索引实现2
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -412,6 +406,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/27/执行jps出现command-not-found的解决/"
+           data-title="执行jps出现command not found的解决" data-url="http://xinpan2.github.io/2016/09/27/执行jps出现command-not-found的解决/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -431,8 +433,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -495,6 +506,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -600,6 +622,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
