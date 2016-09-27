@@ -113,12 +113,15 @@ rpm安装包虽然RPM软件打上了红帽系统的表情，但是在很多linux
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/mysql%E5%AE%89%E8%A3%85.gif">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%AE%BE%E7%BD%AEmysql%E5%AF%86%E7%A0%81.gif">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B612.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/mysql%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/mysql%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%953.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/mysql%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%954.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%B8%8A%E4%BC%A0jdk.gif">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85jdk.gif">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B613.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.gif">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F2.gif">
-<meta property="og:updated_time" content="2016-09-27T04:21:26.018Z">
+<meta property="og:updated_time" content="2016-09-27T04:36:47.616Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安装软件">
 <meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
@@ -376,6 +379,7 @@ rpm安装包虽然RPM软件打上了红帽系统的表情，但是在很多linux
 <p>安装失败了，根据提示信息可以看到:</p>
 <p><code>file /usr/share/mysql/charsets/Index.xml from install of MySQL-server-5.1.73-1.glibc23.i386 conflicts with file from package mysql-libs-5.1.66-2.el6_3.i686</code></p>
 <p>提示说文件有冲突，现在把冲突的依赖包找出来删掉，才能成功安装,这时，看到安装提示，很多名称，但是都跟mysql有关，所以按关键字搜索:</p>
+<p><code>sudo rpm -qa | grep mysql</code></p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B67.png" alt=""></p>
 <ul>
 <li>q:query</li>
@@ -402,6 +406,15 @@ rpm安装包虽然RPM软件打上了红帽系统的表情，但是在很多linux
 <p>在一开始输入错误2次密码，是因为我没有看清楚提示，它要求的是mysql的当前登录密码，我输入了linux的登入密码。现在尝试登陆mysql</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B612.png" alt=""></p>
 <p>自动安装的好处就是，傻瓜式安装，就像windows中的无脑下一步，还把很多参数帮我们配置好了</p>
+<h2 id="设置Mysql的远程登录"><a href="#设置Mysql的远程登录" class="headerlink" title="设置Mysql的远程登录"></a>设置Mysql的远程登录</h2><p>在我们使用MYSQL软件登录xinpan1的MYSQL时，报错：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/mysql%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95.png" alt=""></p>
+<p>因为我们刚刚在修改密码时，已经设置了可以远程登录，但是为什么还是不行呢？这需要我们赋予权限！</p>
+<p>登录mysql，输入如下指令：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">GRANT</span>   ALL   <span class="keyword">PRIVILEGES</span>   <span class="keyword">ON</span>   *.*   <span class="keyword">TO</span>   <span class="string">'root'</span>@<span class="string">'%'</span>   <span class="keyword">WITH</span>   <span class="keyword">GRANT</span>   <span class="keyword">OPTION</span>; //赋予任何主机访问数据的权限,并且不用密码登录！</div><div class="line"></div><div class="line"><span class="keyword">FLUSH</span>   <span class="keyword">PRIVILEGES</span>; //修改生效</div></pre></td></tr></table></figure>
+<p>然后再次创建连接，不过这次的连接不需要密码：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/mysql%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%953.png" alt=""></p>
+<p>连接成功：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/mysql%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%954.png" alt=""></p>
 <h1 id="手动安装"><a href="#手动安装" class="headerlink" title="手动安装"></a>手动安装</h1><p>我们使用安装jdk的例子来进行手动安装，首先还是把安装包上传到linux中：</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E4%B8%8A%E4%BC%A0jdk.gif" alt=""></p>
 <p>上传成功后，回到CRT，进行解压</p>
@@ -416,6 +429,7 @@ rpm安装包虽然RPM软件打上了红帽系统的表情，但是在很多linux
 <p>【全文完】</p>
 <p>参考资料:</p>
 <p><a href="http://pan.baidu.com/s/1i52PYNN" target="_blank" rel="external">009–linux软件安装</a></p>
+<p><a href="http://www.cnblogs.com/xyzdw/archive/2011/08/11/2135227.html" target="_blank" rel="external">is not allowed to connect to this MySql server</a></p>
 <p>用到的工具：</p>
 <p><a href="http://pan.baidu.com/s/1bo8lGqN" target="_blank" rel="external">MySQL-server-5.1.73-1.glibc23.i386.rpm</a></p>
 <p><a href="http://pan.baidu.com/s/1geD3lvH" target="_blank" rel="external">MySQL-client-5.1.73-1.glibc23.i386.rpm</a></p>
@@ -588,7 +602,7 @@ rpm安装包虽然RPM软件打上了红帽系统的表情，但是在很多linux
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#rpm安装包"><span class="nav-number">1.</span> <span class="nav-text">rpm安装包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#手动安装"><span class="nav-number">2.</span> <span class="nav-text">手动安装</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#rpm安装包"><span class="nav-number">1.</span> <span class="nav-text">rpm安装包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置Mysql的远程登录"><span class="nav-number">1.1.</span> <span class="nav-text">设置Mysql的远程登录</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#手动安装"><span class="nav-number">2.</span> <span class="nav-text">手动安装</span></a></li></ol></div>
             
           </div>
         </section>
