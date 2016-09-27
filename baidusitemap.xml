@@ -4,6 +4,42 @@
 
     
   <url>
+    <loc>http://xinpan2.github.io/2016/09/11/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</loc>
+    <lastmod>2016-09-27T04:55:16.488Z</lastmod>
+    <data>
+        <display>
+        <title>hbase集群部署</title>
+        <pubTime>2016-09-11T08:10:02.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="hadoop笔记" url="http://xinpan2.github.io/categories/hadoop%E7%AC%94%E8%AE%B0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://xinpan2.github.io/2016/09/08/%E4%B8%BAhive%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AEmysql/</loc>
+    <lastmod>2016-09-27T04:41:34.974Z</lastmod>
+    <data>
+        <display>
+        <title>为hive的元数据库配置mysql</title>
+        <pubTime>2016-09-08T12:00:55.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="hadoop笔记" url="http://xinpan2.github.io/categories/hadoop%E7%AC%94%E8%AE%B0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://xinpan2.github.io/2016/08/18/%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6/</loc>
     <lastmod>2016-09-27T04:36:47.616Z</lastmod>
     <data>
@@ -328,24 +364,6 @@
 
     
   <url>
-    <loc>http://xinpan2.github.io/2016/09/11/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</loc>
-    <lastmod>2016-09-15T14:23:05.098Z</lastmod>
-    <data>
-        <display>
-        <title>hbase集群部署</title>
-        <pubTime>2016-09-11T08:10:02.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="hadoop笔记" url="http://xinpan2.github.io/categories/hadoop%E7%AC%94%E8%AE%B0/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://xinpan2.github.io/2016/09/10/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B6%E5%8F%8A%E5%AF%BB%E5%9D%80%E6%9C%BA%E5%88%B6/</loc>
     <lastmod>2016-09-11T02:34:04.676Z</lastmod>
     <data>
@@ -442,24 +460,6 @@
         <display>
         <title>hive的初体验：建表、加载数据</title>
         <pubTime>2016-09-08T13:23:42.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="hadoop笔记" url="http://xinpan2.github.io/categories/hadoop%E7%AC%94%E8%AE%B0/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://xinpan2.github.io/2016/09/08/%E4%B8%BAhive%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AEmysql/</loc>
-    <lastmod>2016-09-08T12:55:36.049Z</lastmod>
-    <data>
-        <display>
-        <title>为hive的元数据库配置mysql</title>
-        <pubTime>2016-09-08T12:00:55.000Z</pubTime>
         
          
            

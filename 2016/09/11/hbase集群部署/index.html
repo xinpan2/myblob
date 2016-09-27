@@ -116,7 +116,7 @@
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B219.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B220.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B222.png">
-<meta property="og:updated_time" content="2016-09-15T14:23:05.098Z">
+<meta property="og:updated_time" content="2016-09-27T04:55:16.488Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hbase集群部署">
 <meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
@@ -378,13 +378,14 @@
 <h1 id="文件拷贝"><a href="#文件拷贝" class="headerlink" title="文件拷贝"></a>文件拷贝</h1><p>到目前为止我们配置完了hbase中的参数，但是我们在hbase-site.xml文件中配置了hbase在dfs中的存储目录，使用到了</p>
 <p><code>hdfs://ns1/hbase</code></p>
 <p>大家当初在配置Hadoop的时候应该有印象，直接使用ns1是解析不了的，我们还通过其他配置来设置ns1,所以我们应该把Hadoop中的core-site.xml,hdfs-site.xml两个文件拷贝到当前目录下，从而免去配置nn1,nn2的麻烦！通过以下指令：</p>
+<p><code>cp ~/app/hadoop-2.4.1/etc/hadoop/{core-site.xml,hdfs-site.xml} ./</code></p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B211.png" alt=""></p>
 <p>到此，hbase的配置完毕，接下来进行hbase文件的分发：</p>
 <p>分别发送到4567节点上，但是在这之前我们最好把hbase根目录下的doc文件夹删除掉，因为里面有很多的HTML文件，删除掉并不影响我们的使用，并且能提高传输速度！</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B212.png" alt=""></p>
 <p>开始分发文件：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">scp -r hbase-<span class="number">0.96</span>.2-hadoop2/ xinpan4:/home/hadoop/app/</div><div class="line"></div><div class="line">scp -r hbase-<span class="number">0.96</span>.2-hadoop2/ xinpan5:/home/hadoop/app/</div><div class="line"></div><div class="line">scp -r hbase-<span class="number">0.96</span>.2-hadoop2/ xinpan6:/home/hadoop/app/</div><div class="line"></div><div class="line">scp -r hbase-<span class="number">0.96</span>.2-hadoop2/ xinpan7:/home/hadoop/app/</div></pre></td></tr></table></figure>
-<h1 id="启动hbase"><a href="#启动hbase" class="headerlink" title="启动hbase"></a>启动hbase</h1><p>到hbase的bin目录下执行<code>hbase-start.sh</code></p>
+<h1 id="启动hbase"><a href="#启动hbase" class="headerlink" title="启动hbase"></a>启动hbase</h1><p>到hbase的bin目录下执行<code>start-hbase.sh</code></p>
 <p>当然我们也可以像Hadoop一样，首先为hbase配置好环境变量</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B214.png" alt=""></p>
 <p>开启hbase</p>
