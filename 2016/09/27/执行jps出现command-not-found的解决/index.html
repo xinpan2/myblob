@@ -86,42 +86,42 @@
 
 <meta name="description" content="就在刚刚我重新搭建集群环境时，发现某一台节点的jps指令使用不了，并且有如下提示：
 
-在之前还可以使用，就是在上一步我设置了环境变量之后，就使用不了了，于是我打开/etc/profile
+在配置环境变量之前还可以使用，但是配置完就使用不了了，于是我打开/etc/profile
 
-发现没有配置完成……直接在$JAVA_HOME后面加上/bin,修改完毕之后：
+直接在$JAVA_HOME后面加上/bin,修改完毕之后：
 
 保存之后退出，并且让修改生效之后，继续执行jps：
 
-如果不输入sourc /etc/profile指令，刚刚的修改是不会生效的">
+如果不输入sourc /etc/profile指令，刚刚的修改是不会生效的，除非重启之后再启动jps进程。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="执行jps出现command not found的解决">
 <meta property="og:url" content="http://xinpan2.github.io/2016/09/27/执行jps出现command-not-found的解决/index.html">
 <meta property="og:site_name" content="Path">
 <meta property="og:description" content="就在刚刚我重新搭建集群环境时，发现某一台节点的jps指令使用不了，并且有如下提示：
 
-在之前还可以使用，就是在上一步我设置了环境变量之后，就使用不了了，于是我打开/etc/profile
+在配置环境变量之前还可以使用，但是配置完就使用不了了，于是我打开/etc/profile
 
-发现没有配置完成……直接在$JAVA_HOME后面加上/bin,修改完毕之后：
+直接在$JAVA_HOME后面加上/bin,修改完毕之后：
 
 保存之后退出，并且让修改生效之后，继续执行jps：
 
-如果不输入sourc /etc/profile指令，刚刚的修改是不会生效的">
+如果不输入sourc /etc/profile指令，刚刚的修改是不会生效的，除非重启之后再启动jps进程。">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8jps%E6%8A%A5%E9%94%99.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8jps%E6%8A%A5%E9%94%991.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8jps%E6%8A%A5%E9%94%992.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8jps%E6%8A%A5%E9%94%994.png">
-<meta property="og:updated_time" content="2016-09-27T03:30:27.262Z">
+<meta property="og:updated_time" content="2016-09-27T16:09:34.216Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="执行jps出现command not found的解决">
 <meta name="twitter:description" content="就在刚刚我重新搭建集群环境时，发现某一台节点的jps指令使用不了，并且有如下提示：
 
-在之前还可以使用，就是在上一步我设置了环境变量之后，就使用不了了，于是我打开/etc/profile
+在配置环境变量之前还可以使用，但是配置完就使用不了了，于是我打开/etc/profile
 
-发现没有配置完成……直接在$JAVA_HOME后面加上/bin,修改完毕之后：
+直接在$JAVA_HOME后面加上/bin,修改完毕之后：
 
 保存之后退出，并且让修改生效之后，继续执行jps：
 
-如果不输入sourc /etc/profile指令，刚刚的修改是不会生效的">
+如果不输入sourc /etc/profile指令，刚刚的修改是不会生效的，除非重启之后再启动jps进程。">
 <meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8jps%E6%8A%A5%E9%94%99.png">
 
 
@@ -343,13 +343,13 @@
       
         <p>就在刚刚我重新搭建集群环境时，发现某一台节点的jps指令使用不了，并且有如下提示：</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8jps%E6%8A%A5%E9%94%99.png" alt=""></p>
-<p>在之前还可以使用，就是在上一步我设置了环境变量之后，就使用不了了，于是我打开/etc/profile</p>
+<p>在配置环境变量之前还可以使用，但是配置完就使用不了了，于是我打开/etc/profile</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8jps%E6%8A%A5%E9%94%991.png" alt=""></p>
-<p>发现没有配置完成……直接在$JAVA_HOME后面加上/bin,修改完毕之后：</p>
+<p>直接在$JAVA_HOME后面加上/bin,修改完毕之后：</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8jps%E6%8A%A5%E9%94%992.png" alt=""></p>
 <p>保存之后退出，并且让修改生效之后，继续执行jps：</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E4%BD%BF%E7%94%A8jps%E6%8A%A5%E9%94%994.png" alt=""></p>
-<p>如果不输入<code>sourc /etc/profile</code>指令，刚刚的修改是不会生效的，除非重启，之后再启动jps进程，就成功了！</p>
+<p>如果不输入<code>sourc /etc/profile</code>指令，刚刚的修改是不会生效的，除非重启之后再启动jps进程。</p>
 <p>【全文完】</p>
 
       
@@ -383,6 +383,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/27/行为轨迹增强/" rel="prev" title="行为轨迹增强">
+                行为轨迹增强 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -454,7 +458,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">191</span>
+              <span class="site-state-item-count">192</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

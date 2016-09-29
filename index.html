@@ -248,6 +248,131 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/27/行为轨迹增强/" itemprop="url">
+                  行为轨迹增强
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-27T23:40:08+08:00" content="2016-09-27">
+              2016-09-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/27/行为轨迹增强/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/27/行为轨迹增强/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          当我们把已经分析好的日志文件到处到数据库中时，我们还可以根据用户分析的网站内容、性质对日志文件加以说明，即在该用户消耗流量的那一行后面，把分析出的内容追加进去。在上一篇文章中，我们是默认把前面80%流量访问的网站默认分析网站内容为comleted!,事实上，我们可以使用机器学习对网站的内容进行自动分
+          ...
+
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/27/行为轨迹增强/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/27/执行jps出现command-not-found的解决/" itemprop="url">
                   执行jps出现command not found的解决
                 </a>
@@ -320,11 +445,13 @@
           
           就在刚刚我重新搭建集群环境时，发现某一台节点的jps指令使用不了，并且有如下提示：
 
-在之前还可以使用，就是在上一步我设置了环境变量之后，就使用不了了，于是我打开/etc/profile
+在配置环境变量之前还可以使用，但是配置完就使用不了了，于是我打开/etc/profile
 
-发现没有配置完成……直接在$JAVA_HOME后面加上/bin,修改完毕之后：
+直接在$JAVA_HOME后面加上/bin,修改完毕之后：
 
-保存之后退出，并且让修改生效
+保存之后退出，并且让修改生效之后，继续执行jps：
+
+如果不
           ...
 
           <div class="post-more-link text-center">
@@ -449,12 +576,12 @@
       
         
           
-          在上一篇文章中，我们把数据分析出来之后，就是结果的入库了，把结果放到数据库之后，再遇到同样的URL，就可以不需要使用爬虫或者人工识别来了解网页的内容，直接从数据库中拿即可，这样可以加快分析的效率。
+          在上一篇文章中，我们讲到了如何把数据分析出来，接下来就是结果的入库了，把结果放到数据库之后，再遇到同样的URL，就可以不需要识别内容来了解网页，而是直接从数据库中查询，这样可以加快分析的效率。
 那么我们怎么把HDFS中的文件存放到数据库中呢？
 可以使用sqoop工具：
 
 大意：
-sqoop是一种
+sqoop是一种用来
           ...
 
           <div class="post-more-link text-center">
@@ -747,135 +874,6 @@ sqoop是一种
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/24/flume介绍/" itemprop="url">
-                  flume介绍
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-24T23:09:05+08:00" content="2016-09-24">
-              2016-09-24
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">hadoop笔记</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/24/flume介绍/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/24/flume介绍/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          在接下来的文章中，我们将涉及到一个小功能的实现，但是这个小功能的实现，我们需要先学习flume来进行数据采集。
-官方文档的解释：
-
-大意：
-flume对于高效收集、聚合和移动大量日志数据提供了可靠分布式的服务，它是包含基于数据流的简单可靠的机制，同时它非常强大且能够通过调度依赖机制、容错和恢复机制来
-          ...
-
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/24/flume介绍/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -921,7 +919,7 @@ flume对于高效收集、聚合和移动大量日志数据提供了可靠分布
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">191</span>
+              <span class="site-state-item-count">192</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
