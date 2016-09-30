@@ -84,18 +84,16 @@
 
 
 
-<meta name="description" content="当我们把已经分析好的日志文件到处到数据库中时，我们还可以根据用户分析的网站内容、性质对日志文件加以说明，即在该用户消耗流量的那一行后面，把分析出的内容追加进去。在上一篇文章中，我们是默认把前面80%流量访问的网站默认分析网站内容为comleted!,事实上，我们可以使用机器学习对网站的内容进行自动分析，这一点后面有机会我会专门开一个专题来讲。
-现在我们再来看看从HDFS中迁移到数据库的数据：
-
-其">
+<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+当我们把已经分析好的日志文件到处到数据库中时，我们还可以根据用户分析的网站内容、性质对日志文件加以说明，即在该用户消耗流量的那一行后面，把分析出的内容追加进去。在上一篇文章中，我们是默认把前面80%流量访问的网站默认分析网站内容为comleted">
 <meta property="og:type" content="article">
 <meta property="og:title" content="行为轨迹增强">
 <meta property="og:url" content="http://xinpan2.github.io/2016/09/27/行为轨迹增强/index.html">
 <meta property="og:site_name" content="Path">
-<meta property="og:description" content="当我们把已经分析好的日志文件到处到数据库中时，我们还可以根据用户分析的网站内容、性质对日志文件加以说明，即在该用户消耗流量的那一行后面，把分析出的内容追加进去。在上一篇文章中，我们是默认把前面80%流量访问的网站默认分析网站内容为comleted!,事实上，我们可以使用机器学习对网站的内容进行自动分析，这一点后面有机会我会专门开一个专题来讲。
-现在我们再来看看从HDFS中迁移到数据库的数据：
-
-其">
+<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+当我们把已经分析好的日志文件到处到数据库中时，我们还可以根据用户分析的网站内容、性质对日志文件加以说明，即在该用户消耗流量的那一行后面，把分析出的内容追加进去。在上一篇文章中，我们是默认把前面80%流量访问的网站默认分析网站内容为comleted">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%A1%8C%E4%B8%BA%E8%BD%A8%E8%BF%B9%E5%A2%9E%E5%BC%BA1.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%A1%8C%E4%B8%BA%E8%BD%A8%E8%BF%B9%E5%A2%9E%E5%BC%BA2.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%A1%8C%E4%B8%BA%E8%BD%A8%E8%BF%B9%E5%A2%9E%E5%BC%BA15.png">
@@ -108,13 +106,12 @@
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%A1%8C%E4%B8%BA%E8%BD%A8%E8%BF%B9%E5%A2%9E%E5%BC%BA22.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%A1%8C%E4%B8%BA%E8%BD%A8%E8%BF%B9%E5%A2%9E%E5%BC%BA23.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%A1%8C%E4%B8%BA%E8%BD%A8%E8%BF%B9%E5%A2%9E%E5%BC%BA24.png">
-<meta property="og:updated_time" content="2016-09-29T06:28:19.897Z">
+<meta property="og:updated_time" content="2016-09-30T04:16:08.545Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="行为轨迹增强">
-<meta name="twitter:description" content="当我们把已经分析好的日志文件到处到数据库中时，我们还可以根据用户分析的网站内容、性质对日志文件加以说明，即在该用户消耗流量的那一行后面，把分析出的内容追加进去。在上一篇文章中，我们是默认把前面80%流量访问的网站默认分析网站内容为comleted!,事实上，我们可以使用机器学习对网站的内容进行自动分析，这一点后面有机会我会专门开一个专题来讲。
-现在我们再来看看从HDFS中迁移到数据库的数据：
-
-其">
+<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+当我们把已经分析好的日志文件到处到数据库中时，我们还可以根据用户分析的网站内容、性质对日志文件加以说明，即在该用户消耗流量的那一行后面，把分析出的内容追加进去。在上一篇文章中，我们是默认把前面80%流量访问的网站默认分析网站内容为comleted">
 <meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%A1%8C%E4%B8%BA%E8%BD%A8%E8%BF%B9%E5%A2%9E%E5%BC%BA1.png">
 
 
@@ -334,7 +331,9 @@
       
 
       
-        <p>当我们把已经分析好的日志文件到处到数据库中时，我们还可以根据用户分析的网站内容、性质对日志文件加以说明，即在该用户消耗流量的那一行后面，把分析出的内容追加进去。在上一篇文章中，我们是默认把前面80%流量访问的网站默认分析网站内容为<code>comleted!</code>,事实上，我们可以使用机器学习对网站的内容进行自动分析，这一点后面有机会我会专门开一个专题来讲。</p>
+        <p><strong><em>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</em></strong></p>
+<p><strong><em>本文代码在<a href="https://github.com/xinpan2/hadoopStudy/tree/master/enhancedlog" target="_blank" rel="external">这里</a>，其他文章的代码从<a href="https://github.com/xinpan2?tab=repositories" target="_blank" rel="external">这里</a>可以找到，记得对号入座！！！</em></strong></p>
+<p>当我们把已经分析好的日志文件到处到数据库中时，我们还可以根据用户分析的网站内容、性质对日志文件加以说明，即在该用户消耗流量的那一行后面，把分析出的内容追加进去。在上一篇文章中，我们是默认把前面80%流量访问的网站默认分析网站内容为<code>comleted!</code>,事实上，我们可以使用机器学习对网站的内容进行自动分析，这一点后面有机会我会专门开一个专题来讲。</p>
 <p>现在我们再来看看从HDFS中迁移到数据库的数据：</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E8%A1%8C%E4%B8%BA%E8%BD%A8%E8%BF%B9%E5%A2%9E%E5%BC%BA1.png" alt=""></p>
 <p>其中的info字段就是我们分析的结果，现在我们要再次读取日志文件，对日志文件的含义加强，把分析到的数据追加到日志文件中。如果数据库没有这个URL，就把这个URL放到待解析列表中，等待分析再把结果入库。</p>
