@@ -2,23 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://xinpan2.github.io/2016/10/09/scala%E5%AE%89%E8%A3%85/</loc>
+    <loc>http://xinpan2.github.io/2016/10/09/scala%E7%9A%84%E6%8E%A7%E5%88%B6%E7%BB%93%E6%9E%84/</loc>
     
-    <lastmod>2016-10-09T13:56:22.481Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xinpan2.github.io/2016/10/09/scala%E8%84%9A%E6%9C%AC%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90/</loc>
-    
-    <lastmod>2016-10-09T13:54:57.514Z</lastmod>
+    <lastmod>2016-10-09T16:38:30.028Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://xinpan2.github.io/2016/10/09/scala%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</loc>
     
-    <lastmod>2016-10-09T11:07:41.328Z</lastmod>
+    <lastmod>2016-10-09T14:25:37.826Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xinpan2.github.io/2016/10/09/scala%E8%84%9A%E6%9C%AC%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90/</loc>
+    
+    <lastmod>2016-10-09T14:01:34.232Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xinpan2.github.io/2016/10/09/scala%E5%AE%89%E8%A3%85/</loc>
+    
+    <lastmod>2016-10-09T13:56:22.481Z</lastmod>
     
   </url>
   
