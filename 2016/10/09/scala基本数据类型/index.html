@@ -84,36 +84,69 @@
 
 
 
-<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+<meta name="description" content="scala的基本数据类型
+数据型
 
-我们从前面的知识点可以知道：“用户查询、上传、下载文件，都需要通过NameNode来完成“。那么它是怎样保障在用于很大容量文件的前提下能快速响应用户的请求呢？”
+Int：默认赋值为int型，在int类型中，又可以定义十进制，十六进制，八进制被取消了，通过其他函数来转换
+Short
+Long：还是跟java类似，在结尾处添加l/L来表明或者直接在声明时限定类型。
+Byte
 
-图解:
-因为NameNode">
+
+字符型
+
+char：使用单引号把单个字符‘包’起来。
+String： scala中的字符串调用的是java.lang.String！
+
+
+布尔型">
 <meta property="og:type" content="article">
-<meta property="og:title" content="元数据的管理机制">
-<meta property="og:url" content="http://xinpan2.github.io/2016/08/18/元数据的管理机制/index.html">
+<meta property="og:title" content="scala基本数据类型">
+<meta property="og:url" content="http://xinpan2.github.io/2016/10/09/scala基本数据类型/index.html">
 <meta property="og:site_name" content="Path">
-<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+<meta property="og:description" content="scala的基本数据类型
+数据型
 
-我们从前面的知识点可以知道：“用户查询、上传、下载文件，都需要通过NameNode来完成“。那么它是怎样保障在用于很大容量文件的前提下能快速响应用户的请求呢？”
+Int：默认赋值为int型，在int类型中，又可以定义十进制，十六进制，八进制被取消了，通过其他函数来转换
+Short
+Long：还是跟java类似，在结尾处添加l/L来表明或者直接在声明时限定类型。
+Byte
 
-图解:
-因为NameNode">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%85%83%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B63.png">
-<meta property="og:updated_time" content="2016-08-18T13:35:02.650Z">
+
+字符型
+
+char：使用单引号把单个字符‘包’起来。
+String： scala中的字符串调用的是java.lang.String！
+
+
+布尔型">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%AE%9A%E4%B9%89%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%AE%9A%E4%B9%89%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%AE%9A%E4%B9%89%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B3.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%AE%9A%E4%B9%89%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B4.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%AE%9A%E4%B9%89%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B5.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%AE%9A%E4%B9%89%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B6.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%AE%9A%E4%B9%89%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B7.png">
+<meta property="og:updated_time" content="2016-10-09T10:53:42.403Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="元数据的管理机制">
-<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+<meta name="twitter:title" content="scala基本数据类型">
+<meta name="twitter:description" content="scala的基本数据类型
+数据型
 
-我们从前面的知识点可以知道：“用户查询、上传、下载文件，都需要通过NameNode来完成“。那么它是怎样保障在用于很大容量文件的前提下能快速响应用户的请求呢？”
+Int：默认赋值为int型，在int类型中，又可以定义十进制，十六进制，八进制被取消了，通过其他函数来转换
+Short
+Long：还是跟java类似，在结尾处添加l/L来表明或者直接在声明时限定类型。
+Byte
 
-图解:
-因为NameNode">
-<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%85%83%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B63.png">
+
+字符型
+
+char：使用单引号把单个字符‘包’起来。
+String： scala中的字符串调用的是java.lang.String！
+
+
+布尔型">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%AE%9A%E4%B9%89%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B1.png">
 
 
 
@@ -134,9 +167,9 @@
 
 
 
-  <link rel="canonical" href="http://xinpan2.github.io/2016/08/18/元数据的管理机制/"/>
+  <link rel="canonical" href="http://xinpan2.github.io/2016/10/09/scala基本数据类型/"/>
 
-  <title> 元数据的管理机制 | Path </title>
+  <title> scala基本数据类型 | Path </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -266,7 +299,7 @@
             
             
               
-                元数据的管理机制
+                scala基本数据类型
               
             
           </h1>
@@ -278,8 +311,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-18T10:20:00+08:00" content="2016-08-18">
-              2016-08-18
+            <time itemprop="dateCreated" datetime="2016-10-09T17:39:54+08:00" content="2016-10-09">
+              2016-10-09
             </time>
           </span>
 
@@ -292,8 +325,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">hadoop笔记</span>
+                  <a href="/categories/scala入门/" itemprop="url" rel="index">
+                    <span itemprop="name">scala入门</span>
                   </a>
                 </span>
 
@@ -308,8 +341,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/18/元数据的管理机制/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/18/元数据的管理机制/" itemprop="commentsCount"></span>
+                <a href="/2016/10/09/scala基本数据类型/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/09/scala基本数据类型/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -332,26 +365,53 @@
       
 
       
-        <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
-<p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
-<hr>
-<p>我们从前面的知识点可以知道：“用户查询、上传、下载文件，都需要通过NameNode来完成“。那么它是怎样保障在用于很大容量文件的前提下能快速响应用户的请求呢？”</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%85%83%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B63.png" alt=""></p>
-<p>图解:</p>
-<p>因为NameNode中管理着大量的数据记录，把它们放在内存中，读取速度较快，可是此时内存、磁盘都有一份，如果用户来申请上传文件，那么log文件还有新增的数据并在写入完成后加载到内存，此时内存和磁盘不同步，但是用户请求还是找内存。在这里有些人想，为什么不直接让log文件加载到内存的时候顺便也同步到FSImage?</p>
-<p>因为FSImage文件存储着大量的数据，并且这个文件随着用户上传的数量而增大，直接操作FSImage会导致IO操作和CPU资源消耗过大，此时用户发送请求会导致延迟。注意：这时候不可能考虑多线程，请别混淆多线程的作用！！因为此时CPU都已经消耗了非常多的资源，多开几个线程非但不能增加效率，反而会减少其他线程的处理速度。所以在这里才考虑到用一个小文件来存储新增的数据，从而避免了直接操作大文件所造成的消耗。</p>
-<p>NameNode部分说完了，不知道大家有没有印象，在之前我们开启HDFS之后，使用jps命令来查看所启动的进程，除了NameNode和DataNode之后，还有Secondary NameNode，这个东西就是用来处理大文件的IO操作，还有FSImage与log文件的同步操作的！！！</p>
-<p>在图中说的log文件达到checkpoint操作的条件：当添加的数据条目到达一定的数量时、到一定的时间间隔。</p>
-<p>这两个条件能够更好的保持FSImage中的内容是完整的</p>
-<h1 id="NameNode的分配存储块策略"><a href="#NameNode的分配存储块策略" class="headerlink" title="NameNode的分配存储块策略"></a>NameNode的分配存储块策略</h1><p>在前面的文章中大家了解到，文件存储进hdfs是以块的形式被存储到DataNode中的，但是具体存储到哪个DataNode中，是由NameNode来决定的， 在我们第一次配置hdfs时，我们设置了dfs-site.xml中的replication为1，因为在这里我们使用的是单节点集群，默认的是3个副本，但是这3个副本怎样被分配到具体的DataNode中的呢？</p>
-<p>3个副本，第一个当然是在运行这个客户端的机器上保存一份，第二份存储在同一机架上的其他机器中，具体哪一台，NameNode会根据本机架其他机器的负载情况来决定，还有一份副本存储在其他机架的一台机器上，还是根据负载情况来决定。</p>
-<p>但是我们在客户端可以根据API来设置副本的个数，以客户端为主！！！</p>
-<p>所以现在看起来，对NameNode的理解是不是更加清晰了一些？</p>
+        <h1 id="scala的基本数据类型"><a href="#scala的基本数据类型" class="headerlink" title="scala的基本数据类型"></a>scala的基本数据类型</h1><ul>
+<li><p>数据型</p>
+<ul>
+<li>Int：默认赋值为int型，在int类型中，又可以定义十进制，十六进制，八进制被取消了，通过其他函数来转换</li>
+<li>Short</li>
+<li>Long：还是跟java类似，在结尾处添加l/L来表明或者直接在声明时限定类型。</li>
+<li>Byte</li>
+</ul>
+</li>
+<li><p>字符型</p>
+<ul>
+<li>char：使用单引号把单个字符‘包’起来。</li>
+<li>String： scala中的字符串调用的是java.lang.String！</li>
+</ul>
+</li>
+<li><p>布尔型</p>
+<ul>
+<li>Boolean：true、false</li>
+</ul>
+</li>
+<li><p>浮点型</p>
+<ul>
+<li>float：32位单精度浮点数，通过数字后面添加小写的f来标明该类型</li>
+<li>double：64位双精度浮点数，如果小数没有添加f标识，默认为double类型。</li>
+</ul>
+</li>
+</ul>
+<p>所有的定义都跟java中差不多，现在我们来尝试定义一下：</p>
+<h1 id="数据类型定义"><a href="#数据类型定义" class="headerlink" title="数据类型定义"></a>数据类型定义</h1><p>在scala中，可以定义常量（使用val）和变量（使用var），其中的语义跟java中一致。在这里我们使用常量的定义来作例子，变量的定义也一样！</p>
+<h2 id="定义常量"><a href="#定义常量" class="headerlink" title="定义常量"></a>定义常量</h2><h3 id="字符型"><a href="#字符型" class="headerlink" title="字符型"></a>字符型</h3><p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%AE%9A%E4%B9%89%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B1.png" alt=""></p>
+<h3 id="数据型"><a href="#数据型" class="headerlink" title="数据型"></a>数据型</h3><p>十进制：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%AE%9A%E4%B9%89%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B2.png" alt=""></p>
+<p>十六进制，还是通过0x开头来标识：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%AE%9A%E4%B9%89%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B3.png" alt=""></p>
+<p>字节,其他类型的定义也可以使用<code>常量名:类型</code>这种形式，只不过像int、double都是默认的，所以可以不用，另外，像字符串的定义，使用了双引号，也可以不用指定类型，它会自动转换，还有，scala中的基本数据类型，首字母都要大写，像Byte、Short、Long等等：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%AE%9A%E4%B9%89%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B4.png" alt=""></p>
+<p>Long:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%AE%9A%E4%B9%89%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B5.png" alt=""></p>
+<p>Short:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%AE%9A%E4%B9%89%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B6.png" alt=""></p>
+<h3 id="布尔型"><a href="#布尔型" class="headerlink" title="布尔型"></a>布尔型</h3><p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%AE%9A%E4%B9%89%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B7.png" alt=""></p>
+<p>像布尔型，我们不用指定g:Boolean</p>
 <p>【全文完】</p>
-<p>参考资料:</p>
-<p><a href="http://pan.baidu.com/s/1eSe9PFO" target="_blank" rel="external">01-Namenode元数据管理机制</a></p>
-<p><a href="http://pan.baidu.com/s/1geKpeIB" target="_blank" rel="external">02-datanode工作机制</a></p>
-<hr>
+<p>参考资料：</p>
+<p><a href="http://outofmemory.cn/scala/data-types" target="_blank" rel="external">scala入门教程：scala的数据类型</a></p>
+<p><a href="https://issues.scala-lang.org/browse/SI-5205" target="_blank" rel="external">deprecate leading 0 for octal</a></p>
+<p><a href="http://pan.baidu.com/s/1dETPESD" target="_blank" rel="external">scala基本语法</a></p>
 
       
     </div>
@@ -377,17 +437,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/18/伪分布式集群的搭建/" rel="next" title="伪分布式集群的搭建">
-                <i class="fa fa-chevron-left"></i> 伪分布式集群的搭建
+              <a href="/2016/10/09/scala安装/" rel="next" title="scala安装">
+                <i class="fa fa-chevron-left"></i> scala安装
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/18/DataNode管理机制/" rel="prev" title="DataNode管理机制">
-                DataNode管理机制 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -413,8 +469,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/18/元数据的管理机制/"
-           data-title="元数据的管理机制" data-url="http://xinpan2.github.io/2016/08/18/元数据的管理机制/">
+      <div class="ds-thread" data-thread-key="2016/10/09/scala基本数据类型/"
+           data-title="scala基本数据类型" data-url="http://xinpan2.github.io/2016/10/09/scala基本数据类型/">
       </div>
     
   </div>
@@ -518,7 +574,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NameNode的分配存储块策略"><span class="nav-number">1.</span> <span class="nav-text">NameNode的分配存储块策略</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#scala的基本数据类型"><span class="nav-number">1.</span> <span class="nav-text">scala的基本数据类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据类型定义"><span class="nav-number">2.</span> <span class="nav-text">数据类型定义</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义常量"><span class="nav-number">2.1.</span> <span class="nav-text">定义常量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符型"><span class="nav-number">2.1.1.</span> <span class="nav-text">字符型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据型"><span class="nav-number">2.1.2.</span> <span class="nav-text">数据型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#布尔型"><span class="nav-number">2.1.3.</span> <span class="nav-text">布尔型</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>
