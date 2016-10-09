@@ -4,12 +4,12 @@
 
     
   <url>
-    <loc>http://xinpan2.github.io/2016/10/09/scala%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</loc>
-    <lastmod>2016-10-09T11:07:41.328Z</lastmod>
+    <loc>http://xinpan2.github.io/2016/10/09/scala%E5%AE%89%E8%A3%85/</loc>
+    <lastmod>2016-10-09T13:56:22.481Z</lastmod>
     <data>
         <display>
-        <title>scala基本数据类型</title>
-        <pubTime>2016-10-09T09:39:54.000Z</pubTime>
+        <title>scala安装</title>
+        <pubTime>2016-10-09T08:23:57.000Z</pubTime>
         
          
            
@@ -22,12 +22,30 @@
 
     
   <url>
-    <loc>http://xinpan2.github.io/2016/10/09/scala%E5%AE%89%E8%A3%85/</loc>
-    <lastmod>2016-10-09T10:55:11.118Z</lastmod>
+    <loc>http://xinpan2.github.io/2016/10/09/scala%E8%84%9A%E6%9C%AC%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90/</loc>
+    <lastmod>2016-10-09T13:54:57.514Z</lastmod>
     <data>
         <display>
-        <title>scala安装</title>
-        <pubTime>2016-10-09T08:23:57.000Z</pubTime>
+        <title>scala脚本的第一个例子</title>
+        <pubTime>2016-10-09T13:47:05.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="scala入门" url="http://xinpan2.github.io/categories/scala%E5%85%A5%E9%97%A8/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://xinpan2.github.io/2016/10/09/scala%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</loc>
+    <lastmod>2016-10-09T11:07:41.328Z</lastmod>
+    <data>
+        <display>
+        <title>scala基本数据类型</title>
+        <pubTime>2016-10-09T09:39:54.000Z</pubTime>
         
          
            
