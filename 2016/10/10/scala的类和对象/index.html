@@ -1,0 +1,692 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="类的设计在类中，有两个成员，字段和函数，关于字段，有public和private，若字段为public可以省略，但是如果要设计的字段为私有的，就需要在字段定义前加上private关键字。
+
+方法的设计大家可以注意到上面的show方法，没有像java那样在show后面加上括号，写成show(),其实这样写的好处就是在调用时不需要写括号，当然前提是这个方法不需要传入参数，但是这种方法在调用时如果加上括">
+<meta property="og:type" content="article">
+<meta property="og:title" content="scala的类和对象">
+<meta property="og:url" content="http://xinpan2.github.io/2016/10/10/scala的类和对象/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="类的设计在类中，有两个成员，字段和函数，关于字段，有public和private，若字段为public可以省略，但是如果要设计的字段为私有的，就需要在字段定义前加上private关键字。
+
+方法的设计大家可以注意到上面的show方法，没有像java那样在show后面加上括号，写成show(),其实这样写的好处就是在调用时不需要写括号，当然前提是这个方法不需要传入参数，但是这种方法在调用时如果加上括">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A11.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A12.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A13.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A14.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A15.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A16.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A17.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A18.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A19.png">
+<meta property="og:updated_time" content="2016-10-10T16:04:30.929Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="scala的类和对象">
+<meta name="twitter:description" content="类的设计在类中，有两个成员，字段和函数，关于字段，有public和private，若字段为public可以省略，但是如果要设计的字段为私有的，就需要在字段定义前加上private关键字。
+
+方法的设计大家可以注意到上面的show方法，没有像java那样在show后面加上括号，写成show(),其实这样写的好处就是在调用时不需要写括号，当然前提是这个方法不需要传入参数，但是这种方法在调用时如果加上括">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A11.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/10/10/scala的类和对象/"/>
+
+  <title> scala的类和对象 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                scala的类和对象
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-10T22:30:25+08:00" content="2016-10-10">
+              2016-10-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/scala入门/" itemprop="url" rel="index">
+                    <span itemprop="name">scala入门</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/10/scala的类和对象/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/10/scala的类和对象/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="类的设计"><a href="#类的设计" class="headerlink" title="类的设计"></a>类的设计</h1><p>在类中，有两个成员，字段和函数，关于字段，有public和private，若字段为public可以省略，但是如果要设计的字段为私有的，就需要在字段定义前加上private关键字。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A11.png" alt=""></p>
+<h2 id="方法的设计"><a href="#方法的设计" class="headerlink" title="方法的设计"></a>方法的设计</h2><p>大家可以注意到上面的show方法，没有像java那样在show后面加上括号，写成<code>show()</code>,其实这样写的好处就是在调用时不需要写括号，当然前提是这个方法不需要传入参数，但是这种方法在调用时如果加上括号，反而会报错，如果怕麻烦的同学还是使用传统的方法，加上括号！</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A12.png" alt=""></p>
+<h2 id="字段的设计"><a href="#字段的设计" class="headerlink" title="字段的设计"></a>字段的设计</h2><p>根据我们在java中的经验，每设计一个字段，我们都喜欢在设计完所有字段之后，一次性为所有私有字段添加上getter和setter方法，但是在这里我们却看不到getter setter的身影，在scala中，字段的getter和setter方法分别为：</p>
+<ul>
+<li>getter： 字段名=值</li>
+<li>setter： 字段名_={要执行的内容}</li>
+</ul>
+<p>这样设计setter方法的原因是对于私有对象的修改可以进一步的判断，避免恶意、无效的修改！</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A13.png" alt=""></p>
+<p>大家可以从图中观察到，虽然定义getter和setter方法看起来有些不同，但是在调用时，却可以直接的通过<code>对象名.属性</code>直接修改！！而不用像java中调用方法来修改！</p>
+<h2 id="构造器"><a href="#构造器" class="headerlink" title="构造器"></a>构造器</h2><p>我们想使用某一个类时，首先需要做的是就是实例化这个类！这样就会涉及到构造器，也可以成为构造函数、构造方法。其中，构造器分为主构造器和辅助构造器，但是主构造器只能有1个，但是辅助构造器可以有n个，这跟java很相似！</p>
+<h3 id="设计主构造器"><a href="#设计主构造器" class="headerlink" title="设计主构造器"></a>设计主构造器</h3><p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A14.png" alt=""></p>
+<p>大家可以从图中看到，我们直接在类名的后面，通过括号把需要的参数传入，然后就可以直接使用了！并且，当我们没有按照要求传入参数时，初始化不了！</p>
+<h3 id="设计辅助构造器"><a href="#设计辅助构造器" class="headerlink" title="设计辅助构造器"></a>设计辅助构造器</h3><p>辅助构造器的作用就是使我们的类更有健壮性，不再因为调用者传入的参数不够而报错，它使用迂回的方式来实例化某个类，关于设计辅助构造器，我们需要使用到一个关键字this,在java中相信大家对这个关键字很熟悉，它在java中指向的是当前的对象。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A15.png" alt=""></p>
+<h2 id="内部类的设计"><a href="#内部类的设计" class="headerlink" title="内部类的设计"></a>内部类的设计</h2><p>在scala中也有内部类，并且在我们对java内部类的理解中，可以任意使用外部类的字段，但是想在scala中，却不是这么容易，我们可以通过两种方法来让内部类访问外部类的字段：</p>
+<ul>
+<li>通过<code>类名.this.字段名</code></li>
+<li>通过指针：pointto</li>
+</ul>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A16.png" alt=""></p>
+<h1 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h1><h2 id="单例对象"><a href="#单例对象" class="headerlink" title="单例对象"></a>单例对象</h2><p>相信看到单例对象，大家第一个想起的就是单例模式，在scala中，单例对象意味着全局只有一个这个类的对象。单例对象的设计，就像设计类那样，不同的是，关键字变成了object而不是class</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A17.png" alt=""></p>
+<p>大家可以从图中看到，我们设计单例对象时，不用针对哪个一个类，而是我们直接像设计类那样，有字段，有方法，不同的是，我们可以直接通过<code>对象名.字段名</code>来修改某一个字段，也可以直接调用某一个函数，这样不用实例化，用起来非常方便！</p>
+<h2 id="伴生对象"><a href="#伴生对象" class="headerlink" title="伴生对象"></a>伴生对象</h2><p>伴生对象：当我们设计了一个类，但是我们又有这个类的单例对象，我们把和这个单例对象称为伴生对象。对应的类被称为伴生类，但是伴生对象一定要与对应的类在同一个源文件中，并且它们相互可以访问对方的私有属性。</p>
+<p>这是一个反面例子，在代码中并没有把类和单例对象放在同一个源文件中，大家可以看警告信息：<strong><em>伴生对象需要跟类定义在一起</em></strong></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A18.png" alt=""></p>
+<h2 id="生成带有参数的伴生类对象"><a href="#生成带有参数的伴生类对象" class="headerlink" title="生成带有参数的伴生类对象"></a>生成带有参数的伴生类对象</h2><p>当伴生类的主构造函数有参数时，我们可以通过在伴生对象中设计一个apply方法，用来传送参数：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A19.png" alt=""></p>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="http://pan.baidu.com/s/1i52n7pF" target="_blank" rel="external">scala的类和对象</a></p>
+<p><a href="http://pan.baidu.com/s/1kVHI4IF" target="_blank" rel="external">scala的类和对象.ppt</a></p>
+<p><a href="https://my.oschina.net/sulliy/blog/60289" target="_blank" rel="external">Scala单例与伴生对象</a></p>
+<p><a href="http://nerd-is.in/2013-08/scala-learning-classes/" target="_blank" rel="external">Scala学习——类</a></p>
+<p><a href="http://www.runoob.com/scala/scala-classes-objects.html" target="_blank" rel="external">Scala 类和对象</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/10/scala元组/" rel="next" title="scala元组">
+                <i class="fa fa-chevron-left"></i> scala元组
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/10/scala的类和对象/"
+           data-title="scala的类和对象" data-url="http://xinpan2.github.io/2016/10/10/scala的类和对象/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">200</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/andy_px" target="_blank" title="CSDN" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#类的设计"><span class="nav-number">1.</span> <span class="nav-text">类的设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#方法的设计"><span class="nav-number">1.1.</span> <span class="nav-text">方法的设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字段的设计"><span class="nav-number">1.2.</span> <span class="nav-text">字段的设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造器"><span class="nav-number">1.3.</span> <span class="nav-text">构造器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设计主构造器"><span class="nav-number">1.3.1.</span> <span class="nav-text">设计主构造器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计辅助构造器"><span class="nav-number">1.3.2.</span> <span class="nav-text">设计辅助构造器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内部类的设计"><span class="nav-number">1.4.</span> <span class="nav-text">内部类的设计</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对象"><span class="nav-number">2.</span> <span class="nav-text">对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单例对象"><span class="nav-number">2.1.</span> <span class="nav-text">单例对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#伴生对象"><span class="nav-number">2.2.</span> <span class="nav-text">伴生对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成带有参数的伴生类对象"><span class="nav-number">2.3.</span> <span class="nav-text">生成带有参数的伴生类对象</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
