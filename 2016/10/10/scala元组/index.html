@@ -84,30 +84,67 @@
 
 
 
-<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
-在上一篇文章中，我们说到，如何把结果变成使用最多流量的用户排在第一位，而不是使用默认的字典排序呢？其实可以通过把bean实现的writable修改成WritableCompareble关于为什么要这样实现，我们在本文结尾处说，顺便总结一下上一篇文">
+<meta name="description" content="元组的定义不同类型的值的集合（或者说“聚集”），就是元组，比如：
+
+在这个元组中，包含了三种数据类型：Int,Char,String
+元组的读取既然元组中有不同类型的数据，那么我们先来尝试用传统的枚举方法得到里面的元素：
+
+行不通，要想读取元组的内容，可以通过以下两种方法：
+
+元组对象._索引：索引从1开始
+
+
+
+元组对象空格_索引：注意，有空格！
+
+
+zip操作zip顾名思义就是打包的意思，zi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="倒序输出用户流量使用情况">
-<meta property="og:url" content="http://xinpan2.github.io/2016/08/27/倒序输出用户流量使用情况/index.html">
+<meta property="og:title" content="scala元组">
+<meta property="og:url" content="http://xinpan2.github.io/2016/10/10/scala元组/index.html">
 <meta property="og:site_name" content="Path">
-<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
-在上一篇文章中，我们说到，如何把结果变成使用最多流量的用户排在第一位，而不是使用默认的字典排序呢？其实可以通过把bean实现的writable修改成WritableCompareble关于为什么要这样实现，我们在本文结尾处说，顺便总结一下上一篇文">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hadoop%E5%BA%8F%E5%88%97%E5%8C%96%E6%9C%BA%E5%88%B615.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hadoop%E5%BA%8F%E5%88%97%E5%8C%96%E6%9C%BA%E5%88%B623.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hadoop%E5%BA%8F%E5%88%97%E5%8C%96%E6%9C%BA%E5%88%B624.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hadoop%E5%BA%8F%E5%88%97%E5%8C%96%E6%9C%BA%E5%88%B625.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hadoop%E5%BA%8F%E5%88%97%E5%8C%96%E6%9C%BA%E5%88%B620.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hadoop%E5%BA%8F%E5%88%97%E5%8C%96%E6%9C%BA%E5%88%B626.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hadoop%E5%BA%8F%E5%88%97%E5%8C%96%E6%9C%BA%E5%88%B627.png">
-<meta property="og:updated_time" content="2016-08-27T15:12:57.921Z">
+<meta property="og:description" content="元组的定义不同类型的值的集合（或者说“聚集”），就是元组，比如：
+
+在这个元组中，包含了三种数据类型：Int,Char,String
+元组的读取既然元组中有不同类型的数据，那么我们先来尝试用传统的枚举方法得到里面的元素：
+
+行不通，要想读取元组的内容，可以通过以下两种方法：
+
+元组对象._索引：索引从1开始
+
+
+
+元组对象空格_索引：注意，有空格！
+
+
+zip操作zip顾名思义就是打包的意思，zi">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%85%83%E7%BB%841.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%85%83%E7%BB%842.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%85%83%E7%BB%843.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%85%83%E7%BB%844.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%85%83%E7%BB%845.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%85%83%E7%BB%846.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%85%83%E7%BB%847.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%85%83%E7%BB%848.png">
+<meta property="og:updated_time" content="2016-10-10T07:50:18.589Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="倒序输出用户流量使用情况">
-<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
-在上一篇文章中，我们说到，如何把结果变成使用最多流量的用户排在第一位，而不是使用默认的字典排序呢？其实可以通过把bean实现的writable修改成WritableCompareble关于为什么要这样实现，我们在本文结尾处说，顺便总结一下上一篇文">
-<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/hadoop%E5%BA%8F%E5%88%97%E5%8C%96%E6%9C%BA%E5%88%B615.png">
+<meta name="twitter:title" content="scala元组">
+<meta name="twitter:description" content="元组的定义不同类型的值的集合（或者说“聚集”），就是元组，比如：
+
+在这个元组中，包含了三种数据类型：Int,Char,String
+元组的读取既然元组中有不同类型的数据，那么我们先来尝试用传统的枚举方法得到里面的元素：
+
+行不通，要想读取元组的内容，可以通过以下两种方法：
+
+元组对象._索引：索引从1开始
+
+
+
+元组对象空格_索引：注意，有空格！
+
+
+zip操作zip顾名思义就是打包的意思，zi">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%85%83%E7%BB%841.png">
 
 
 
@@ -128,9 +165,9 @@
 
 
 
-  <link rel="canonical" href="http://xinpan2.github.io/2016/08/27/倒序输出用户流量使用情况/"/>
+  <link rel="canonical" href="http://xinpan2.github.io/2016/10/10/scala元组/"/>
 
-  <title> 倒序输出用户流量使用情况 | Path </title>
+  <title> scala元组 | Path </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -260,7 +297,7 @@
             
             
               
-                倒序输出用户流量使用情况
+                scala元组
               
             
           </h1>
@@ -272,8 +309,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-27T21:24:12+08:00" content="2016-08-27">
-              2016-08-27
+            <time itemprop="dateCreated" datetime="2016-10-10T15:27:49+08:00" content="2016-10-10">
+              2016-10-10
             </time>
           </span>
 
@@ -286,8 +323,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">hadoop笔记</span>
+                  <a href="/categories/scala入门/" itemprop="url" rel="index">
+                    <span itemprop="name">scala入门</span>
                   </a>
                 </span>
 
@@ -302,8 +339,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/27/倒序输出用户流量使用情况/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/27/倒序输出用户流量使用情况/" itemprop="commentsCount"></span>
+                <a href="/2016/10/10/scala元组/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/10/scala元组/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -326,32 +363,37 @@
       
 
       
-        <p><strong><em>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</em></strong></p>
-<p><strong><em>本文代码在<a href="https://github.com/xinpan2/hadoopStudy/tree/master/dataflowcountdescending" target="_blank" rel="external">这里</a>，其他文章的代码从<a href="https://github.com/xinpan2?tab=repositories" target="_blank" rel="external">这里</a>可以找到，记得对号入座！！！</em></strong></p>
-<p>在上一篇文章中，我们说到，如何把结果变成使用最多流量的用户排在第一位，而不是使用默认的字典排序呢？其实可以通过把bean实现的writable修改成WritableCompareble<t>关于为什么要这样实现，我们在本文结尾处说，顺便总结一下上一篇文章的要点</t></p>
-<p>重新写一个项目，思路是直接处理上一篇文章的输出结果！！把上一篇文章的项目的bean拷贝过来修改</p>
-<p>bean类修改的部分：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hadoop%E5%BA%8F%E5%88%97%E5%8C%96%E6%9C%BA%E5%88%B615.png" alt=""></p>
-<p>mapper：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hadoop%E5%BA%8F%E5%88%97%E5%8C%96%E6%9C%BA%E5%88%B623.png" alt=""></p>
-<p>reducer：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hadoop%E5%BA%8F%E5%88%97%E5%8C%96%E6%9C%BA%E5%88%B624.png" alt=""></p>
-<p>runner：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hadoop%E5%BA%8F%E5%88%97%E5%8C%96%E6%9C%BA%E5%88%B625.png" alt=""></p>
-<p>把当前项目打成jar包</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hadoop%E5%BA%8F%E5%88%97%E5%8C%96%E6%9C%BA%E5%88%B620.png" alt=""></p>
-<p>运行：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hadoop%E5%BA%8F%E5%88%97%E5%8C%96%E6%9C%BA%E5%88%B626.png" alt=""></p>
-<p>查看结果：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hadoop%E5%BA%8F%E5%88%97%E5%8C%96%E6%9C%BA%E5%88%B627.png" alt=""></p>
-<h1 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h1><p>在上一篇文章中，我们传输类使用的是实现Writable接口，而不是jdk的serializable接口，大家应该知道jdk的serializable接口进行序列化传输时，会把当前类/接口的继承体系也序列化成二进制传输过去，但是考虑到我们面对的是庞大的数据，并且我们只关心类中字段的信息，不担心它的继承体系，所以我们利用hadoop自己实现的序列化方法，从String-&gt;Text,long-&gt;LongWritable.null-&gt;NullWritable大家都可以知道，都是hadoop自带的，所以是比较精简的，到底使用hadoop还是jdk的，没有谁好谁坏，只有谁更适合当前场景，这跟现实生活一样，讨论谁好谁坏就是在浪费时间，因为我们都没有把自己的脚放在别人的鞋子上。</p>
-<blockquote>
-<p>put your feet in other’s shoses</p>
-</blockquote>
-<p>在英文中是换位思考的意思。</p>
+        <h1 id="元组的定义"><a href="#元组的定义" class="headerlink" title="元组的定义"></a>元组的定义</h1><p>不同类型的值的集合（或者说“聚集”），就是元组，比如：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%85%83%E7%BB%841.png" alt=""></p>
+<p>在这个元组中，包含了三种数据类型：Int,Char,String</p>
+<h1 id="元组的读取"><a href="#元组的读取" class="headerlink" title="元组的读取"></a>元组的读取</h1><p>既然元组中有不同类型的数据，那么我们先来尝试用传统的枚举方法得到里面的元素：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%85%83%E7%BB%842.png" alt=""></p>
+<p>行不通，要想读取元组的内容，可以通过以下两种方法：</p>
+<ul>
+<li>元组对象._索引：索引从1开始</li>
+</ul>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%85%83%E7%BB%843.png" alt=""></p>
+<ul>
+<li>元组对象<code>空格</code>_索引：注意，有空格！</li>
+</ul>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%85%83%E7%BB%844.png" alt=""></p>
+<h1 id="zip操作"><a href="#zip操作" class="headerlink" title="zip操作"></a>zip操作</h1><p>zip顾名思义就是打包的意思，zip操作能够把不同集合结合起来：</p>
+<ul>
+<li>集合a zip 集合b</li>
+<li>集合a.zip(集合b)</li>
+</ul>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%85%83%E7%BB%845.png" alt=""></p>
+<p>上面两种方法生成的是多维数组，如果在语句结束处加上toMap关键字，则会生成一个映射：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%85%83%E7%BB%846.png" alt=""></p>
+<h2 id="当两个集合长度不一致时"><a href="#当两个集合长度不一致时" class="headerlink" title="当两个集合长度不一致时"></a>当两个集合长度不一致时</h2><p>当两个集合长度不一致时，到底是取决于zip关键字前面的集合还是后面的集合？</p>
+<h3 id="前面的集合长度大"><a href="#前面的集合长度大" class="headerlink" title="前面的集合长度大"></a>前面的集合长度大</h3><p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%85%83%E7%BB%847.png" alt=""></p>
+<p>从结果可以看到，不管是生成多维数组还是映射，都是以集合d为标准，在集合c多出的部分进行舍弃，现在我们来看看前面的集合长度小是怎样的结果</p>
+<h3 id="前面的集合长度小"><a href="#前面的集合长度小" class="headerlink" title="前面的集合长度小"></a>前面的集合长度小</h3><p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%85%83%E7%BB%848.png" alt=""></p>
+<p><strong><em>现在可以得出结论：如果两个进行zip操作的集合长度不一致时，以长度小的集合长度为基准，多出的部分进行舍弃！</em></strong></p>
 <p>【全文完】</p>
 <p>参考资料：</p>
-<p><a href="http://pan.baidu.com/s/1b4ln9W" target="_blank" rel="external">04-流量汇总排序demo</a></p>
+<p><a href="http://pan.baidu.com/s/1mhEc14k" target="_blank" rel="external">scala元组的操作及定义</a></p>
+<p><a href="http://pan.baidu.com/s/1cab5gE" target="_blank" rel="external">炼数成金-scala控制结构&amp;数组&amp;映射&amp;元组 ppt</a></p>
 
       
     </div>
@@ -377,17 +419,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/27/hadoop的序列化机制/" rel="next" title="hadoop的序列化机制">
-                <i class="fa fa-chevron-left"></i> hadoop的序列化机制
+              <a href="/2016/10/10/scala映射/" rel="next" title="scala映射">
+                <i class="fa fa-chevron-left"></i> scala映射
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/28/对用户流量使用结果进行分组/" rel="prev" title="对用户流量使用结果进行分组">
-                对用户流量使用结果进行分组 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -413,8 +451,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/27/倒序输出用户流量使用情况/"
-           data-title="倒序输出用户流量使用情况" data-url="http://xinpan2.github.io/2016/08/27/倒序输出用户流量使用情况/">
+      <div class="ds-thread" data-thread-key="2016/10/10/scala元组/"
+           data-title="scala元组" data-url="http://xinpan2.github.io/2016/10/10/scala元组/">
       </div>
     
   </div>
@@ -518,7 +556,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#要点"><span class="nav-number">1.</span> <span class="nav-text">要点</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#元组的定义"><span class="nav-number">1.</span> <span class="nav-text">元组的定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#元组的读取"><span class="nav-number">2.</span> <span class="nav-text">元组的读取</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#zip操作"><span class="nav-number">3.</span> <span class="nav-text">zip操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#当两个集合长度不一致时"><span class="nav-number">3.1.</span> <span class="nav-text">当两个集合长度不一致时</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前面的集合长度大"><span class="nav-number">3.1.1.</span> <span class="nav-text">前面的集合长度大</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前面的集合长度小"><span class="nav-number">3.1.2.</span> <span class="nav-text">前面的集合长度小</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>
