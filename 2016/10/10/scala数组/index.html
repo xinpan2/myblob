@@ -84,28 +84,62 @@
 
 
 
-<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+<meta name="description" content="在scala中，有定长数组和可变数组，顾名思义，定长数组即一旦初始化之后，长度就不能改变，但是可变数组的长度可以改变，在scala中是通过ArrayBuffer来实现。
+定长数组定长数组的定义：
 
-ormapping的意思是object-relation mapping 对象关系映射。即表明ormapping是让对象跟数据库建立关系的框架。那么它是怎样建立关系的呢？
-通过配置文件，拿我们">
+
+[Int]:指定数组元素的类型
+(5):指定数组的长度
+
+这种定义，默认会帮数组中的元素进行初始化，数据型为0，字符串为null：
+
+可变数组可变数组的定义，创建出来的是全空的数组：
+需要通过导入im">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于ormapping">
-<meta property="og:url" content="http://xinpan2.github.io/2016/08/18/关于ormapping/index.html">
+<meta property="og:title" content="scala数组">
+<meta property="og:url" content="http://xinpan2.github.io/2016/10/10/scala数组/index.html">
 <meta property="og:site_name" content="Path">
-<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+<meta property="og:description" content="在scala中，有定长数组和可变数组，顾名思义，定长数组即一旦初始化之后，长度就不能改变，但是可变数组的长度可以改变，在scala中是通过ArrayBuffer来实现。
+定长数组定长数组的定义：
 
-ormapping的意思是object-relation mapping 对象关系映射。即表明ormapping是让对象跟数据库建立关系的框架。那么它是怎样建立关系的呢？
-通过配置文件，拿我们">
-<meta property="og:updated_time" content="2016-08-18T12:53:57.234Z">
+
+[Int]:指定数组元素的类型
+(5):指定数组的长度
+
+这种定义，默认会帮数组中的元素进行初始化，数据型为0，字符串为null：
+
+可变数组可变数组的定义，创建出来的是全空的数组：
+需要通过导入im">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%841.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%842.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%843.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%844.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%845.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%846.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%847.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%848.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%849.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%8410.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%8411.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%8412.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%8413.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%8414.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%8415.png">
+<meta property="og:updated_time" content="2016-10-10T06:22:48.166Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于ormapping">
-<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+<meta name="twitter:title" content="scala数组">
+<meta name="twitter:description" content="在scala中，有定长数组和可变数组，顾名思义，定长数组即一旦初始化之后，长度就不能改变，但是可变数组的长度可以改变，在scala中是通过ArrayBuffer来实现。
+定长数组定长数组的定义：
 
-ormapping的意思是object-relation mapping 对象关系映射。即表明ormapping是让对象跟数据库建立关系的框架。那么它是怎样建立关系的呢？
-通过配置文件，拿我们">
+
+[Int]:指定数组元素的类型
+(5):指定数组的长度
+
+这种定义，默认会帮数组中的元素进行初始化，数据型为0，字符串为null：
+
+可变数组可变数组的定义，创建出来的是全空的数组：
+需要通过导入im">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%841.png">
 
 
 
@@ -126,9 +160,9 @@ ormapping的意思是object-relation mapping 对象关系映射。即表明ormap
 
 
 
-  <link rel="canonical" href="http://xinpan2.github.io/2016/08/18/关于ormapping/"/>
+  <link rel="canonical" href="http://xinpan2.github.io/2016/10/10/scala数组/"/>
 
-  <title> 关于ormapping | Path </title>
+  <title> scala数组 | Path </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -258,7 +292,7 @@ ormapping的意思是object-relation mapping 对象关系映射。即表明ormap
             
             
               
-                关于ormapping
+                scala数组
               
             
           </h1>
@@ -270,8 +304,8 @@ ormapping的意思是object-relation mapping 对象关系映射。即表明ormap
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-18T08:19:00+08:00" content="2016-08-18">
-              2016-08-18
+            <time itemprop="dateCreated" datetime="2016-10-10T13:38:03+08:00" content="2016-10-10">
+              2016-10-10
             </time>
           </span>
 
@@ -284,8 +318,8 @@ ormapping的意思是object-relation mapping 对象关系映射。即表明ormap
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/hibernate入门/" itemprop="url" rel="index">
-                    <span itemprop="name">hibernate入门</span>
+                  <a href="/categories/scala入门/" itemprop="url" rel="index">
+                    <span itemprop="name">scala入门</span>
                   </a>
                 </span>
 
@@ -300,8 +334,8 @@ ormapping的意思是object-relation mapping 对象关系映射。即表明ormap
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/18/关于ormapping/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/18/关于ormapping/" itemprop="commentsCount"></span>
+                <a href="/2016/10/10/scala数组/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/10/scala数组/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -324,29 +358,62 @@ ormapping的意思是object-relation mapping 对象关系映射。即表明ormap
       
 
       
-        <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
-<p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
-<hr>
-<p>ormapping的意思是object-relation mapping 对象关系映射。即表明ormapping是让对象跟数据库建立关系的框架。那么它是怎样建立关系的呢？</p>
-<p>通过配置文件，拿我们老生常谈的例子，person类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Long id;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="comment">//这里省略getter()&amp;setter()</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这里我们可以把person这个类成为pojo(持久化类)，那么为什么叫pojo?因为对象本来实例化之后，存在内存中，我们把它存到硬盘中，以后访问也不会丢失数据，就叫做pojo。</p>
-<p>同时，有些人可能会迷惑：它跟javaBean很像啊，对，没有错，它就是一个javaBean。关于它实现的seralizable接口，这个接口里面什么内容都没有，是个标识接口，那么它有什么用呢？</p>
-<p>既然我们说它是标识接口，那么标记作用就一定有，其实serializable又叫序列化，为什么要序列化呢？用于对象在网络上传输，只有把对象转换成二进制才能在网络上传输，但是有时候把对象转换成二进制是比较麻烦的一件事，因为有些对象里面还有其他的类，所以就用一个标识接口标记起来，让困难的给JVM完成，等JVM看到这个接口，就会把这个对象转换成二进制。就好像有同学上课的时候在举手，老师看见了，就知道有问题了，它们的作用一致。</p>
-<p>话又说回来，既然ormapping是让对象跟数据库建立关系，它们通过配置文件产生关系，那么它们都有哪些关系呢？</p>
-<p>比如我这里还有一张表，名字叫aa，有2个字段，名字分别为a,b（这里故意不用与对象相同的名字）。那么我们要确立它们的关系，就要确定：</p>
+        <p>在scala中，有定长数组和可变数组，顾名思义，定长数组即一旦初始化之后，长度就不能改变，但是可变数组的长度可以改变，在scala中是通过ArrayBuffer来实现。</p>
+<h1 id="定长数组"><a href="#定长数组" class="headerlink" title="定长数组"></a>定长数组</h1><p>定长数组的定义：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%841.png" alt=""></p>
 <ul>
-<li><p>对象和表的关系</p>
-</li>
-<li><p>对象中的属性跟表中字段的关系</p>
-</li>
-<li><p>对象中的属性的类型跟表中字段类型的关系</p>
-</li>
-<li><p>一对多和多对多转换成面向对象的关系</p>
-</li>
+<li>[Int]:指定数组元素的类型</li>
+<li>(5):指定数组的长度</li>
 </ul>
-<p>这些内容都在.hbm.xml（这个文件叫映射文件）上，其中是pojo的名字</p>
-<hr>
+<p>这种定义，默认会帮数组中的元素进行初始化，数据型为0，字符串为null：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%842.png" alt=""></p>
+<h1 id="可变数组"><a href="#可变数组" class="headerlink" title="可变数组"></a>可变数组</h1><p>可变数组的定义，创建出来的是全空的数组：</p>
+<p>需要通过导入<code>import scala.collection.mutable.ArrayBuffer</code>来创建ArrayBuffer对象</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%843.png" alt=""></p>
+<h1 id="数组的操作"><a href="#数组的操作" class="headerlink" title="数组的操作"></a>数组的操作</h1><h2 id="定长数组-1"><a href="#定长数组-1" class="headerlink" title="定长数组"></a>定长数组</h2><h3 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h3><p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%844.png" alt=""></p>
+<h2 id="可变数组-1"><a href="#可变数组-1" class="headerlink" title="可变数组"></a>可变数组</h2><h3 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h3><ul>
+<li>在数组后面追加数据</li>
+</ul>
+<p>通过+=来添加一个或多个元素，也可以通过++来添加整个定长数组：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%845.png" alt=""></p>
+<ul>
+<li>在指定的位置上插入一个或多个元素，第一个数字为指定的索引，从0开始</li>
+</ul>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%846.png" alt=""></p>
+<p>添加若干个元素：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%847.png" alt=""></p>
+<h3 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h3><ul>
+<li>删除最后一个元素</li>
+</ul>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%848.png" alt=""></p>
+<ul>
+<li>删除指定位置的元素</li>
+</ul>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%849.png" alt=""></p>
+<ul>
+<li>删除之后位置及后面的若干个元素</li>
+</ul>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%8410.png" alt=""></p>
+<h1 id="可变数组与定长数组的转换"><a href="#可变数组与定长数组的转换" class="headerlink" title="可变数组与定长数组的转换"></a>可变数组与定长数组的转换</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%8411.png" alt=""></p>
+<h1 id="数组的遍历"><a href="#数组的遍历" class="headerlink" title="数组的遍历"></a>数组的遍历</h1><p>有两种形式遍历：</p>
+<ul>
+<li>通过枚举，遍历数组的每一个元素</li>
+</ul>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%8412.png" alt=""></p>
+<ul>
+<li>通过索引，注意由于是通过某个范围，所以需要使用区间限定条件 to/until</li>
+</ul>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%8413.png" alt=""></p>
+<p>通过索引遍历数组还可以进行跳跃读取，即每隔多少个元素数组一个，还可以进行数组的反转遍历：</p>
+<p>每隔一个元素输出：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%8414.png" alt=""></p>
+<p>数组的反转遍历：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%95%B0%E7%BB%8415.png" alt=""></p>
+<p><strong><em>注意：相隔元素数组中的数字是在数组长度后面直接用逗号，但是数组反转是在整个区间的后面调用reverse方法，注意位置！！！</em></strong></p>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="http://pan.baidu.com/s/1mhEc14k" target="_blank" rel="external">scala数组的操作及定义</a></p>
+<p><a href="http://pan.baidu.com/s/1cab5gE" target="_blank" rel="external">炼数成金-scala控制结构&amp;数组&amp;映射 ppt</a></p>
 
       
     </div>
@@ -372,17 +439,13 @@ ormapping的意思是object-relation mapping 对象关系映射。即表明ormap
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/18/分析hibernate与jdbC的优缺点/" rel="next" title="分析hibernate与jdbC的优缺点">
-                <i class="fa fa-chevron-left"></i> 分析hibernate与jdbC的优缺点
+              <a href="/2016/10/09/scala的控制结构/" rel="next" title="scala的控制结构">
+                <i class="fa fa-chevron-left"></i> scala的控制结构
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/18/hibernate第一个例子，保存一个对象/" rel="prev" title="hibernate第一个例子，保存一个对象">
-                hibernate第一个例子，保存一个对象 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -408,8 +471,8 @@ ormapping的意思是object-relation mapping 对象关系映射。即表明ormap
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/18/关于ormapping/"
-           data-title="关于ormapping" data-url="http://xinpan2.github.io/2016/08/18/关于ormapping/">
+      <div class="ds-thread" data-thread-key="2016/10/10/scala数组/"
+           data-title="scala数组" data-url="http://xinpan2.github.io/2016/10/10/scala数组/">
       </div>
     
   </div>
@@ -513,7 +576,7 @@ ormapping的意思是object-relation mapping 对象关系映射。即表明ormap
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#定长数组"><span class="nav-number">1.</span> <span class="nav-text">定长数组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#可变数组"><span class="nav-number">2.</span> <span class="nav-text">可变数组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数组的操作"><span class="nav-number">3.</span> <span class="nav-text">数组的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定长数组-1"><span class="nav-number">3.1.</span> <span class="nav-text">定长数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改数据"><span class="nav-number">3.1.1.</span> <span class="nav-text">修改数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可变数组-1"><span class="nav-number">3.2.</span> <span class="nav-text">可变数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#插入数据"><span class="nav-number">3.2.1.</span> <span class="nav-text">插入数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除数据"><span class="nav-number">3.2.2.</span> <span class="nav-text">删除数据</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#可变数组与定长数组的转换"><span class="nav-number">4.</span> <span class="nav-text">可变数组与定长数组的转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数组的遍历"><span class="nav-number">5.</span> <span class="nav-text">数组的遍历</span></a></li></ol></div>
             
           </div>
         </section>
