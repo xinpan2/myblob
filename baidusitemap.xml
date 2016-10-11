@@ -4,6 +4,24 @@
 
     
   <url>
+    <loc>http://xinpan2.github.io/2016/10/10/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/</loc>
+    <lastmod>2016-10-11T11:59:52.753Z</lastmod>
+    <data>
+        <display>
+        <title>scala的类和对象</title>
+        <pubTime>2016-10-10T14:30:25.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="scala入门" url="http://xinpan2.github.io/categories/scala%E5%85%A5%E9%97%A8/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://xinpan2.github.io/2016/10/10/scala%E6%98%A0%E5%B0%84/</loc>
     <lastmod>2016-10-11T09:27:03.978Z</lastmod>
     <data>
@@ -100,24 +118,6 @@
         <display>
         <title>scala安装</title>
         <pubTime>2016-10-09T08:23:57.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="scala入门" url="http://xinpan2.github.io/categories/scala%E5%85%A5%E9%97%A8/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://xinpan2.github.io/2016/10/10/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/</loc>
-    <lastmod>2016-10-11T09:25:51.875Z</lastmod>
-    <data>
-        <display>
-        <title>scala的类和对象</title>
-        <pubTime>2016-10-10T14:30:25.000Z</pubTime>
         
          
            

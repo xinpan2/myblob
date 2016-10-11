@@ -96,6 +96,7 @@
 方法的设计大家可以注意到上面的show方法，没有像java那样在show后面加上括号，写成show(),其实这样写的好处就是在调用时不需要写括号，当然前提是这个方法不需要传入参数，但是这种方法在调用时如果加上括">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A11.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A12.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A125.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A13.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A14.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A15.png">
@@ -103,7 +104,7 @@
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A17.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A18.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%BC%B4%E7%94%9F%E5%AF%B9%E8%B1%A11.png">
-<meta property="og:updated_time" content="2016-10-11T09:25:51.875Z">
+<meta property="og:updated_time" content="2016-10-11T11:59:52.753Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="scala的类和对象">
 <meta name="twitter:description" content="类的设计在类中，有两个成员，字段和函数，关于字段，有public和private，若字段为public可以省略，但是如果要设计的字段为私有的，就需要在字段定义前加上private关键字。
@@ -332,6 +333,10 @@
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A11.png" alt=""></p>
 <h2 id="方法的设计"><a href="#方法的设计" class="headerlink" title="方法的设计"></a>方法的设计</h2><p>大家可以注意到上面的show方法，没有像java那样在show后面加上括号，写成<code>show()</code>,其实这样写的好处就是在调用时不需要写括号，当然前提是这个方法不需要传入参数，但是这种方法在调用时如果加上括号，反而会报错，如果怕麻烦的同学还是使用传统的方法，加上括号！</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A12.png" alt=""></p>
+<p>在scala神书<a href="http://pan.baidu.com/s/1eRPKbtw" target="_blank" rel="external">《scala for impatient》</a>中说到：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A125.png" alt=""></p>
+<p>大意：</p>
+<p>对于没有参数的方法，在调用时带不带括号都可以调用，但是在对于没有修改字段的值时，推荐使用没有括号的调用，对于修改了字段值的，推荐使用带括号的形式。</p>
 <h2 id="字段的设计"><a href="#字段的设计" class="headerlink" title="字段的设计"></a>字段的设计</h2><p>根据我们在java中的经验，每设计一个字段，我们都喜欢在设计完所有字段之后，一次性为所有私有字段添加上getter和setter方法，但是在这里我们却看不到getter setter的身影，在scala中，字段的getter和setter方法分别为：</p>
 <ul>
 <li>getter： 字段名=值</li>
@@ -365,6 +370,7 @@
 <p><a href="https://my.oschina.net/sulliy/blog/60289" target="_blank" rel="external">Scala单例与伴生对象</a></p>
 <p><a href="http://nerd-is.in/2013-08/scala-learning-classes/" target="_blank" rel="external">Scala学习——类</a></p>
 <p><a href="http://www.runoob.com/scala/scala-classes-objects.html" target="_blank" rel="external">Scala 类和对象</a></p>
+<p><a href="http://pan.baidu.com/s/1eRPKbtw" target="_blank" rel="external">《scala for the impatient》charter 5 classes</a></p>
 
       
     </div>
