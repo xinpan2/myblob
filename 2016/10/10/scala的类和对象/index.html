@@ -102,8 +102,8 @@
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A16.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A17.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A18.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A19.png">
-<meta property="og:updated_time" content="2016-10-10T16:04:30.929Z">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%BC%B4%E7%94%9F%E5%AF%B9%E8%B1%A11.png">
+<meta property="og:updated_time" content="2016-10-11T09:25:51.875Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="scala的类和对象">
 <meta name="twitter:description" content="类的设计在类中，有两个成员，字段和函数，关于字段，有public和private，若字段为public可以省略，但是如果要设计的字段为私有的，就需要在字段定义前加上private关键字。
@@ -357,12 +357,11 @@
 <h2 id="伴生对象"><a href="#伴生对象" class="headerlink" title="伴生对象"></a>伴生对象</h2><p>伴生对象：当我们设计了一个类，但是我们又有这个类的单例对象，我们把和这个单例对象称为伴生对象。对应的类被称为伴生类，但是伴生对象一定要与对应的类在同一个源文件中，并且它们相互可以访问对方的私有属性。</p>
 <p>这是一个反面例子，在代码中并没有把类和单例对象放在同一个源文件中，大家可以看警告信息：<strong><em>伴生对象需要跟类定义在一起</em></strong></p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A18.png" alt=""></p>
-<h2 id="生成带有参数的伴生类对象"><a href="#生成带有参数的伴生类对象" class="headerlink" title="生成带有参数的伴生类对象"></a>生成带有参数的伴生类对象</h2><p>当伴生类的主构造函数有参数时，我们可以通过在伴生对象中设计一个apply方法，用来传送参数：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A19.png" alt=""></p>
+<p>例子：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E4%BC%B4%E7%94%9F%E5%AF%B9%E8%B1%A11.png" alt=""></p>
 <p>【全文完】</p>
 <p>参考资料：</p>
-<p><a href="http://pan.baidu.com/s/1i52n7pF" target="_blank" rel="external">scala的类和对象</a></p>
-<p><a href="http://pan.baidu.com/s/1kVHI4IF" target="_blank" rel="external">scala的类和对象.ppt</a></p>
+<p><strong><em>根据版权原因，只放出可以被引用的链接</em></strong></p>
 <p><a href="https://my.oschina.net/sulliy/blog/60289" target="_blank" rel="external">Scala单例与伴生对象</a></p>
 <p><a href="http://nerd-is.in/2013-08/scala-learning-classes/" target="_blank" rel="external">Scala学习——类</a></p>
 <p><a href="http://www.runoob.com/scala/scala-classes-objects.html" target="_blank" rel="external">Scala 类和对象</a></p>
@@ -528,7 +527,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#类的设计"><span class="nav-number">1.</span> <span class="nav-text">类的设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#方法的设计"><span class="nav-number">1.1.</span> <span class="nav-text">方法的设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字段的设计"><span class="nav-number">1.2.</span> <span class="nav-text">字段的设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造器"><span class="nav-number">1.3.</span> <span class="nav-text">构造器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设计主构造器"><span class="nav-number">1.3.1.</span> <span class="nav-text">设计主构造器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计辅助构造器"><span class="nav-number">1.3.2.</span> <span class="nav-text">设计辅助构造器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内部类的设计"><span class="nav-number">1.4.</span> <span class="nav-text">内部类的设计</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对象"><span class="nav-number">2.</span> <span class="nav-text">对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单例对象"><span class="nav-number">2.1.</span> <span class="nav-text">单例对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#伴生对象"><span class="nav-number">2.2.</span> <span class="nav-text">伴生对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成带有参数的伴生类对象"><span class="nav-number">2.3.</span> <span class="nav-text">生成带有参数的伴生类对象</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#类的设计"><span class="nav-number">1.</span> <span class="nav-text">类的设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#方法的设计"><span class="nav-number">1.1.</span> <span class="nav-text">方法的设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字段的设计"><span class="nav-number">1.2.</span> <span class="nav-text">字段的设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造器"><span class="nav-number">1.3.</span> <span class="nav-text">构造器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设计主构造器"><span class="nav-number">1.3.1.</span> <span class="nav-text">设计主构造器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计辅助构造器"><span class="nav-number">1.3.2.</span> <span class="nav-text">设计辅助构造器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内部类的设计"><span class="nav-number">1.4.</span> <span class="nav-text">内部类的设计</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对象"><span class="nav-number">2.</span> <span class="nav-text">对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单例对象"><span class="nav-number">2.1.</span> <span class="nav-text">单例对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#伴生对象"><span class="nav-number">2.2.</span> <span class="nav-text">伴生对象</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
