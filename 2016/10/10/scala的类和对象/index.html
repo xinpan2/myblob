@@ -84,16 +84,18 @@
 
 
 
-<meta name="description" content="类的设计在类中，有两个成员，字段和函数，关于字段，有public和private，若字段为public可以省略，但是如果要设计的字段为私有的，就需要在字段定义前加上private关键字。
+<meta name="description" content="本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+类的设计在类中，有两个成员，字段和函数，关于字段，有public和private，若字段为public可以省略，但是如果要设计的字段为私有的，就需要在字段定义前加上private关键字。
 
-方法的设计大家可以注意到上面的show方法，没有像java那样在show后面加上括号，写成show(),其实这样写的好处就是在调用时不需要写括号，当然前提是这个方法不需要传入参数，但是这种方法在调用时如果加上括">
+方法的设计大家可以注意到上面的show方法，没有像java那样在show后面加上括号，写成show(),其实这样写的好处就是在调用时不需要写括号">
 <meta property="og:type" content="article">
 <meta property="og:title" content="scala的类和对象">
 <meta property="og:url" content="http://xinpan2.github.io/2016/10/10/scala的类和对象/index.html">
 <meta property="og:site_name" content="Path">
-<meta property="og:description" content="类的设计在类中，有两个成员，字段和函数，关于字段，有public和private，若字段为public可以省略，但是如果要设计的字段为私有的，就需要在字段定义前加上private关键字。
+<meta property="og:description" content="本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+类的设计在类中，有两个成员，字段和函数，关于字段，有public和private，若字段为public可以省略，但是如果要设计的字段为私有的，就需要在字段定义前加上private关键字。
 
-方法的设计大家可以注意到上面的show方法，没有像java那样在show后面加上括号，写成show(),其实这样写的好处就是在调用时不需要写括号，当然前提是这个方法不需要传入参数，但是这种方法在调用时如果加上括">
+方法的设计大家可以注意到上面的show方法，没有像java那样在show后面加上括号，写成show(),其实这样写的好处就是在调用时不需要写括号">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A11.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A12.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A125.png">
@@ -104,12 +106,13 @@
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A17.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A18.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E4%BC%B4%E7%94%9F%E5%AF%B9%E8%B1%A11.png">
-<meta property="og:updated_time" content="2016-10-11T11:59:52.753Z">
+<meta property="og:updated_time" content="2016-10-11T17:08:37.904Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="scala的类和对象">
-<meta name="twitter:description" content="类的设计在类中，有两个成员，字段和函数，关于字段，有public和private，若字段为public可以省略，但是如果要设计的字段为私有的，就需要在字段定义前加上private关键字。
+<meta name="twitter:description" content="本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+类的设计在类中，有两个成员，字段和函数，关于字段，有public和private，若字段为public可以省略，但是如果要设计的字段为私有的，就需要在字段定义前加上private关键字。
 
-方法的设计大家可以注意到上面的show方法，没有像java那样在show后面加上括号，写成show(),其实这样写的好处就是在调用时不需要写括号，当然前提是这个方法不需要传入参数，但是这种方法在调用时如果加上括">
+方法的设计大家可以注意到上面的show方法，没有像java那样在show后面加上括号，写成show(),其实这样写的好处就是在调用时不需要写括号">
 <meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A11.png">
 
 
@@ -329,7 +332,8 @@
       
 
       
-        <h1 id="类的设计"><a href="#类的设计" class="headerlink" title="类的设计"></a>类的设计</h1><p>在类中，有两个成员，字段和函数，关于字段，有public和private，若字段为public可以省略，但是如果要设计的字段为私有的，就需要在字段定义前加上private关键字。</p>
+        <p><strong><em>本文代码在<a href="https://github.com/xinpan2/scala-/blob/master/CompanionObject.scala" target="_blank" rel="external">这里</a>，其他文章的代码从<a href="https://github.com/xinpan2?tab=repositories" target="_blank" rel="external">这里</a>可以找到，记得对号入座！！！</em></strong></p>
+<h1 id="类的设计"><a href="#类的设计" class="headerlink" title="类的设计"></a>类的设计</h1><p>在类中，有两个成员，字段和函数，关于字段，有public和private，若字段为public可以省略，但是如果要设计的字段为私有的，就需要在字段定义前加上private关键字。</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A11.png" alt=""></p>
 <h2 id="方法的设计"><a href="#方法的设计" class="headerlink" title="方法的设计"></a>方法的设计</h2><p>大家可以注意到上面的show方法，没有像java那样在show后面加上括号，写成<code>show()</code>,其实这样写的好处就是在调用时不需要写括号，当然前提是这个方法不需要传入参数，但是这种方法在调用时如果加上括号，反而会报错，如果怕麻烦的同学还是使用传统的方法，加上括号！</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A12.png" alt=""></p>
@@ -366,7 +370,7 @@
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E4%BC%B4%E7%94%9F%E5%AF%B9%E8%B1%A11.png" alt=""></p>
 <p>【全文完】</p>
 <p>参考资料：</p>
-<p><strong><em>根据版权原因，只放出可以被引用的链接</em></strong></p>
+<p><strong><em>由于版权原因，只放出可以被引用的链接</em></strong></p>
 <p><a href="https://my.oschina.net/sulliy/blog/60289" target="_blank" rel="external">Scala单例与伴生对象</a></p>
 <p><a href="http://nerd-is.in/2013-08/scala-learning-classes/" target="_blank" rel="external">Scala学习——类</a></p>
 <p><a href="http://www.runoob.com/scala/scala-classes-objects.html" target="_blank" rel="external">Scala 类和对象</a></p>
@@ -403,6 +407,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/11/scala的继承/" rel="prev" title="scala的继承">
+                scala的继承 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -474,7 +482,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">199</span>
+              <span class="site-state-item-count">200</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

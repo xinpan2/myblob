@@ -2,51 +2,58 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://xinpan2.github.io/2016/10/11/scala%E7%9A%84%E7%BB%A7%E6%89%BF/</loc>
+    
+    <lastmod>2016-10-11T17:09:45.151Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://xinpan2.github.io/2016/10/10/scala%E7%9A%84%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/</loc>
     
-    <lastmod>2016-10-11T11:59:52.753Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xinpan2.github.io/2016/10/10/scala%E6%98%A0%E5%B0%84/</loc>
-    
-    <lastmod>2016-10-11T09:27:03.978Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xinpan2.github.io/2016/10/10/scala%E5%85%83%E7%BB%84/</loc>
-    
-    <lastmod>2016-10-11T09:26:57.206Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xinpan2.github.io/2016/10/10/scala%E6%95%B0%E7%BB%84/</loc>
-    
-    <lastmod>2016-10-11T09:26:50.732Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xinpan2.github.io/2016/10/09/scala%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</loc>
-    
-    <lastmod>2016-10-11T09:26:40.059Z</lastmod>
+    <lastmod>2016-10-11T17:08:37.904Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://xinpan2.github.io/2016/10/09/scala%E7%9A%84%E6%8E%A7%E5%88%B6%E7%BB%93%E6%9E%84/</loc>
     
-    <lastmod>2016-10-11T09:26:22.716Z</lastmod>
+    <lastmod>2016-10-11T17:08:28.060Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xinpan2.github.io/2016/10/10/scala%E6%98%A0%E5%B0%84/</loc>
+    
+    <lastmod>2016-10-11T17:08:20.488Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://xinpan2.github.io/2016/10/09/scala%E5%AE%89%E8%A3%85/</loc>
     
-    <lastmod>2016-10-11T09:26:11.335Z</lastmod>
+    <lastmod>2016-10-11T17:08:10.998Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xinpan2.github.io/2016/10/10/scala%E6%95%B0%E7%BB%84/</loc>
+    
+    <lastmod>2016-10-11T17:08:00.510Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xinpan2.github.io/2016/10/09/scala%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</loc>
+    
+    <lastmod>2016-10-11T17:07:50.089Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xinpan2.github.io/2016/10/10/scala%E5%85%83%E7%BB%84/</loc>
+    
+    <lastmod>2016-10-11T17:07:36.065Z</lastmod>
     
   </url>
   
