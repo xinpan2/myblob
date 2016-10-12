@@ -1,0 +1,761 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="现在我们来学习scala，为了spark的学习打基础！
+要学习scala，肯定就是要搭建好scala的开发环境，由于我们使用了两种OS，Windows和linux，所以这两种系统我们都要“雨露均沾”。
+在安装scala之前，要确保当前系统的JDK安装完毕！最好安装jdk8！！并且为jdk配置好了环境变量，否则scala不能完成安装！！
+在Windows中安装在Windows中安装最简单，因为只需要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="scala开发环境搭建">
+<meta property="og:url" content="http://xinpan2.github.io/2016/10/09/scala开发环境搭建/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="现在我们来学习scala，为了spark的学习打基础！
+要学习scala，肯定就是要搭建好scala的开发环境，由于我们使用了两种OS，Windows和linux，所以这两种系统我们都要“雨露均沾”。
+在安装scala之前，要确保当前系统的JDK安装完毕！最好安装jdk8！！并且为jdk配置好了环境变量，否则scala不能完成安装！！
+在Windows中安装在Windows中安装最简单，因为只需要">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85scala1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85scala2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85scala3.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85scala4.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85scala5.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85scala6.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85scala7.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85scala8.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA3.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA4.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA5.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA6.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA7.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA8.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA9.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA10.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA11.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA12.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA13.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA14.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA15.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA16.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA17.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA18.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA19.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA20.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA21.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA22.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA23.png">
+<meta property="og:updated_time" content="2016-10-12T02:18:49.130Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="scala开发环境搭建">
+<meta name="twitter:description" content="现在我们来学习scala，为了spark的学习打基础！
+要学习scala，肯定就是要搭建好scala的开发环境，由于我们使用了两种OS，Windows和linux，所以这两种系统我们都要“雨露均沾”。
+在安装scala之前，要确保当前系统的JDK安装完毕！最好安装jdk8！！并且为jdk配置好了环境变量，否则scala不能完成安装！！
+在Windows中安装在Windows中安装最简单，因为只需要">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85scala1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/10/09/scala开发环境搭建/"/>
+
+  <title> scala开发环境搭建 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                scala开发环境搭建
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-09T16:23:57+08:00" content="2016-10-09">
+              2016-10-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/scala入门/" itemprop="url" rel="index">
+                    <span itemprop="name">scala入门</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/09/scala开发环境搭建/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/09/scala开发环境搭建/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>现在我们来学习scala，为了spark的学习打基础！</p>
+<p>要学习scala，肯定就是要搭建好scala的开发环境，由于我们使用了两种OS，Windows和linux，所以这两种系统我们都要“雨露均沾”。</p>
+<p>在安装scala之前，要确保当前系统的JDK安装完毕！最好安装jdk8！！并且为jdk配置好了环境变量，否则scala不能完成安装！！</p>
+<h1 id="在Windows中安装"><a href="#在Windows中安装" class="headerlink" title="在Windows中安装"></a>在Windows中安装</h1><p>在Windows中安装最简单，因为只需要上<a href="http://www.scala-lang.org/download/2.11.8.html" target="_blank" rel="external">官网</a>中点击下载即可，下载的是一个msi类型的文件，直接双击这个文件，就会出现一个安装向导，然后选好安装路径之后就是傻瓜式安装……</p>
+<p>安装完毕之后，记得配置好环境变量！！！</p>
+<p>首先创建一个<code>SCALA_HOME</code></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85scala1.png" alt=""></p>
+<p>然后在path环境变量中把SCALA_HOME加入里面</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85scala2.png" alt=""></p>
+<p>打开Windows控制台，输入scala</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85scala3.png" alt=""></p>
+<p>安装完毕！</p>
+<h1 id="在linux中安装"><a href="#在linux中安装" class="headerlink" title="在linux中安装"></a>在linux中安装</h1><p>第一步依然进入<a href="http://www.scala-lang.org/download/2.11.8.html" target="_blank" rel="external">官网</a>下载，可是默认下载的是Windows版本的安装包：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85scala4.png" alt=""></p>
+<p>点进去之后，选择2.11.8版本：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85scala5.png" alt=""></p>
+<p>选择之后，还是跳到跟刚刚相似的页面：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85scala6.png" alt=""></p>
+<p>移动到网页底端：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85scala7.png" alt=""></p>
+<p>我们可以选择红色框中的两种安装包，在此次测试中选择的是第一个安装包，下载完毕之后，传输到节点1的home目录下，然后解压到app目录下，相关指令在这里不写出来了，写了很多次了~</p>
+<p>解压完毕之后，为scala配置环境变量，配置完毕之后，直接在命令行输入scala：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85scala8.png" alt=""></p>
+<p>安装完毕。</p>
+<h1 id="开发环境的搭建"><a href="#开发环境的搭建" class="headerlink" title="开发环境的搭建"></a>开发环境的搭建</h1><p>关于scala开发环境，我们可以使用sbt，也可以使用scala自带的编译、运行，遇到大一点的项目就需要用到IDE来开发，这里的IDE使用的是Eclipse的插件。当然大家也可以使用intelliJ Idea或者netBeans。</p>
+<p>因为sbt也可以像scala来编译、运行scala脚本，所以在这里我不讲，大家上<a href="http://www.scala-sbt.org/" target="_blank" rel="external">sbt官网</a>下载，然后傻瓜式安装即可。</p>
+<p>现在我们主要来讲一下scala的eclipse插件，即scala IDE。</p>
+<p>首先进入<a href="http://scala-ide.org/download/sdk.html" target="_blank" rel="external">scala IDE</a>官网，点击下载安装包，如图所示</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA1.png" alt=""></p>
+<p>之后跳转到页面：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA2.png" alt=""></p>
+<p>然后往下面拉，根据自己的系统选择IDE版本，红色框指的是安装条件：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA3.png" alt=""></p>
+<p>由于测试系统下载了windows 64位的IDE，下载完毕之后，直接解压：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA4.png" alt=""></p>
+<p>进入eclipse文件夹：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA5.png" alt=""></p>
+<p>启动eclipse，即scala SDK：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA6.png" alt=""></p>
+<h2 id="SDK的第一个例子"><a href="#SDK的第一个例子" class="headerlink" title="SDK的第一个例子"></a>SDK的第一个例子</h2><p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA7.png" alt=""></p>
+<p>在打开的对话框中输入项目名字：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA8.png" alt=""></p>
+<p>输入完毕之后点击完成：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA9.png" alt=""></p>
+<p>右键src,新建worksheet，这个worksheet就像我们直接在scala控制台中输入的代码一样：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA10.png" alt=""></p>
+<p>设置好worksheet名字之后，点击完成，系统默认为这个worksheet设置了一行输出语句，一旦我们点击保存之后，就会以注释的形式显示输出结果：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA11.png" alt=""></p>
+<p>动态演示：当我输入hi之后，再保存：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA12.png" alt=""></p>
+<h2 id="怎样设计一个scalaAPP？"><a href="#怎样设计一个scalaAPP？" class="headerlink" title="怎样设计一个scalaAPP？"></a>怎样设计一个scalaAPP？</h2><p>右键项目的src目录，选择新建scalaAPP：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA13.png" alt=""></p>
+<p>在弹出的对话框输入APP名字：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA14.png" alt=""></p>
+<p>设置完毕之后保存，然后SayHello.scala就生成了：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA15.png" alt=""></p>
+<p>在这里我们只是简单的输出语句，用于测试：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA16.png" alt=""></p>
+<p>编辑完之后，保存，然后就像在eclipse中运行java程序一样，运行scala脚本：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA17.png" alt=""></p>
+<p>运行之后，控制台等待用户的输入而处于阻塞状态：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA18.png" alt=""></p>
+<p>在命令行中随意输入一个名字：（动态演示）</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA19.png" alt=""></p>
+<h1 id="使用scala命令行工具来编译和运行scala脚本"><a href="#使用scala命令行工具来编译和运行scala脚本" class="headerlink" title="使用scala命令行工具来编译和运行scala脚本"></a>使用scala命令行工具来编译和运行scala脚本</h1><p>我们刚刚下载的scala也可以用来编译和运行scala脚本，现在我们来运行一次。</p>
+<p>首先我们需要新建一个文本文件，并且重命名为.scala格式，在这里我使用<code>Hello.scala</code>，然后使用文本编辑器打开该脚本，然后把SDK中刚刚定义的SayHello.scala的内容复制到这个文件中：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA20.png" alt=""></p>
+<p>保存之后，关闭文本编辑器，然后打开命令行，通过运行cmd,打开命令行，然后切换到Hello.scala所在的路径，在这里Hello.scala在D盘根目录下，所以切换到D盘即可，然后通过<code>scalac Hello.scala</code>，对该脚本进行编译：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA21.png" alt=""></p>
+<p>查看编译该脚本生成的文件：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA22.png" alt=""></p>
+<p>然后再用<code>scala SayHi</code>命令运行该脚本，因为脚本名为Hello.scala，但是对象为SayHi，生成的字节文件也为SayHi.class!在输入<code>XinPan</code>之后，系统输出为<code>hi~: XinPan</code></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA23.png" alt=""></p>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><strong><em>由于版权原因，只放出可以被引用的链接</em></strong></p>
+<p><a href="http://www.runoob.com/scala/scala-install.html" target="_blank" rel="external">Scala 安装</a></p>
+<p><a href="http://www.imooc.com/video/11264" target="_blank" rel="external">scala环境搭建-imooc</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/27/行为轨迹增强/" rel="next" title="行为轨迹增强">
+                <i class="fa fa-chevron-left"></i> 行为轨迹增强
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/09/scala基本数据类型/" rel="prev" title="scala基本数据类型">
+                scala基本数据类型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/09/scala开发环境搭建/"
+           data-title="scala开发环境搭建" data-url="http://xinpan2.github.io/2016/10/09/scala开发环境搭建/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">201</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/andy_px" target="_blank" title="CSDN" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#在Windows中安装"><span class="nav-number">1.</span> <span class="nav-text">在Windows中安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在linux中安装"><span class="nav-number">2.</span> <span class="nav-text">在linux中安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开发环境的搭建"><span class="nav-number">3.</span> <span class="nav-text">开发环境的搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SDK的第一个例子"><span class="nav-number">3.1.</span> <span class="nav-text">SDK的第一个例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#怎样设计一个scalaAPP？"><span class="nav-number">3.2.</span> <span class="nav-text">怎样设计一个scalaAPP？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用scala命令行工具来编译和运行scala脚本"><span class="nav-number">4.</span> <span class="nav-text">使用scala命令行工具来编译和运行scala脚本</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
