@@ -84,40 +84,29 @@
 
 
 
-<meta name="description" content="1、 创建configuration对象
-1Configuration configuration=new Configuration();
-2、 创建配置文件对象，这里使用默认方式加载配置文件
-1configuration.configure();
-配置文件中存放的信息有：
-
-映射文件信息（包括pojo及其属性，系统就是根据映射文件的class属性来认定哪些类为pojo的）
-
-数据库的连接信息">
+<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+现在我们来讲讲scala中的高阶函数，为什么叫做高阶函数呢？大概就是scala的高级应用？高阶函数能够接收函数作为参数、处理函数、并且返回函数，有句话叫做“函数是scala中的第一等公民”，大概就是来自于这里吧！
+匿名函数对于高阶函数，我们第一个">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hibernate加载顺序">
-<meta property="og:url" content="http://xinpan2.github.io/2016/08/18/hibernate加载顺序/index.html">
+<meta property="og:title" content="高阶函数">
+<meta property="og:url" content="http://xinpan2.github.io/2016/10/12/高阶函数/index.html">
 <meta property="og:site_name" content="Path">
-<meta property="og:description" content="1、 创建configuration对象
-1Configuration configuration=new Configuration();
-2、 创建配置文件对象，这里使用默认方式加载配置文件
-1configuration.configure();
-配置文件中存放的信息有：
-
-映射文件信息（包括pojo及其属性，系统就是根据映射文件的class属性来认定哪些类为pojo的）
-
-数据库的连接信息">
-<meta property="og:updated_time" content="2016-08-18T12:55:43.271Z">
+<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+现在我们来讲讲scala中的高阶函数，为什么叫做高阶函数呢？大概就是scala的高级应用？高阶函数能够接收函数作为参数、处理函数、并且返回函数，有句话叫做“函数是scala中的第一等公民”，大概就是来自于这里吧！
+匿名函数对于高阶函数，我们第一个">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B01.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B02.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B03.png">
+<meta property="og:updated_time" content="2016-10-12T16:24:17.088Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hibernate加载顺序">
-<meta name="twitter:description" content="1、 创建configuration对象
-1Configuration configuration=new Configuration();
-2、 创建配置文件对象，这里使用默认方式加载配置文件
-1configuration.configure();
-配置文件中存放的信息有：
-
-映射文件信息（包括pojo及其属性，系统就是根据映射文件的class属性来认定哪些类为pojo的）
-
-数据库的连接信息">
+<meta name="twitter:title" content="高阶函数">
+<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+现在我们来讲讲scala中的高阶函数，为什么叫做高阶函数呢？大概就是scala的高级应用？高阶函数能够接收函数作为参数、处理函数、并且返回函数，有句话叫做“函数是scala中的第一等公民”，大概就是来自于这里吧！
+匿名函数对于高阶函数，我们第一个">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B01.png">
 
 
 
@@ -138,9 +127,9 @@
 
 
 
-  <link rel="canonical" href="http://xinpan2.github.io/2016/08/18/hibernate加载顺序/"/>
+  <link rel="canonical" href="http://xinpan2.github.io/2016/10/12/高阶函数/"/>
 
-  <title> hibernate加载顺序 | Path </title>
+  <title> 高阶函数 | Path </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -270,7 +259,7 @@
             
             
               
-                hibernate加载顺序
+                高阶函数
               
             
           </h1>
@@ -282,8 +271,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-18T08:24:00+08:00" content="2016-08-18">
-              2016-08-18
+            <time itemprop="dateCreated" datetime="2016-10-12T23:33:28+08:00" content="2016-10-12">
+              2016-10-12
             </time>
           </span>
 
@@ -296,8 +285,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/hibernate入门/" itemprop="url" rel="index">
-                    <span itemprop="name">hibernate入门</span>
+                  <a href="/categories/scala入门/" itemprop="url" rel="index">
+                    <span itemprop="name">scala入门</span>
                   </a>
                 </span>
 
@@ -312,8 +301,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/18/hibernate加载顺序/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/18/hibernate加载顺序/" itemprop="commentsCount"></span>
+                <a href="/2016/10/12/高阶函数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/12/高阶函数/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -336,35 +325,25 @@
       
 
       
-        <p>1、 创建<code>configuration</code>对象</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Configuration configuration=<span class="keyword">new</span> Configuration();</div></pre></td></tr></table></figure>
-<p>2、 创建配置文件对象，这里使用默认方式加载配置文件</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">configuration.configure();</div></pre></td></tr></table></figure>
-<p>配置文件中存放的信息有：</p>
-<ul>
-<li><p>映射文件信息（包括pojo及其属性，系统就是根据映射文件的class属性来认定哪些类为pojo的）</p>
-</li>
-<li><p>数据库的连接信息</p>
-</li>
-</ul>
-<p>3、 得到sessionFactory对象</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SessionFactory sessionFactory=configuration.buildSessionFactory();</div></pre></td></tr></table></figure>
-<p>note that:</p>
-<ul>
-<li><p>因为一般的配置文件中只出现一个sessionFactory，所以sessionFactory是由单例模式产生的</p>
-</li>
-<li><p>由于该类中含有许多信息，所以该类是一个重量级类，并且其中的内容是共享的，所以该类是线程安全的</p>
-</li>
-</ul>
-<p>4、 得到session对象,准备操作数据库</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Session session=sessionFactory.openSession();</div></pre></td></tr></table></figure>
-<p>5.1、 如果只进行查询操作，不用开启事务，直接操作</p>
-<p>5.2、 如果进行增删改操作，要开启事务</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Transaction transaction=session.beginTransaction();</div></pre></td></tr></table></figure>
-<p>然后操作完成后提交事务</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">transaction.commit();</div></pre></td></tr></table></figure>
-<p>6、 关闭session</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">session.close();</div></pre></td></tr></table></figure>
+        <p><strong><em>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</em></strong></p>
+<p><strong><em>本文代码在<a href="https://github.com/xinpan2/scala-/tree/master/higher_order_function" target="_blank" rel="external">这里</a>，其他文章的代码从<a href="https://github.com/xinpan2?tab=repositories" target="_blank" rel="external">这里</a>可以找到，记得对号入座！！！</em></strong></p>
+<p>现在我们来讲讲scala中的高阶函数，为什么叫做高阶函数呢？大概就是scala的高级应用？高阶函数能够接收函数作为参数、处理函数、并且返回函数，有句话叫做“函数是scala中的第一等公民”，大概就是来自于这里吧！</p>
+<h1 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h1><p>对于高阶函数，我们第一个要讲的就是匿名函数，再java中我们接触过匿名类、匿名内部类，在scala中，我们的匿名函数也可以根据我们对java的理解来认识它。</p>
+<p>匿名函数的定义：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(参数列表)=&gt; &#123;方法体&#125;</div></pre></td></tr></table></figure>
+<p>实例：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B01.png" alt=""></p>
+<h1 id="柯里化"><a href="#柯里化" class="headerlink" title="柯里化"></a>柯里化</h1><p>柯里化的意思就是由一个叫柯里的数学家发明的方法，所以叫柯里化，柯里化在scala中的作用就是把多个参数转变成一个参数的过程：</p>
+<p>实例：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B02.png" alt=""></p>
+<p>实例中，我们拿传统的调用多个参数的函数跟柯里化的函数作对比，柯里化之后的函数就是把调用分成几个部分来完成一个函数的调用，在addFirst变量中，<code>curriedAdd(1)_</code>中的下划线代表通配符，即匹配后面的所有参数列表，可能我对scala的理解还不够深，我暂时绝对这个柯里化有点笨拙。</p>
+<h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><p>现在我们来根据用户的输入来求和，这个例子中，我们将会用到高阶函数的各个部分，包括匿名函数、柯里化，</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B03.png" alt=""></p>
+<p>在实例的调用中，x=&gt;x 和x =&gt; x*x代表我们调用匿名函数，并把具体实现传入</p>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="http://www.imooc.com/video/11272" target="_blank" rel="external">scala高阶函数第五章所有内容–慕课网</a></p>
+<p><a href="https://wizardforcel.gitbooks.io/w3school-scala/content/10-7.html" target="_blank" rel="external">Scala 匿名函数</a></p>
 
       
     </div>
@@ -390,17 +369,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/18/hibernate加载配置文件的两种方式/" rel="next" title="hibernate加载配置文件的两种方式">
-                <i class="fa fa-chevron-left"></i> hibernate加载配置文件的两种方式
+              <a href="/2016/10/12/scala的特质/" rel="next" title="scala的特质">
+                <i class="fa fa-chevron-left"></i> scala的特质
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/18/hibernate的crud操作/" rel="prev" title="hibernate的crud操作">
-                hibernate的crud操作 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -426,8 +401,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/18/hibernate加载顺序/"
-           data-title="hibernate加载顺序" data-url="http://xinpan2.github.io/2016/08/18/hibernate加载顺序/">
+      <div class="ds-thread" data-thread-key="2016/10/12/高阶函数/"
+           data-title="高阶函数" data-url="http://xinpan2.github.io/2016/10/12/高阶函数/">
       </div>
     
   </div>
@@ -531,7 +506,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#匿名函数"><span class="nav-number">1.</span> <span class="nav-text">匿名函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#柯里化"><span class="nav-number">2.</span> <span class="nav-text">柯里化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用"><span class="nav-number">3.</span> <span class="nav-text">应用</span></a></li></ol></div>
             
           </div>
         </section>
