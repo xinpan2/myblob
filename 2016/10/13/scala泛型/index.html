@@ -84,28 +84,32 @@
 
 
 
-<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+<meta name="description" content="现在我们来讲讲scala的泛型，在java中我们也学习过泛型，我们暂且也可以借助在java中对泛型的理解来认识一下scala的泛型。
+首先我们来讲讲scala中泛型的定义：
 
-要知道java虚拟机是什么，从虚拟机定义开始：虚拟机是模拟某种计算机体系结构，用来执行某种特定指令集的软件。
-虚拟机分成系统虚拟机（VM ware 、Virtual box）和进程虚拟机（ad">
+使用MyGeneric接收所有类型，然后调用其中的show方法来输出当前对象。
+谈到泛型，我们总是对泛型的类型加以限定，比如说上限和下限，不过一般情况下上限使用的多。在scala中，上限使用:&amp;lt;表示，下限用:&amp;gt;表">
 <meta property="og:type" content="article">
-<meta property="og:title" content="什么是JVM？为什么java被称作是平台无关的编程语言？">
-<meta property="og:url" content="http://xinpan2.github.io/2016/08/18/什么是JVM？为什么java被称作是平台无关的编程语言？/index.html">
+<meta property="og:title" content="scala泛型">
+<meta property="og:url" content="http://xinpan2.github.io/2016/10/13/scala泛型/index.html">
 <meta property="og:site_name" content="Path">
-<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+<meta property="og:description" content="现在我们来讲讲scala的泛型，在java中我们也学习过泛型，我们暂且也可以借助在java中对泛型的理解来认识一下scala的泛型。
+首先我们来讲讲scala中泛型的定义：
 
-要知道java虚拟机是什么，从虚拟机定义开始：虚拟机是模拟某种计算机体系结构，用来执行某种特定指令集的软件。
-虚拟机分成系统虚拟机（VM ware 、Virtual box）和进程虚拟机（ad">
-<meta property="og:updated_time" content="2016-08-18T13:07:25.162Z">
+使用MyGeneric接收所有类型，然后调用其中的show方法来输出当前对象。
+谈到泛型，我们总是对泛型的类型加以限定，比如说上限和下限，不过一般情况下上限使用的多。在scala中，上限使用:&amp;lt;表示，下限用:&amp;gt;表">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%B3%9B%E5%9E%8B1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%B3%9B%E5%9E%8B2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%B3%9B%E5%9E%8B3.png">
+<meta property="og:updated_time" content="2016-10-13T16:50:04.425Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="什么是JVM？为什么java被称作是平台无关的编程语言？">
-<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-所有文章出现的代码，将会出现在我的github中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。
+<meta name="twitter:title" content="scala泛型">
+<meta name="twitter:description" content="现在我们来讲讲scala的泛型，在java中我们也学习过泛型，我们暂且也可以借助在java中对泛型的理解来认识一下scala的泛型。
+首先我们来讲讲scala中泛型的定义：
 
-要知道java虚拟机是什么，从虚拟机定义开始：虚拟机是模拟某种计算机体系结构，用来执行某种特定指令集的软件。
-虚拟机分成系统虚拟机（VM ware 、Virtual box）和进程虚拟机（ad">
+使用MyGeneric接收所有类型，然后调用其中的show方法来输出当前对象。
+谈到泛型，我们总是对泛型的类型加以限定，比如说上限和下限，不过一般情况下上限使用的多。在scala中，上限使用:&amp;lt;表示，下限用:&amp;gt;表">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%B3%9B%E5%9E%8B1.png">
 
 
 
@@ -126,9 +130,9 @@
 
 
 
-  <link rel="canonical" href="http://xinpan2.github.io/2016/08/18/什么是JVM？为什么java被称作是平台无关的编程语言？/"/>
+  <link rel="canonical" href="http://xinpan2.github.io/2016/10/13/scala泛型/"/>
 
-  <title> 什么是JVM？为什么java被称作是平台无关的编程语言？ | Path </title>
+  <title> scala泛型 | Path </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -258,7 +262,7 @@
             
             
               
-                什么是JVM？为什么java被称作是平台无关的编程语言？
+                scala泛型
               
             
           </h1>
@@ -270,8 +274,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-18T09:07:00+08:00" content="2016-08-18">
-              2016-08-18
+            <time itemprop="dateCreated" datetime="2016-10-13T22:49:14+08:00" content="2016-10-13">
+              2016-10-13
             </time>
           </span>
 
@@ -284,8 +288,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/java基础/" itemprop="url" rel="index">
-                    <span itemprop="name">java基础</span>
+                  <a href="/categories/scala入门/" itemprop="url" rel="index">
+                    <span itemprop="name">scala入门</span>
                   </a>
                 </span>
 
@@ -300,8 +304,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/18/什么是JVM？为什么java被称作是平台无关的编程语言？/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/18/什么是JVM？为什么java被称作是平台无关的编程语言？/" itemprop="commentsCount"></span>
+                <a href="/2016/10/13/scala泛型/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/13/scala泛型/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -324,28 +328,14 @@
       
 
       
-        <p>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</p>
-<p>所有文章出现的代码，将会出现在<a href="https://github.com/xinpan2" target="_blank" rel="external">我的github</a>中，名字可以根据类全名来找，我在github中的文件夹也会加目录备注。</p>
-<hr>
-<p>要知道java虚拟机是什么，从虚拟机定义开始：虚拟机是模拟某种计算机体系结构，用来执行某种特定指令集的软件。</p>
-<p>虚拟机分成系统虚拟机（VM ware 、Virtual box）和进程虚拟机（adobe flash player 、JVM等等），如果进一步细分，再加上高级语言的筛选，就有jvm、.net ClR 。</p>
-<h1 id="怎样才算是JVM"><a href="#怎样才算是JVM" class="headerlink" title="怎样才算是JVM ?"></a>怎样才算是JVM ?</h1><p>jvm。</p>
-<p>Java被称为平台无关的编程语言是由于JRE 中JVM 的功能，关于为什么能一次编译，到处运行（首先的要求是计算机装有JVM）</p>
-<p>首先，编译分成两步：</p>
-<ul>
-<li><p>由java源代码到字节码文件</p>
-</li>
-<li><p>JVM解析字节码，通过类加载等一系列步骤，把字节码文件“翻译”成本地可以执行的代码</p>
-</li>
-</ul>
-<p>因为JVM只认字节码文件，与java程序无关，在编译时，把java源码编译成字节码文件，然后在（当前平台的）JVM中生成本地代码[为什么是当前平台呢？因为不同操作系统某些指令有不同的表现方式]。</p>
-<p><strong><em>在这里需要注意的是:</em></strong>由于在JRE中生成的字节码文件，所以为了更好的确保“一次编译，到处运行”，最好使用同样版本的JRE ，否则可能会出现不兼容的现象（比如说在jdk1.5中生成的字节码，并且使用了泛型等新特性，但是在其他机器上使用jdk1.4来执行该字节码文件）。</p>
-<p>参考资料：</p>
-<p><a href="http://www.jikexueyuan.com/course/1793.html" target="_blank" rel="external">Java 虚拟机和 Java 内存区域概述</a></p>
-<p><a href="http://blog.csdn.net/wangyongxia921/article/details/28117155/" target="_blank" rel="external">JAVA的一次编译，到处运行，你知道多少？</a></p>
-<p><a href="http://www.cubrid.org/blog/dev-platform/understanding-jvm-internals/" target="_blank" rel="external">深入理解JVM内幕 英文版</a></p>
-<p><a href="http://blog.csdn.net/luojinping/article/details/6870895" target="_blank" rel="external">java的所谓一次编译，到处运行</a></p>
-<hr>
+        <p>现在我们来讲讲scala的泛型，在java中我们也学习过泛型，我们暂且也可以借助在java中对泛型的理解来认识一下scala的泛型。</p>
+<p>首先我们来讲讲scala中泛型的定义：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%B3%9B%E5%9E%8B1.png" alt=""></p>
+<p>使用MyGeneric接收所有类型，然后调用其中的show方法来输出当前对象。</p>
+<p>谈到泛型，我们总是对泛型的类型加以限定，比如说上限和下限，不过一般情况下上限使用的多。在scala中，上限使用<code>:&lt;</code>表示，下限用<code>:&gt;</code>表示，下面看例子：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%B3%9B%E5%9E%8B2.png" alt=""></p>
+<p>我们使用一个Zoo类来接收Animal的子类，然后我们使用Cat对象，传入，并且调用isOK方法，调用成功，但是当我们把person对象传给Zoo时，报错如下：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%B3%9B%E5%9E%8B3.png" alt=""></p>
 
       
     </div>
@@ -371,17 +361,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/18/sql语句的调优/" rel="next" title="sql语句的调优">
-                <i class="fa fa-chevron-left"></i> sql语句的调优
+              <a href="/2016/10/13/模式匹配/" rel="next" title="模式匹配">
+                <i class="fa fa-chevron-left"></i> 模式匹配
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/18/java自动拆装箱/" rel="prev" title="java自动拆装箱">
-                java自动拆装箱 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -407,8 +393,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/18/什么是JVM？为什么java被称作是平台无关的编程语言？/"
-           data-title="什么是JVM？为什么java被称作是平台无关的编程语言？" data-url="http://xinpan2.github.io/2016/08/18/什么是JVM？为什么java被称作是平台无关的编程语言？/">
+      <div class="ds-thread" data-thread-key="2016/10/13/scala泛型/"
+           data-title="scala泛型" data-url="http://xinpan2.github.io/2016/10/13/scala泛型/">
       </div>
     
   </div>
@@ -512,7 +498,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#怎样才算是JVM"><span class="nav-number">1.</span> <span class="nav-text">怎样才算是JVM ?</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
