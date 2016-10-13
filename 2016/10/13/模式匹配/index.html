@@ -1,0 +1,690 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+讲完高阶函数之后，现在我们来看看模式匹配，模式匹配大家可以根据java中的switch语句的理解来对模式匹配有个大概的印象。
+模式匹配主要讲的是类型匹配、类匹配、参数匹配等等，样例类和闭包类是对模式匹配使用的一种优化。
+大家先来看一个例子：
+
+例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模式匹配">
+<meta property="og:url" content="http://xinpan2.github.io/2016/10/13/模式匹配/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+讲完高阶函数之后，现在我们来看看模式匹配，模式匹配大家可以根据java中的switch语句的理解来对模式匹配有个大概的印象。
+模式匹配主要讲的是类型匹配、类匹配、参数匹配等等，样例类和闭包类是对模式匹配使用的一种优化。
+大家先来看一个例子：
+
+例">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D3.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D4.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D5.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D6.png">
+<meta property="og:updated_time" content="2016-10-13T10:57:52.333Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="模式匹配">
+<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+讲完高阶函数之后，现在我们来看看模式匹配，模式匹配大家可以根据java中的switch语句的理解来对模式匹配有个大概的印象。
+模式匹配主要讲的是类型匹配、类匹配、参数匹配等等，样例类和闭包类是对模式匹配使用的一种优化。
+大家先来看一个例子：
+
+例">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D2.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/10/13/模式匹配/"/>
+
+  <title> 模式匹配 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                模式匹配
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-13T17:50:21+08:00" content="2016-10-13">
+              2016-10-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/scala入门/" itemprop="url" rel="index">
+                    <span itemprop="name">scala入门</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/13/模式匹配/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/13/模式匹配/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong><em>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</em></strong></p>
+<p><strong><em>本文代码在<a href="https://github.com/xinpan2/scala-/tree/master/patternmatch" target="_blank" rel="external">这里</a>，其他文章的代码从<a href="https://github.com/xinpan2?tab=repositories" target="_blank" rel="external">这里</a>可以找到，记得对号入座！！！</em></strong></p>
+<p>讲完高阶函数之后，现在我们来看看模式匹配，模式匹配大家可以根据java中的switch语句的理解来对模式匹配有个大概的印象。</p>
+<p>模式匹配主要讲的是类型匹配、类匹配、参数匹配等等，样例类和闭包类是对模式匹配使用的一种优化。</p>
+<p>大家先来看一个例子：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D2.png" alt=""></p>
+<p>例子中我们对集合List进行了匹配，虽然说List是一个类，但是也被放到了参数栏，这是因为，scala中对list的泛型进行了类型擦除，在测试中list和list2分别是字符串集合、Int集合，但是都可以匹配<code>_:List[_]</code>,map也是同样的道理，但是Array不同，因为我们在定义时就已经明确了数组的类型，它不涉及到泛型，所以对于数组的匹配，可以直接用<code>case Array(参数) =&gt; {执行函数}</code>。</p>
+<h1 id="样例类"><a href="#样例类" class="headerlink" title="样例类"></a>样例类</h1><p>在进行类类型的匹配时，我们可以使用样例类，通过在类定义前直接加上case关键字：</p>
+<p><code>case class 类名</code></p>
+<p>样例类的使用场景一般都在子类中使用，因为这些子类继承自同一父类，所以需要使用到类类型匹配来确定当前类属于哪个子类。</p>
+<p>实例：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D3.png" alt=""></p>
+<h2 id="闭包类"><a href="#闭包类" class="headerlink" title="闭包类"></a>闭包类</h2><p>对于使用了sealed关键字修饰的类，称为闭包类，这个类禁止在除了当前类所在的类文件中之外的地方定义该类的子类。</p>
+<p>在实例中，我们对父类Person进行定义时使用了sealed关键字，这个关键字意味着，不能在该类所在文件之外的文件定义Person的子类，因为很多时候我们进行类型匹配时会遗漏掉一些类，并且如果Person的子类在其他文件中定义时，我们就更难发现了。对于这种情况的解决方法之一是通过对父类使用sealed关键字，第二种方法就是在匹配方法体中的最后一行，增加一个通配方法，使得不在定义范围的类型输出其他结果，这样可以避免在运行时遇到没有定义的类而报错！</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D4.png" alt=""></p>
+<p>通过增加通配匹配：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D5.png" alt=""></p>
+<p>在测试中1，我使用了Animal类跟person类进行了对比了toString方法，从输出的结果可以看到：样例类会字段来输出个类的信息，但是对于非样例类，它输出的却是hashcode。对于样例类，除了重写了toString方法之外， 还重写了equals、hashCode和copy方法。</p>
+<h1 id="偏函数（PartialFunction）"><a href="#偏函数（PartialFunction）" class="headerlink" title="偏函数（PartialFunction）"></a>偏函数（PartialFunction）</h1><p>偏函数PartialFcuntion是scala中的一个类，我们可以通过这个类来限定函数的输入，可以先通过这个类的<code>sDefinedAt(输入)</code>方法首先判断要输入的参数是否能够被处理，如果不能就返回false，反之为true。</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D6.png" alt=""></p>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="http://www.cnblogs.com/nod0620/articles/2240266.html" target="_blank" rel="external">scala 模式匹配</a></p>
+<p><a href="http://www.runoob.com/scala/scala-pattern-matching.html" target="_blank" rel="external">scala 模式匹配</a></p>
+<p><a href="https://twitter.github.io/scala_school/zh_cn/pattern-matching-and-functional-composition.html" target="_blank" rel="external">模式匹配与函数组合</a></p>
+<p><a href="https://windor.gitbooks.io/beginners-guide-to-scala/content/chp4-pattern-matching-anonymous-functions.html" target="_blank" rel="external">模式匹配与匿名函数</a></p>
+<p><a href="http://hongjiang.info/scala-pattern-matching-1/" target="_blank" rel="external">话说模式匹配(1): 什么是模式？</a></p>
+<p><a href="http://blog.csdn.net/lovehuangjiaju/article/details/47187639" target="_blank" rel="external"> Scala入门到精通——第十五节 Case Class与模式匹配（二）</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/12/高阶函数/" rel="next" title="高阶函数">
+                <i class="fa fa-chevron-left"></i> 高阶函数
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/13/模式匹配/"
+           data-title="模式匹配" data-url="http://xinpan2.github.io/2016/10/13/模式匹配/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">203</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/andy_px" target="_blank" title="CSDN" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#样例类"><span class="nav-number">1.</span> <span class="nav-text">样例类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#闭包类"><span class="nav-number">1.1.</span> <span class="nav-text">闭包类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#偏函数（PartialFunction）"><span class="nav-number">2.</span> <span class="nav-text">偏函数（PartialFunction）</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
