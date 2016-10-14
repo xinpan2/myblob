@@ -1,0 +1,695 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+在以前我们可以说：“java中也有并发包，用来写出线程安全并且高吞吐量的代码却不是一件简单的事，这是因为在java中，我们使用共享资源（锁）、定义volatile变量的方式来实现并发”，但是在jdk8中也有Actor的实现，其中的作用，跟接下来我">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Actor并发模型">
+<meta property="og:url" content="http://xinpan2.github.io/2016/10/14/Actor并发模型/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+在以前我们可以说：“java中也有并发包，用来写出线程安全并且高吞吐量的代码却不是一件简单的事，这是因为在java中，我们使用共享资源（锁）、定义volatile变量的方式来实现并发”，但是在jdk8中也有Actor的实现，其中的作用，跟接下来我">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B3.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B4.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B5.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B8.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B9.png">
+<meta property="og:updated_time" content="2016-10-14T16:52:10.381Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Actor并发模型">
+<meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
+本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+在以前我们可以说：“java中也有并发包，用来写出线程安全并且高吞吐量的代码却不是一件简单的事，这是因为在java中，我们使用共享资源（锁）、定义volatile变量的方式来实现并发”，但是在jdk8中也有Actor的实现，其中的作用，跟接下来我">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/10/14/Actor并发模型/"/>
+
+  <title> Actor并发模型 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Actor并发模型
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-14T22:33:48+08:00" content="2016-10-14">
+              2016-10-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/scala入门/" itemprop="url" rel="index">
+                    <span itemprop="name">scala入门</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/14/Actor并发模型/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/14/Actor并发模型/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong><em>版权声明：本站采用开放的<a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="external">[知识共享署名-非商业性使用-相同方式共享 许可协议]</a>进行许可</em></strong></p>
+<p><strong><em>本文代码在<a href="https://github.com/xinpan2/scala-/tree/master/actormodel" target="_blank" rel="external">这里</a>，其他文章的代码从<a href="https://github.com/xinpan2?tab=repositories" target="_blank" rel="external">这里</a>可以找到，记得对号入座！！！</em></strong></p>
+<p>在以前我们可以说：“java中也有并发包，用来写出线程安全并且高吞吐量的代码却不是一件简单的事，这是因为在java中，我们使用共享资源（锁）、定义volatile变量的方式来实现并发”，但是在jdk8中也有Actor的实现，其中的作用，跟接下来我们要讲的akka.Actor作用相似。</p>
+<p>在scala中，实现actor模型有两种方式，一种是scala.Actor,另外一种就是akka.Actor,其中前面一种是发明scala的人写的，后面那种是另外一位高人写的，为什么叫他高人，因为他写出来的akka框架连发明者都自叹不如，并且目前，scala.Actor已经是过时的类了，scala推荐使用akka.Actor来进行并发的开发。Actor不单单在scala中才有，在其他语言中也有，它的并发模型使用<code>share-nothing</code>的方针，减少了死锁的发生几率，在actor并发模型都是通过发送消息来通信，每一个actor中都有独自的邮箱来接收消息。</p>
+<p>现在我们通过具体的例子来讲解Actor：</p>
+<h1 id="scala-Actor"><a href="#scala-Actor" class="headerlink" title="scala.Actor"></a>scala.Actor</h1><p>scala的Actor使用步骤：</p>
+<ul>
+<li>创建一个类，继承scala.Actor</li>
+<li>创建act方法</li>
+<li>在act方法中创建receive方法，在这个方法体进行参数匹配，这个方法体是一个偏函数</li>
+<li>actor对传入的消息处理</li>
+</ul>
+<p>具体实现：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B1.png" alt=""></p>
+<p>在例子中，我们还用另外一种方法生成actor对象，即直接使用<code>scala.actors.Actor.actor</code>，使用前记得导包，否则报错。</p>
+<p>细心的人可能观察到，在例子中有一个死循环，这是因为receive方法，每次只能处理一个消息，所以我们需要使用一个死循环来解决，后者我们在每次类型匹配之后，重新调用一次act方法：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B2.png" alt=""></p>
+<p>解决方法一：在每个匹配项执行完都再调用一次act方法</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B3.png" alt=""></p>
+<p>但是鉴于这种方法比较麻烦，所以还是推荐我们使用while循环，但是不要定义死循环，还需要定义一个”开关“：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B4.png" alt=""></p>
+<h2 id="react"><a href="#react" class="headerlink" title="react"></a>react</h2><p>在前面的例子中我们使用receive方法来进行类型匹配，每次匹配完毕之后，都会释放当前的线会造成每次调用都要重新获取一次线程，但是每次线程的创建和销毁都需要消耗资源，所以我们应该让这些线程能够复用，所以现在就有了react方法：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B5.png" alt=""></p>
+<h1 id="获取消息的回复"><a href="#获取消息的回复" class="headerlink" title="获取消息的回复"></a>获取消息的回复</h1><p>当我们对某个actor发送消息时，如果使用<code>!?</code>符号则代表等待返回才执行下一个消息：下图是动态图</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B8.png" alt=""></p>
+<p>例子中我对第一个消息的回复暂停了5秒，大家可以看到其他消息只有等这条消息成功回复才继续执行下面的消息发送。</p>
+<h1 id="akka-Actor"><a href="#akka-Actor" class="headerlink" title="akka.Actor"></a>akka.Actor</h1><p>现在我们来讲讲怎样使用akka的Actor：</p>
+<ul>
+<li>new一个ActorSystem</li>
+<li>调用ActorSystem的actorOf(Prop[Actor类])方法，prop要自己导包，<code>akka.actors.Actor.Prop</code>,生成actor对象</li>
+<li>往actor对象中传送消息</li>
+<li>使用ActorSystem的shutdown方法来关闭actorSystem</li>
+</ul>
+<p>具体实现：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B9.png" alt=""></p>
+<p>在这里我只是简单的介绍下怎样使用akka的Actor来发送消息，其他的高级功能大家可以根据相关书籍或者API来了解！</p>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="http://blog.csdn.net/lovehuangjiaju/article/details/47623177#t3" target="_blank" rel="external">Scala入门到精通——第二十六节 Scala并发编程基础</a></p>
+<p><a href="http://developer.51cto.com/art/201001/178665.htm" target="_blank" rel="external">Scala Actor与底层并发编程机制异同之探讨</a></p>
+<p><a href="http://www.caimi.la/2014/06/05/scalaxue-xi-bi-ji-4-actorbian-cheng.html" target="_blank" rel="external">Scala学习笔记（4）：Akka Actor编程</a></p>
+<p><a href="http://www.infoq.com/cn/news/2014/11/intro-actor-model" target="_blank" rel="external">以Akka为示例，介绍Actor模型</a></p>
+<p><a href="https://www.ibm.com/developerworks/cn/java/j-jvmc5/" target="_blank" rel="external">JVM 并发性: 使用 Akka 执行异步操作</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/14/注解/" rel="next" title="注解">
+                <i class="fa fa-chevron-left"></i> 注解
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/14/Actor并发模型/"
+           data-title="Actor并发模型" data-url="http://xinpan2.github.io/2016/10/14/Actor并发模型/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">206</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/andy_px" target="_blank" title="CSDN" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#scala-Actor"><span class="nav-number">1.</span> <span class="nav-text">scala.Actor</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#react"><span class="nav-number">1.1.</span> <span class="nav-text">react</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取消息的回复"><span class="nav-number">2.</span> <span class="nav-text">获取消息的回复</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#akka-Actor"><span class="nav-number">3.</span> <span class="nav-text">akka.Actor</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
