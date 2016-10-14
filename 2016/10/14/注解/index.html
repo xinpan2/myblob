@@ -84,40 +84,21 @@
 
 
 
-<meta name="description" content="存储机制现在我们来讨论一下hbase的表是怎样存储的：
-
-对于我们在hbase中定义的一张大表，里面涉及到非常多行，假设有20亿行，这么大的表，hbase把它存储到哪里呢？如果存储到单节点的本地文件系统中，肯定不科学， 因为数据库涉及到随机、实时的读写操作。
-其实，hbase把每个表按照指定的范围划分表中的内容为N个region块，并把这些块存储在Region Server中。
-
-如上图所示，所有">
+<meta name="description" content="现在我们来谈谈scala中的注解，在java中我们也接触到了注解，尤其在学习三大框架时，我们经常使用注解来代替写xml文件，虽然配置了注解之后，需要扫描执行范围的类，但是对于不太大的项目，使用注解的方式来代替编写xml文件是一种明智的选择。
+虽然网上有人说在java中使用注解并不会影响编译器的运行，但是我觉得会，比如我们使用@Before时，这个注解对于全局的处理来说很有用，比如我们为这个类执行之">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hbase的存储机制及寻址机制">
-<meta property="og:url" content="http://xinpan2.github.io/2016/09/10/hbase的存储机制及寻址机制/index.html">
+<meta property="og:title" content="注解">
+<meta property="og:url" content="http://xinpan2.github.io/2016/10/14/注解/index.html">
 <meta property="og:site_name" content="Path">
-<meta property="og:description" content="存储机制现在我们来讨论一下hbase的表是怎样存储的：
-
-对于我们在hbase中定义的一张大表，里面涉及到非常多行，假设有20亿行，这么大的表，hbase把它存储到哪里呢？如果存储到单节点的本地文件系统中，肯定不科学， 因为数据库涉及到随机、实时的读写操作。
-其实，hbase把每个表按照指定的范围划分表中的内容为N个region块，并把这些块存储在Region Server中。
-
-如上图所示，所有">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B6.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B61.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B62.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B63.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B64.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B65.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B67.png">
-<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B68.png">
-<meta property="og:updated_time" content="2016-09-11T02:34:04.676Z">
+<meta property="og:description" content="现在我们来谈谈scala中的注解，在java中我们也接触到了注解，尤其在学习三大框架时，我们经常使用注解来代替写xml文件，虽然配置了注解之后，需要扫描执行范围的类，但是对于不太大的项目，使用注解的方式来代替编写xml文件是一种明智的选择。
+虽然网上有人说在java中使用注解并不会影响编译器的运行，但是我觉得会，比如我们使用@Before时，这个注解对于全局的处理来说很有用，比如我们为这个类执行之">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%B3%A8%E8%A7%A31.png">
+<meta property="og:updated_time" content="2016-10-14T03:33:02.105Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hbase的存储机制及寻址机制">
-<meta name="twitter:description" content="存储机制现在我们来讨论一下hbase的表是怎样存储的：
-
-对于我们在hbase中定义的一张大表，里面涉及到非常多行，假设有20亿行，这么大的表，hbase把它存储到哪里呢？如果存储到单节点的本地文件系统中，肯定不科学， 因为数据库涉及到随机、实时的读写操作。
-其实，hbase把每个表按照指定的范围划分表中的内容为N个region块，并把这些块存储在Region Server中。
-
-如上图所示，所有">
-<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B6.png">
+<meta name="twitter:title" content="注解">
+<meta name="twitter:description" content="现在我们来谈谈scala中的注解，在java中我们也接触到了注解，尤其在学习三大框架时，我们经常使用注解来代替写xml文件，虽然配置了注解之后，需要扫描执行范围的类，但是对于不太大的项目，使用注解的方式来代替编写xml文件是一种明智的选择。
+虽然网上有人说在java中使用注解并不会影响编译器的运行，但是我觉得会，比如我们使用@Before时，这个注解对于全局的处理来说很有用，比如我们为这个类执行之">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%B3%A8%E8%A7%A31.png">
 
 
 
@@ -138,9 +119,9 @@
 
 
 
-  <link rel="canonical" href="http://xinpan2.github.io/2016/09/10/hbase的存储机制及寻址机制/"/>
+  <link rel="canonical" href="http://xinpan2.github.io/2016/10/14/注解/"/>
 
-  <title> hbase的存储机制及寻址机制 | Path </title>
+  <title> 注解 | Path </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -270,7 +251,7 @@
             
             
               
-                hbase的存储机制及寻址机制
+                注解
               
             
           </h1>
@@ -282,8 +263,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-10T21:21:29+08:00" content="2016-09-10">
-              2016-09-10
+            <time itemprop="dateCreated" datetime="2016-10-14T10:45:06+08:00" content="2016-10-14">
+              2016-10-14
             </time>
           </span>
 
@@ -296,8 +277,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">hadoop笔记</span>
+                  <a href="/categories/scala入门/" itemprop="url" rel="index">
+                    <span itemprop="name">scala入门</span>
                   </a>
                 </span>
 
@@ -312,8 +293,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/10/hbase的存储机制及寻址机制/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/10/hbase的存储机制及寻址机制/" itemprop="commentsCount"></span>
+                <a href="/2016/10/14/注解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/14/注解/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -336,42 +317,21 @@
       
 
       
-        <h1 id="存储机制"><a href="#存储机制" class="headerlink" title="存储机制"></a>存储机制</h1><p>现在我们来讨论一下hbase的表是怎样存储的：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B6.png" alt=""></p>
-<p>对于我们在hbase中定义的一张大表，里面涉及到非常多行，假设有20亿行，这么大的表，hbase把它存储到哪里呢？如果存储到单节点的本地文件系统中，肯定不科学， 因为数据库涉及到随机、实时的读写操作。</p>
-<p>其实，hbase把每个表按照指定的范围划分表中的内容为N个region块，并把这些块存储在Region Server中。</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B61.png" alt=""></p>
-<p>如上图所示，所有的region被存储到regionServer中，这些进程运行到跟DataNode一样的主机上是比较好的解决方案，这样就不用设计到网络IO传输。</p>
-<p>但是只有regionServer肯定是不安全的，如果万一有哪台regionServer宕机了呢？谁来调度？谁来感应？</p>
-<p>hbase中使用hmaster来管理这些regionServer</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B62.png" alt=""></p>
-<p>这个HMaster只完成两件事：</p>
-<ul>
-<li><p>对于regionServer状态的管理：这样就可以知道有哪些regionServer能够工作，而哪些不行</p>
-</li>
-<li><p>对于regionServer的负载均衡</p>
-</li>
-<li><p>hmaster不进行region块的存储！！！</p>
-</li>
-</ul>
-<p>此时存储在regionServer中的region块，会以HFile的形式存储在HDFS中。</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B63.png" alt=""></p>
-<p>我们知道，一个hbase中不可能只有一张表，所以对于region的管理也不可能仅仅使用regionServer就能解决，一旦涉及到的表多了，regionServer中的region块也会多， 这时候就会造成有很多块，于是hbase把这些块存储在meta表中，这张表是hbase的系统表，里面记录着每个region块的位置。</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B64.png" alt=""></p>
-<p>这张表中记录了hbase中的所有region块的信息，当然这张表可能存储的信息量非常大，因为hbase支持每张表的规格为几十亿行*几百万列，如果hbase中有非常多个这样的表，那么这个meta表也可能有非常多的记录，hbase对于这种情况，把meta表也用分布式来存储，即把meta表也分成很多个region</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B65.png" alt=""></p>
-<p>这个ROOT表的位置在ZK中设置</p>
-<p>完成的hbase存储机制：</p>
-<p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B67.png" alt=""></p>
-<h1 id="region的细节"><a href="#region的细节" class="headerlink" title="region的细节"></a>region的细节</h1><p><img src="http://7xritp.com1.z0.glb.clouddn.com/hbase%E7%9A%84%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B68.png" alt=""></p>
-<h1 id="寻址机制"><a href="#寻址机制" class="headerlink" title="寻址机制"></a>寻址机制</h1><p>如果我们要查找表1中的第十一万行数据，应该怎样查找呢？</p>
-<p>就是上面那张图的倒序……</p>
-<p>首先从zk中读取root表的信息，再根据我们要找的行数，十一万行，招待指定的region存储节点，然后再找到指定的meta表，找到相应的行所在的主机，然后再得到这一行的数据！</p>
-<p>其中meta表和root表不用每次读取，第一次读取之后，就可以缓存下来。</p>
+        <p>现在我们来谈谈scala中的注解，在java中我们也接触到了注解，尤其在学习三大框架时，我们经常使用注解来代替写xml文件，虽然配置了注解之后，需要扫描执行范围的类，但是对于不太大的项目，使用注解的方式来代替编写xml文件是一种明智的选择。</p>
+<p>虽然网上有人说在java中使用注解并不会影响编译器的运行，但是我觉得会，比如我们使用<code>@Before</code>时，这个注解对于全局的处理来说很有用，比如我们为这个类执行之前先加载的数据等。</p>
+<p>我们来讲讲scala中比较常见的注解及其中的工作原理：</p>
+<h1 id="deprecated"><a href="#deprecated" class="headerlink" title="@deprecated"></a><code>@deprecated</code></h1><p>关于<code>@deprecated</code>注解，在java中我们也经常看见，随便打开一个jdk类的源码，都可以看到这个注解的身影，在java中这个注解用来标识这个方法或者类已经过时了，有其他方法代替它，但是不会从源码中删掉这个方法，这是因为有些老项目是用这些现在已经过时的方法完成的，如果删除掉这些过时的方法，那么这些项目就会出错了，使用过时的注解能让jdk在迭代更新时具有更好的兼容性。</p>
+<p>这是scala中某一个类的源码：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/scala%E6%B3%A8%E8%A7%A31.png" alt=""></p>
+<p>在里面大家可以看到这个注解，在使用这个注解时，需要在该成员的定义之前声明这个注解，并且可以为该注解添加参数，这个参数就是当客户端在调用该过时方法时的提示。</p>
+<h1 id="volatile"><a href="#volatile" class="headerlink" title="@volatile"></a><code>@volatile</code></h1><p>关于这个注解，相信看过《深入理解jvm》都有所印象，在jdk1.5中，JSR对volatile语义（sematic）有了进一步的增强，让volatile具有轻量锁的作用，即，多线程对volatile变量的读相当于锁的释放，对其的写相当于锁的获取。这样对该变量对于其他线程的可见性具有很大的作用。</p>
+<h1 id="tailrec"><a href="#tailrec" class="headerlink" title="@tailrec"></a><code>@tailrec</code></h1><p>这个注解在前面的告诫函数中使用过，使用这个注解的作用就是尾递归的作用，使后面入栈的方法不会在栈中开辟新的空间，而是直接覆盖刚刚的方法，这样就不会出现StackOverFlow的异常了。</p>
+<p>还有更多的注解需要大家在使用的过程中慢慢体会~！！！</p>
 <p>【全文完】</p>
 <p>参考资料：</p>
-<p><a href="http://pan.baidu.com/s/1kVhjkIr" target="_blank" rel="external">07-hbase集群架构及表存储机制</a></p>
-<p><a href="http://www.searchtb.com/2011/01/understanding-hbase.html" target="_blank" rel="external">HBase技术介绍</a></p>
+<p><a href="http://www.jianshu.com/p/2c3ad12a8d5e" target="_blank" rel="external">快学Scala第15章—-注解</a></p>
+<p><a href="http://roadtopro.me/scala/annotation/" target="_blank" rel="external">Scala基础之注解(annotation)</a></p>
+<p><a href="https://zhoujiagen.gitbooks.io/notes-of-scala-for-the-impatient/content/15-注解.html" target="_blank" rel="external">15-注解</a></p>
 
       
     </div>
@@ -397,17 +357,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/09/10/HBase表的结构/" rel="next" title="HBase表的结构">
-                <i class="fa fa-chevron-left"></i> HBase表的结构
+              <a href="/2016/10/13/scala泛型/" rel="next" title="scala泛型">
+                <i class="fa fa-chevron-left"></i> scala泛型
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/09/11/hbase集群部署/" rel="prev" title="hbase集群部署">
-                hbase集群部署 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -433,8 +389,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/09/10/hbase的存储机制及寻址机制/"
-           data-title="hbase的存储机制及寻址机制" data-url="http://xinpan2.github.io/2016/09/10/hbase的存储机制及寻址机制/">
+      <div class="ds-thread" data-thread-key="2016/10/14/注解/"
+           data-title="注解" data-url="http://xinpan2.github.io/2016/10/14/注解/">
       </div>
     
   </div>
@@ -538,7 +494,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#存储机制"><span class="nav-number">1.</span> <span class="nav-text">存储机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#region的细节"><span class="nav-number">2.</span> <span class="nav-text">region的细节</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#寻址机制"><span class="nav-number">3.</span> <span class="nav-text">寻址机制</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#deprecated"><span class="nav-number">1.</span> <span class="nav-text">@deprecated</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#volatile"><span class="nav-number">2.</span> <span class="nav-text">@volatile</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tailrec"><span class="nav-number">3.</span> <span class="nav-text">@tailrec</span></a></li></ol></div>
             
           </div>
         </section>
