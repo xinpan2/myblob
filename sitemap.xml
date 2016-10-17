@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://xinpan2.github.io/2016/08/18/%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6/</loc>
+    
+    <lastmod>2016-10-16T18:17:11.174Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xinpan2.github.io/2016/09/01/hadoop2-4-1%E9%9B%86%E7%BE%A4%E7%9A%84%E6%90%AD%E5%BB%BA/</loc>
+    
+    <lastmod>2016-10-16T17:48:53.977Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://xinpan2.github.io/2016/10/14/Actor%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B/</loc>
     
     <lastmod>2016-10-14T16:52:10.381Z</lastmod>
@@ -124,20 +138,6 @@
     <loc>http://xinpan2.github.io/2016/09/25/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95%E5%AE%9E%E7%8E%B02/</loc>
     
     <lastmod>2016-09-27T07:28:56.370Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xinpan2.github.io/2016/08/18/%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6/</loc>
-    
-    <lastmod>2016-09-27T07:15:19.857Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xinpan2.github.io/2016/09/01/hadoop2-4-1%E9%9B%86%E7%BE%A4%E7%9A%84%E6%90%AD%E5%BB%BA/</loc>
-    
-    <lastmod>2016-09-27T06:06:00.750Z</lastmod>
     
   </url>
   

@@ -121,7 +121,7 @@ rpm安装包虽然RPM软件打上了红帽系统的表情，但是在很多linux
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B613.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.gif">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F2.gif">
-<meta property="og:updated_time" content="2016-09-27T07:15:19.857Z">
+<meta property="og:updated_time" content="2016-10-16T18:17:11.174Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安装软件">
 <meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
@@ -392,12 +392,14 @@ rpm安装包虽然RPM软件打上了红帽系统的表情，但是在很多linux
 <li>e:删除</li>
 </ul>
 <p>此时提示还有其他软件依赖这些包，要强行删除才能成功安装mysql，所以在命令中加上如下参数：</p>
+<p><code>sudo rpm -e mysql-libs-5.1.66-2.el6_3.i686 --nodeps</code></p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B69.png" alt=""></p>
 <p>此时再进行安装:</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B610.png" alt=""></p>
 <p>在图中出现了^C的字眼，是刚刚我想弄成动态图，可是已经输入了安装命令，并且不能停止……</p>
 <p>注意图中红色框部分内容，是用来设置密码的。</p>
-<p>我们选择下面那一种方法：</p>
+<p>我们选择下面那一种方法,通过指令：</p>
+<p><code>/usr/bin/mysql_secure_installation</code></p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B611.png" alt=""></p>
 <p>需要有一个mysql客户端，所以把客户端也安装了:</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/mysql%E5%AE%89%E8%A3%85.gif" alt=""></p>
