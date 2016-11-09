@@ -1,0 +1,974 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="最近在进一步学习Hadoop生态体系时，一直听到有人说cloudera搭建集群比较方便，于是我现在也来试试，看看是否真如大家所说的那么方便。
+今天稍微看了一下杭州的云栖大会，我就看了一下VIVE和大数据的部分，还有阿里云CEO及马云的演讲，好像喝了鸡汤一样，但是有时间还是要把云栖大会上关于大数据的视频弄到手再看一遍，肯定受益匪浅！只是现在我知识面不够广，所以看起来有些困难~~~加油！现在是DT时代">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在cloudera上搭建Hadoop集群">
+<meta property="og:url" content="http://xinpan2.github.io/2016/10/16/在cloudera上搭建Hadoop集群/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="最近在进一步学习Hadoop生态体系时，一直听到有人说cloudera搭建集群比较方便，于是我现在也来试试，看看是否真如大家所说的那么方便。
+今天稍微看了一下杭州的云栖大会，我就看了一下VIVE和大数据的部分，还有阿里云CEO及马云的演讲，好像喝了鸡汤一样，但是有时间还是要把云栖大会上关于大数据的视频弄到手再看一遍，肯定受益匪浅！只是现在我知识面不够广，所以看起来有些困难~~~加油！现在是DT时代">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E6%90%AD%E5%BB%BA1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA4.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA9.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA50.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA51.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E6%90%AD%E5%BB%BA3.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E6%90%AD%E5%BB%BA7.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA3.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA5.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA6.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA7.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA10.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA11.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA12.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA13.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA14.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA15.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA16.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA17.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA18.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA19.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA20.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA21.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA22.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA23.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA24.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA25.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA26.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA27.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA28.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA32.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA33.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA34.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA35.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA36.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA37.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA38.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA39.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA40.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA41.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA42.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA43.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA44.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA45.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA46.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA47.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA48.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA49.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA52.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA53.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA54.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA55.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA56.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA57.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA58.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA59.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA60.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA62.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA63.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA64.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA66.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA67.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA68.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA69.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA70.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA71.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA72.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA73.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA74.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA75.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA76.png">
+<meta property="og:updated_time" content="2016-11-09T17:20:54.950Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在cloudera上搭建Hadoop集群">
+<meta name="twitter:description" content="最近在进一步学习Hadoop生态体系时，一直听到有人说cloudera搭建集群比较方便，于是我现在也来试试，看看是否真如大家所说的那么方便。
+今天稍微看了一下杭州的云栖大会，我就看了一下VIVE和大数据的部分，还有阿里云CEO及马云的演讲，好像喝了鸡汤一样，但是有时间还是要把云栖大会上关于大数据的视频弄到手再看一遍，肯定受益匪浅！只是现在我知识面不够广，所以看起来有些困难~~~加油！现在是DT时代">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E6%90%AD%E5%BB%BA1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2016/10/16/在cloudera上搭建Hadoop集群/"/>
+
+  <title> 在cloudera上搭建Hadoop集群 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                在cloudera上搭建Hadoop集群
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-16T22:23:22+08:00" content="2016-10-16">
+              2016-10-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/hadoop入门/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop入门</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/16/在cloudera上搭建Hadoop集群/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/16/在cloudera上搭建Hadoop集群/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近在进一步学习Hadoop生态体系时，一直听到有人说cloudera搭建集群比较方便，于是我现在也来试试，看看是否真如大家所说的那么方便。</p>
+<p>今天稍微看了一下杭州的云栖大会，我就看了一下VIVE和大数据的部分，还有阿里云CEO及马云的演讲，好像喝了鸡汤一样，但是有时间还是要把云栖大会上关于大数据的视频弄到手再看一遍，肯定受益匪浅！只是现在我知识面不够广，所以看起来有些困难~~~加油！现在是DT时代？？！下面进入主题，在cloudera上搭建Hadoop集群。</p>
+<p>安装的centos要64位！！</p>
+<p>首先在这里我用到的系统都是新的系统，我用的是刚刚安装完毕的虚拟机，9个节点！设置的ip为<code>192.168.31.11~192.168.31.19</code> 网关还是以前的<code>192.168.31.2</code> 子网掩码是默认的<code>24</code>或<code>255.255.255.0</code>。DNS解析地址需要设置成<code>8.8.8.8</code>，还有网络适配器中的VMNet3其中的DNS也需要设置成<code>8.8.8.8</code>,备用的设置成<code>8.8.4.4</code>,对于设置虚拟机IP的方法我就不在这里说了。</p>
+<p>设置完毕之后，设置好高级网络配置中的VMNet8，把网关设置成跟虚拟机一致：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E6%90%AD%E5%BB%BA1.png" alt=""></p>
+<p>ip地址只要设置成跟虚拟机中的ip地址不冲突即可！</p>
+<h1 id="把新用户添加到sudoers中"><a href="#把新用户添加到sudoers中" class="headerlink" title="把新用户添加到sudoers中"></a>把新用户添加到sudoers中</h1><p>如果你安装Linux时，没有提示让你新建用户，那么就看本文下面的步骤，新建完用户之后再把新建的用户添加到sudoers中。</p>
+<p>通过修改配置文件<code>/etc/sudoers</code>，通过root用户打开这个文件，通过<code>shift+g</code>移动到文件末端，看到如下所示，红色框内是添加后的内容：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA4.png" alt=""></p>
+<p>大家可以根据自己的用户名修改之后保存退出，即可生效。</p>
+<h1 id="添加本机及集群中其他机器的IP地址映射"><a href="#添加本机及集群中其他机器的IP地址映射" class="headerlink" title="添加本机及集群中其他机器的IP地址映射"></a>添加本机及集群中其他机器的IP地址映射</h1><p>通过修改/etc/hosts文件，把该集群的所有主机的iP映射写到文件中，记得把localhost等IP删掉！：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA9.png" alt=""></p>
+<p>其他节点重复这个步骤！</p>
+<p>在Windows中也要修改<code>c:/windows/system32/drivers/hosts</code>中的地址映射：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA50.png" alt=""></p>
+<p>打开hosts文件，并且把相应的主机映射好：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA51.png" alt=""></p>
+<h1 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h1><p>在root用户下通过指令：</p>
+<p><code>service iptables stop</code></p>
+<p>上述指令只是短暂关闭，我们还要关闭全局：</p>
+<p><code>chkconfig iptables off</code></p>
+<p>其他节点也要进行这个步骤！</p>
+<p>然后重启，以后的防火墙都是关闭状态！</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E6%90%AD%E5%BB%BA3.png" alt=""></p>
+<h1 id="关闭selinux"><a href="#关闭selinux" class="headerlink" title="关闭selinux"></a>关闭selinux</h1><p>大家可以暂时把它理解为一个安全系统，通过指令：(root用户下)</p>
+<p><code>sudo vi /etc/sysconfig/selinux</code></p>
+<p>把SELInux=设置成<code>disabled</code>后，保存退出.</p>
+<p>其他节点也需要关闭SELInux，设置为关闭之后，重启机器！重启之后，通过如下指令查看SELInux是否关闭：</p>
+<p><code>getenforce</code></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E6%90%AD%E5%BB%BA7.png" alt=""></p>
+<p>其他节点也需要检查！</p>
+<h1 id="设置主机名"><a href="#设置主机名" class="headerlink" title="设置主机名"></a>设置主机名</h1><p>大家可以直接通过在命令行中输入<code>hostname</code>就可以看到当前用户：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA1.png" alt=""></p>
+<p>如果用户名是<code>localhost</code>之类的，可以直接通过</p>
+<p><code>hostname 新的用户名</code></p>
+<p>来设置，不过这种修改方式重启就失效，如果需要长期有效，就需要通过修改<code>/etc/sysconfig/network</code>文件中的hostname字段，使用root用户打开这个文件：</p>
+<p><code>sudo vi /etc/sysconfig/network</code></p>
+<p><strong><em>其他节点也要执行相同的步骤！</em></strong></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA2.png" alt=""></p>
+<p>根据自己的需求，修改后保存退出即可。</p>
+<h1 id="重启机器"><a href="#重启机器" class="headerlink" title="重启机器"></a>重启机器</h1><p>通过在root用户下<code>reboot</code>命令，使机器重启，让刚刚的修改生效。</p>
+<h1 id="查看是否有遗留的jdk"><a href="#查看是否有遗留的jdk" class="headerlink" title="查看是否有遗留的jdk"></a>查看是否有遗留的jdk</h1><p>重启完毕后，通过命令</p>
+<p><code>rpm -qa | grep java</code></p>
+<p><code>rpm -qa | grep jdk</code></p>
+<p>来查看是否有遗留的安装包，如果有的话通过命令：</p>
+<p><code>rpm -e 安装包名字</code></p>
+<p>来删除指定的安装包，这种情况我们在前面通过<a href="http://xinpaninjava.com/2016/08/18/安装软件/" target="_blank" rel="external">rpm安装包安装MySQL</a>时遇到过。</p>
+<h1 id="添加新的用户"><a href="#添加新的用户" class="headerlink" title="添加新的用户"></a>添加新的用户</h1><p>因为在安装完Linux之后，都是使用root登录，这时需要创建一个用户来搭建集群，但是考虑到我们在安装Linux时已经新建了一个hadoop用户，所以这一步可以免，但是没有创建用户的同学，需要创建一个用户,通过指令</p>
+<p><code>adduser 用户名</code></p>
+<p>通过</p>
+<p><code>passwd 用户名</code></p>
+<p>来设置指定用户的密码</p>
+<p>设置完毕之后，可以通过指令</p>
+<p><code>su 用户名</code></p>
+<p>来连接到指定的用户，连接完毕之后，可以通过</p>
+<p><code>whoami</code></p>
+<p>来查看当前连接的用户：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA3.png" alt=""></p>
+<h1 id="配置ssh免密登录"><a href="#配置ssh免密登录" class="headerlink" title="配置ssh免密登录"></a>配置ssh免密登录</h1><p>这个说了很多次了，如果第一次来的同学， 可以看<a href="http://xinpaninjava.com/2016/09/01/hadoop2-4-1集群的搭建/" target="_blank" rel="external">这里</a>的免密登录。</p>
+<h1 id="配置本地yum源"><a href="#配置本地yum源" class="headerlink" title="配置本地yum源"></a>配置本地yum源</h1><p>如果不配置yum源，我们在安装时访问的就是国外网站，网速会非常慢，甚至安装失败，所以我们安装我们已经下载好的安装包。</p>
+<h2 id="httpd"><a href="#httpd" class="headerlink" title="httpd"></a>httpd</h2><p>首先我们需要验证httpd是否安装，通过指令</p>
+<p><code>rpm -qa |grep httpd</code></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA5.png" alt=""></p>
+<p>如果没有显示任何的安装包，说明该Linux没有安装，我们就需要通过指令：</p>
+<p><code>yum install -y httpd</code></p>
+<p>来安装httpd。</p>
+<h2 id="启动httpd"><a href="#启动httpd" class="headerlink" title="启动httpd"></a>启动httpd</h2><p>首先我们通过指令</p>
+<p><code>service httpd status</code></p>
+<p>来查看httpd是否启动</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA6.png" alt=""></p>
+<p>既然没有启动，我们通过指令：</p>
+<p><code>service httpd start</code></p>
+<p>来启动httpd：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA7.png" alt=""></p>
+<p>切换root用户再次执行：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA10.png" alt=""></p>
+<p>图中的提示不能识别server名称，而使用192.168.31.11代替，可以通过：</p>
+<p><code>sudo vi /etc/httpd/conf/httpd.conf</code></p>
+<p>在最后面加上一句：</p>
+<p><code>ServerName xinpan1:80</code></p>
+<p>保存退出即可。然后通过指令</p>
+<p><code>sudo service httpd stop</code></p>
+<p>关闭httpd：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA11.png" alt=""></p>
+<p>再次启动：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA12.png" alt=""></p>
+<p>启动完毕之后，在浏览器的地址栏中输入：</p>
+<p><code>xinpan1</code></p>
+<p>或者</p>
+<p><code>xinpan1:80</code></p>
+<p>来访问该节点对应的服务器：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA13.png" alt=""></p>
+<h3 id="设置httpd开机启动"><a href="#设置httpd开机启动" class="headerlink" title="设置httpd开机启动"></a>设置httpd开机启动</h3><p>我们通过</p>
+<p><code>service httpd start</code></p>
+<p>的方式来启动httpd 就像启动防火墙一样，是暂时的，只要重启，httpd又会关闭，所以我们要设置其开机自动启动，首先我们先来看看httpd现在是否自动启动，通过指令：</p>
+<p><code>chkconfig --list|grep httpd</code></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA14.png" alt=""></p>
+<p>我们像要修改其中的参数，就需要切换到root 用户来修改，因为才会chkconfig是系统命令：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA15.png" alt=""></p>
+<h2 id="上官网下载安装包"><a href="#上官网下载安装包" class="headerlink" title="上官网下载安装包"></a>上官网下载安装包</h2><p>在浏览器地址栏输入：</p>
+<p><code>archive.cloudera.com/cm5</code></p>
+<p>进入到如下页面：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA16.png" alt=""></p>
+<p>点击installer，在新标签中打开：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA17.png" alt=""></p>
+<p>找到5.4.1，点进去：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA18.png" alt=""></p>
+<p>就下载这个bin文件。</p>
+<p>下载完毕之后，回到左边的网页标签：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA19.png" alt=""></p>
+<p>选中图中红色框中的链接，点进去：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA20.png" alt=""></p>
+<p>找到5.4.1：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA21.png" alt=""></p>
+<p>点进去：</p>
+<p>由于我们的系统是centos6.4，所以我们下载图中红色框中的内容：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA22.png" alt=""></p>
+<h2 id="在opt目录创建文件夹"><a href="#在opt目录创建文件夹" class="headerlink" title="在opt目录创建文件夹"></a>在opt目录创建文件夹</h2><p>首先进入根目录，通过命令：</p>
+<p><code>cd /</code></p>
+<p>进入系统根目录，然后查看所有文件：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA23.png" alt=""></p>
+<p>进入图中红色框中文件夹，创建目录，名字任意，在这里我使用的是softwares</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA24.png" alt=""></p>
+<p>然后把opt目录下的另外一个子目录rh删掉，现在opt就一个softwares目录：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA25.png" alt=""></p>
+<h2 id="安装lrzsz插件来上传文件"><a href="#安装lrzsz插件来上传文件" class="headerlink" title="安装lrzsz插件来上传文件"></a>安装lrzsz插件来上传文件</h2><p>我们先安装lrzsz插件来上传我们刚刚下载的两个文件，通过命令：</p>
+<p><code>sudo yum install -y lrzsz</code></p>
+<p>执行之后，报错，因为镜像问题：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA26.png" alt=""></p>
+<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>直接在安装时设置好DNS地址wei8.8.8.8即可！</p>
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>首先我们先ping任意一个网站，比如</p>
+<p><code>ping 114.114.114.114</code></p>
+<p>如果能ping通，则说明可以上网，然后通过修改文件：</p>
+<p><code>sudo vi /etc/resolv.conf</code></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA27.png" alt=""></p>
+<p>在其中添加完DNS解析，保存后退出：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA28.png" alt=""></p>
+<p>重启网卡,通过指令：</p>
+<p><code>sudo service network restart</code></p>
+<p>重启完毕之后，再次执行安装指令：</p>
+<p><code>sudo yun install -y lrzsz</code></p>
+<p>还是失败，于是我们直接跳转到root用户，然后直接执行：</p>
+<p><code>echo &quot;nameserver 8.8.8.8&quot; &gt;&gt; /etc/resolv.conf</code></p>
+<p>后，再运行安装lrzsz插件:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA32.png" alt=""></p>
+<p>安装完毕之后，输入<code>rz</code>来上传文件，显示如下窗口：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA33.png" alt=""></p>
+<p>我们把刚刚下载的两个文件：选中：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA34.png" alt=""></p>
+<p>可是并没有上传成功：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA35.png" alt=""></p>
+<p>我们通过sudo来上传：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA36.png" alt=""></p>
+<h2 id="修改文件拥有者"><a href="#修改文件拥有者" class="headerlink" title="修改文件拥有者"></a>修改文件拥有者</h2><p>上传完毕之后，需要修改softwares文件的拥有者，目前的拥有者是root：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA37.png" alt=""></p>
+<p>所以我们要修改成hadoop（当前用户名），通过指令:</p>
+<p><code>sudo chown -R hadoop:hadoop softwares/</code></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA38.png" alt=""></p>
+<h2 id="解压文件"><a href="#解压文件" class="headerlink" title="解压文件"></a>解压文件</h2><p>把刚上传的gz文件，解压到服务器中，通过指令：</p>
+<p><code>tar -zxvf cm5.4.1-centos6.tar.gz -C /var/www/html/</code></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA39.png" alt=""></p>
+<p>权限不足，通过root用户解压：</p>
+<p><code>sudo tar -zxvf cm5.4.1-centos6.tar.gz -C /var/www/html/</code></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA40.png" alt=""></p>
+<h2 id="通过服务器访问"><a href="#通过服务器访问" class="headerlink" title="通过服务器访问"></a>通过服务器访问</h2><p>在浏览器地址栏中输入：</p>
+<p><code>xinpan1/cm</code></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA41.png" alt=""></p>
+<h2 id="创建地址"><a href="#创建地址" class="headerlink" title="创建地址"></a>创建地址</h2><p>我们需要把访问的链接修改成跟官网一样：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA42.png" alt=" "></p>
+<p>而我们的只是domain/cm，所以把<code>cm5/redhat/6/x86_64/</code>拷贝，然后在html目录中创建这个目录，通过指令：</p>
+<p><code>sudo mkdir -p cm5/redhat/6/x86_64/</code></p>
+<ul>
+<li><code>-p</code>为递归创建</li>
+</ul>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA43.png" alt=""></p>
+<p>创建完毕之后，把我们解压的cm目录移动到刚刚创建的目录中：</p>
+<p><code>sudo mv cm cm5/redhat/6/x86_64/</code></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA44.png" alt=""></p>
+<p>通过浏览器访问，把刚刚redhat的访问地址复制到新标签，然后把主机名改成我们的节点名进行访问：</p>
+<p><code>http://archive.cloudera.com/cm5/redhat/6/x86_64/</code></p>
+<p>修改后：</p>
+<p><code>http://xinpan1/cm5/redhat/6/x86_64/</code></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA45.png" alt=""></p>
+<h2 id="创建yum源"><a href="#创建yum源" class="headerlink" title="创建yum源"></a>创建yum源</h2><p>我们需要为刚刚访问的地址配置yum源，这样在安装时就会安装我们下载好的安装包，而不是去网站下载，首先我们进入<code>/etc/yum.repos.d/</code>：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA46.png" alt=""></p>
+<p>通过命令</p>
+<p><code>sudo vi cloudera-manager.repo</code></p>
+<p>创建文件，文件名大家也可以自定义，输入如下内容：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA47.png" alt=""></p>
+<ul>
+<li><code>[cloudera-manager]</code>：名称</li>
+<li><code>name</code>：要与上面中括号内容一致，否则会报错</li>
+<li><code>baseurl</code>：即我们上传到服务器的安装包，进入到5这个目录是因为我们安装的rpm包在这个目录中</li>
+</ul>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA48.png" alt=""></p>
+<ul>
+<li>gpgcheck:gpg检查，0即关闭</li>
+</ul>
+<p>在浏览器中访问刚刚设置的baseurl：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA49.png" alt=""></p>
+<p>这样yum源配置完毕。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>进入到我们的安装目录<code>/opt/softwares</code>：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA52.png" alt=" "></p>
+<p>我们看到bin文件并没有执行权限，所以我们需要先修改权限，由于文件夹的拥有者我们已经修改过，所以不用切换到root下修改权限，通过命令：</p>
+<p><code>chmod 777 cloudera-manager-installer.bin</code></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA53.png" alt=" "></p>
+<h1 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h1><p>在安装的过程中，我们要避免由于编码引发的问题，所以在安装之前我们就需要先把编码设置好：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA54.png" alt=" "></p>
+<p>点击session设置之后，打开如下页面：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA55.png" alt=""></p>
+<p>选择编码为utf8，选择完毕之后保存：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA56.png" alt=""></p>
+<p>然后我们尝试在命令行中输入中文：<code>您好</code></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA57.png" alt=""></p>
+<h1 id="设置内存"><a href="#设置内存" class="headerlink" title="设置内存"></a>设置内存</h1><p>我们安装这个软件，需要的内存比较多，所以我们要先通过指令：</p>
+<p><code>free -m</code></p>
+<p>来查看内存：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA58.png" alt=""></p>
+<p>这里显示我的内存为1G，我们把它设置的大一点，通过：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA59.png" alt=""></p>
+<p>在打开的窗口中设置内存</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA60.png" alt=""></p>
+<p>但是设置不了，所以我们需要先把机器关机，然后再设置，大家可以根据自己机器的具体情况来设置:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA62.png" alt=""></p>
+<p>设置完毕之后，首先看看刚刚分配的内存：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA63.png" alt=""></p>
+<p>然后进入安装目录<code>/opt/softwares</code></p>
+<p>首先我们需要切换到root用户，否则安装不了：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA64.png" alt=""></p>
+<p>然后执行bin文件来进行安装，通过指令：</p>
+<p><code>./cloudera-manager-installer.bin</code></p>
+<p>出现如下界面：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA66.png" alt=""></p>
+<p>通过移动方向键，选择到next，然后按回车：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA67.png" alt=""></p>
+<p>出现如下界面：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA68.png" alt=""></p>
+<p>然后再next：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA69.png" alt=""></p>
+<p>选择yes:</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA70.png" alt=""></p>
+<p>next之后：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA71.png" alt=""></p>
+<p>yes之后：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA72.png" alt=""></p>
+<p>一直处于下载，大家可以通过<code>/var/log</code>目录，进入<code>cloudera-manager-installer</code>来查看相应的日志文件：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA73.png" alt=""></p>
+<p>安装成功之后：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA74.png" alt=""></p>
+<p>访问其中的URL,如果无法访问，等一会，它初始完毕即可：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA75.png" alt=""></p>
+<p>输入用户名和密码，都是admin，保存后登陆：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/cloudera%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA76.png" alt=""></p>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="http://www.jikexueyuan.com/course/2582_1.html?ss=1" target="_blank" rel="external">CDH 概述</a></p>
+<p><a href="http://www.cnblogs.com/Anker/p/3355039.html" target="_blank" rel="external">Centos下apache启动时httpd: apr_sockaddr_info_get() failed for 报错</a></p>
+<p><a href="http://www.cnblogs.com/la-isla-bonita/p/3572744.html" target="_blank" rel="external">CentOS 之 couldn’t resolve host ‘mirrorlist.centos.org’</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/14/Actor并发模型/" rel="next" title="Actor并发模型">
+                <i class="fa fa-chevron-left"></i> Actor并发模型
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/16/在cloudera上搭建Hadoop集群/"
+           data-title="在cloudera上搭建Hadoop集群" data-url="http://xinpan2.github.io/2016/10/16/在cloudera上搭建Hadoop集群/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">207</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/andy_px" target="_blank" title="CSDN" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#把新用户添加到sudoers中"><span class="nav-number">1.</span> <span class="nav-text">把新用户添加到sudoers中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加本机及集群中其他机器的IP地址映射"><span class="nav-number">2.</span> <span class="nav-text">添加本机及集群中其他机器的IP地址映射</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关闭防火墙"><span class="nav-number">3.</span> <span class="nav-text">关闭防火墙</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关闭selinux"><span class="nav-number">4.</span> <span class="nav-text">关闭selinux</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置主机名"><span class="nav-number">5.</span> <span class="nav-text">设置主机名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重启机器"><span class="nav-number">6.</span> <span class="nav-text">重启机器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查看是否有遗留的jdk"><span class="nav-number">7.</span> <span class="nav-text">查看是否有遗留的jdk</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加新的用户"><span class="nav-number">8.</span> <span class="nav-text">添加新的用户</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置ssh免密登录"><span class="nav-number">9.</span> <span class="nav-text">配置ssh免密登录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置本地yum源"><span class="nav-number">10.</span> <span class="nav-text">配置本地yum源</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#httpd"><span class="nav-number">10.1.</span> <span class="nav-text">httpd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动httpd"><span class="nav-number">10.2.</span> <span class="nav-text">启动httpd</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置httpd开机启动"><span class="nav-number">10.2.1.</span> <span class="nav-text">设置httpd开机启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上官网下载安装包"><span class="nav-number">10.3.</span> <span class="nav-text">上官网下载安装包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在opt目录创建文件夹"><span class="nav-number">10.4.</span> <span class="nav-text">在opt目录创建文件夹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装lrzsz插件来上传文件"><span class="nav-number">10.5.</span> <span class="nav-text">安装lrzsz插件来上传文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法一"><span class="nav-number">10.5.1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法二"><span class="nav-number">10.5.2.</span> <span class="nav-text">方法二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改文件拥有者"><span class="nav-number">10.6.</span> <span class="nav-text">修改文件拥有者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解压文件"><span class="nav-number">10.7.</span> <span class="nav-text">解压文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过服务器访问"><span class="nav-number">10.8.</span> <span class="nav-text">通过服务器访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建地址"><span class="nav-number">10.9.</span> <span class="nav-text">创建地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建yum源"><span class="nav-number">10.10.</span> <span class="nav-text">创建yum源</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">11.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编码"><span class="nav-number">12.</span> <span class="nav-text">编码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置内存"><span class="nav-number">13.</span> <span class="nav-text">设置内存</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
