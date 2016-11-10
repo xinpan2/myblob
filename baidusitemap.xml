@@ -5,7 +5,7 @@
     
   <url>
     <loc>http://xinpan2.github.io/2016/11/10/cdh%E9%85%8D%E7%BD%AE/</loc>
-    <lastmod>2016-11-10T08:35:11.053Z</lastmod>
+    <lastmod>2016-11-10T09:05:36.878Z</lastmod>
     <data>
         <display>
         <title>cdh配置</title>
@@ -14,7 +14,7 @@
          
            
              
-              <breadCrumb title="hadoop入门" url="http://xinpan2.github.io/categories/hadoop%E5%85%A5%E9%97%A8/"/>
+              <breadCrumb title="hadoop笔记" url="http://xinpan2.github.io/categories/hadoop%E7%AC%94%E8%AE%B0/"/>
           
         </display>
     </data>
@@ -23,7 +23,7 @@
     
   <url>
     <loc>http://xinpan2.github.io/2016/10/16/%E5%9C%A8cloudera%E4%B8%8A%E6%90%AD%E5%BB%BAHadoop%E9%9B%86%E7%BE%A4/</loc>
-    <lastmod>2016-11-09T17:20:54.950Z</lastmod>
+    <lastmod>2016-11-10T09:05:32.295Z</lastmod>
     <data>
         <display>
         <title>在cloudera上搭建Hadoop集群</title>
@@ -32,7 +32,7 @@
          
            
              
-              <breadCrumb title="hadoop入门" url="http://xinpan2.github.io/categories/hadoop%E5%85%A5%E9%97%A8/"/>
+              <breadCrumb title="hadoop笔记" url="http://xinpan2.github.io/categories/hadoop%E7%AC%94%E8%AE%B0/"/>
           
         </display>
     </data>
