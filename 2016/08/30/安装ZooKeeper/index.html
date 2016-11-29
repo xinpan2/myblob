@@ -111,7 +111,7 @@
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85ZK9.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85ZK10.png">
 <meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E6%90%AD%E5%BB%BAZK.png">
-<meta property="og:updated_time" content="2016-09-26T06:16:02.852Z">
+<meta property="og:updated_time" content="2016-11-29T13:21:31.795Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安装ZooKeeper">
 <meta name="twitter:description" content="现在我们来安装ZooKeeper，首先开启三台虚拟机，然后把ZooKeep安装包（需要的同学可以在文章结尾的参考资料处下载）上传到linux中，然后解压到app文件夹中，如果是新安装linux的同学可以参考安装软件，伪分布式集群的搭建，使用密钥登陆这三篇文章来配置hadoop。
@@ -352,7 +352,7 @@
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85ZK5.png" alt=""></p>
 <p>其中2888和3888分别是leader和follower的默认端口！写完后保存，要记得把其他虚拟机也写好，</p>
 <p>写完之后，注意ping一下我们刚刚配置的主机名，因为有可能配置时写错了ip！如果没有配置，使用root用户修改 /etc/hosts文件，把相应的主机加进去即可！</p>
-<p>然后进入到刚刚我们设置的工作路径中，把data文件夹创建完毕之后，再写一个myid文件，在里面记录当前机器的id，根据刚刚设置ip的那三行数据！</p>
+<p>然后进入到刚刚我们设置的工作路径中，把data文件夹创建完毕之后，再写一个myid文件，在里面记录当前机器的id，根据刚刚设置ip的那三行数据！注意，这里的myid文件在data目录下创建，在这里之前我测试时错了，忘记修改过来了！！！</p>
 <p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85ZK6.png" alt=""></p>
 <p>如果其他两台主机没有安装ZK可以把这台机器的ZK拷贝到其中。通过指令</p>
 <p><code>scp -r zookeeper-3.4.5/ xinpan6:/home/hadoop/app/</code></p>

@@ -96,7 +96,7 @@
 为什么我要对这个小问题开一篇文章来讲呢？是因为这个问题曾经困扰了我三天。一开始遇到这个问题的时候，我是这样想：
 首先打开ZK的日志，因为报错是连接时间&amp;gt;配置文件中设置的能够允许超时多久不报错，但是我连接的时间超过了指定的时间，于是我复制错误谷歌：regionServer aborting
 还有另外一个错误">
-<meta property="og:updated_time" content="2016-09-15T16:33:05.727Z">
+<meta property="og:updated_time" content="2016-11-29T14:07:04.073Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hbase集群部署中时间同步问题">
 <meta name="twitter:description" content="版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
@@ -332,9 +332,9 @@
 <p>然后我又看了前面4页答案，答案都集中在：</p>
 <h1 id="使用ntp"><a href="#使用ntp" class="headerlink" title="使用ntp"></a>使用ntp</h1><p>首先呢我需要自己在root用户下开启ntp，把它设置成自动启动，然后能修改.conf文件，修改里面的server，比如server.1=服务器时间地址，server.2=服务器时间地址</p>
 <p>我依样画瓢的重复着各个答主描述的操作，虽然我可以安装ntpd，但是时间并没有同步！！并没有同步！！！并没有同步！！！</p>
-<p>当时我想，我修改了这么多，安装了你的插件，现在跟我说这个？这搞什么？于是我就按照刚刚修改的部分进行还原，然后进行下一次拍错。</p>
+<p>当时我想，我修改了这么多，安装了你的插件，现在跟我说这个？这搞什么？于是我就按照刚刚修改的部分进行还原，然后进行下一次排错。</p>
 <p>我又遇到了使用ntp的，这次直接要修改eht0文件，说因为下载插件失败，是因为DNS解析失败，所以我在一个文件中把DNS设置成了谷歌的</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">nameserver=8.8.8.8</div><div class="line">nameserver=8.8.4.4</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">nameserver=<span class="number">8.8</span>.8.8</div><div class="line">nameserver=<span class="number">8.8</span>.4.4</div></pre></td></tr></table></figure>
 <p>然后！插件可以安装了！可是服务器的时间还是乱七八糟的<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"># 直接修改时间</div><div class="line"></div><div class="line">这种时间简单粗暴，直接通过date -u 还有一个clock -w 同步到服务器时间，我为每台节点算好秒设置，虽然可以设置，但是时间依然不同步……依然不同步……不同步……同步……步……</div><div class="line"></div><div class="line"></div><div class="line"># 使用VMware自带的时间同步</div><div class="line"></div><div class="line">当我查到VMware自带有时间同步时，我的心情是崩溃的，我心想，既然能够自动让客户机与虚拟机同步，我还浪费时间使用ntp？吃饱了撑的？</div><div class="line"></div><div class="line">于是我像捡到钱一样，欢快的关闭掉所有正在运行的虚拟机，然后打开VMware设置页面：</div><div class="line"></div><div class="line">![](http://7xritp.com1.z0.glb.clouddn.com/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B223.png)</div><div class="line"></div><div class="line">点击确定之后，我再次开启了虚拟机，等到虚拟机开启完毕，好家伙，时间还对不上，我开了7台虚拟机，什么时间地区都有……当时把我尴尬的想关电脑。</div><div class="line"></div><div class="line">于是我想，会不会是因为同步需要时间来缓存？好的，我给你一个小时，然后我回来继续欢快的输入date命令时，再次让我尴尬了……</div><div class="line"></div><div class="line"># 问题解决！</div><div class="line"></div><div class="line">我用了3天的时间在重复上述步骤，每次都是新的修改方案，有时是因为我觉得缓冲问题，就在刚刚，我心一横，VMware12pro版本不能运行，我就用老版本，刚好手头上有个VMware9版本，于是我安装之后，把12版本覆盖了，返回我加载我的虚拟机，之后，提示我说不兼容…………</div><div class="line"></div><div class="line">然后我就把整个集群给删掉了……重新安装虚拟机在9版本上，然后又按着我前面的文章来搭建集群……这次在安装完之后，我没有着急的自动虚拟机，而是像刚刚一样设置虚拟机同步，然后才启动虚拟机，然后就是时间同步了！虽然跟我客户机不一样！但是几个节点之间的时间是一样的！然后部署就成功了！！</div><div class="line"></div><div class="line">该出手时就出手！！有时候不要留恋！！！如果我心狠一点，就不用像这几天这样怀疑人生了~</div></pre></td></tr></table></figure></p>
 <p>【全文完】</p>
 

@@ -4,6 +4,42 @@
 
     
   <url>
+    <loc>http://xinpan2.github.io/2016/09/14/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E4%B8%AD%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2016-11-29T14:07:04.073Z</lastmod>
+    <data>
+        <display>
+        <title>hbase集群部署中时间同步问题</title>
+        <pubTime>2016-09-14T14:18:31.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="hadoop笔记" url="http://xinpan2.github.io/categories/hadoop%E7%AC%94%E8%AE%B0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://xinpan2.github.io/2016/08/30/%E5%AE%89%E8%A3%85ZooKeeper/</loc>
+    <lastmod>2016-11-29T13:21:31.795Z</lastmod>
+    <data>
+        <display>
+        <title>安装ZooKeeper</title>
+        <pubTime>2016-08-30T07:45:32.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="hadoop笔记" url="http://xinpan2.github.io/categories/hadoop%E7%AC%94%E8%AE%B0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://xinpan2.github.io/2016/11/10/cdh%E9%85%8D%E7%BD%AE/</loc>
     <lastmod>2016-11-16T15:53:05.217Z</lastmod>
     <data>
@@ -436,24 +472,6 @@
 
     
   <url>
-    <loc>http://xinpan2.github.io/2016/08/30/%E5%AE%89%E8%A3%85ZooKeeper/</loc>
-    <lastmod>2016-09-26T06:16:02.852Z</lastmod>
-    <data>
-        <display>
-        <title>安装ZooKeeper</title>
-        <pubTime>2016-08-30T07:45:32.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="hadoop笔记" url="http://xinpan2.github.io/categories/hadoop%E7%AC%94%E8%AE%B0/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://xinpan2.github.io/2016/09/06/Hive0.12.0%E5%AE%89%E8%A3%85/</loc>
     <lastmod>2016-09-25T14:01:17.202Z</lastmod>
     <data>
@@ -640,24 +658,6 @@
         <display>
         <title>hbase的API调用</title>
         <pubTime>2016-09-16T09:17:29.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="hadoop笔记" url="http://xinpan2.github.io/categories/hadoop%E7%AC%94%E8%AE%B0/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://xinpan2.github.io/2016/09/14/hbase%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2%E4%B8%AD%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5%E9%97%AE%E9%A2%98/</loc>
-    <lastmod>2016-09-15T16:33:05.727Z</lastmod>
-    <data>
-        <display>
-        <title>hbase集群部署中时间同步问题</title>
-        <pubTime>2016-09-14T14:18:31.000Z</pubTime>
         
          
            
