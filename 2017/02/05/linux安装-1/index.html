@@ -1,0 +1,679 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="在之前的学习中，我们已经安装过centos，现在使用新的方法来安装centos，使用的是VMWare9+centos6.5_x64_minimal。
+  下载完毕上述文件之后，安装好之后打开VMware，出现如下界面：
+    点击新建虚拟机之后，出现如下页面：    点击自定义安装并进入下一步：    在这里使用默认的配置，进入下一步：    在这里需要注意，由于之前我们一直使用的是上图的第">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux安装">
+<meta property="og:url" content="http://xinpan2.github.io/2017/02/05/linux安装-1/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="在之前的学习中，我们已经安装过centos，现在使用新的方法来安装centos，使用的是VMWare9+centos6.5_x64_minimal。
+  下载完毕上述文件之后，安装好之后打开VMware，出现如下界面：
+    点击新建虚拟机之后，出现如下页面：    点击自定义安装并进入下一步：    在这里使用默认的配置，进入下一步：    在这里需要注意，由于之前我们一直使用的是上图的第">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos3.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos4.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos5.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos6.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos7.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos8.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos10.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos11.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos12.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos13.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos14.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos15.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos16.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos17.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos18.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos19.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos20.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos21.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos22.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos24.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos25.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos26.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos27.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos28.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos29.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos30.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos31.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos32.png">
+<meta property="og:updated_time" content="2017-02-05T10:16:33.211Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux安装">
+<meta name="twitter:description" content="在之前的学习中，我们已经安装过centos，现在使用新的方法来安装centos，使用的是VMWare9+centos6.5_x64_minimal。
+  下载完毕上述文件之后，安装好之后打开VMware，出现如下界面：
+    点击新建虚拟机之后，出现如下页面：    点击自定义安装并进入下一步：    在这里使用默认的配置，进入下一步：    在这里需要注意，由于之前我们一直使用的是上图的第">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2017/02/05/linux安装-1/"/>
+
+  <title> linux安装 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                linux安装
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-05T13:58:45+08:00" content="2017-02-05">
+              2017-02-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/大数据/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/02/05/linux安装-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/05/linux安装-1/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>  在之前的学习中，我们已经安装过centos，现在使用新的方法来安装centos，使用的是<a href="http://pan.baidu.com/s/1mhPDZKG" target="_blank" rel="external">VMWare9</a>+<a href="http://mirror.symnds.com/distributions/CentOS-vault/6.5/isos/x86_64/" target="_blank" rel="external">centos6.5_x64_minimal</a>。</p>
+<p>  下载完毕上述文件之后，安装好之后打开VMware，出现如下界面：</p>
+<p>  <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos1.png" alt=""><br>  点击新建虚拟机之后，出现如下页面：<br>  <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos2.png" alt=""><br>  点击自定义安装并进入下一步：<br>  <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos3.png" alt=""><br>  在这里使用默认的配置，进入下一步：<br>  <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos4.png" alt=""><br>  在这里需要注意，由于之前我们一直使用的是上图的第二个选项，但是我们在这里安装的是最小化安装，所以要选择我稍后安装系统，然后进入下一步：<br>  <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos5.png" alt=""><br>  选择好Linux和64位的centos，进入下一步：<br>  <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos6.png" alt=""><br>  虚拟机的名字跟存储位置由大家自定义，由于习惯，我把第一台虚拟机命名为node1，在设置好之后，进入下一步：<br> <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos7.png" alt=""><br> 由于我们使用的机器都是PC机，并不是服务器，所以一般只有一个cpu，但是现在有四核、八核的CPU，但是在这里我们还是为每一台虚拟机分配默认的1核，进入下一步：<br> <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos8.png" alt=""><br> 最小的内存是1G，在这里我们就分配1G，然后进入下一步，一直使用默认的选择，直到：<br> <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos10.png" alt=""><br> 我们为这个虚拟机分配10G的磁盘空间，这意味着，每一个虚拟机，比如当前虚拟机在本机中存储的大小最大为10G，然后进入下一步：<br>  <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos11.png" alt=""><br> 设置好当前虚拟机的名字之后，进入下一步：<br> <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos12.png" alt=""><br> 现在进入到了硬件设置的步骤，我们点击上图的红色框中的标签，进入到如下界面：<br> <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos13.png" alt=""><br>  我们可以先把没用的组件移除掉，比如我们不需要在Linux环境中听歌，也不需要在其中使用打印机，所以我们把这个两个组件移除掉。<br>  <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos14.png" alt=""><br>  两个组件都移除完之后，我们加入centos镜像到磁盘中，步骤如下<br>  <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos15.png" alt=""><br>  设置完毕之后，点击完成：<br>  <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos16.png" alt=""><br>  然后开启该虚拟机，出现下图的界面：<br>  <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos17.png" alt=""><br>  我们选择第一个选项，在键盘敲回车，进入安装<br>  <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos18.png" alt=""><br>  当命令行界面过后，出现了一个图形化界面：<br>  <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos19.png" alt=""><br>  大意是让我们在安装之前对镜像文件进行校验，在这里我们选择SKIP，即跳过测试,直接进入安装：<br>  <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos20.png" alt=""><br>  过了一会之后，出现如下界面，我们直接点击下一步：<br>  <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos21.png" alt=""><br>  出现如下的界面，我们按图中红色框的内容选择：<br> <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos22.png" alt=""><br> 我们选择的是英式键盘，然后点击下一步，在这个步骤选择的是安装类型，我们选择默认的安装方式，然后进入下一步：<br> <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos24.png" alt=""><br>  它让我们选择是否立刻对该虚拟机所在的目录进行格式化操作，我们选择是，即图中的红色框中的选项，然后进入下一步：<br>  <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos25.png" alt=""><br>  我们给当前虚拟机设置的名字为node1，然后点击下一步：<br>  <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos26.png" alt=""><br>  选择好时区，由于只有上海的，所以就选择上海，然后点击下一步：<br>  <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos27.png" alt=""><br>  为root用户设置密码， 最少6位数，在我点击下一步时，它提示密码过于简单，但是我们选择忽略提示，即use anyway，进入下一步：<br>  <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos28.png" alt=""><br>  我们选择第一个对当前虚拟机所在的目录进行格式化，默认选择的是覆盖已经存在的虚拟机，然后进行下一步：<br>  <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos29.png" alt=""><br>  这一步是上一步的确认，即现在进行格式化操作，我们选择立刻写入，即上图红色框中选项，进入下一步：<br>  <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos30.png" alt=""><br>  又到了我们熟悉的界面，等待安装完成，完成之后出现如下界面：<br>  <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos31.png" alt=""><br>  点击重启之后，既然怒到如下界面：<br>  <img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%AE%89%E8%A3%85centos32.png" alt=""></p>
+<p>【全文完】</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/11/安装python/" rel="next" title="安装python">
+                <i class="fa fa-chevron-left"></i> 安装python
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/02/05/linux安装-1/"
+           data-title="linux安装" data-url="http://xinpan2.github.io/2017/02/05/linux安装-1/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">210</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/andy_px" target="_blank" title="CSDN" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
