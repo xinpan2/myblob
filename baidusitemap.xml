@@ -4,6 +4,24 @@
 
     
   <url>
+    <loc>http://xinpan2.github.io/2016/09/06/Hive0.12.0%E5%AE%89%E8%A3%85/</loc>
+    <lastmod>2017-02-28T03:10:08.504Z</lastmod>
+    <data>
+        <display>
+        <title>Hive0.12.0安装</title>
+        <pubTime>2016-09-06T10:52:49.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="hadoop笔记" url="http://xinpan2.github.io/categories/hadoop%E7%AC%94%E8%AE%B0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://xinpan2.github.io/2017/02/05/linux%E5%AE%89%E8%A3%85-1/</loc>
     <lastmod>2017-02-09T14:04:08.600Z</lastmod>
     <data>
@@ -496,24 +514,6 @@
         <display>
         <title>为hive的元数据库配置mysql</title>
         <pubTime>2016-09-08T12:00:55.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="hadoop笔记" url="http://xinpan2.github.io/categories/hadoop%E7%AC%94%E8%AE%B0/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://xinpan2.github.io/2016/09/06/Hive0.12.0%E5%AE%89%E8%A3%85/</loc>
-    <lastmod>2016-09-25T14:01:17.202Z</lastmod>
-    <data>
-        <display>
-        <title>Hive0.12.0安装</title>
-        <pubTime>2016-09-06T10:52:49.000Z</pubTime>
         
          
            
