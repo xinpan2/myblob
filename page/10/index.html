@@ -248,6 +248,133 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/08/为hive的元数据库配置mysql/" itemprop="url">
+                  为hive的元数据库配置mysql
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-08T20:00:55+08:00" content="2016-09-08">
+              2016-09-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/08/为hive的元数据库配置mysql/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/08/为hive的元数据库配置mysql/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          在上一篇文章我们看到了hive的初步使用，现在我们来讲讲hive的元数据库如何使用mysql存放数据，因为在默认情况下，hive使用的是Derby数据库来存储元数据，但是Derby的效率在上一篇文章中也见识到了，对于大数据才有优化，对于小数量级的数据而言，等待时间比较久。
+我们来看看昨天创建的表：
+
+          ...
+
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/08/为hive的元数据库配置mysql/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/06/Hive0.12.0安装/" itemprop="url">
                   Hive0.12.0安装
                 </a>
@@ -737,136 +864,6 @@ Hive这款数据仓库软件通过使用SQL语句来提高基于分布式存储�
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/01/hadoop2-4-1集群的搭建/" itemprop="url">
-                  hadoop2.4.1集群的搭建
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-01T12:24:13+08:00" content="2016-09-01">
-              2016-09-01
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">hadoop笔记</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/01/hadoop2-4-1集群的搭建/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/01/hadoop2-4-1集群的搭建/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          版权声明：本站采用开放的[知识共享署名-非商业性使用-相同方式共享 许可协议]进行许可
-节点分配现在我们来搭建一个集群，初步决定使用7台节点，下面是节点的规划
-
-xinpan1:NameNode1,zkfc(zookeeper failover controller)
-
-xinpan2:NameNo
-          ...
-
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/01/hadoop2-4-1集群的搭建/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -912,7 +909,7 @@ xinpan2:NameNo
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">213</span>
+              <span class="site-state-item-count">214</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

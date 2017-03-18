@@ -1,0 +1,742 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="现在我们来介绍R中的向量，我们知道，要进行数据分析，首先得有数据，数据获得的方式，可以从文件、数据库、甚至控制台中获取（在数据量较少的情况下），在R中的向量就是用于存储数据的一种“容器”，大家可以先借助数组的概念来理解向量。
+创建、查看向量在R中，我们用函数c()来创建向量
+
+如图所示，我们把向量赋值给x，然后输出x，在R中直接输入变量名就是输出这个变量。在R中，赋值有两种符号，一种是等号（=），">
+<meta property="og:type" content="article">
+<meta property="og:title" content="向量">
+<meta property="og:url" content="http://xinpan2.github.io/2017/03/18/向量/index.html">
+<meta property="og:site_name" content="Path">
+<meta property="og:description" content="现在我们来介绍R中的向量，我们知道，要进行数据分析，首先得有数据，数据获得的方式，可以从文件、数据库、甚至控制台中获取（在数据量较少的情况下），在R中的向量就是用于存储数据的一种“容器”，大家可以先借助数组的概念来理解向量。
+创建、查看向量在R中，我们用函数c()来创建向量
+
+如图所示，我们把向量赋值给x，然后输出x，在R中直接输入变量名就是输出这个变量。在R中，赋值有两种符号，一种是等号（=），">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F1.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F2.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F3.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F4.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F5.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F6.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F7.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F8.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F9.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F10.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F11.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F12.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F15.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F16.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F17.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F18.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F19.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F20.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F21.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F22.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F23.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F24.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F25.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F26.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F27.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F28.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F29.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F30.png">
+<meta property="og:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F31.png">
+<meta property="og:updated_time" content="2017-03-18T10:16:45.984Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="向量">
+<meta name="twitter:description" content="现在我们来介绍R中的向量，我们知道，要进行数据分析，首先得有数据，数据获得的方式，可以从文件、数据库、甚至控制台中获取（在数据量较少的情况下），在R中的向量就是用于存储数据的一种“容器”，大家可以先借助数组的概念来理解向量。
+创建、查看向量在R中，我们用函数c()来创建向量
+
+如图所示，我们把向量赋值给x，然后输出x，在R中直接输入变量名就是输出这个变量。在R中，赋值有两种符号，一种是等号（=），">
+<meta name="twitter:image" content="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://xinpan2.github.io/2017/03/18/向量/"/>
+
+  <title> 向量 | Path </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Path</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                向量
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-03-18T15:33:14+08:00" content="2017-03-18">
+              2017-03-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/R/" itemprop="url" rel="index">
+                    <span itemprop="name">R</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/03/18/向量/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/18/向量/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>现在我们来介绍R中的向量，我们知道，要进行数据分析，首先得有数据，数据获得的方式，可以从文件、数据库、甚至控制台中获取（在数据量较少的情况下），在R中的向量就是用于存储数据的一种“容器”，大家可以先借助数组的概念来理解向量。</p>
+<h1 id="创建、查看向量"><a href="#创建、查看向量" class="headerlink" title="创建、查看向量"></a>创建、查看向量</h1><p>在R中，我们用函数c()来创建向量</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F1.png" alt=""></p>
+<p>如图所示，我们把向量赋值给x，然后输出x，在R中直接输入变量名就是输出这个变量。在R中，赋值有两种符号，一种是等号（=），另外一种是(&lt;-)，并且尖括号的位置可以根据需要赋值的变量的位置而改变，比如：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F2.png" alt=""></p>
+<p>把1赋值给a，把2赋值给b。同时，我们也可以查看向量或者某个变量的类型：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F3.png" alt=""></p>
+<p>上图中，我们查看了向量x的类型，为numeric，查看了变量a的类型为numeric，查看了向量y的类型，为character。</p>
+<p>我们可以通过length（）来查看向量的元素个数：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F4.png" alt=""></p>
+<p>如果创建的是步长为1的序列，我们可以使用冒号（：）来代表一个区间来创建向量：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F5.png" alt=""></p>
+<h1 id="向量运算"><a href="#向量运算" class="headerlink" title="向量运算"></a>向量运算</h1><p>我们可以把向量根据行或者列组合起来：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F6.png" alt=""></p>
+<p>如图所示，向量y中有3个元素，当两个向量长度不一致时，会出现“复制向量”的操作，在不够的地方重新按顺序补上。rbing代表rowbind，表示以行的方式组合成矩阵，向量x在第一行，向量y在第二行；cbind代表columnbind，表示以列的方式组合向量成矩阵，向量x在第一列，向量y在第二列，我们来试试三个向量组合：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F7.png" alt=""></p>
+<p>它提示结果的列数不是向量个数的倍数，不过这个先不管它。</p>
+<p>现在，我们求一个向量中的均值，即平均值：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F8.png" alt=""></p>
+<p>我们从结果和提示中可以知道，mean()只能为数值和逻辑值求均值，为字符类型的向量求不了均值。</p>
+<p>求向量的总数，即向量元素之和：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F9.png" alt=""></p>
+<p>从结果可以看到，依然不能为字符类型的向量求和。现在我们来为这些向量求最值：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F10.png" alt=""></p>
+<p>最值，也可以为字符型向量求，从结果可以看出，是根据ASCII码表中对应的值来比较的。现在我们来为向量求方差，即向量中每个元素减去均值的平方之和，方差用来反映该向量与均值的分布情况，得出的结果越大，表明与预期结果差越远（详情看<a href="https://zh.wikipedia.org/wiki/%E6%96%B9%E5%B7%AE" target="_blank" rel="external">方差</a>）</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F11.png" alt=""></p>
+<p>其中向量x的均值为3.5，z的均值为5.5，但是方差分别为3.5和9.1，表明x中元素的分布比较均匀，z中元素分布的差异较大。现在我们来看看连乘，即把参数中的元素从1~到元素1，元素2…元素n相乘：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F12.png" alt=""></p>
+<p>如图，连乘通过prod函数来实现，prod(10)代表<code>1·10</code>，prod（1,10）代表<code>1·1·10</code>，prod（x）代表<code>1·1·2·3·4·5·6</code>，下面我们来试试带参数生成向量：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F15.png" alt=""></p>
+<p>如图，<code>1:10</code>代表生成1-10的序列，<code>1:10*2</code>代表生成1-10的序列之后，再将每个数的值乘以2，<code>1:10-1</code>代表生成1-10的序列，再将序列中每个元素的值-1.同时，我们可以针对向量的元素，指定读取哪些元素，指定不读取哪些：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F16.png" alt=""></p>
+<p>如图，在指定不读取哪个区间时，区间要用括号括起来，如果不带括号，就会出现如图中的错误，只要在负下标里才能有0，下面我们来试试要指定读取脚标：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F17.png" alt=""></p>
+<p>如图，如果我们在读取指定的脚标时，没有用函数c把相应的脚标组成一个向量，那么会报错！同时，我们也可以在其中通过表达式来设定范围：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F18.png" alt=""></p>
+<p>下面我们来通过自定义步长及范围来输出序列：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F19.png" alt=""></p>
+<p>前面两个参数代表范围，by代表步长，length代表用多少个元素来表示完这个范围，但是by跟length不能一起定义，因为又设置步长，又设置个数，如果不是刚好匹配的话，就会报错。下面我们来产生字母序列：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F20.png" alt=""></p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F21.png" alt=""></p>
+<p>在帮助中显示是的R的内置常数，作用有待发掘。现在我们来使用which函数来获得最值的脚标或者值：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F22.png" alt=""></p>
+<p>如图，which返回的是脚标，但是如果我们在这个返回值作为向量的参数的话，就可以得到这个最值。下面我们对向量进行反转：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F23.png" alt=""></p>
+<p>这个功能比较简单，不用过多解释，现在来看看向量排序：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F24.png" alt=""></p>
+<p>不管数字类型还是字符类型，都是按照升序排序。下面我们来看看矩阵的生成：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F25.png" alt=""></p>
+<p>第一个参数是要生成矩阵的向量，即从这个向量中取元素，nrow代表行数，ncol代表列数，在上图我们看到的都是根据列来排序，现在我们根据行来：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F26.png" alt=""></p>
+<p>我们可以看到，根据行后者列来取，是根据byrow这个参数的值来决定的，默认是F，我们把它设置成T时，就出现上述的结果。在R中T代表true，F代表false。如果在取元素出现“不够”的情况，就会跟上面的组合一样，会重复取！现在我们来对矩阵进行加减运算：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F27.png" alt=""></p>
+<p>如图所示，如果两个矩阵行列不一致时，就会报错。现在我们把它修改成结构一致的矩阵：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F28.png" alt=""></p>
+<p>矩阵中的元素对应进行运算，现在我们对矩阵进行行列的转换：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F29.png" alt=""></p>
+<p>好，现在我们来求矩阵的对角线：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F30.png" alt=""></p>
+<p>我们先生成了一个4*4的矩阵，然后求组这个矩阵的一条对角线为 1 6 11 16，但是当我们在求对角线的函数再写一层，就变成生成这个对角线矩阵，即除了对角线之外，其他元素都为0.现在我们来生成单位对角线：</p>
+<p><img src="http://7xritp.com1.z0.glb.clouddn.com/%E5%90%91%E9%87%8F31.png" alt=""></p>
+<p>这样就产生了其他元素为0，只有对角线元素为1的单位对角线矩阵。</p>
+<p>【全文完】</p>
+<p>参考资料：</p>
+<p><a href="http://pan.baidu.com/s/1qYuGvoC" target="_blank" rel="external">向量介绍(提取码litn)</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/18/RGUI介绍/" rel="next" title="RGUI介绍">
+                <i class="fa fa-chevron-left"></i> RGUI介绍
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/03/18/向量/"
+           data-title="向量" data-url="http://xinpan2.github.io/2017/03/18/向量/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="XinPan" />
+          <p class="site-author-name" itemprop="name">XinPan</p>
+          <p class="site-description motion-element" itemprop="description">there is a will,there is a way.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">214</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xinpan2/" target="_blank" title="GitHub" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/andy_px" target="_blank" title="CSDN" rel="external nofollow">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#创建、查看向量"><span class="nav-number">1.</span> <span class="nav-text">创建、查看向量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#向量运算"><span class="nav-number">2.</span> <span class="nav-text">向量运算</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XinPan</span>
+</div>
+
+<div class="powered-by">
+ 由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xinpaninjava"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
