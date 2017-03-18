@@ -248,6 +248,133 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/26/job的运行模式总结/" itemprop="url">
+                  job的运行模式总结
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-26T16:22:28+08:00" content="2016-08-26">
+              2016-08-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/26/job的运行模式总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/26/job的运行模式总结/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          本文代码在这里，其他文章的代码从这里可以找到，记得对号入座！！！
+从前面的例子中我们说到了job在yarn集群中运行，在上一篇文章的例子中，我们job在本地的运行，现在我们来做一次汇总：
+在windows环境让job在yarn中运行通过指令我们第一次测试job能否运行的例子就是在远程登陆hadoop
+          ...
+
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/26/job的运行模式总结/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/26/job的本地运行/" itemprop="url">
                   job的本地运行
                 </a>
@@ -734,134 +861,6 @@ hadoop jar wordCount.jar wordcount.WordCountRunner
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/24/得到文件系统实例的流程源码解析/" itemprop="url">
-                  得到文件系统实例的流程源码解析
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-24T20:24:00+08:00" content="2016-08-24">
-              2016-08-24
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/hadoop笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">hadoop笔记</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/24/得到文件系统实例的流程源码解析/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/24/得到文件系统实例的流程源码解析/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          从第一次我们使用hdfs时，首先要做的就是得到文件系统，可是一直都在输入这行代码，却不知道它内部是如何工作的，所以现在我们来看看，当我们调用
-FileSystem fs=FileSystem.get(conf)
-这行代码会执行哪些动作才能得到一个fs实例！
-运行测试下载方法：首先进入断点，在获取fs
-          ...
-
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/24/得到文件系统实例的流程源码解析/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -907,7 +906,7 @@ FileSystem fs=FileSystem.get(conf)
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">212</span>
+              <span class="site-state-item-count">213</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
